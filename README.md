@@ -14,10 +14,12 @@ git clone https://github.com/KenanCea/DICT-BRAMS.git
 * Wampserver ` http://www.wampserver.com/en/ `
 * Laravel ` https://laravel.com/docs/5.7/installation `
 
-### Installing
+### Development
 * Run cmd/gitbash
 * `cd ` to project folder. 
-* Run ` php artisan serve `
+* Type ` php artisan migrate `
+* Type ` npm run watch `
+* Type ` php artisan serve `
 * Go to ` localhost:8000 `
 
 ## Built With
