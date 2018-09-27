@@ -5,12 +5,165 @@ $fa-font-path: "../webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
-@import '~admin-lte/dist/css/adminlte.css';
-.navbar-laravel {
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+@import '~admin-lte/dist/css/adminlte.min.css';
+
+.sidebar-blue-primary {
+    background-color: #0E4879;
+}
+
+.sidebar-blue-primary .user-panel a:hover {
+    color: #ffffff;
+}
+
+.sidebar-blue-primary .user-panel .status {
+    color: #C2C7D0;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-blue-primary .user-panel .status:hover,
+.sidebar-blue-primary .user-panel .status:focus,
+.sidebar-blue-primary .user-panel .status:active {
+    color: #ffffff;
+    background: rgba(247, 247, 247, 0.1);
+}
+
+.sidebar-blue-primary .user-panel .dropdown-menu {
+    border-color: rgba(242, 242, 242, 0.1);
+    -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.sidebar-blue-primary .user-panel .dropdown-item {
+    color: #212529;
+}
+
+.sidebar-blue-primary .nav-sidebar > .nav-item > .nav-link:active,
+.sidebar-blue-primary .nav-sidebar > .nav-item > .nav-link:focus {
+    color: #C2C7D0;
+}
+
+.sidebar-blue-primary .nav-sidebar > .nav-item.menu-open > .nav-link,
+.sidebar-blue-primary .nav-sidebar > .nav-item:hover > .nav-link {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-blue-primary .nav-sidebar > .nav-item > .nav-link.active {
+    color: #ffffff;
+    background-color: #007bff;
+}
+
+.sidebar-blue-primary .nav-sidebar > .nav-item > .nav-treeview {
+    background: transparent;
+}
+
+.sidebar-blue-primary .nav-header {
+    color: #d0d4db;
+    background: inherit;
+}
+
+.sidebar-blue-primary .sidebar a {
+    color: #C2C7D0;
+}
+
+.sidebar-blue-primary .sidebar a:hover {
+    text-decoration: none;
+}
+
+.sidebar-blue-primary .nav-treeview > .nav-item > .nav-link {
+    color: #C2C7D0;
+}
+
+.sidebar-blue-primary .nav-treeview > .nav-item > .nav-link:hover {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar-blue-primary .nav-treeview > .nav-item > .nav-link.active,
+.sidebar-blue-primary .nav-treeview > .nav-item > .nav-link.active:hover {
+    color: #343a40;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.brand-link {
+    padding: 0.8125rem 0.5rem;
+    font-size: 1.25rem;
+    display: block;
+    line-height: 1.5;
+    white-space: nowrap;
+}
+
+.brand-link:hover {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+[class*="sidebar-blue"] .brand-link {
+    color: rgba(255, 255, 255, 0.8);
+    background-color: #0B3D66;
+}
+
+.router-link-exact-active > .nav-icon {
+    color: #3C8DDD;
+}
+
+.mt-lg-5 {
+    margin-top: 4rem !important;
+}
+
+.pt-xs-5 {
+    padding-top: 6px !important;
+}
+
+.pb-xs-5 {
+    padding-bottom: 6px !important;
+}
+
+.vh-1 {
+    height: 100vh;
+}
+
+.pbc-1 {
+    background: #0E4879;
+}
+
+.pc-1 {
+    color: #0E4879;
 }
 
 .router-link-exact-active {
     background-color: #0D416D;
+    border-left: 6px solid;
+    border-left-color: #3C8DDD;
 }
+
+.nav-pills .nav-link {
+    border-radius: 0rem;
+}
+
+.sidebar {
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    overflow-y: auto;
+    height: calc(100% - 4rem);
+}
+
+body {
+    margin: 0;
+    font-family: "Nunito", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.6;
+    color: #212529;
+    text-align: left;
+    background-color: #f8fafc;
+}
+
+.navbar-badge {
+    right: 6px;
+    top: 6px;
+    
+}
+
