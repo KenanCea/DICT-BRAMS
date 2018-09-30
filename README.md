@@ -16,10 +16,14 @@ git clone https://github.com/KenanCea/DICT-BRAMS.git
 
 ### Development
 * Run cmd/gitbash
-* `cd ` to project folder. 
-* Type ` php artisan migrate `
-* Type ` npm run watch `
-* Type ` php artisan serve `
+* `cd ` to project folder.  
+* Run ` npm install `
+* Run ` composer install `
+* Save as the .env.example to .env and set your database information
+* Run ` php artisan migrate `
+* Run ` php artisan key:generate `
+* Run ` npm run watch `
+* Run ` php artisan serve `
 * Go to ` localhost:8000 `
 
 ## Built With
