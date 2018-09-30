@@ -47,9 +47,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> Status: Online <i class="fas fa-circle green ml-2"></i></a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> <i class="fas fa-sliders-h mr-2"></i> Account Setting </a>
+                        <router-link to="/account" class="dropdown-item"> <i class="fas fa-user mr-2"></i> Account Info </router-link>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> <i class="fas fa-comment-alt mr-2"></i> Feedback </a>
+                        <div class="dropdown-divider"></div>
+                        <router-link to="/profile" class="dropdown-item"> <i class="fas fa-map mr-2"></i> Barangay Profile </router-link>
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"> <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }} </a>
@@ -59,10 +60,11 @@
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-blue-primary elevation-4">
-            <a href="index3.html" class="brand-link"> <img src="/img/logo.png" alt="BRAMS Logo" class="brand-image img-circle elevation-3"> <span class="brand-text font-weight-bold">B.R.A.M.S</span> </a>
+            <router-link to="/home" class="brand-link"> <img src="/img/logo.png" alt="BRAMS Logo" class="brand-image img-circle elevation-3"> <span class="brand-text font-weight-bold">B.R.A.M.S</span> </router-link>
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        @can('isUser')
                         <li class="nav-item">
                             <router-link to="/home" class="nav-link"> <i class="nav-icon fas fa-home"></i>
                                 <p> Home </p>
@@ -182,15 +184,15 @@
                                 <p> Calendar </p>
                             </router-link>
                         </li>
+                        @endcan
                     </ul>
                 </nav>
             </div>
         </aside>
         <div class="content-wrapper">
-            <div class="content">
-                <div class="container-fluid mt-lg-5">
-                    <router-view></router-view>
-                </div>
+            <div class="container-fluid mt-lg-5 pt-3">
+                <router-view></router-view>
+                <vue-progress-bar></vue-progress-bar>
             </div>
         </div>
         <footer class="main-footer"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>

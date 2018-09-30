@@ -63,7 +63,7 @@ $fa-font-path: "../webfonts";
 }
 
 .sidebar-blue-primary .sidebar a {
-    color: #C2C7D0;
+    color: #f4f6f9;
 }
 
 .sidebar-blue-primary .sidebar a:hover {
@@ -99,7 +99,7 @@ $fa-font-path: "../webfonts";
 }
 
 [class*="sidebar-blue"] .brand-link {
-    color: rgba(255, 255, 255, 0.8);
+    color: #f4f6f9;
     background-color: #0B3D66;
 }
 
@@ -108,7 +108,7 @@ $fa-font-path: "../webfonts";
 }
 
 .mt-lg-5 {
-    margin-top: 4rem !important;
+    margin-top: 3.5rem !important;
 }
 
 .pt-xs-5 {
@@ -131,7 +131,7 @@ $fa-font-path: "../webfonts";
     color: #0E4879;
 }
 
-.router-link-exact-active {
+.nav-item > .router-link-exact-active {
     background-color: #0D416D;
     border-left: 6px solid;
     border-left-color: #3C8DDD;
@@ -164,6 +164,17 @@ body {
 .navbar-badge {
     right: 6px;
     top: 6px;
-    
+
+}
+.main-sidebar{
+    z-index: 1040;
+}
+.modal {
+    z-index: 1200;
 }
 
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 1200px;
+    }
+}

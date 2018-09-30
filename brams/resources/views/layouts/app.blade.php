@@ -6,7 +6,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>BRAMS</title>
     <link rel="stylesheet" href="/css/app.css">
-    <link rel="stylesheet" href="/css/brams.css">
 </head>
 <body>
     <div id="app">

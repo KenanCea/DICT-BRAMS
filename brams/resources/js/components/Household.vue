@@ -19,7 +19,7 @@
             </div>
           </div>
         </div>
-      </div><!-- /.container-fluid -->
+      </div>
     </section>
     <section class="content">
       <div class="container-fluid">
@@ -37,7 +37,6 @@
                           </div>
                         </div>
                       </div>
-                      <!-- /.card-header -->
                       <div class="card-body table-responsive p-0">
                         <table class="table table-hover">
                           <tbody><tr>
@@ -67,9 +66,7 @@
                           </tr>
                         </tbody></table>
                       </div>
-                      <!-- /.card-body -->
                     </div>
-                    <!-- /.card -->
                   </div>
                 </div>
     </div>

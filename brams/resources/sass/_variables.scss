@@ -6,16 +6,17 @@ sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 // Colors
-$blue: #3490dc;
-$indigo: #6574cd;
+$blue: #3B86FF;
+$green: #3cb043;
+$cyan: #56D9FE;
+$indigo: #A3A0FB;
 $purple: #9561e2;
 $pink: #f66D9b;
-$red: #e3342f;
+$red: #FF3B3B;
 $orange: #f6993f;
 $yellow: #ffed4a;
-$green: #38c172;
 $teal: #4dc0b5;
-$cyan: #6cb2eb;
+
 .blue {
     color: $blue;
 }
@@ -26,11 +27,30 @@ $cyan: #6cb2eb;
 .red {
     color: $red;
 }
+.cyan {
+    color: $cyan;
+}
 .bg-green {
     background-color: $green;
     color: #fff;
 }
 .bg-orange {
     background-color: $orange;
+    color: #fff;
+}
+.bg-cyan {
+    background-color: $cyan;
+    color: #fff;
+}
+.bg-indigo {
+    background-color: $indigo;
+    color: #fff;
+}
+.bg-red {
+    background-color: $red;
+    color: #fff;
+}
+.bg-pink {
+    background-color: $pink;
     color: #fff;
 }
