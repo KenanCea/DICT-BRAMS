@@ -1,0 +1,135 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Filed Cases</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        label {
+            display: inline-block;
+            width: 265px;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row ml-2">
+                    <h1>Filed Cases</h1>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card card-default p-5">
+                            <div class="row">
+                                <!-- Your code here -->
+                                <div class="col-sm-6">
+                                    <label for="control_number">Control Number:</label>
+                                    <br><br>
+                                    <label for="surname">Surname:</label><br>
+                                    <label for="first_name">First name:</label><br>
+                                    <label for="middle_name">Middle name:</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="search">Search</label>
+                                    <input type="text" id="search">
+                                    <br><br>
+                                    <label for="house_number">House number:</label><br>
+                                    <label for="street">Street:</label>
+                                </div>
+                            </div>
+                            <br><br>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="respondent" class="col-sm col-form-label">Respondent:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="respondent">
+                                    </div>
+                                    <label for="date_case" class="col-sm col-form-label">Date case was filled:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="date_case">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="case" class="col-sm col-form-label">Case:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="case">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <label for="action_sttld_case" class="col-sm col-form-label">Action taken on settled case:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="action_sttld_case">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="case_type" class="col-sm col-form-label">Type of case:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="case_type">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <label for="action_unsttld_case" class="col-sm col-form-label">Action taken on unsettled case:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="action_unsttld_case">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="complainant" class="col-sm col-form-label">Complainant:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="complainant">
+                                    </div>
+                                    <label for="remarks" class="col-sm col-form-label">Remarks:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="remarks">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="co-complainant" class="col-sm col-form-label">Co-complainant:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="co-complainant">
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <br><br>
+                                <div class="text-center">
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary">Proceed</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                    </div>
+                                </div>  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>

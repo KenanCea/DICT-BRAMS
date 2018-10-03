@@ -1,0 +1,217 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Garage Certificate</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        label {
+            display: inline-block;
+            width: 250px;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row ml-2">
+                    <h1>Garage Certificate</h1>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card card-default p-5">
+                            <div class="row">
+                                <!-- Your code here -->
+                                <div class="col-sm-6">
+                                    <label for="control_number">Control Number:</label>
+                                    <br><br>
+                                    <label for="surname">Surname:</label><br>
+                                    <label for="first_name">First name:</label><br>
+                                    <label for="middle_name">Middle name:</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="search">Search</label>
+                                    <input type="text" id="search">
+                                    <br><br>
+                                    <label for="house_number">House number:</label><br>
+                                    <label for="street">Street:</label>
+                                </div>
+                            </div>
+                            <br><br>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="vehicle_type" class="col-sm col-form-label">Type of Vehicle:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="vehicle_type">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="vehicle_class" class="col-sm col-form-label">Classification of Vehicle:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="vehicle_class">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="desig_grge" class="col-sm col-form-label">It has designated garage:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="desig_grge">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="grge_loc" class="col-sm col-form-label">Location of garage:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="grge_loc">       
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <br>
+                                <div class="form-group row">
+                                    <label for="engn_no" class="col-sm col-form-label">Engine Number:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="engn_no">       
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="body_no" class="col-sm col-form-label">Body Number:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="body_no">       
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="plate_no" class="col-sm col-form-label">Plate Number:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="plate_no">       
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="franch_no" class="col-sm col-form-label">Case/Franchise Number:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="franch_no">       
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="regstr_date" class="col-sm col-form-label">Date of latest registration:</label>
+                                    <div class="col-sm">
+                                        <input type="date" class="form-control" id="regstr_date">       
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="lto_no" class="col-sm col-form-label">LTO O.R. Number:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="lto_no">       
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <br>
+                                <div class="form-group row">
+                                    <label for="day_issd" class="col-sm col-form-label">Day Certification was issued:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="day_issd">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="mnth_issd" class="col-sm col-form-label">Month Certification was issued:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="mnth_issd">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="yr_issd" class="col-sm col-form-label">Year Certification was issued:</label>
+                                    <div class="col-sm">
+                                        <select class="form-control" id="yr_issd">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="brgy_rcpt_no" class="col-sm col-form-label">Brgy Official Receipt No:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="brgy_rcpt_no">
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="amt" class="col-sm col-form-label">Amount Paid:</label>
+                                    <div class="col-sm">
+                                        <input type="text" class="form-control" id="amt">
+                                    </div>
+                                    <div class="col-sm"></div>
+                                    <div class="col-sm"></div>
+                                </div>
+                                <br><br>
+                                <div class="text-center">
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary">Proceed</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                    </div>
+                                </div>  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>

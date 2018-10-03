@@ -1,0 +1,111 @@
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Barangay Clearance</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <style>
+        label {
+            display: inline-block;
+            width: 250px;
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row ml-2">
+                    <h1>Barangay Clearance</h1>
+                </div>
+            </div>
+        </section>
+        <section class="container">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <div class="card card-default p-5">
+                            <div class="row">
+                                <!-- Your code here -->
+                                <div class="col-sm-6">
+                                    <label for="control_number">Control Number:</label>
+                                    <br><br>
+                                    <label for="surname">Surname:</label><br>
+                                    <label for="first_name">First name:</label><br>
+                                    <label for="middle_name">Middle name:</label>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="search">Search</label>
+                                    <input type="text" id="search">
+                                    <br><br>
+                                    <label for="house_number">House number:</label><br>
+                                    <label for="street">Street:</label>
+                                </div>
+                            </div>
+                            <br><br>
+                            <form>
+                                <div class="form-group row">
+                                    <label for="clearance_purpose" class="col-sm-5 col-form-label">Purpose of Clearance:</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control" id="clearance_purpose">
+                                            <option></option>
+                                            <option></option>
+                                            <option></option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="date_brgy_clearance" class="col-sm-5 col-form-label">Date Brgy Clearance was Issued:</label>
+                                    <div class="col-sm-4">
+                                        <input type="date" class="form-control" id="date_brgy_clearance">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="brgy_rcpt_no" class="col-sm-5 col-form-label">Brgy Official Receipt No:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="brgy_rcpt_no">       
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="com_tax_cert_no" class="col-sm-5 col-form-label">Community Tax Certificate No:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="com_tax_cert_no">       
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="com_tax_cert_issdat" class="col-sm-5 col-form-label">Community Tax Cert. Issued at:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="com_tax_cert_issdat">       
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="com_tax_cert_issdon" class="col-sm-5 col-form-label">Community Tax Cert. Issued on:</label>
+                                    <div class="col-sm-4">
+                                        <input type="text" class="form-control" id="com_tax_cert_issdon">       
+                                    </div>
+                                </div>
+                                <br><br>
+                                <div class="text-center">
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary">Proceed</button>
+                                    </div>
+                                    <div class="btn-group">
+                                        <button type="submit" class="btn btn-primary">Cancel</button>
+                                    </div>
+                                </div>  
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</body>
+
+</html>
