@@ -19,7 +19,7 @@
                             <div class="icon">
                                 <i class="fas fa-users"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                        
                         </div>
                     </div>
                     <div class="col-lg-4 col-6">
@@ -31,11 +31,11 @@
                             <div class="icon">
                                 <i class="fas fa-home"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+       
                         </div>
                     </div>
                     <div class="col-lg-4 col-6">
-                        <div class="small-box bg-pink">
+                        <div class="small-box bg-orange">
                             <div class="inner">
                                 <h3>5</h3>
                                 <p>Total Purok / Sitio</p>
@@ -43,7 +43,7 @@
                             <div class="icon">
                                 <i class="fas fa-street-view"></i>
                             </div>
-                            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+
                         </div>
                     </div>
                 </div>
@@ -54,9 +54,6 @@
 
 <script>
     export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
     }
 
 </script>

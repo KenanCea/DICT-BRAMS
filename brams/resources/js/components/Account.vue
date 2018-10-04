@@ -2,31 +2,30 @@
     <div class="container">
         <div class="container-fluid p-0">
 
-            <h1>Account</h1>
+            <h2>Account</h2>
 
         </div>
         <div class="container-fluid p-0">
             <div class="row">
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
-                        <div class="card-body box-profile">
+                        <div class="card-body box-profile text-center">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" :src="getProfileLogo()" alt="User profile picture">
+                                <img class="profile-user-img img-fluid img-circle" :src="getProfileLogo()" alt="User logo">
                             </div>
 
-                            <h3 class="profile-username text-center">Nina Mcintire</h3>
+                            <h3 class="profile-username">{{user.name}}
+<!--                                <input type="text" readonly class="form-control-plaintext text-center" v-model="form.name">-->
+    </h3>
 
-                            <p class="text-muted text-center">User</p>
+                            <input type="text" readonly class="form-control-plaintext text-center text-muted" v-model="form.type">
 
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Total Inhabitants</b> <a class="float-right">1109</a>
+                                    <b>Date Created</b> <input type="text" readonly class="form-control-plaintext text-center" v-model="form.created_at">
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Total Households</b> <a class="float-right">252</a>
-                                </li>
-                                <li class="list-group-item">
-                                    <b>Purok / Sitio</b> <a class="float-right">5</a>
+                                    <b>Date Updated</b> <input type="text" readonly class="form-control-plaintext text-center" v-model="form.created_at">
                                 </li>
                             </ul>
                         </div>
@@ -97,75 +96,72 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                form: new Form({
-                    id: '',
-                    name: '',
-                    email: '',
-                    password: '',
-                    type: '',
-                    photo: ''
-                })
-            }
-        },
-
-        methods: {
-            getProfileLogo() {
-                return "/img/profile/" + this.form.photo;
-            },
-            updateInfo() {
-                this.$Progress.start();
-                if (this.form.password == '') {
-                    this.form.password = undefined;
-                }
-                this.form.put('api/user')
-                    .then(() => {
-
-                        swal(
-                            'Updated!',
-                            'Your profile has been updated.',
-                            'success'
-                        )
-                        this.$Progress.finish();
-                        Fire.$emit('AfterDo');
-                    })
-                    .catch(() => {
-                        this.$Progress.fail();
-                    });
-            },
-            loadInfo() {
-                axios.get("api/user")
-                    .then(({
-                        data
-                    }) => (this.form.fill(data)));
-            },
-            updateProfile(e) {
-                let file = e.target.files[0];
-                console.log(file);
-                let reader = new FileReader();
-                if (file['size'] < 1048576) {
-
-                    reader.onloadend = (file) => {
-                        this.form.photo = reader.result;
-                    }
-                    reader.readAsDataURL(file);
-                } else {
-                    swal({
-                        type: 'error',
-                        title: 'Oops...',
-                        text: 'You are uploading a large file',
-                    })
-                }
-            }
-        },
-        created() {
-            this.loadInfo();
-            Fire.$on('AfterDo', () => {
-                this.loadInfo();
-            })
-        }
+export default {
+  data() {
+    return {
+      form: new Form({
+        id: "",
+        name: "",
+        email: "",
+        password: "",
+        type: "",
+        photo: "",
+        created_at: "",
+        updated_at: ""
+      }),
+      user: { name: "", created_at: "", updated_at: "" }
+    };
+  },
+  methods: {
+    getProfileLogo() {
+      let photo =
+        this.form.photo.length > 200
+          ? this.form.photo
+          : "img/profile/" + this.form.photo;
+      return photo;
+    },
+    updateInfo() {
+      this.$Progress.start();
+      if (this.form.password == "") {
+        this.form.password = undefined;
+      }
+      this.form
+        .put("api/user")
+        .then(() => {
+          swal("Updated!", "Your profile has been updated.", "success");
+          this.$Progress.finish();
+          Fire.$emit("AfterDo");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
+    loadInfo() {
+      axios.get("api/user").then(({ data }) => this.form.fill(data));
+    },
+    updateProfile(e) {
+      let file = e.target.files[0];
+      console.log(file);
+      let reader = new FileReader();
+      if (file["size"] < 1048576) {
+        reader.onloadend = file => {
+          this.form.photo = reader.result;
+        };
+        reader.readAsDataURL(file);
+      } else {
+        swal({
+          type: "error",
+          title: "Oops...",
+          text: "You are uploading a large file"
+        });
+      }
     }
-
+  },
+  created() {
+    this.loadInfo();
+    Fire.$on("AfterDo", () => {
+      this.loadInfo();
+    });
+  }
+};
 </script>

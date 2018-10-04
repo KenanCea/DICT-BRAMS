@@ -41,11 +41,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link p-0" data-toggle="dropdown" href="#">
                         <div class="user-panel d-flex">
-                            <div class="info"> {{ Auth::user()->name }} <i class="right fa fa-angle-down"></i></div>
-                            <div class="image"> <img src="/img/profile.png" alt="User Image"> </div>
+                        <div class="image"> <i class="right fa fa-angle-down mr-2"></i><img src="/img/profile/{{ Auth::user()->photo }}" alt="Logo"></div>
                         </div>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> Status: Online <i class="fas fa-circle green ml-2"></i></a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->name }} </a>
                         <div class="dropdown-divider"></div>
                         <router-link to="/account" class="dropdown-item"> <i class="fas fa-user mr-2"></i> Account Info </router-link>
                         <div class="dropdown-divider"></div>

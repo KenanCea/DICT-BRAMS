@@ -8,15 +8,14 @@ $line-height-base: 1.6;
 // Colors
 $blue: #3B86FF;
 $green: #3cb043;
-$cyan: #56D9FE;
+$cyan: #00ccff;
 $indigo: #A3A0FB;
 $purple: #9561e2;
 $pink: #f66D9b;
 $red: #FF3B3B;
-$orange: #f6993f;
-$yellow: #ffed4a;
+$orange: #ff9933;
+$yellow: #ffeb30;
 $teal: #4dc0b5;
-
 .blue {
     color: $blue;
 }
@@ -24,33 +23,61 @@ $teal: #4dc0b5;
 .green {
     color: $green;
 }
+
 .red {
     color: $red;
 }
+
 .cyan {
     color: $cyan;
 }
+
 .bg-green {
     background-color: $green;
     color: #fff;
 }
+
 .bg-orange {
     background-color: $orange;
     color: #fff;
 }
+
 .bg-cyan {
     background-color: $cyan;
     color: #fff;
 }
+
 .bg-indigo {
     background-color: $indigo;
     color: #fff;
 }
+
 .bg-red {
     background-color: $red;
     color: #fff;
 }
+
 .bg-pink {
     background-color: $pink;
+    color: #fff;
+}
+
+.bg-purple {
+    background-color: $purple;
+    color: #fff;
+}
+
+.bg-yellow {
+    background-color: $yellow;
+    color: #fff;
+}
+
+.bg-blue {
+    background-color: $blue;
+    color: #fff;
+}
+
+.bg-teal {
+    background-color: $teal;
     color: #fff;
 }

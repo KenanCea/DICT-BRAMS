@@ -3,8 +3,6 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card card-default">
-                   
-
                     <div class="card-body">
                         Home
                     </div>
@@ -15,9 +13,5 @@
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
-        }
-    }
+export default {};
 </script>

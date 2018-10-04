@@ -22,8 +22,8 @@ class CreateMembersTable extends Migration
             $table->integer('age');
             $table->enum('sex', ['female', 'male']);
             $table->timestamps();
-//            $table->unsignedInteger('user_id');
-//            $table->foreign('user_id')->references('id')->on('users');
+//            $table->unsignedInteger('household_id');
+//            $table->foreign('household_id')->references('id')->on('households');
         });
     }
 

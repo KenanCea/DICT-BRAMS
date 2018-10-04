@@ -87,11 +87,7 @@ class MemberController extends Controller
     public function destroy($id)
     {
         $member = Member::findOrFail($id);
-
-        // delete the member
-
         $member->delete();
-
         return ['message' => 'Member Deleted'];
     }
 }

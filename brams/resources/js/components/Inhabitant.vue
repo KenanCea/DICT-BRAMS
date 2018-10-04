@@ -1,6 +1,5 @@
 <template>
     <div class="container-wrapper">
-
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col p-0">
@@ -13,15 +12,24 @@
                 </div>
             </div>
         </div>
-
         <div class="container-fluid p-0">
             <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
                             <div class="dropdown float-right">
-                                <button class="btn btn-outline-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="btn bg-green btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Export
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-excel mr-2 green"></i>Excel</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a>
+                                </div>
+                            </div>
+                            <div class="dropdown float-right mr-2">
+                                <button class="btn bg-green btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Column
                                 </button>
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                                     <a class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
@@ -40,7 +48,6 @@
                                         <th>Last Name</th>
                                         <th>Age</th>
                                         <th>Gender</th>
-                                        <th>Address</th>
                                         <th>Date Created</th>
                                         <th>Action</th>
                                     </tr>
@@ -51,7 +58,6 @@
                                         <td>{{member.family_name}}</td>
                                         <td>{{member.age}}</td>
                                         <td>{{member.sex | uptext}}</td>
-                                        <td></td>
                                         <td>{{member.created_at | myDate}}</td>
                                         <td>
                                             <a href="#" @click="editModal(member)"><i class="fa fa-edit blue"></i></a>
@@ -198,108 +204,96 @@
 </template>
 
 <script>
-    export default {
-        data() {
-            return {
-                editmode: false,
-                members: {},
-                form: new Form({
-                    id: '',
-                    first_name: '',
-                    family_name: '',
-                    middle_name: '',
-                    age: '',
-                    sex: '',
-                })
-            }
-        },
-        methods: {
-            updateMember() {
-                this.$Progress.start();
-                this.form.put('api/member/' + this.form.id)
-                    .then(() => {
-                        $('#addinhabitant').modal('hide');
-                        swal(
-                            'Updated!',
-                            'Member has been updated.',
-                            'success'
-                        )
-                    })
-                    .catch(() => {
-                        this.$Progress.start();
-                    })
-                this.$Progress.finish();
-                Fire.$emit('AfterCreate');
-            },
-            editModal(member) {
-                this.editmode = true;
-                this.form.reset();
-                $('#addinhabitant').modal('show');
-                this.form.fill(member);
-            },
-            newModal() {
-                this.editmode = false;
-                this.form.reset();
-                $('#addinhabitant').modal('show')
-            },
-            deleteMember(id) {
-                swal({
-                    title: 'Are you sure?',
-                    text: "You won't be able to revert this!",
-                    type: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, delete it!'
-                }).then((result) => {
-                    if (result.value) {
-                        this.form.delete('api/member/' + id).then(() => {
+export default {
+  components: { datatable: Datatable, pagination: Pagination },
+  data() {
+    return {
+      editmode: false,
+      members: {},
+      form: new Form({
+        id: "",
+        first_name: "",
+        family_name: "",
+        middle_name: "",
+        age: "",
+        sex: ""
+      })
+    };
+  },
 
-                                swal(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
-
-                                Fire.$emit('AfterCreate');
-                            })
-                            .catch(() => {
-                                swal("Failed!", "There was something wrong.", "warning");
-                            })
-                    }
-                })
-            },
-            loadMember() {
-                axios.get('api/member').then(({
-                    data
-                }) => (this.members = data.data));
-            },
-            createMember() {
-                this.$Progress.start();
-
-                this.form.post('api/member')
-                    .then(() => {
-                        Fire.$emit('AfterCreate');
-                        $('#addinhabitant').modal('hide')
-                        toast({
-                            type: 'success',
-                            title: 'Member created in successfully'
-                        })
-                        this.$Progress.finish();
-
-                    })
-                    .catch(() => {
-
-                    })
-            }
-
-        },
-        created() {
-            this.loadMember();
-            Fire.$on('AfterCreate', () => {
-                this.loadMember();
+  created() {
+    this.loadMember();
+    Fire.$on("AfterDo", () => {
+      this.loadMember();
+    });
+  },
+  methods: {
+    loadMember() {
+      axios.get("api/member").then(({ data }) => (this.members = data.data));
+    },
+    createMember() {
+      this.$Progress.start();
+      this.form
+        .post("api/member")
+        .then(() => {
+          Fire.$emit("AfterDo");
+          $("#addinhabitant").modal("hide");
+          swal("Created!", "Member has been created.", "success");
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
+    updateMember() {
+      this.$Progress.start();
+      this.form
+        .put("api/member/" + this.form.id)
+        .then(() => {
+          $("#addinhabitant").modal("hide");
+          swal("Updated!", "Member has been updated.", "success");
+          this.$Progress.finish();
+          Fire.$emit("AfterDo");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
+    deleteMember(id) {
+      swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.form
+            .delete("api/member/" + id)
+            .then(() => {
+              swal("Deleted!", "Member has been deleted.", "success");
+              Fire.$emit("AfterDo");
             })
+            .catch(() => {
+              this.$Progress.fail();
+              swal("Failed!", "There was something wrong.", "warning");
+            });
         }
+      });
+    },
+    editModal(member) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addinhabitant").modal("show");
+      this.form.fill(member);
+    },
+    newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $("#addinhabitant").modal("show");
     }
-
+  }
+};
 </script>
