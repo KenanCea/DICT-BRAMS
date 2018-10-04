@@ -26,6 +26,10 @@ git clone https://github.com/KenanCea/DICT-BRAMS.git
 * Run ` php artisan serve `
 * Go to ` localhost:8000 `
 
+## Login Credentials
+* Admin: admin@gmail.com
+* User: user@gmail.com
+
 ## Built With
 
 * [Laravel](http://www.dropwizard.io/1.0.2/docs/) - The backend framework used
