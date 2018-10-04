@@ -184,6 +184,13 @@
                             </router-link>
                         </li>
                         @endcan
+                        @can('isAdmin')
+                        <li class="nav-item">
+                            <router-link to="/api" class="nav-link"> <i class="nav-icon fas fa-cubes"></i>
+                                <p> API </p>
+                            </router-link>
+                        </li>
+                        @endcan
                     </ul>
                 </nav>
             </div>

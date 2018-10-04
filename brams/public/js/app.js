@@ -30792,6 +30792,9 @@ var routes = [{
 }, {
     path: '/account',
     component: __webpack_require__(238)
+}, {
+    path: '/api',
+    component: __webpack_require__(273)
 }];
 Vue.component('passport-clients', __webpack_require__(241));
 
@@ -75913,6 +75916,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       })
     };
   },
+  created: function created() {
+    var _this = this;
+
+    this.loadInfo();
+    Fire.$on("AfterDo", function () {
+      _this.loadInfo();
+    });
+  },
 
   methods: {
     getProfileLogo: function getProfileLogo() {
@@ -75920,7 +75931,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return photo;
     },
     updateInfo: function updateInfo() {
-      var _this = this;
+      var _this2 = this;
 
       this.$Progress.start();
       if (this.form.password == "") {
@@ -75928,29 +75939,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       }
       this.form.put("api/user").then(function () {
         swal("Updated!", "Your profile has been updated.", "success");
-        _this.$Progress.finish();
+        _this2.$Progress.finish();
         Fire.$emit("AfterDo");
       }).catch(function () {
-        _this.$Progress.fail();
+        _this2.$Progress.fail();
       });
     },
     loadInfo: function loadInfo() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get("api/user").then(function (_ref) {
         var data = _ref.data;
-        return _this2.form.fill(data);
+        return _this3.form.fill(data);
       });
     },
     updateProfile: function updateProfile(e) {
-      var _this3 = this;
+      var _this4 = this;
 
       var file = e.target.files[0];
       console.log(file);
       var reader = new FileReader();
       if (file["size"] < 1048576) {
         reader.onloadend = function (file) {
-          _this3.form.photo = reader.result;
+          _this4.form.photo = reader.result;
         };
         reader.readAsDataURL(file);
       } else {
@@ -75961,14 +75972,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         });
       }
     }
-  },
-  created: function created() {
-    var _this4 = this;
-
-    this.loadInfo();
-    Fire.$on("AfterDo", function () {
-      _this4.loadInfo();
-    });
   }
 });
 
@@ -75995,9 +75998,7 @@ var render = function() {
                 })
               ]),
               _vm._v(" "),
-              _c("h3", { staticClass: "profile-username" }, [
-                _vm._v(_vm._s(_vm.user.name) + "\n")
-              ]),
+              _c("h3", { staticClass: "profile-username" }, [_vm._v("name\n")]),
               _vm._v(" "),
               _c("input", {
                 directives: [
@@ -78539,6 +78540,124 @@ if (false) {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(1)
+/* script */
+var __vue_script__ = __webpack_require__(274)
+/* template */
+var __vue_template__ = __webpack_require__(275)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/js/components/API.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-a4b11e02", Component.options)
+  } else {
+    hotAPI.reload("data-v-a4b11e02", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 274 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/***/ }),
+/* 275 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        { staticClass: "col-md-12" },
+        [
+          _c("passport-clients"),
+          _vm._v(" "),
+          _c("passport-authorized-clients"),
+          _vm._v(" "),
+          _c("passport-personal-access-tokens")
+        ],
+        1
+      )
+    ])
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-a4b11e02", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

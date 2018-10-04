@@ -20,7 +20,7 @@ class MemberController extends Controller
 
     public function index()
     {
-        return Member::latest()->paginate(10);
+        return Member::latest()->paginate(1000);
     }
 
     /**

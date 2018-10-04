@@ -14,7 +14,7 @@
                                 <img class="profile-user-img img-fluid img-circle" :src="getProfileLogo()" alt="User logo">
                             </div>
 
-                            <h3 class="profile-username">{{user.name}}
+                            <h3 class="profile-username">name
 <!--                                <input type="text" readonly class="form-control-plaintext text-center" v-model="form.name">-->
     </h3>
 
@@ -111,6 +111,12 @@ export default {
       })
     };
   },
+  created() {
+    this.loadInfo();
+    Fire.$on("AfterDo", () => {
+      this.loadInfo();
+    });
+  },
   methods: {
     getProfileLogo() {
       let photo =
@@ -155,12 +161,6 @@ export default {
         });
       }
     }
-  },
-  created() {
-    this.loadInfo();
-    Fire.$on("AfterDo", () => {
-      this.loadInfo();
-    });
   }
 };
 </script>

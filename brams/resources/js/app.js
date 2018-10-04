@@ -110,6 +110,10 @@ let routes = [
         path: '/account',
         component: require('./components/Account.vue')
     }
+    , {
+        path: '/api',
+        component: require('./components/API.vue')
+    }
 ]
 Vue.component(
     'passport-clients',
