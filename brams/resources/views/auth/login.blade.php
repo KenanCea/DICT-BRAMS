@@ -3,7 +3,14 @@
 @section('content')
 <div class="container-fluid">
     <div class="row vh-1">
-        <div class="col-md-6 pbc-1">
+        <div class="col-md-6 pbc-1 p-0">
+            <div class="text-center mt-5">
+                <img src="/img/logo.png" class="img-fluid" alt="BRAMS logo">
+            </div>
+            <div class="mt-5">
+                    <img src="/img/lines.png" class="img-fluid" style="bottom:0px" alt="Responsive image">
+                </div>
+            
         </div>
         <div class="col-md-6 p-5">
             <h1 class="text-center mt-3 mb-5 pc-1">Barangay Record Automation Management System</h1>
