@@ -205,7 +205,6 @@
 
 <script>
 export default {
-  components: { datatable: Datatable, pagination: Pagination },
   data() {
     return {
       editmode: false,

@@ -108,8 +108,7 @@ export default {
         photo: "",
         created_at: "",
         updated_at: ""
-      }),
-      user: { name: "", created_at: "", updated_at: "" }
+      })
     };
   },
   methods: {

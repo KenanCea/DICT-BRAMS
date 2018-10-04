@@ -72601,7 +72601,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  components: { datatable: Datatable, pagination: Pagination },
   data: function data() {
     return {
       editmode: false,
@@ -75911,8 +75910,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         photo: "",
         created_at: "",
         updated_at: ""
-      }),
-      user: { name: "", created_at: "", updated_at: "" }
+      })
     };
   },
 
@@ -77511,7 +77509,7 @@ exports = module.exports = __webpack_require__(5)(false);
 
 
 // module
-exports.push([module.i, "\n.action-link[data-v-397d14ca] {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.action-link[data-v-397d14ca] {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 
