@@ -29,6 +29,7 @@ git clone https://github.com/KenanCea/DICT-BRAMS.git
 ## Login Credentials
 * Admin: admin@gmail.com
 * User: user@gmail.com
+* Password: secret
 
 ## Built With
 
