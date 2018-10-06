@@ -9,6 +9,9 @@ import {
     AlertError
 } from 'vform';
 
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+
 import swal from 'sweetalert2';
 window.swal = swal;
 

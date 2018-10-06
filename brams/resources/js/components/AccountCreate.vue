@@ -1,16 +1,43 @@
 <template>
-    <div class="container">
-        <div class="row mt-5">
+    <div class="container-wrapper" v-if="$gate.isAdmin()">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col p-0">
+                    <h1>Inhabitant</h1>
+                </div>
+                <div class="col p-0">
+                    <div class="float-right">
+                        <button class="btn bg-blue" @click="newModal">Add New<i class="fas fa-user-plus fa-fw"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid p-0">
+        <div class="row">
           <div class="col-md-12">
             <div class="card">
-              <div class="card-header">
-                <h3 class="card-title">Users Table</h3>
-
-                <div class="card-tools">
-                    <button class="btn btn-success" @click="newModal">Add New <i class="fas fa-user-plus fa-fw"></i></button>
-                </div>
-              </div>
-              <!-- /.card-header -->
+                        <div class="card-header">
+                            <div class="dropdown float-right">
+                                <button class="btn bg-green dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Export
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-excel mr-2 green"></i>Excel</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a>
+                                </div>
+                            </div>
+                            <div class="dropdown float-right mr-2">
+                                <button class="btn bg-green dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Column
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-excel mr-2 green"></i>Excel</a>
+                                    <a class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a>
+                                </div>
+                            </div>
+                        </div>
               <div class="card-body table-responsive p-0">
                 <table class="table table-hover">
                   <tbody>
@@ -45,13 +72,13 @@
                   </tr>
                 </tbody></table>
               </div>
-              <!-- /.card-body -->
+              
             </div>
-            <!-- /.card -->
+          </div>
           </div>
         </div>
 
-    <!-- Modal -->
+ 
             <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -135,7 +162,9 @@ export default {
   },
   methods: {
     loadUser() {
-      axios.get("api/user").then(({ data }) => (this.users = data.data));
+      if (this.$gate.isAdmin()) {
+        axios.get("api/user").then(({ data }) => (this.users = data.data));
+      }
     },
     updateUser() {
       this.$Progress.start();

@@ -1,5 +1,5 @@
 <template>
-    <div class="container-wrapper">
+    <div class="container-wrapper" v-if="$gate.isUser()">
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col p-0">
@@ -7,7 +7,7 @@
                 </div>
                 <div class="col p-0">
                     <div class="dropdown float-right">
-                        <button class="btn btn-primary" @click="newModal"> Add Inhabitant <i class="fas fa-user-plus" fa-fw></i></button>
+                        <button class="btn btn-primary" @click="newModal"> Add New <i class="fas fa-user-plus" fa-fw></i></button>
                     </div>
                 </div>
             </div>
@@ -228,7 +228,9 @@ export default {
   },
   methods: {
     loadMember() {
-      axios.get("api/member").then(({ data }) => (this.members = data.data));
+      if (this.$gate.isUser()) {
+        axios.get("api/member").then(({ data }) => (this.members = data.data));
+      }
     },
     createMember() {
       this.$Progress.start();

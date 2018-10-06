@@ -209,6 +209,11 @@
         </div>
         <footer class="main-footer"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>
     </div>
+    @auth
+    <script>
+    window.user = @json(auth()->user())
+    </script>  
+    @endauth
     <script src="/js/app.js"></script>
 </body>
 
