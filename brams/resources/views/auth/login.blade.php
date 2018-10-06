@@ -8,7 +8,7 @@
                 <img src="/img/logo.png" class="img-fluid" alt="BRAMS logo">
             </div>
             <div class="mt-5">
-                    <img src="/img/lines.png" class="img-fluid" style="bottom:0px" alt="Responsive image">
+                    <img src="/img/lines.png" class="img-fluid" style="bottom:0px; position:absolute" alt="Responsive image">
                 </div>
             
         </div>

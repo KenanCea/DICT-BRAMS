@@ -88,6 +88,5 @@ class MemberController extends Controller
     {
         $member = Member::findOrFail($id);
         $member->delete();
-        return ['message' => 'Member Deleted'];
     }
 }
