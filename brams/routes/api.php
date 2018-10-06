@@ -16,5 +16,7 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::resources(['user' => 'API\UserController', 'member' => 'API\MemberController']);
-Route::put('user', 'API\UserController@update');
+Route::resources(['user' => 'API\UserController', 
+                'member' => 'API\MemberController',
+                'profile' => 'API\ProfileController']);
+Route::put('profile', 'API\ProfileController@update');

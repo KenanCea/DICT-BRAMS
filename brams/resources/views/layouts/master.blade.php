@@ -47,9 +47,10 @@
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->name }} </a>
                         <div class="dropdown-divider"></div>
                         <router-link to="/account" class="dropdown-item"> <i class="fas fa-user mr-2"></i> Account Info </router-link>
-                        <div class="dropdown-divider"></div>
+                        @can('isUser')
                         <div class="dropdown-divider"></div>
                         <router-link to="/profile" class="dropdown-item"> <i class="fas fa-map mr-2"></i> Barangay Profile </router-link>
+                        @endcan
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();"> <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }} </a>
@@ -188,6 +189,11 @@
                         <li class="nav-item">
                             <router-link to="/api" class="nav-link"> <i class="nav-icon fas fa-cubes"></i>
                                 <p> API </p>
+                            </router-link>
+                        </li>
+                        <li class="nav-item">
+                            <router-link to="/createaccount" class="nav-link"> <i class="nav-icon fas fa-users"></i>
+                                <p> Manage Users </p>
                             </router-link>
                         </li>
                         @endcan

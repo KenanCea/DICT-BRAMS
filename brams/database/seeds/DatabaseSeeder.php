@@ -20,17 +20,21 @@ class DatabaseSeeder extends Seeder
                     'email' => ('admin@gmail.com'),
                     'password' => bcrypt('secret'),
                     'type' => ('admin'),
-                    'photo' => ('logo.png'),
+                    'photo' => ('profile.png'),
                     'remember_token' => str_random(10),
                     'email_verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ], [
                     'name' => ('user'),
                     'email' => ('user@gmail.com'),
                     'password' => bcrypt('secret'),
                     'type' => ('user'),
-                    'photo' => ('logo.png'),
+                    'photo' => ('profile.png'),
                     'remember_token' => str_random(10),
                     'email_verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now()
                 ],
             ]);
         } else {echo "\e[31mTable is not empty, therefore NOT ";}

@@ -131,7 +131,7 @@ export default {
         this.form.password = undefined;
       }
       this.form
-        .put("api/user")
+        .put("api/profile")
         .then(() => {
           swal("Updated!", "Your profile has been updated.", "success");
           this.$Progress.finish();
@@ -142,7 +142,7 @@ export default {
         });
     },
     loadInfo() {
-      axios.get("api/user").then(({ data }) => this.form.fill(data));
+      axios.get("api/profile").then(({ data }) => this.form.fill(data));
     },
     updateProfile(e) {
       let file = e.target.files[0];
