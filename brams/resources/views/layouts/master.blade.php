@@ -41,7 +41,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link p-0" data-toggle="dropdown" href="#">
                         <div class="user-panel d-flex">
-                        <div class="image"> <i class="right fa fa-angle-down mr-2"></i><img src="/img/profile/{{ Auth::user()->photo }}" alt="Logo"></div>
+                        <div class="image"> <i class="right fa fa-angle-down mr-2"></i><img class="img-circle" src="/img/profile/{{ Auth::user()->photo }}" alt="Logo"></div>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->name }} </a>
@@ -64,12 +64,12 @@
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        @can('isUser')
                         <li class="nav-item">
                             <router-link to="/home" class="nav-link"> <i class="nav-icon fas fa-home"></i>
                                 <p> Home </p>
                             </router-link>
                         </li>
+                        @can('isUser')
                         <li class="nav-item">
                             <router-link to="/dashboard" class="nav-link"> <i class="nav-icon fas fa-chart-bar"></i>
                                 <p> Dashboard </p>
@@ -202,7 +202,7 @@
             </div>
         </aside>
         <div class="content-wrapper">
-            <div class="container-fluid mt-lg-5 pt-3">
+            <div class="container-fluid mt-lg-5 p-3">
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
             </div>

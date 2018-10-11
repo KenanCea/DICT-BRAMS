@@ -1,11 +1,14 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import 'variables';
-@import '~bootstrap/scss/bootstrap';
-$fa-font-path: "../webfonts";
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+// $fa-font-path: "../webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 @import '~admin-lte/dist/css/adminlte.min.css';
+// @import '~material-design-icons-iconfont/dist/material-design-icons.scss';
+// @import '~vuetify/dist/vuetify.min.css';
 .sidebar-blue-primary {
     background-color: #0E4879;
 }
@@ -173,8 +176,15 @@ body {
     z-index: 1200;
 }
 
-@media (min-width: 992px) {
-    .modal-lg {
-        max-width: 1200px;
-    }
+.card {
+    border-radius: 0px;
+}
+// @media (min-width: 992px) {
+//     .modal-lg {
+//         max-width: 1200px;
+//     }
+// }
+
+thead{
+    color: #007bff !important;
 }

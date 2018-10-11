@@ -171,10 +171,10 @@ export default {
       this.form
         .put("api/user/" + this.form.id)
         .then(() => {
+          Fire.$emit("AfterDo");
           $("#addNew").modal("hide");
           swal("Updated!", "Information has been updated.", "success");
           this.$Progress.finish();
-          Fire.$emit("AfterDo");
         })
         .catch(() => {
           this.$Progress.fail();
@@ -221,7 +221,9 @@ export default {
           });
           this.$Progress.finish();
         })
-        .catch(() => {});
+        .catch(() => {
+          this.$Progress.fail();
+        });
     },
     editModal(user) {
       this.editmode = true;

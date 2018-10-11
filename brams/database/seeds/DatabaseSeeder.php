@@ -26,8 +26,18 @@ class DatabaseSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now()
                 ], [
-                    'name' => ('user'),
-                    'email' => ('user@gmail.com'),
+                    'name' => ('baguio_ambiong'),
+                    'email' => ('baguio_ambiong@gmail.com'),
+                    'password' => bcrypt('secret'),
+                    'type' => ('user'),
+                    'photo' => ('profile.png'),
+                    'remember_token' => str_random(10),
+                    'email_verified_at' => now(),
+                    'created_at' => now(),
+                    'updated_at' => now()
+                ], [
+                    'name' => ('baguio_aurora'),
+                    'email' => ('baguio_aurora@gmail.com'),
                     'password' => bcrypt('secret'),
                     'type' => ('user'),
                     'photo' => ('profile.png'),

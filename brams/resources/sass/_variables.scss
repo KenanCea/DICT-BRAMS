@@ -6,6 +6,7 @@ sans-serif;
 $font-size-base: 0.9rem;
 $line-height-base: 1.6;
 // Colors
+$primary: #0b3d66;
 $blue: #3B86FF;
 $green: #3cb043;
 $cyan: #00ccff;
@@ -16,6 +17,10 @@ $red: #FF3B3B;
 $orange: #ff9933;
 $yellow: #ffeb30;
 $teal: #4dc0b5;
+$white: #ffffff;
+.white{
+    color: $white;
+}
 .blue {
     color: $blue;
 }
@@ -30,6 +35,11 @@ $teal: #4dc0b5;
 
 .cyan {
     color: $cyan;
+}
+
+.bg-primary {
+    background-color: $primary;
+    color: #fff;
 }
 
 .bg-green {
