@@ -1,11 +1,11 @@
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans');
 @import 'variables';
 @import '~admin-lte/dist/css/adminlte.min.css';
-@import '~material-design-icons-iconfont/dist/material-design-icons.scss';
 @import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "~@fortawesome/fontawesome-free/scss/brands.scss";
 @import "~@fortawesome/fontawesome-free/scss/solid.scss";
 
+// admin.lte costum
 .sidebar-blue-primary {
     background-color: #0E4879;
 }
@@ -106,6 +106,43 @@
     color: #3C8DDD;
 }
 
+.nav-item>.router-link-exact-active {
+    background-color: #0D416D;
+    border-left: 6px solid;
+    border-left-color: #3C8DDD;
+}
+
+.sidebar .nav-pills .nav-link {
+    border-radius: 0rem;
+}
+
+.sidebar {
+    padding-bottom: 0;
+    padding-top: 0;
+    padding-left: 0rem;
+    padding-right: 0rem;
+    overflow-y: auto;
+    height: calc(100% - 4rem);
+}
+
+body {
+    margin: 0;
+    font-family: 'Nunito Sans', sans-serif;
+    color: #212529;
+    text-align: left;
+    background-color: #f8fafc;
+}
+
+.navbar-badge {
+    right: 6px;
+    top: 6px;
+}
+
+.main-sidebar {
+    z-index: 1040;
+}
+
+// boostrap costum
 .mt-lg-5 {
     margin-top: 3.5rem !important;
 }
@@ -130,45 +167,6 @@
     color: #0E4879;
 }
 
-.nav-item>.router-link-exact-active {
-    background-color: #0D416D;
-    border-left: 6px solid;
-    border-left-color: #3C8DDD;
-}
-
-.sidebar .nav-pills .nav-link {
-    border-radius: 0rem;
-}
-
-.sidebar {
-    padding-bottom: 0;
-    padding-top: 0;
-    padding-left: 0rem;
-    padding-right: 0rem;
-    overflow-y: auto;
-    height: calc(100% - 4rem);
-}
-
-body {
-    margin: 0;
-    font-family: "Nunito", sans-serif;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.6;
-    color: #212529;
-    text-align: left;
-    background-color: #f8fafc;
-}
-
-.navbar-badge {
-    right: 6px;
-    top: 6px;
-}
-
-.main-sidebar {
-    z-index: 1040;
-}
-
 .modal {
     z-index: 1200;
 }
@@ -176,103 +174,25 @@ body {
 .card {
     border-radius: 0px;
 }
-
+table{
+    border-top: #007bff solid 3px !important;
+}
 thead {
+    border-top: #007bff solid 1px;
     color: #007bff;
 }
 
-// @media (min-width: 992px) {
-//     .modal-lg {
-//         max-width: 1200px;
-//     }
-// }
+td{
+    padding-bottom: 6px !important;
+}
 
-// .animated {
-//     -webkit-animation-duration: 1s;
-//     -webkit-animation-fill-mode: both;
-//     animation-duration: 1s;
-//     animation-fill-mode: both;
-// }
+@media (min-width: 992px) {
+    .modal-lg {
+        max-width: 1200px;
+    }
+}
 
-//   @-webkit-keyframes bounceIn {
-//     0%, 20%, 40%, 60%, 80%, to {
-//       -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-//       animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-//     }
-
-//     0% {
-//       -webkit-transform: scale3d(0.3, 0.3, 0.3);
-//       opacity: 0;
-//       transform: scale3d(0.3, 0.3, 0.3);
-//     }
-
-//     20% {
-//       -webkit-transform: scale3d(1.1, 1.1, 1.1);
-//       transform: scale3d(1.1, 1.1, 1.1);
-//     }
-
-//     40% {
-//       -webkit-transform: scale3d(0.9, 0.9, 0.9);
-//       transform: scale3d(0.9, 0.9, 0.9);
-//     }
-
-//     60% {
-//       -webkit-transform: scale3d(1.03, 1.03, 1.03);
-//       opacity: 1;
-//       transform: scale3d(1.03, 1.03, 1.03);
-//     }
-
-//     80% {
-//       -webkit-transform: scale3d(0.97, 0.97, 0.97);
-//       transform: scale3d(0.97, 0.97, 0.97);
-//     }
-
-//     to {
-//       -webkit-transform: scaleX(1);
-//       opacity: 1;
-//       transform: scaleX(1);
-//     }
-//   }
-
-//   @keyframes bounceIn {
-//     0%, 20%, 40%, 60%, 80%, to {
-//       -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-//       animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
-//     }
-
-//     0% {
-//       -webkit-transform: scale3d(0.3, 0.3, 0.3);
-//       opacity: 0;
-//       transform: scale3d(0.3, 0.3, 0.3);
-//     }
-
-//     20% {
-//       -webkit-transform: scale3d(1.1, 1.1, 1.1);
-//       transform: scale3d(1.1, 1.1, 1.1);
-//     }
-
-//     40% {
-//       -webkit-transform: scale3d(0.9, 0.9, 0.9);
-//       transform: scale3d(0.9, 0.9, 0.9);
-//     }
-
-//     60% {
-//       -webkit-transform: scale3d(1.03, 1.03, 1.03);
-//       opacity: 1;
-//       transform: scale3d(1.03, 1.03, 1.03);
-//     }
-
-//     80% {
-//       -webkit-transform: scale3d(0.97, 0.97, 0.97);
-//       transform: scale3d(0.97, 0.97, 0.97);
-//     }
-
-//     to {
-//       -webkit-transform: scaleX(1);
-//       opacity: 1;
-//       transform: scaleX(1);
-//     }
-//   }
+// animation
 @-webkit-keyframes bounceIn {
     0% {
         -webkit-transform: scale(0.7);

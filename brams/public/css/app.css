@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Nunito);/*!
+@import url(https://fonts.googleapis.com/css?family=Nunito+Sans);/*!
  *   AdminLTE v3.0.0-alpha
  *   Author: Abdullah Almsaeed
  *	 Website: AdminLTE.io <http://adminlte.io>
@@ -81,39 +81,6 @@
 .bg-teal {
   background-color: #4dc0b5;
   color: #fff;
-}
-
-@font-face {
-  font-family: 'Material Icons';
-  font-style: normal;
-  font-weight: 400;
-  src: url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.eot?e79bfd88537def476913f3ed52f4f4b3);
-  /* For IE6-8 */
-  src: local("Material Icons"), local("MaterialIcons-Regular"), url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.woff2?570eb83859dc23dd0eec423a49e147fe) format("woff2"), url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.woff?012cf6a10129e2275d79d6adac7f3b02) format("woff"), url(/fonts/vendor/material-design-icons-icondist/MaterialIcons-Regular.ttf?a37b0c01c0baf1888ca812cc0508f6e2) format("truetype");
-}
-
-.material-icons {
-  font-family: 'Material Icons';
-  font-weight: normal;
-  font-style: normal;
-  font-size: 24px;
-  /* Preferred icon size */
-  display: inline-block;
-  line-height: 1;
-  text-transform: none;
-  letter-spacing: normal;
-  word-wrap: normal;
-  white-space: nowrap;
-  direction: ltr;
-  /* Support for all WebKit browsers. */
-  -webkit-font-smoothing: antialiased;
-  /* Support for Safari and Chrome. */
-  text-rendering: optimizeLegibility;
-  /* Support for Firefox. */
-  -moz-osx-font-smoothing: grayscale;
-  /* Support for IE. */
-  -webkit-font-feature-settings: 'liga';
-          font-feature-settings: 'liga';
 }
 
 /*!
@@ -5462,6 +5429,42 @@ readers do not read off random characters that represent icons */
   color: #3C8DDD;
 }
 
+.nav-item > .router-link-exact-active {
+  background-color: #0D416D;
+  border-left: 6px solid;
+  border-left-color: #3C8DDD;
+}
+
+.sidebar .nav-pills .nav-link {
+  border-radius: 0rem;
+}
+
+.sidebar {
+  padding-bottom: 0;
+  padding-top: 0;
+  padding-left: 0rem;
+  padding-right: 0rem;
+  overflow-y: auto;
+  height: calc(100% - 4rem);
+}
+
+body {
+  margin: 0;
+  font-family: 'Nunito Sans', sans-serif;
+  color: #212529;
+  text-align: left;
+  background-color: #f8fafc;
+}
+
+.navbar-badge {
+  right: 6px;
+  top: 6px;
+}
+
+.main-sidebar {
+  z-index: 1040;
+}
+
 .mt-lg-5 {
   margin-top: 3.5rem !important;
 }
@@ -5486,45 +5489,6 @@ readers do not read off random characters that represent icons */
   color: #0E4879;
 }
 
-.nav-item > .router-link-exact-active {
-  background-color: #0D416D;
-  border-left: 6px solid;
-  border-left-color: #3C8DDD;
-}
-
-.sidebar .nav-pills .nav-link {
-  border-radius: 0rem;
-}
-
-.sidebar {
-  padding-bottom: 0;
-  padding-top: 0;
-  padding-left: 0rem;
-  padding-right: 0rem;
-  overflow-y: auto;
-  height: calc(100% - 4rem);
-}
-
-body {
-  margin: 0;
-  font-family: "Nunito", sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #212529;
-  text-align: left;
-  background-color: #f8fafc;
-}
-
-.navbar-badge {
-  right: 6px;
-  top: 6px;
-}
-
-.main-sidebar {
-  z-index: 1040;
-}
-
 .modal {
   z-index: 1200;
 }
@@ -5533,8 +5497,23 @@ body {
   border-radius: 0px;
 }
 
+table {
+  border-top: #007bff solid 3px !important;
+}
+
 thead {
+  border-top: #007bff solid 1px;
   color: #007bff;
+}
+
+td {
+  padding-bottom: 6px !important;
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+    max-width: 1200px;
+  }
 }
 
 @-webkit-keyframes bounceIn {

@@ -90243,6 +90243,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 var members = [];
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -90272,7 +90279,7 @@ var members = [];
           sortable: true
         },
         middle_name: {
-          label: "Family name",
+          label: "Middle name",
           sortable: true
         },
         age: {
@@ -90285,7 +90292,7 @@ var members = [];
         },
         actions: {
           label: "Actions",
-          class: "text-center"
+          class: "text-center pt-1 px-0"
         }
       },
       editmode: false,
@@ -90434,7 +90441,7 @@ var render = function() {
               _c(
                 "b-row",
                 [
-                  _c("b-col", { attrs: { md: "6" } }, [
+                  _c("b-col", { attrs: { md: "7" } }, [
                     _c("h1", [_vm._v("Inhabitant")])
                   ]),
                   _vm._v(" "),
@@ -90465,7 +90472,7 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { md: "4" } },
+                    { attrs: { md: "3" } },
                     [
                       _c(
                         "b-input-group",
@@ -90518,7 +90525,7 @@ var render = function() {
                           attrs: { data: _vm.members, name: "Inhabitants.xls" }
                         },
                         [
-                          _vm._v("\n                Export "),
+                          _vm._v("\n                    Export "),
                           _c("i", { staticClass: "fas fa-file-export ml-1" })
                         ]
                       )
@@ -90555,7 +90562,7 @@ var render = function() {
             attrs: {
               hover: "",
               bordered: "",
-              responsive: "xl",
+              responsive: "",
               "show-empty": "",
               "current-page": _vm.currentPage,
               "per-page": _vm.perPage,
@@ -90705,7 +90712,7 @@ var render = function() {
                               expression: "!editmode"
                             }
                           ],
-                          staticClass: "text-center",
+                          staticClass: "modal-title text-center",
                           attrs: { id: "addinhabitantLongTitle" }
                         },
                         [_vm._v("Add New Member")]
@@ -90722,12 +90729,12 @@ var render = function() {
                               expression: "editmode"
                             }
                           ],
-                          staticClass: "text-center",
+                          staticClass: "modal-title text-center",
                           attrs: { id: "addinhabitantLongTitle" }
                         },
                         [
                           _c("i", { staticClass: "fa fa-edit mr-2" }),
-                          _vm._v("Edit Member")
+                          _vm._v("Edit\n                        Member")
                         ]
                       ),
                       _vm._v(" "),
@@ -90744,13 +90751,17 @@ var render = function() {
                           }
                         },
                         [
-                          _c("div", { staticClass: "row" }, [
-                            _c("div", { staticClass: "col" }, [
+                          _c("div", { staticClass: "form-row" }, [
+                            _c("div", { staticClass: "col-md-4" }, [
                               _c(
                                 "div",
                                 { staticClass: "form-group" },
                                 [
-                                  _c("label", [_vm._v("First Name:")]),
+                                  _c(
+                                    "label",
+                                    { attrs: { for: "first_name" } },
+                                    [_vm._v("First Name:")]
+                                  ),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -90769,6 +90780,7 @@ var render = function() {
                                     },
                                     attrs: {
                                       type: "text",
+                                      id: "first_name",
                                       placeholder: "First Name",
                                       name: "first_name"
                                     },
@@ -90795,8 +90807,118 @@ var render = function() {
                                   })
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("label", [_vm._v("Family Name:")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.family_name,
+                                        expression: "form.family_name"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    class: {
+                                      "is-invalid": _vm.form.errors.has(
+                                        "family_name"
+                                      )
+                                    },
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Family Name",
+                                      name: "family_name"
+                                    },
+                                    domProps: { value: _vm.form.family_name },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "family_name",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: {
+                                      form: _vm.form,
+                                      field: "family_name"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-4" }, [
+                              _c(
+                                "div",
+                                { staticClass: "form-group" },
+                                [
+                                  _c("label", [_vm._v("Middle Name:")]),
+                                  _vm._v(" "),
+                                  _c("input", {
+                                    directives: [
+                                      {
+                                        name: "model",
+                                        rawName: "v-model",
+                                        value: _vm.form.middle_name,
+                                        expression: "form.middle_name"
+                                      }
+                                    ],
+                                    staticClass: "form-control",
+                                    class: {
+                                      "is-invalid": _vm.form.errors.has(
+                                        "middle_name"
+                                      )
+                                    },
+                                    attrs: {
+                                      type: "text",
+                                      placeholder: "Middle Name",
+                                      name: "middle_name"
+                                    },
+                                    domProps: { value: _vm.form.middle_name },
+                                    on: {
+                                      input: function($event) {
+                                        if ($event.target.composing) {
+                                          return
+                                        }
+                                        _vm.$set(
+                                          _vm.form,
+                                          "middle_name",
+                                          $event.target.value
+                                        )
+                                      }
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("has-error", {
+                                    attrs: {
+                                      form: _vm.form,
+                                      field: "middle_name"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ])
+                          ]),
+                          _vm._v(" "),
+                          _c("div", { staticClass: "form-row" }, [
+                            _c("div", { staticClass: "col-md-2" }, [
                               _c(
                                 "div",
                                 { staticClass: "form-group" },
@@ -90874,13 +90996,15 @@ var render = function() {
                                   })
                                 ],
                                 1
-                              ),
-                              _vm._v(" "),
+                              )
+                            ]),
+                            _vm._v(" "),
+                            _c("div", { staticClass: "col-md-2" }, [
                               _c(
                                 "div",
                                 { staticClass: "form-group" },
                                 [
-                                  _c("label", [_vm._v("Age")]),
+                                  _c("label", [_vm._v("Age:")]),
                                   _vm._v(" "),
                                   _c("input", {
                                     directives: [
@@ -90917,112 +91041,6 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("has-error", {
                                     attrs: { form: _vm.form, field: "age" }
-                                  })
-                                ],
-                                1
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col" }, [
-                              _c(
-                                "div",
-                                { staticClass: "form-group" },
-                                [
-                                  _c("label", [_vm._v("Family Name:")]),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.family_name,
-                                        expression: "form.family_name"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    class: {
-                                      "is-invalid": _vm.form.errors.has(
-                                        "family_name"
-                                      )
-                                    },
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Family Name",
-                                      name: "family_name"
-                                    },
-                                    domProps: { value: _vm.form.family_name },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "family_name",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("has-error", {
-                                    attrs: {
-                                      form: _vm.form,
-                                      field: "family_name"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col" }, [
-                              _c(
-                                "div",
-                                { staticClass: "form-group" },
-                                [
-                                  _c("label", [_vm._v("Middle Name:")]),
-                                  _vm._v(" "),
-                                  _c("input", {
-                                    directives: [
-                                      {
-                                        name: "model",
-                                        rawName: "v-model",
-                                        value: _vm.form.middle_name,
-                                        expression: "form.middle_name"
-                                      }
-                                    ],
-                                    staticClass: "form-control",
-                                    class: {
-                                      "is-invalid": _vm.form.errors.has(
-                                        "middle_name"
-                                      )
-                                    },
-                                    attrs: {
-                                      type: "text",
-                                      placeholder: "Middle Name",
-                                      name: "middle_name"
-                                    },
-                                    domProps: { value: _vm.form.middle_name },
-                                    on: {
-                                      input: function($event) {
-                                        if ($event.target.composing) {
-                                          return
-                                        }
-                                        _vm.$set(
-                                          _vm.form,
-                                          "middle_name",
-                                          $event.target.value
-                                        )
-                                      }
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("has-error", {
-                                    attrs: {
-                                      form: _vm.form,
-                                      field: "middle_name"
-                                    }
                                   })
                                 ],
                                 1

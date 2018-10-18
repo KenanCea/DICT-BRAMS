@@ -1,11 +1,3 @@
-// Body
-$body-bg: #f8fafc;
-// Typography
-$font-family-sans-serif: "Nunito",
-sans-serif;
-$font-size-base: 0.9rem;
-$line-height-base: 1.6;
-// Colors
 $primary: #0b3d66;
 $blue: #007bff;
 $green: #3cb043;
@@ -18,9 +10,11 @@ $orange: #ff9933;
 $yellow: #ffeb30;
 $teal: #4dc0b5;
 $white: #ffffff;
-.white{
+
+.white {
     color: $white;
 }
+
 .blue {
     color: $blue;
 }
