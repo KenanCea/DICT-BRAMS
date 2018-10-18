@@ -1,14 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito');
 @import 'variables';
-@import '~bootstrap/dist/css/bootstrap.css';
-@import '~bootstrap-vue/dist/bootstrap-vue.css';
-// $fa-font-path: "../webfonts";
-@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
-@import "~@fortawesome/fontawesome-free/scss/solid.scss";
-@import "~@fortawesome/fontawesome-free/scss/brands.scss";
 @import '~admin-lte/dist/css/adminlte.min.css';
-// @import '~material-design-icons-iconfont/dist/material-design-icons.scss';
-// @import '~vuetify/dist/vuetify.min.css';
+@import '~material-design-icons-iconfont/dist/material-design-icons.scss';
+@import "~@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "~@fortawesome/fontawesome-free/scss/brands.scss";
+@import "~@fortawesome/fontawesome-free/scss/solid.scss";
+
 .sidebar-blue-primary {
     background-color: #0E4879;
 }
@@ -179,12 +176,150 @@ body {
 .card {
     border-radius: 0px;
 }
+
+thead {
+    color: #007bff;
+}
+
 // @media (min-width: 992px) {
 //     .modal-lg {
 //         max-width: 1200px;
 //     }
 // }
 
-thead{
-    color: #007bff !important;
+// .animated {
+//     -webkit-animation-duration: 1s;
+//     -webkit-animation-fill-mode: both;
+//     animation-duration: 1s;
+//     animation-fill-mode: both;
+// }
+
+//   @-webkit-keyframes bounceIn {
+//     0%, 20%, 40%, 60%, 80%, to {
+//       -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+//       animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+//     }
+
+//     0% {
+//       -webkit-transform: scale3d(0.3, 0.3, 0.3);
+//       opacity: 0;
+//       transform: scale3d(0.3, 0.3, 0.3);
+//     }
+
+//     20% {
+//       -webkit-transform: scale3d(1.1, 1.1, 1.1);
+//       transform: scale3d(1.1, 1.1, 1.1);
+//     }
+
+//     40% {
+//       -webkit-transform: scale3d(0.9, 0.9, 0.9);
+//       transform: scale3d(0.9, 0.9, 0.9);
+//     }
+
+//     60% {
+//       -webkit-transform: scale3d(1.03, 1.03, 1.03);
+//       opacity: 1;
+//       transform: scale3d(1.03, 1.03, 1.03);
+//     }
+
+//     80% {
+//       -webkit-transform: scale3d(0.97, 0.97, 0.97);
+//       transform: scale3d(0.97, 0.97, 0.97);
+//     }
+
+//     to {
+//       -webkit-transform: scaleX(1);
+//       opacity: 1;
+//       transform: scaleX(1);
+//     }
+//   }
+
+//   @keyframes bounceIn {
+//     0%, 20%, 40%, 60%, 80%, to {
+//       -webkit-animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+//       animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+//     }
+
+//     0% {
+//       -webkit-transform: scale3d(0.3, 0.3, 0.3);
+//       opacity: 0;
+//       transform: scale3d(0.3, 0.3, 0.3);
+//     }
+
+//     20% {
+//       -webkit-transform: scale3d(1.1, 1.1, 1.1);
+//       transform: scale3d(1.1, 1.1, 1.1);
+//     }
+
+//     40% {
+//       -webkit-transform: scale3d(0.9, 0.9, 0.9);
+//       transform: scale3d(0.9, 0.9, 0.9);
+//     }
+
+//     60% {
+//       -webkit-transform: scale3d(1.03, 1.03, 1.03);
+//       opacity: 1;
+//       transform: scale3d(1.03, 1.03, 1.03);
+//     }
+
+//     80% {
+//       -webkit-transform: scale3d(0.97, 0.97, 0.97);
+//       transform: scale3d(0.97, 0.97, 0.97);
+//     }
+
+//     to {
+//       -webkit-transform: scaleX(1);
+//       opacity: 1;
+//       transform: scaleX(1);
+//     }
+//   }
+@-webkit-keyframes bounceIn {
+    0% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+    }
+
+    45% {
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+
+    80% {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+@keyframes bounceIn {
+    0% {
+        -webkit-transform: scale(0.7);
+        transform: scale(0.7);
+    }
+
+    45% {
+        -webkit-transform: scale(1.05);
+        transform: scale(1.05);
+    }
+
+    80% {
+        -webkit-transform: scale(0.95);
+        transform: scale(0.95);
+    }
+
+    100% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+}
+
+.bounceIn {
+    -webkit-animation-duration: .75s;
+    -webkit-animation-name: bounceIn;
+    animation-duration: .3s;
+    animation-name: bounceIn;
 }

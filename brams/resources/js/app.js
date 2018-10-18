@@ -1,11 +1,10 @@
-require('./bootstrap');
 window.Vue = require('vue');
+require('./bootstrap');
 window.Form = Form;
+import BootstrapVue from 'bootstrap-vue'
+Vue.use(BootstrapVue);
 import moment from 'moment';
 import VueProgressBar from 'vue-progressbar';
-import BootstrapVue from 'bootstrap-vue'
-
-Vue.use(BootstrapVue);
 import {
     Form,
     HasError,
@@ -19,8 +18,6 @@ Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
-import Vuetify from 'vuetify';
-Vue.use(Vuetify);
 let routes = [{
     path: '/home',
     component: require('./components/Home.vue')
@@ -96,7 +93,12 @@ let routes = [{
 }, {
     path: '/createaccount',
     component: require('./components/AccountCreate.vue')
-}]
+},
+{
+    path: '/print',
+    component: require('./components/Print.vue')
+}
+]
 Vue.component(
     'passport-clients',
     require('./components/passport/Clients.vue')
@@ -122,18 +124,19 @@ const router = new VueRouter({
     routes
 });
 Vue.use(VueProgressBar, {
-    color: 'rgb(143, 255, 199)',
+    color: '#007bff',
     failedColor: 'red',
-    height: '3px'
+    thickness: '3px'
 });
+import JsonExcel from 'vue-json-excel'
+Vue.component('downloadExcel', JsonExcel)
 Vue.filter('uptext', function (text) {
     return text.charAt(0).toUpperCase() + text.slice(1)
 });
 Vue.filter('myDate', function (created) {
     return moment(created).format('MMMM Do YYYY');
 });
-import Vuelidate from 'vuelidate';
-Vue.use(Vuelidate);
+
 const app = new Vue({
     el: '#app',
     router

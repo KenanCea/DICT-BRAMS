@@ -1,32 +1,37 @@
 <template>
     <b-card fluid v-if="$gate.isUser()">
+        <div>
         <b-row>
-            <b-col md="3" class="my-3">
+            <b-col md="6">
                 <h1>Inhabitant</h1>
             </b-col>
-            <b-col md="4" class="my-3">
-                <b-form-group horizontal label-class="text-md-right" label="Filter" class="mb-0">
-                    <b-input-group>
-                        <b-form-input v-model="filter" placeholder="Type to Search" />
-                        <b-input-group-append>
-                            <b-btn :disabled="!filter" @click="filter = ''">Clear</b-btn>
-                        </b-input-group-append>
-                    </b-input-group>
-                </b-form-group>
+            <b-col md="2">
+                <b-input-group prepend="Show">
+                    <b-form-select :options="pageOptions" v-model="perPage" />
+                </b-input-group>
             </b-col>
-            <b-col md="3" class="my-3">
-                <b-form-group horizontal label="Show" label-class="text-md-right" class="mb-0">
-                    <b-input-group>
-                        <b-form-select slot="append" :options="pageOptions" v-model="perPage" />
-                    </b-input-group>
-                </b-form-group>
-            </b-col>
-            <b-col class="my-3">
-              <b-btn @click="newModal" variant="primary"> Add New </b-btn>
+            <b-col md="4">
+                <b-input-group prepend="Filter">
+                    <b-form-input v-model="filter" placeholder="Type to Search" />
+                </b-input-group>
             </b-col>
         </b-row>
-        <b-table hover bordered stacked=md show-empty :current-page="currentPage" :per-page="perPage"
-            :items="members" :fields="fields" :filter="filter" @filtered="onFiltered">
+        <b-row class="float-right">
+            <b-col class="mb-3">
+                <b-btn variant="primary"> Columns <i class="fas fa-columns ml-1"></i> </b-btn>
+            </b-col>
+            <b-col class="mb-3">
+                <download-excel class="btn btn-primary" :data="members" name="Inhabitants.xls">
+                    Export <i class="fas fa-file-export ml-1"></i>
+                </download-excel>
+            </b-col>
+            <b-col class="mb-3">
+                <b-btn @click="newModal" variant="primary"> Add New <i class="fas fa-user-plus ml-1"></i> </b-btn>
+            </b-col>
+        </b-row>
+        </div>
+        <b-table hover bordered responsive="xl" show-empty :current-page="currentPage" :per-page="perPage" :items="members"
+            :fields="fields" :filter="filter" @filtered="onFiltered">
             <template slot="actions" slot-scope="row">
                 <b-button variant="outline-info" @click.stop="info(row.item, row.index, $event.target)">
                     <i class="fa fa-eye"></i>
@@ -47,145 +52,72 @@
                 <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
             </b-col>
         </b-row>
-        <b-modal id="modalInfo" no-fade @hide="resetModal" :title="modalInfo.title" ok-only>
+        <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
             <pre>{{ modalInfo.content }}</pre>
         </b-modal>
-        <div class="modal no-fade justify-content-center" id="addinhabitant" tabindex="-1" role="dialog" aria-labelledby="addinhabitantTitle" aria-hidden="true">
+        <div class="modal bounceIn justify-content-center" id="addinhabitant" tabindex="-1" role="dialog"
+            aria-labelledby="addinhabitantTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title text-center" v-show="!editmode" id="addinhabitantLongTitle">Add New Member</h4>
-                        <h4 class="modal-title text-center" v-show="editmode" id="addinhabitantLongTitle">Edit Member</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
+                    <div class="modal-body">
+                    <h2 class="text-center" v-show="!editmode" id="addinhabitantLongTitle">Add New Member</h2>
+                    <h2 class="text-center" v-show="editmode" id="addinhabitantLongTitle"><i class="fa fa-edit mr-2"></i>Edit Member</h2>
                     <form @submit.prevent="editmode ? updateMember() : createMember()">
-                        <div class="modal-body mt-2">
-                            <div class="row">
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>First Name:</label>
-                                        <input v-model="form.first_name" type="text" placeholder="First Name" name="first_name" class="form-control" :class="{ 'is-invalid': form.errors.has('first_name') }">
-                                        <has-error :form="form" field="first_name"></has-error>
-                                        <!-- <div class="error" v-if="!$v.name.required">Field is required</div> -->
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex" class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Age</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control" :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
-                                    </div>
-                                    <!--
-                                    <div class="form-group">
-                                        <label>Place of Birth:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control" :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Email Address:</label>
-                                        <input v-model="form.email" type="text" placeholder="Email Address" name="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
-                                        <has-error :form="form" field="email"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Religion:</label>
-                                        <input v-model="form.religion" type="text" placeholder="Religion" name="religion" class="form-control" :class="{ 'is-invalid': form.errors.has('religion') }">
-                                        <has-error :form="form" field="religion"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Ethnic Group:</label>
-                                        <input v-model="form.ethnic" type="text" placeholder="Ethnic" name="ethnic" class="form-control" :class="{ 'is-invalid': form.errors.has('ethnic') }">
-                                        <has-error :form="form" field="ethnic"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Dialect:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control" :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Citizenship:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control" :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
-                                    </div>
--->
-
+                        <div class="row">
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>First Name:</label>
+                                    <input v-model="form.first_name" type="text" placeholder="First Name" name="first_name"
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('first_name') }">
+                                    <has-error :form="form" field="first_name"></has-error>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Family Name:</label>
-                                        <input v-model="form.family_name" type="text" placeholder="Family Name" name="family_name" class="form-control" :class="{ 'is-invalid': form.errors.has('family_name') }">
-                                        <has-error :form="form" field="family_name"></has-error>
-                                    </div>
-                                    <!--
-                                    <div class="form-group">
-                                        <label>Schooling:</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Highest Educational Attaintment:</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Civil Status:</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Height(cm):</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Weight(kg):</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Blood Type:</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Family Income:</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
--->
+                                <div class="form-group">
+                                    <label>Gender:</label>
+                                    <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex" class="form-control"
+                                        :class="{ 'is-invalid': form.errors.has('sex') }">
+                                        <option value="">Select Gender</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                    </select>
+                                    <has-error :form="form" field="sex"></has-error>
                                 </div>
-                                <div class="col">
-                                    <div class="form-group">
-                                        <label>Middle Name:</label>
-                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name" class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
-                                        <has-error :form="form" field="middle_name"></has-error>
-                                    </div>
+                                <div class="form-group">
+                                    <label>Age</label>
+                                    <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                        :class="{ 'is-invalid': form.errors.has('age') }">
+                                    <has-error :form="form" field="age"></has-error>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Family Name:</label>
+                                    <input v-model="form.family_name" type="text" placeholder="Family Name" name="family_name"
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('family_name') }">
+                                    <has-error :form="form" field="family_name"></has-error>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label>Middle Name:</label>
+                                    <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name"
+                                        class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
+                                    <has-error :form="form" field="middle_name"></has-error>
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn bg-red" data-dismiss="modal">Close</button>
-                            <button type="submit" class="btn bg-green">Save</button>
+                        <div class="text-center"> 
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                         </div>
                     </form>
+                    </div>
                 </div>
             </div>
         </div>
     </b-card>
 </template>
-
-
 <script>
 const members = [];
-import { required, minLength, between } from 'vuelidate/lib/validators'
 export default {
   data() {
     return {
@@ -199,38 +131,36 @@ export default {
         title: "",
         content: ""
       },
-      fields: [
-        {
-          key: "id",
-          label: "ID",
+      fields: {
+        id: {
+          label: "No.",
           sortable: true
         },
-        {
-          key: "family_name",
-          label: "Family Name",
+        first_name: {
+          label: "First name",
           sortable: true
         },
-        {
-          key: "first_name",
-          label: "First Name",
+        family_name: {
+          label: "Family name",
           sortable: true
         },
-        {
-          key: "middle_name",
-          label: "Middle Name",
+        middle_name: {
+          label: "Family name",
           sortable: true
         },
-        {
-          key: "age",
-          label: "Person age",
+        age: {
+          label: "Age",
           sortable: true
         },
-        {
-          key: "actions",
+        sex: {
+          label: "Gender",
+          sortable: true
+        },
+        actions: {
           label: "Actions",
-          'class': 'text-center'
+          class: "text-center"
         }
-      ],
+      },
       editmode: false,
       form: new Form({
         id: "",
@@ -242,11 +172,6 @@ export default {
       })
     };
   },
-  validations: {
-    name: {
-      required
-    }
-    },
   created() {
     this.loadMember();
     Fire.$on("AfterDo", () => {
@@ -255,8 +180,12 @@ export default {
   },
   methods: {
     loadMember() {
+      this.$Progress.start();
       if (this.$gate.isUser()) {
-        axios.get("api/member").then(({ data }) => (this.members = data.data));
+        axios.get("api/member").then(({ data }) => {
+          this.members = data.data;
+          this.$Progress.finish();
+        });
       }
     },
     createMember() {
@@ -280,8 +209,8 @@ export default {
         .then(() => {
           $("#addinhabitant").modal("hide");
           swal("Updated!", "Member has been updated.", "success");
-          this.$Progress.finish();
           Fire.$emit("AfterDo");
+          this.$Progress.finish();
         })
         .catch(() => {
           this.$Progress.fail();
@@ -298,11 +227,13 @@ export default {
         confirmButtonText: "Yes, delete it!"
       }).then(result => {
         if (result.value) {
+          this.$Progress.start();
           this.form
             .delete("api/member/" + id)
             .then(() => {
               swal("Deleted!", "Member has been deleted.", "success");
               Fire.$emit("AfterDo");
+              this.$Progress.finish();
             })
             .catch(() => {
               this.$Progress.fail();
@@ -310,6 +241,10 @@ export default {
             });
         }
       });
+    },
+    resetModal() {
+      this.modalInfo.title = "";
+      this.modalInfo.content = "";
     },
     editModal(member) {
       this.editmode = true;
@@ -331,9 +266,8 @@ export default {
       this.modalInfo.content = JSON.stringify(item, null, 2);
       this.$root.$emit("bv::show::modal", "modalInfo", button);
     },
-    resetModal() {
-      this.modalInfo.title = "";
-      this.modalInfo.content = "";
+    show() {
+      this.$modal.show("hello-world");
     }
   },
   computed: {

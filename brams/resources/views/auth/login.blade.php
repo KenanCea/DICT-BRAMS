@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-6 p-5">
             <h1 class="text-center mt-3 mb-5 pc-1">Barangay Record Automation Management System</h1>
-            <h6 class="text-center mb-4">Welcome back! Please login to your account.</h6>
+            <h6 class="text-center mb-4">Welcome! Please login to your account.</h6>
             <form method="POST" action="{{ route('login') }}">
                 @csrf
                 <div class="form-group row">
