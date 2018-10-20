@@ -143,8 +143,13 @@ body {
 }
 
 // boostrap costum
+.p-body{
+    padding: 90px 20px 20px 20px !important;
+
+}
+
 .mt-lg-5 {
-    margin-top: 3.5rem !important;
+    margin-top: 4rem !important;
 }
 
 .pt-xs-5 {
@@ -185,10 +190,20 @@ thead {
 td{
     padding-bottom: 6px !important;
 }
+.fixed-bottom{
+    z-index: 1000 !important
+}
 
+.modal-body {
+    max-height: calc(100vh - 210px);
+    overflow-y: auto;
+}
+.modal-title{
+    font-weight: bold !important
+}
 @media (min-width: 992px) {
     .modal-lg {
-        max-width: 1200px;
+        max-width: 80%;
     }
 }
 

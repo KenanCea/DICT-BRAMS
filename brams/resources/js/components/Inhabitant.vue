@@ -59,11 +59,15 @@
             aria-labelledby="addinhabitantTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
-                    <div class="modal-body">
-                        <h2 class="modal-title text-center" v-show="!editmode" id="addinhabitantLongTitle">Add New Member</h2>
-                        <h2 class="modal-title text-center" v-show="editmode" id="addinhabitantLongTitle"><i class="fa fa-edit mr-2"></i>Edit
-                            Member</h2>
-                        <form @submit.prevent="editmode ? updateMember() : createMember()">
+                    <form @submit.prevent="editmode ? updateMember() : createMember()">
+                        <div class="modal-header py-2">
+                            <h4 class="modal-title" v-show="!editmode" id="addinhabitantLongTitle"> <i class="fas fa-plus-square blue"></i> ADD
+                                NEW MEMBER</h4>
+                            <h4 class="modal-title" v-show="editmode" id="addinhabitantLongTitle"><i class="fas fa-pen-square blue"></i> EDIT MEMBER
+                                </h4>
+                            <button type="button" class="close" data-dismiss="modal"> <i class="fas fa-times mt-2"></i></button>
+                        </div>
+                        <div class="modal-body">
                             <div class="form-row">
                                 <div class="col-md-4">
                                     <div class="form-group">
@@ -112,12 +116,194 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Save Changes</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer py-2">
+
+
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+
+                        </div>
+                    </form>
+
+
+
                 </div>
             </div>
         </div>

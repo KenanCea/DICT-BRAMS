@@ -1,9 +1,7 @@
 <template>
-    <div class="container">
-        <div class="container-fluid p-0">
-            <h2>Account</h2>
-        </div>
-        <div class="container-fluid p-0">
+    <div>
+        <h2>Account</h2>
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-3">
                     <div class="card card-primary card-outline">
@@ -11,14 +9,21 @@
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle" :src="getProfileLogo()" alt="User logo">
                             </div>
-                            <h3 class="profile-username">name</h3>
+
+                            <h3 class="profile-username">name
+                                <!--                                <input type="text" readonly class="form-control-plaintext text-center" v-model="form.name">-->
+                            </h3>
+
                             <input type="text" readonly class="form-control-plaintext text-center text-muted" v-model="form.type">
+
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Date Created</b> <input type="text" readonly class="form-control-plaintext text-center" v-model="form.created_at">
+                                    <b>Date Created</b> <input type="text" readonly class="form-control-plaintext text-center"
+                                        v-model="form.created_at">
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Date Updated</b> <input type="text" readonly class="form-control-plaintext text-center" v-model="form.created_at">
+                                    <b>Date Updated</b> <input type="text" readonly class="form-control-plaintext text-center"
+                                        v-model="form.created_at">
                                 </li>
                             </ul>
                         </div>
@@ -41,15 +46,19 @@
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="inputName" class="col-sm-2 control-label">Name</label>
+
                                             <div class="col-sm-12">
-                                                <input type="" v-model="form.name" class="form-control" id="inputName" placeholder="Name" :class="{ 'is-invalid': form.errors.has('name') }">
+                                                <input type="" v-model="form.name" class="form-control" id="inputName"
+                                                    placeholder="Name" :class="{ 'is-invalid': form.errors.has('name') }">
                                                 <has-error :form="form" field="name"></has-error>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+
                                             <div class="col-sm-12">
-                                                <input type="email" v-model="form.email" class="form-control" id="inputEmail" placeholder="Email" :class="{ 'is-invalid': form.errors.has('email') }">
+                                                <input type="email" v-model="form.email" class="form-control" id="inputEmail"
+                                                    placeholder="Email" :class="{ 'is-invalid': form.errors.has('email') }">
                                                 <has-error :form="form" field="email"></has-error>
                                             </div>
                                         </div>
@@ -58,14 +67,20 @@
                                             <div class="col-sm-12">
                                                 <input type="file" @change="updateProfile" name="photo" class="form-input">
                                             </div>
+
                                         </div>
+
                                         <div class="form-group">
-                                            <label for="password" class="col-sm-12 control-label">Password (leave empty if not changing)</label>
+                                            <label for="password" class="col-sm-12 control-label">Password (leave empty
+                                                if not changing)</label>
+
                                             <div class="col-sm-12">
-                                                <input type="password" v-model="form.password" class="form-control" id="password" placeholder="Password" :class="{ 'is-invalid': form.errors.has('password') }">
+                                                <input type="password" v-model="form.password" class="form-control" id="password"
+                                                    placeholder="Password" :class="{ 'is-invalid': form.errors.has('password') }">
                                                 <has-error :form="form" field="password"></has-error>
                                             </div>
                                         </div>
+
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-12">
                                                 <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update</button>
@@ -81,6 +96,7 @@
         </div>
     </div>
 </template>
+
 <script>
 export default {
   data() {
@@ -104,9 +120,6 @@ export default {
     });
   },
   methods: {
-    loadInfo() {
-      axios.get("api/profile").then(({ data }) => this.form.fill(data));
-    },
     getProfileLogo() {
       let photo =
         this.form.photo.length > 200
@@ -129,6 +142,9 @@ export default {
         .catch(() => {
           this.$Progress.fail();
         });
+    },
+    loadInfo() {
+      axios.get("api/profile").then(({ data }) => this.form.fill(data));
     },
     updateProfile(e) {
       let file = e.target.files[0];

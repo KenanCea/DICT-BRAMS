@@ -1,5 +1,4 @@
-$primary: #0b3d66;
-$blue: #007bff;
+$blue: #3B86FF;
 $green: #3cb043;
 $cyan: #00ccff;
 $indigo: #A3A0FB;
@@ -9,12 +8,7 @@ $red: #FF3B3B;
 $orange: #ff9933;
 $yellow: #ffeb30;
 $teal: #4dc0b5;
-$white: #ffffff;
-
-.white {
-    color: $white;
-}
-
+$white: #e9ebee;
 .blue {
     color: $blue;
 }
@@ -30,12 +24,10 @@ $white: #ffffff;
 .cyan {
     color: $cyan;
 }
-
-.bg-primary {
-    background-color: $primary;
-    color: #fff;
+.bg-white{
+    background-color: $white;
+    color: $white;
 }
-
 .bg-green {
     background-color: $green;
     color: #fff;

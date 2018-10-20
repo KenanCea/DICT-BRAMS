@@ -6,6 +6,9 @@
 
         <title>Laravel</title>
 
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet" type="text/css">
+
         <!-- Styles -->
         <style>
             html, body {

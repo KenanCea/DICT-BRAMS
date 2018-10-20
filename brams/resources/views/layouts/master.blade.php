@@ -25,10 +25,14 @@
                 </div>
             </form>
             <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                <a class="nav-link px-2" data-toggle="dropdown" href="#"> <i class="fas fa-life-ring"></i></a>
+                </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link" data-toggle="dropdown" href="#"> <i class="fas fa-bell" style="font-size:20px"></i>
-                        <span class="badge badge-danger navbar-badge" style="font-size:9px; border-radius:50%;">3</span></a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <span class="dropdown-header">15 Notifications</span>
+                    <a class="nav-link px-2" data-toggle="dropdown" href="#"> <i class="fas fa-bell"></i>
+                        <!-- <span class="badge badge-danger navbar-badge" style="font-size:12px; border-radius:50%;">3</span></a> -->
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> 
+                        <span class="dropdown-header">Notifications</span>
                         <div class="dropdown-divider"></div>
                         <a href="#" class="dropdown-item"> <i class="fa fa-envelope mr-2"></i> 4 new messages <span class="float-right text-muted text-sm">3 mins</span> </a>
                         <div class="dropdown-divider"></div>
@@ -39,9 +43,9 @@
                     </div>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="nav-link p-0" data-toggle="dropdown" href="#">
+                    <a class="nav-link p-1" data-toggle="dropdown" href="#">
                         <div class="user-panel d-flex">
-                        <div class="image"> <i class="right fa fa-angle-down mr-2"></i><img class="img-circle" src="/img/profile/{{ Auth::user()->photo }}" alt="Logo"></div>
+                        <div class="image"><img src="/img/profile/{{ Auth::user()->photo }}" alt="Logo"></div>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->name }} </a>
@@ -64,12 +68,12 @@
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        @can('isUser')
                         <li class="nav-item">
                             <router-link to="/home" class="nav-link"> <i class="nav-icon fas fa-home"></i>
                                 <p> Home </p>
                             </router-link>
                         </li>
-                        @can('isUser')
                         <li class="nav-item">
                             <router-link to="/dashboard" class="nav-link"> <i class="nav-icon fas fa-chart-bar"></i>
                                 <p> Dashboard </p>
@@ -202,12 +206,12 @@
             </div>
         </aside>
         <div class="content-wrapper">
-            <div class="container-fluid mt-lg-5 p-3">
+            <div class="container-fluid p-body">
                 <router-view></router-view>
                 <vue-progress-bar></vue-progress-bar>
             </div>
         </div>
-        <footer class="main-footer"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>
+        <footer class="main-footer fixed-bottom"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>
     </div>
     @auth
     <script>

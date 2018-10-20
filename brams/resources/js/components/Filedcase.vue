@@ -1,34 +1,20 @@
 <template>
-  <modal name="example"
-         :width="300"
-         :height="300"
-         @before-open="beforeOpen"
-         @before-close="beforeClose">
-    <b>{{time}}</b>
-  </modal>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card card-default">
+                   
+
+                    <div class="card-body">
+                        Home
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
+
 <script>
-export default {
-  name: 'ExampleModal',
-  data () {
-    return {
-      time: 0,
-      duration: 5000
+    export default {
     }
-  },
-  methods: {
-    beforeOpen (event) {
-      console.log(event)
-      // Set the opening time of the modal
-      this.time = Date.now()
-    },
-    beforeClose (event) {
-      console.log(event)
-      // If modal was open less then 5000 ms - prevent closing it
-      if (this.time + this.duration < Date.now()) {
-        event.stop()
-      }
-    }
-  }
-}
 </script>
