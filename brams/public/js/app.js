@@ -82378,7 +82378,7 @@ var Gate = function () {
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
-* sweetalert2 v7.28.4
+* sweetalert2 v7.28.5
 * Released under the MIT License.
 */
 (function (global, factory) {
@@ -84218,7 +84218,11 @@ var openPopup = function openPopup(params) {
   if (isModal()) {
     fixScrollbar();
     iOSfix();
-    setAriaHidden();
+    setAriaHidden(); // sweetalert2/issues/1247
+
+    setTimeout(function () {
+      container.scrollTop = 0;
+    });
   }
 
   if (!isToast() && !globalState.previousActiveElement) {
@@ -84976,7 +84980,7 @@ Swal.default = Swal;
 return Swal;
 
 })));
-if (typeof window !== 'undefined' && window.Sweetalert2){  window.Sweetalert2.version = '7.28.4';  window.swal = window.sweetAlert = window.Swal = window.SweetAlert = window.Sweetalert2}
+if (typeof window !== 'undefined' && window.Sweetalert2){  window.Sweetalert2.version = '7.28.5';  window.swal = window.sweetAlert = window.Swal = window.SweetAlert = window.Sweetalert2}
 
 "undefined"!=typeof document&&function(e,t){var n=e.createElement("style");if(e.getElementsByTagName("head")[0].appendChild(n),n.styleSheet)n.styleSheet.disabled||(n.styleSheet.cssText=t);else try{n.innerHTML=t}catch(e){n.innerText=t}}(document,"@-webkit-keyframes swal2-show {\n" +
 "  0% {\n" +
@@ -98216,7 +98220,7 @@ exports = module.exports = __webpack_require__(14)(false);
 
 
 // module
-exports.push([module.i, "\n.action-link[data-v-397d14ca] {\n  cursor: pointer;\n}\n", ""]);
+exports.push([module.i, "\n.action-link[data-v-397d14ca] {\r\n  cursor: pointer;\n}\r\n", ""]);
 
 // exports
 

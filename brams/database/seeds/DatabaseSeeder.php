@@ -16,7 +16,7 @@ class DatabaseSeeder extends Seeder
         if (DB::table('users')->get()->count() == 0) {
             DB::table('users')->insert([
                 [
-                    'name' => ('admin'),
+                    'username' => ('admin'),
                     'email' => ('admin@gmail.com'),
                     'password' => bcrypt('secret'),
                     'type' => ('admin'),
@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
                     'created_at' => now(),
                     'updated_at' => now()
                 ], [
-                    'name' => ('user'),
+                    'username' => ('baguio_ambiong'),
                     'email' => ('user@gmail.com'),
                     'password' => bcrypt('secret'),
                     'type' => ('user'),
