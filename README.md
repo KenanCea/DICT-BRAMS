@@ -24,9 +24,8 @@ git clone https://github.com/KenanCea/DICT-BRAMS.git
 * Run ` php artisan key:generate `
 * Run ` npm run watch `
 * Run ` php artisan serve `
-* Run ` php artisan passport:install `
 * Go to ` localhost:8000 `
-
+* Run ` php artisan passport:keys `
 
 ## Login Credentials
 * Admin: admin
