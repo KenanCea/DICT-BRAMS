@@ -21,9 +21,11 @@
                     <b-btn variant="primary"> Columns <i class="fas fa-columns ml-1"></i> </b-btn>
                 </b-col>
                 <b-col class="mb-3">
+                    <a @click="generate()" class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
                     <download-excel class="btn btn-primary" :data="members" name="Inhabitants.xls">
                         Export <i class="fas fa-file-export ml-1"></i>
                     </download-excel>
+                    <a @click="generateWord()" class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a>
                 </b-col>
                 <b-col class="mb-3">
                     <b-btn @click="newModal" variant="primary"> Add New <i class="fas fa-user-plus ml-1"></i> </b-btn>
@@ -310,6 +312,10 @@
     </b-card>
 </template>
 <script>
+import * as jsPDF from 'jspdf';
+import * as autoTable from 'jspdf-autotable';
+import saveAs from 'file-saver';
+import htmlDocx from 'html-docx-js/dist/html-docx';
 const members = [];
 export default {
   data() {
@@ -394,6 +400,40 @@ export default {
         .catch(() => {
           this.$Progress.fail();
         });
+    },
+    generate(){ 
+        var trial = this
+        var columns = [
+            {title: "ID", dataKey: "id"},
+            {title: "First Name", dataKey: "first_name"},
+            {title: "Middle Name", dataKey: "middle_name"},
+            {title: "Last Name", dataKey:"family_name"},
+            {title: "Age", dataKey:"age"},
+            {title: "Gender", dataKey:"sex"},
+            {title: "Date Created", dataKey:"created_at"},
+        ];
+        var doc = new jsPDF('p','pt');
+        doc.autoTable(columns, trial.members);
+        doc.save("trial" + '.pdf');
+    },
+    generateWord(){
+        var content = document.getElementsByClassName("card-body table-responsive p-0")[0];
+        var copy = content.cloneNode(true);
+        content.getElementsByTagName("TABLE")[0].style.width = "100%";
+        content.getElementsByTagName("TABLE")[0].style.borderCollapse = "collapse";
+        content.getElementsByTagName("TR")[0].style.backgroundColor = "#5c85d6";
+        content.getElementsByTagName("TR")[0].style.color = "white";
+        for(var ctr=0; content.getElementsByTagName("TR")[ctr]!=null ;ctr++){
+            if(ctr%2==1){
+                content.getElementsByTagName("TR")[ctr].style.backgroundColor = "#f2f2f2";
+            }
+            content.getElementsByTagName("TR")[ctr].lastChild.remove();
+        }
+        var converted = htmlDocx.asBlob(content.innerHTML);
+        saveAs(converted, 'test.docx');
+        document.getElementsByClassName("card-body table-responsive p-0")[0].children[0].remove();
+        document.getElementsByClassName("card-body table-responsive p-0")[0].appendChild(copy);
+        
     },
     updateMember() {
       this.$Progress.start();
