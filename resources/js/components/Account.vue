@@ -48,9 +48,9 @@
                                             <label for="inputName" class="col-sm-2 control-label">Name</label>
 
                                             <div class="col-sm-12">
-                                                <input type="" v-model="form.name" class="form-control" id="inputName"
-                                                    placeholder="Name" :class="{ 'is-invalid': form.errors.has('name') }">
-                                                <has-error :form="form" field="name"></has-error>
+                                                <input type="" v-model="form.username" class="form-control" id="inputName"
+                                                    placeholder="Name" :class="{ 'is-invalid': form.errors.has('username') }">
+                                                <has-error :form="form" field="username"></has-error>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -103,7 +103,7 @@ export default {
     return {
       form: new Form({
         id: "",
-        name: "",
+        username: "",
         email: "",
         password: "",
         type: "",

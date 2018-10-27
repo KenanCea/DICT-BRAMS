@@ -61,10 +61,12 @@
                 <div class="modal-content">
                     <form @submit.prevent="editmode ? updateMember() : createMember()">
                         <div class="modal-header py-2">
-                            <h4 class="modal-title" v-show="!editmode" id="addinhabitantLongTitle"> <i class="fas fa-plus-square blue"></i> ADD
+                            <h4 class="modal-title" v-show="!editmode" id="addinhabitantLongTitle"> <i class="fas fa-plus-square blue"></i>
+                                ADD
                                 NEW MEMBER</h4>
-                            <h4 class="modal-title" v-show="editmode" id="addinhabitantLongTitle"><i class="fas fa-pen-square blue"></i> EDIT MEMBER
-                                </h4>
+                            <h4 class="modal-title" v-show="editmode" id="addinhabitantLongTitle"><i class="fas fa-pen-square blue"></i>
+                                EDIT MEMBER
+                            </h4>
                             <button type="button" class="close" data-dismiss="modal"> <i class="fas fa-times mt-2"></i></button>
                         </div>
                         <div class="modal-body">
@@ -115,195 +117,119 @@
                                         <has-error :form="form" field="age"></has-error>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-md-2">
-                                    <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Gender:</label>
-                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
-                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
-                                            <option value="">Select Gender</option>
-                                            <option value="male">Male</option>
-                                            <option value="female">Female</option>
-                                        </select>
-                                        <has-error :form="form" field="sex"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
-                                <div class="col-md-2">
+                                <div class="col-md-4">
                                     <div class="form-group">
-                                        <label>Age:</label>
-                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
-                                            :class="{ 'is-invalid': form.errors.has('age') }">
-                                        <has-error :form="form" field="age"></has-error>
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Dummy:</label>
+                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
+                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="modal-footer py-2">
-
-
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <button type="submit" class="btn btn-primary">Save changes</button>
-
                         </div>
                     </form>
-
-
-
                 </div>
             </div>
         </div>

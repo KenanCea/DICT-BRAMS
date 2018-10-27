@@ -45,10 +45,10 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link p-1" data-toggle="dropdown" href="#">
                         <div class="user-panel d-flex">
-                        <div class="image"><img src="/img/profile/{{ Auth::user()->photo }}" alt="Logo"></div>
+                        <div class="image"><img src="/img/profile/{{ Auth::user()->photo }}" class="img-circle" alt="Logo"></div>
                         </div>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->name }} </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->username }} </a>
                         <div class="dropdown-divider"></div>
                         <router-link to="/account" class="dropdown-item"> <i class="fas fa-user mr-2"></i> Account Info </router-link>
                         @can('isUser')
