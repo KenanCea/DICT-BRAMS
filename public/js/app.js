@@ -92636,6 +92636,72 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -92647,26 +92713,261 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _vm.$gate.isUser()
+    ? _c(
+        "b-card",
+        { attrs: { fluid: "" } },
+        [
+          _c(
+            "b-card",
+            [
+              _c(
+                "b-row",
+                { staticClass: "p-0" },
+                [
+                  _c("b-col", { attrs: { md: "6" } }, [
+                    _c("h1", [_vm._v("Barangay Clearance")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { md: "2" } },
+                    [
+                      _c("b-btn", { attrs: { variant: "primary" } }, [
+                        _vm._v(" Add New "),
+                        _c("i", { staticClass: "fas fa-user-plus ml-1" })
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { md: "2" } },
+                    [
+                      _c("b-btn", { attrs: { variant: "primary" } }, [
+                        _vm._v(" Add New "),
+                        _c("i", { staticClass: "fas fa-user-plus ml-1" })
+                      ])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { attrs: { md: "2" } },
+                    [
+                      _c("b-btn", { attrs: { variant: "primary" } }, [
+                        _vm._v(" Add New "),
+                        _c("i", { staticClass: "fas fa-user-plus ml-1" })
+                      ])
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-card",
+            [
+              _c(
+                "b-row",
+                { staticClass: "justify-content-md-center green border-b" },
+                [
+                  _c("b-col", { staticClass: "p-0", attrs: { md: "1" } }, [
+                    _c("img", {
+                      staticClass: "img-fluid img-circle",
+                      attrs: { src: "/img/baguio-logo.png", alt: "Baguio logo" }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "text-center pt-3", attrs: { md: "7" } },
+                    [
+                      _c("p", { staticClass: "font-italic mb-1" }, [
+                        _vm._v("Republic of the Philippines")
+                      ]),
+                      _vm._v(" "),
+                      _c("h5", { staticClass: "font-weight-bold mb-1" }, [
+                        _vm._v("AMBIONG-BAGUIO BARANGAY")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic" }, [
+                        _vm._v("Aurora Hill, Baguio City")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("b-col", { staticClass: "p-0", attrs: { md: "1" } }, [
+                    _c("img", {
+                      staticClass: "img-fluid img-circle",
+                      attrs: { src: "/img/profile.png", alt: "Baguio logo" }
+                    })
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                { staticClass: "justify-content-md-center mb-3" },
+                [
+                  _c("b-col", { staticClass: "text-center pt-1" }, [
+                    _c("p", { staticClass: "font-italic mb-4" }, [
+                      _vm._v("Office of the Punong Barangay")
+                    ]),
+                    _vm._v(" "),
+                    _c("h3", { staticClass: "font-weight-bold" }, [
+                      _vm._v("BARANGAY CLEARANCE")
+                    ])
+                  ])
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-row",
+                [
+                  _c(
+                    "b-col",
+                    { staticClass: "border-r text-center", attrs: { md: "3" } },
+                    [
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Punong Barangay")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Committee Chairman on Peace and Order")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v(
+                          "Committee Chairman on Infrastructure Projects and Street/Alley Lights"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Committee Chairman on Legal and Research")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Committee Chairman on Healt and Sanitation")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Committee Chairman on Ways and Means")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Committee Chairman on Social Services")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Barangay Secretary")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "mb-1 text-uppercase" }, [
+                        _vm._v("Randy P. Gati")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "font-italic green" }, [
+                        _vm._v("Barangay Treasurer")
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-col",
+                    { staticClass: "border-l ml-1", attrs: { md: "8" } },
+                    [
+                      _c("p", [_vm._v("TO WHOM IT MAY CONCERN")]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "This is to certify____________________________, ________ years old, __________________ citizen\n                    , a native of _______________________________ and presently residing at _______________________________\n                    and whose signature appears hereunder, has no pending adverse cases and deragatory records filed\n                    against __________________ per available records on file with this office as of the date of issuance thereof.\n                "
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v("Issued _________________________ purposes.")
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [
+                        _vm._v(
+                          "Issued this _______ day of ________________ at Ambiong-Baguio Barangay, Baguio City, Philippines"
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("(Name Signature of Applicant)")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Com. tax Cert #:")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Issued on")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Issued at")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("OR No.")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("CERTIFIED AND ISSUED BY:")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("RANDY P GATI")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Punong Barangay")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Control No.")]),
+                      _vm._v(" "),
+                      _c("p", [_vm._v("Note: Not valid without Barangay Seal")])
+                    ]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    : _vm._e()
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-12" }, [
-          _c("div", { staticClass: "card card-default" }, [
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v("\n                    Home\n                ")
-            ])
-          ])
-        ])
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {

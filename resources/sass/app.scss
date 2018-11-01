@@ -116,6 +116,18 @@ body {
     z-index: 1040;
 }
 // boostrap costum
+.form-border{
+    border: #212529 2px solid
+}
+.border-b{
+    border-bottom: #827717 solid 3px;
+}
+.border-r{
+    border-right: #4CAF50 solid 3px;
+}
+.border-l{
+    border-left: #2196F3 solid 3px;
+}
 .p-body{
     padding: 75px 15px 50px 15px !important;
 }
