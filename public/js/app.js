@@ -92702,6 +92702,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
@@ -92719,13 +92720,13 @@ var render = function() {
         { attrs: { fluid: "" } },
         [
           _c(
-            "b-card",
+            "div",
+            {},
             [
               _c(
                 "b-row",
-                { staticClass: "p-0" },
                 [
-                  _c("b-col", { attrs: { md: "6" } }, [
+                  _c("b-col", { attrs: { md: "7" } }, [
                     _c("h1", [_vm._v("Barangay Clearance")])
                   ]),
                   _vm._v(" "),
@@ -92733,34 +92734,40 @@ var render = function() {
                     "b-col",
                     { attrs: { md: "2" } },
                     [
-                      _c("b-btn", { attrs: { variant: "primary" } }, [
-                        _vm._v(" Add New "),
-                        _c("i", { staticClass: "fas fa-user-plus ml-1" })
-                      ])
+                      _c(
+                        "b-btn",
+                        {
+                          staticClass: "float-right",
+                          attrs: { variant: "primary" }
+                        },
+                        [
+                          _vm._v(" Export "),
+                          _c("i", { staticClass: "fas fa-file-export ml-1" })
+                        ]
+                      )
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
                     "b-col",
-                    { attrs: { md: "2" } },
+                    { attrs: { md: "3" } },
                     [
-                      _c("b-btn", { attrs: { variant: "primary" } }, [
-                        _vm._v(" Add New "),
-                        _c("i", { staticClass: "fas fa-user-plus ml-1" })
-                      ])
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { attrs: { md: "2" } },
-                    [
-                      _c("b-btn", { attrs: { variant: "primary" } }, [
-                        _vm._v(" Add New "),
-                        _c("i", { staticClass: "fas fa-user-plus ml-1" })
-                      ])
+                      _c(
+                        "b-input-group",
+                        [
+                          _c(
+                            "b-input-group-prepend",
+                            { attrs: { "is-text": "" } },
+                            [_c("i", { staticClass: "fas fa-search-plus" })]
+                          ),
+                          _vm._v(" "),
+                          _c("b-form-input", {
+                            attrs: { placeholder: "Search Inhabitant" }
+                          })
+                        ],
+                        1
+                      )
                     ],
                     1
                   )

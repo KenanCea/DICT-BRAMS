@@ -1,21 +1,23 @@
 <template>
     <b-card fluid v-if="$gate.isUser()">
-        <b-card>
-            <b-row class="p-0">
-                <b-col md="6">
+        <div class="">
+            <b-row>
+                <b-col md="7">
                     <h1>Barangay Clearance</h1>
                 </b-col>
                 <b-col md="2">
-                    <b-btn variant="primary"> Add New <i class="fas fa-user-plus ml-1"></i> </b-btn>
+                    <b-btn variant="primary" class="float-right"> Export <i class="fas fa-file-export ml-1"></i> </b-btn>
                 </b-col>
-                <b-col md="2">
-                    <b-btn variant="primary"> Add New <i class="fas fa-user-plus ml-1"></i> </b-btn>
-                </b-col>
-                <b-col md="2">
-                    <b-btn variant="primary"> Add New <i class="fas fa-user-plus ml-1"></i> </b-btn>
+                <b-col md="3">
+                    <b-input-group>
+                    <b-input-group-prepend is-text>
+                        <i class="fas fa-search-plus"></i>
+                    </b-input-group-prepend>
+                    <b-form-input placeholder="Search Inhabitant" />
+                    </b-input-group>
                 </b-col>
             </b-row>
-        </b-card>
+        </div>
         <b-card>
             <b-row class="justify-content-md-center green border-b">
                 <b-col md="1" class="p-0"><img class="img-fluid img-circle" src="/img/baguio-logo.png" alt="Baguio logo"></b-col>
@@ -77,7 +79,6 @@
         </b-card>
     </b-card>
 </template>
-
 <script>
 export default {};
 </script>
