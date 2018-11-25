@@ -5370,7 +5370,7 @@ body {
 }
 
 .p-body {
-  padding: 75px 15px 50px 15px !important;
+  padding: 75px 15px 5px 15px !important;
 }
 
 .mt-lg-5 {
@@ -5405,13 +5405,8 @@ body {
   border-radius: 0px;
 }
 
-table {
-  border-top: #007bff solid 3px !important;
-}
-
 thead {
-  border-top: #007bff solid 1px;
-  color: #007bff;
+  color: #0091ea;
 }
 
 td {
@@ -5423,7 +5418,7 @@ td {
 }
 
 .modal-body {
-  max-height: calc(100vh - 210px);
+  max-height: calc(110vh - 210px);
   overflow-y: auto;
 }
 

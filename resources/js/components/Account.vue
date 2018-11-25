@@ -9,21 +9,15 @@
                             <div class="text-center">
                                 <img class="profile-user-img img-fluid img-circle" :src="getProfileLogo()" alt="User logo">
                             </div>
-
-                            <h3 class="profile-username">name
-                                <!--                                <input type="text" readonly class="form-control-plaintext text-center" v-model="form.name">-->
-                            </h3>
-
-                            <input type="text" readonly class="form-control-plaintext text-center text-muted" v-model="form.type">
-
+                            <h3 class="profile-username">{{form.username}}</h3>
                             <ul class="list-group list-group-unbordered mb-3">
                                 <li class="list-group-item">
-                                    <b>Date Created</b> <input type="text" readonly class="form-control-plaintext text-center"
-                                        v-model="form.created_at">
+                                    <b>Date Created</b> 
+                                    <p>{{form.created_at}}</p>
                                 </li>
                                 <li class="list-group-item">
-                                    <b>Date Updated</b> <input type="text" readonly class="form-control-plaintext text-center"
-                                        v-model="form.created_at">
+                                    <b>Date Updated</b>
+                                    <p>{{form.updated_at}}</p>
                                 </li>
                             </ul>
                         </div>
@@ -46,7 +40,6 @@
                                     <form class="form-horizontal">
                                         <div class="form-group">
                                             <label for="inputName" class="col-sm-2 control-label">Name</label>
-
                                             <div class="col-sm-12">
                                                 <input type="" v-model="form.username" class="form-control" id="inputName"
                                                     placeholder="Name" :class="{ 'is-invalid': form.errors.has('username') }">
@@ -55,7 +48,6 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="inputEmail" class="col-sm-2 control-label">Email</label>
-
                                             <div class="col-sm-12">
                                                 <input type="email" v-model="form.email" class="form-control" id="inputEmail"
                                                     placeholder="Email" :class="{ 'is-invalid': form.errors.has('email') }">
@@ -67,20 +59,16 @@
                                             <div class="col-sm-12">
                                                 <input type="file" @change="updateProfile" name="photo" class="form-input">
                                             </div>
-
                                         </div>
-
                                         <div class="form-group">
                                             <label for="password" class="col-sm-12 control-label">Password (leave empty
                                                 if not changing)</label>
-
                                             <div class="col-sm-12">
                                                 <input type="password" v-model="form.password" class="form-control" id="password"
                                                     placeholder="Password" :class="{ 'is-invalid': form.errors.has('password') }">
                                                 <has-error :form="form" field="password"></has-error>
                                             </div>
                                         </div>
-
                                         <div class="form-group">
                                             <div class="col-sm-offset-2 col-sm-12">
                                                 <button @click.prevent="updateInfo" type="submit" class="btn btn-success">Update</button>
@@ -96,7 +84,6 @@
         </div>
     </div>
 </template>
-
 <script>
 export default {
   data() {

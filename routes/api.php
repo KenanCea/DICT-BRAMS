@@ -20,3 +20,5 @@ Route::resources(['user' => 'API\UserController',
                 'member' => 'API\MemberController',
                 'profile' => 'API\ProfileController']);
 Route::put('profile', 'API\ProfileController@update');
+Route::get('search','API\SearchController@index');
+Route::get('autocomplete','API\SearchController@autocomplete');

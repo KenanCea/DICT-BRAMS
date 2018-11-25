@@ -211,7 +211,7 @@
                 <vue-progress-bar></vue-progress-bar>
             </div>
         </div>
-        <footer class="main-footer fixed-bottom"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>
+        <footer class="main-footer"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>
     </div>
     @auth
     <script>
