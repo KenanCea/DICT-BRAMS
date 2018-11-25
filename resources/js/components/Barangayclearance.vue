@@ -6,7 +6,7 @@
                     <h1>Barangay Clearance</h1>
                 </b-col>
                 <b-col md="2">
-                    <b-btn variant="primary" class="float-right"> Export <i class="fas fa-file-export ml-1"></i> </b-btn>
+                    <b-btn  @click="generate()" variant="primary" class="float-right"> Export <i class="fas fa-file-export ml-1"></i> </b-btn>
                 </b-col>
                 <b-col md="3">
                     <b-input-group>
