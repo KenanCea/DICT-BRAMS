@@ -91280,112 +91280,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -107682,7 +107576,7 @@ var render = function() {
           _c(
             "div",
             {
-              staticClass: "modal bounceIn justify-content-center",
+              staticClass: "modal fade",
               attrs: {
                 id: "addinhabitant",
                 tabindex: "-1",
@@ -108067,224 +107961,6 @@ var render = function() {
                                 ],
                                 1
                               )
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ])
-                          ]),
-                          _vm._v(" "),
-                          _c("div", { staticClass: "form-row" }, [
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
-                            ]),
-                            _vm._v(" "),
-                            _c("div", { staticClass: "col-md-4" }, [
-                              _c("div", { staticClass: "form-group" }, [
-                                _c("label", [_vm._v("Dummy:")]),
-                                _vm._v(" "),
-                                _c("input", {
-                                  staticClass: "form-control",
-                                  attrs: {
-                                    type: "text",
-                                    placeholder: "Dummy",
-                                    name: "middle_name"
-                                  }
-                                })
-                              ])
                             ])
                           ])
                         ]),
@@ -108890,8 +108566,119 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
-/* harmony default export */ __webpack_exports__["default"] = ({});
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: new Form({
+        first_name: "",
+        family_name: "",
+        middle_name: "",
+        age: ""
+      })
+    };
+  }
+});
 
 /***/ }),
 /* 384 */
@@ -108913,10 +108700,10 @@ var render = function() {
               _c(
                 "b-row",
                 [
-                  _c("b-col", { attrs: { md: "7" } }, [
+                  _c("b-col", { attrs: { md: "9" } }, [
                     _c("h1", [_vm._v("Barangay Clearance")])
                   ]),
-                  _vm._v(" "),
+                  _vm._v("\n<<<<<<< HEAD\n                "),
                   _c(
                     "b-col",
                     { attrs: { md: "2" } },
@@ -108940,7 +108727,9 @@ var render = function() {
                     ],
                     1
                   ),
-                  _vm._v(" "),
+                  _vm._v(
+                    "\n=======\n>>>>>>> f579ec3df63fa92287f5b69ab6cc06e0c8151446\n                "
+                  ),
                   _c(
                     "b-col",
                     { attrs: { md: "3" } },
@@ -109116,43 +108905,119 @@ var render = function() {
                     "b-col",
                     { staticClass: "border-l ml-1", attrs: { md: "8" } },
                     [
-                      _c("p", [_vm._v("TO WHOM IT MAY CONCERN")]),
+                      _c("p", [_vm._v("TO WHOM IT MAY CONCERN:")]),
                       _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "This is to certify____________________________, ________ years old, __________________ citizen\n                    , a native of _______________________________ and presently residing at _______________________________\n                    and whose signature appears hereunder, has no pending adverse cases and deragatory records filed\n                    against __________________ per available records on file with this office as of the date of issuance thereof.\n                "
-                        )
+                      _c("div", { staticClass: "p-1" }, [
+                        _c("p", [
+                          _vm._v("This is to certify "),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v(", "),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v("\n                            years old, "),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v(
+                            " citizen\n                            , a native of "
+                          ),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v(" and presently residing at "),
+                          _c("input", { attrs: { type: "text" } }),
+                          _vm._v(
+                            "\n                            and whose signature appears hereunder, has no pending adverse cases and deragatory records\n                            filed\n                            against "
+                          ),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v(
+                            " per available records on file with this office as\n                            of the date of issuance thereof.\n                        "
+                          )
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("p", [
-                        _vm._v("Issued _________________________ purposes.")
+                      _c("div", { staticClass: "pb-5" }, [
+                        _c("p", { staticClass: "m-0" }, [
+                          _vm._v("Issued "),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v(" purposes.")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [
+                          _vm._v("Issued this "),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v(" day of "),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          }),
+                          _vm._v(
+                            " at\n                            Ambiong-Baguio Barangay, Baguio City, Philippines"
+                          )
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("p", [
-                        _vm._v(
-                          "Issued this _______ day of ________________ at Ambiong-Baguio Barangay, Baguio City, Philippines"
-                        )
+                      _c("div", [
+                        _c("p", [_vm._v("(Name Signature of Applicant)")]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "m-0" }, [
+                          _vm._v("Com. tax Cert #:"),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "m-0" }, [
+                          _vm._v("Issued on:"),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "m-0" }, [
+                          _vm._v("Issued at:"),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "m-0" }, [
+                          _vm._v("OR No.:"),
+                          _c("input", {
+                            staticClass: "m-1",
+                            attrs: { type: "text" }
+                          })
+                        ])
                       ]),
                       _vm._v(" "),
-                      _c("p", [_vm._v("(Name Signature of Applicant)")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Com. tax Cert #:")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Issued on")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Issued at")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("OR No.")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("CERTIFIED AND ISSUED BY:")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("RANDY P GATI")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Punong Barangay")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Control No.")]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v("Note: Not valid without Barangay Seal")])
+                      _c("div", { staticClass: "text-center float-right" }, [
+                        _c("p", [_vm._v("CERTIFIED AND ISSUED BY:")]),
+                        _vm._v(" "),
+                        _c("p", { staticClass: "font-weight-bold m-0" }, [
+                          _vm._v("RANDY P. GATI")
+                        ]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v("Punong Barangay")])
+                      ])
                     ]
                   )
                 ],
@@ -109160,6 +109025,344 @@ var render = function() {
               )
             ],
             1
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "float-right" }, [
+            _c(
+              "button",
+              { staticClass: "btn btn-secondary", attrs: { type: "button" } },
+              [_vm._v("Reset")]
+            ),
+            _vm._v(" "),
+            _c(
+              "button",
+              {
+                staticClass: "btn btn-primary",
+                attrs: {
+                  type: "button",
+                  "data-toggle": "modal",
+                  "data-target": "#form"
+                }
+              },
+              [_vm._v("Next")]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass: "modal fade",
+              attrs: {
+                id: "form",
+                tabindex: "-1",
+                role: "dialog",
+                "aria-labelledby": "exampleModalLabel",
+                "aria-hidden": "true"
+              }
+            },
+            [
+              _c(
+                "div",
+                {
+                  staticClass: "modal-dialog modal-lg",
+                  attrs: { role: "document" }
+                },
+                [
+                  _c("div", { staticClass: "modal-content" }, [
+                    _c(
+                      "div",
+                      { staticClass: "modal-body" },
+                      [
+                        _c(
+                          "b-row",
+                          {
+                            staticClass:
+                              "justify-content-md-center green border-b"
+                          },
+                          [
+                            _c(
+                              "b-col",
+                              { staticClass: "p-0", attrs: { md: "1" } },
+                              [
+                                _c("img", {
+                                  staticClass: "img-fluid img-circle",
+                                  attrs: {
+                                    src: "/img/baguio-logo.png",
+                                    alt: "Baguio logo"
+                                  }
+                                })
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "text-center pt-3",
+                                attrs: { md: "7" }
+                              },
+                              [
+                                _c("p", { staticClass: "font-italic mb-1" }, [
+                                  _vm._v("Republic of the Philippines")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "h5",
+                                  { staticClass: "font-weight-bold mb-1" },
+                                  [_vm._v("AMBIONG-BAGUIO BARANGAY")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic" }, [
+                                  _vm._v("Aurora Hill, Baguio City")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              { staticClass: "p-0", attrs: { md: "1" } },
+                              [
+                                _c("img", {
+                                  staticClass: "img-fluid img-circle",
+                                  attrs: {
+                                    src: "/img/profile.png",
+                                    alt: "Baguio logo"
+                                  }
+                                })
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-row",
+                          { staticClass: "justify-content-md-center mb-3" },
+                          [
+                            _c("b-col", { staticClass: "text-center pt-1" }, [
+                              _c("p", { staticClass: "font-italic mb-4" }, [
+                                _vm._v("Office of the Punong Barangay")
+                              ]),
+                              _vm._v(" "),
+                              _c("h3", { staticClass: "font-weight-bold" }, [
+                                _vm._v("BARANGAY CLEARANCE")
+                              ])
+                            ])
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "b-row",
+                          [
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "border-r text-center",
+                                attrs: { md: "3" }
+                              },
+                              [
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v("Punong Barangay")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v(
+                                    "Committee Chairman on Peace and Order"
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v(
+                                    "Committee Chairman on Infrastructure Projects and\n                                    Street/Alley Lights"
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v(
+                                    "Committee Chairman on Legal and Research"
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v(
+                                    "Committee Chairman on Healt and Sanitation"
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v("Committee Chairman on Ways and Means")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v(
+                                    "Committee Chairman on Social Services"
+                                  )
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v("Barangay Secretary")
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "mb-1 text-uppercase" },
+                                  [_vm._v("Randy P. Gati")]
+                                ),
+                                _vm._v(" "),
+                                _c("p", { staticClass: "font-italic green" }, [
+                                  _vm._v("Barangay Treasurer")
+                                ])
+                              ]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "b-col",
+                              {
+                                staticClass: "border-l ml-1",
+                                attrs: { md: "8" }
+                              },
+                              [
+                                _c("p", [_vm._v("TO WHOM IT MAY CONCERN:")]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "p-1" }, [
+                                  _c("p", [
+                                    _vm._v(
+                                      "This is to certify -----, --\n                                        years old, ----- citizen\n                                        , a native of ----- and presently residing at\n                                        -----\n                                        and whose signature appears hereunder, has no pending adverse cases and\n                                        deragatory records filed\n                                        against ----- per available records on file with\n                                        this office as of the date of issuance thereof.\n                                    "
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", { staticClass: "pb-5" }, [
+                                  _c("p", { staticClass: "m-0" }, [
+                                    _vm._v("Issued ----- purposes.")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", [
+                                    _vm._v(
+                                      "Issued this ----- day of -----\n                                        at Ambiong-Baguio Barangay, Baguio City, Philippines"
+                                    )
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c("div", [
+                                  _c("p", [
+                                    _vm._v("(Name Signature of Applicant)")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "m-0" }, [
+                                    _vm._v("Com. tax Cert #:-----")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "m-0" }, [
+                                    _vm._v("Issued on:-----")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "m-0" }, [
+                                    _vm._v("Issued at:-----")
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("p", { staticClass: "m-0" }, [
+                                    _vm._v("OR No.:-----")
+                                  ])
+                                ]),
+                                _vm._v(" "),
+                                _c(
+                                  "div",
+                                  { staticClass: "text-center float-right" },
+                                  [
+                                    _c("p", [
+                                      _vm._v("CERTIFIED AND ISSUED BY:")
+                                    ]),
+                                    _vm._v(" "),
+                                    _c(
+                                      "p",
+                                      { staticClass: "font-weight-bold m-0" },
+                                      [_vm._v("RANDY P. GATI")]
+                                    ),
+                                    _vm._v(" "),
+                                    _c("p", [_vm._v("Punong Barangay")])
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        )
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "modal-footer" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-secondary",
+                          attrs: { type: "button", "data-dismiss": "modal" }
+                        },
+                        [_vm._v("Close")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-primary",
+                          attrs: { type: "button" }
+                        },
+                        [_vm._v("Export")]
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ]
           )
         ],
         1
@@ -111218,19 +111421,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -111330,30 +111520,8 @@ var render = function() {
               ]),
               _vm._v(" "),
               _c("h3", { staticClass: "profile-username" }, [
-                _vm._v("name\n                            ")
+                _vm._v(_vm._s(_vm.form.username))
               ]),
-              _vm._v(" "),
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.form.type,
-                    expression: "form.type"
-                  }
-                ],
-                staticClass: "form-control-plaintext text-center text-muted",
-                attrs: { type: "text", readonly: "" },
-                domProps: { value: _vm.form.type },
-                on: {
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.$set(_vm.form, "type", $event.target.value)
-                  }
-                }
-              }),
               _vm._v(" "),
               _c(
                 "ul",
@@ -111362,53 +111530,13 @@ var render = function() {
                   _c("li", { staticClass: "list-group-item" }, [
                     _c("b", [_vm._v("Date Created")]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.created_at,
-                          expression: "form.created_at"
-                        }
-                      ],
-                      staticClass: "form-control-plaintext text-center",
-                      attrs: { type: "text", readonly: "" },
-                      domProps: { value: _vm.form.created_at },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "created_at", $event.target.value)
-                        }
-                      }
-                    })
+                    _c("p", [_vm._v(_vm._s(_vm.form.created_at))])
                   ]),
                   _vm._v(" "),
                   _c("li", { staticClass: "list-group-item" }, [
                     _c("b", [_vm._v("Date Updated")]),
                     _vm._v(" "),
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.form.created_at,
-                          expression: "form.created_at"
-                        }
-                      ],
-                      staticClass: "form-control-plaintext text-center",
-                      attrs: { type: "text", readonly: "" },
-                      domProps: { value: _vm.form.created_at },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.form, "created_at", $event.target.value)
-                        }
-                      }
-                    })
+                    _c("p", [_vm._v(_vm._s(_vm.form.updated_at))])
                   ])
                 ]
               )

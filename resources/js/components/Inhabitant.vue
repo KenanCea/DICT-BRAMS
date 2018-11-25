@@ -59,7 +59,7 @@
         <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
             <pre>{{ modalInfo.content }}</pre>
         </b-modal>
-        <div class="modal bounceIn justify-content-center" id="addinhabitant" tabindex="-1" role="dialog"
+        <div class="modal fade" id="addinhabitant" tabindex="-1" role="dialog"
             aria-labelledby="addinhabitantTitle" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
@@ -119,112 +119,6 @@
                                         <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
                                             :class="{ 'is-invalid': form.errors.has('age') }">
                                         <has-error :form="form" field="age"></has-error>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Dummy:</label>
-                                        <input type="text" placeholder="Dummy" name="middle_name" class="form-control">
-                                        <!-- <has-error :form="form" field="middle_name"></has-error> -->
                                     </div>
                                 </div>
                             </div>

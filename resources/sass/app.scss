@@ -129,7 +129,7 @@ body {
     border-left: #2196F3 solid 3px;
 }
 .p-body{
-    padding: 75px 15px 50px 15px !important;
+    padding: 75px 15px 5px 15px !important;
 }
 .mt-lg-5 {
     margin-top: 4rem !important;
@@ -155,12 +155,8 @@ body {
 .card {
     border-radius: 0px;
 }
-table{
-    border-top: #007bff solid 3px !important;
-}
 thead {
-    border-top: #007bff solid 1px;
-    color: #007bff;
+    color: $lightBlue-accent4;
 }
 td{
     padding-bottom: 6px !important;
@@ -169,7 +165,7 @@ td{
     z-index: 1000 !important
 }
 .modal-body {
-    max-height: calc(100vh - 210px);
+    max-height: calc(110vh - 210px);
     overflow-y: auto;
 }
 .modal-title{
