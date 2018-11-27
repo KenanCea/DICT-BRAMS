@@ -21,11 +21,23 @@
                     <b-btn variant="primary"> Columns <i class="fas fa-columns ml-1"></i> </b-btn>
                 </b-col>
                 <b-col class="mb-3">
-                    <a @click="generate()" class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a @click="generate()" class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
+                            <a><download-excel class="btn" :data="members" name="Inhabitants.xls">
+                             <i class="fas fa-file-excel mr-2 green"></i>   Excel 
+                            </download-excel></a>
+                            <a @click="generateWord()" class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a>
+                        </div>
+                        </div>
+                    <!-- <a @click="generate()" class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
                     <download-excel class="btn btn-primary" :data="members" name="Inhabitants.xls">
                         Export <i class="fas fa-file-export ml-1"></i>
                     </download-excel>
-                    <a @click="generateWord()" class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a>
+                    <a @click="generateWord()" class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a> -->
                 </b-col>
                 <b-col class="mb-3">
                     <b-btn @click="newModal" variant="primary"> Add New <i class="fas fa-user-plus ml-1"></i> </b-btn>

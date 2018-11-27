@@ -91280,6 +91280,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -107365,60 +107377,98 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _c(
-                    "b-col",
-                    { staticClass: "mb-3" },
-                    [
+                  _c("b-col", { staticClass: "mb-3" }, [
+                    _c("div", { staticClass: "dropdown" }, [
                       _c(
-                        "a",
+                        "button",
                         {
-                          staticClass: "dropdown-item",
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              _vm.generate()
-                            }
+                          staticClass: "btn btn-primary dropdown-toggle",
+                          attrs: {
+                            type: "button",
+                            id: "dropdownMenuButton",
+                            "data-toggle": "dropdown",
+                            "aria-haspopup": "true",
+                            "aria-expanded": "false"
                           }
                         },
                         [
-                          _c("i", { staticClass: "fas fa-file-pdf mr-2 red" }),
-                          _vm._v("PDF")
+                          _vm._v(
+                            "\n                        Export\n                    "
+                          )
                         ]
                       ),
                       _vm._v(" "),
                       _c(
-                        "download-excel",
+                        "div",
                         {
-                          staticClass: "btn btn-primary",
-                          attrs: { data: _vm.members, name: "Inhabitants.xls" }
+                          staticClass: "dropdown-menu",
+                          attrs: { "aria-labelledby": "dropdownMenuButton" }
                         },
                         [
-                          _vm._v("\n                    Export "),
-                          _c("i", { staticClass: "fas fa-file-export ml-1" })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "dropdown-item",
-                          attrs: { href: "#" },
-                          on: {
-                            click: function($event) {
-                              _vm.generateWord()
-                            }
-                          }
-                        },
-                        [
-                          _c("i", {
-                            staticClass: "fas fa-file-word mr-2 blue"
-                          }),
-                          _vm._v("Word")
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  _vm.generate()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-file-pdf mr-2 red"
+                              }),
+                              _vm._v("PDF")
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            [
+                              _c(
+                                "download-excel",
+                                {
+                                  staticClass: "btn",
+                                  attrs: {
+                                    data: _vm.members,
+                                    name: "Inhabitants.xls"
+                                  }
+                                },
+                                [
+                                  _c("i", {
+                                    staticClass: "fas fa-file-excel mr-2 green"
+                                  }),
+                                  _vm._v("   Excel \n                        ")
+                                ]
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "a",
+                            {
+                              staticClass: "dropdown-item",
+                              attrs: { href: "#" },
+                              on: {
+                                click: function($event) {
+                                  _vm.generateWord()
+                                }
+                              }
+                            },
+                            [
+                              _c("i", {
+                                staticClass: "fas fa-file-word mr-2 blue"
+                              }),
+                              _vm._v("Word")
+                            ]
+                          )
                         ]
                       )
-                    ],
-                    1
-                  ),
+                    ])
+                  ]),
                   _vm._v(" "),
                   _c(
                     "b-col",
@@ -108660,12 +108710,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -108703,33 +108747,7 @@ var render = function() {
                   _c("b-col", { attrs: { md: "9" } }, [
                     _c("h1", [_vm._v("Barangay Clearance")])
                   ]),
-                  _vm._v("\n<<<<<<< HEAD\n                "),
-                  _c(
-                    "b-col",
-                    { attrs: { md: "2" } },
-                    [
-                      _c(
-                        "b-btn",
-                        {
-                          staticClass: "float-right",
-                          attrs: { variant: "primary" },
-                          on: {
-                            click: function($event) {
-                              _vm.generate()
-                            }
-                          }
-                        },
-                        [
-                          _vm._v(" Export "),
-                          _c("i", { staticClass: "fas fa-file-export ml-1" })
-                        ]
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(
-                    "\n=======\n>>>>>>> f579ec3df63fa92287f5b69ab6cc06e0c8151446\n                "
-                  ),
+                  _vm._v(" "),
                   _c(
                     "b-col",
                     { attrs: { md: "3" } },
@@ -108919,13 +108937,13 @@ var render = function() {
                             staticClass: "m-1",
                             attrs: { type: "text" }
                           }),
-                          _vm._v("\n                            years old, "),
+                          _vm._v("\n                        years old, "),
                           _c("input", {
                             staticClass: "m-1",
                             attrs: { type: "text" }
                           }),
                           _vm._v(
-                            " citizen\n                            , a native of "
+                            " citizen\n                        , a native of "
                           ),
                           _c("input", {
                             staticClass: "m-1",
@@ -108934,14 +108952,14 @@ var render = function() {
                           _vm._v(" and presently residing at "),
                           _c("input", { attrs: { type: "text" } }),
                           _vm._v(
-                            "\n                            and whose signature appears hereunder, has no pending adverse cases and deragatory records\n                            filed\n                            against "
+                            "\n                        and whose signature appears hereunder, has no pending adverse cases and deragatory records\n                        filed\n                        against "
                           ),
                           _c("input", {
                             staticClass: "m-1",
                             attrs: { type: "text" }
                           }),
                           _vm._v(
-                            " per available records on file with this office as\n                            of the date of issuance thereof.\n                        "
+                            " per available records on file with this office as\n                        of the date of issuance thereof.\n                    "
                           )
                         ])
                       ]),
@@ -108968,7 +108986,7 @@ var render = function() {
                             attrs: { type: "text" }
                           }),
                           _vm._v(
-                            " at\n                            Ambiong-Baguio Barangay, Baguio City, Philippines"
+                            " at\n                        Ambiong-Baguio Barangay, Baguio City, Philippines"
                           )
                         ])
                       ]),
@@ -109191,7 +109209,7 @@ var render = function() {
                                 _vm._v(" "),
                                 _c("p", { staticClass: "font-italic green" }, [
                                   _vm._v(
-                                    "Committee Chairman on Infrastructure Projects and\n                                    Street/Alley Lights"
+                                    "Committee Chairman on Infrastructure Projects and\n                                Street/Alley Lights"
                                   )
                                 ]),
                                 _vm._v(" "),
@@ -109275,7 +109293,7 @@ var render = function() {
                                 _c("div", { staticClass: "p-1" }, [
                                   _c("p", [
                                     _vm._v(
-                                      "This is to certify -----, --\n                                        years old, ----- citizen\n                                        , a native of ----- and presently residing at\n                                        -----\n                                        and whose signature appears hereunder, has no pending adverse cases and\n                                        deragatory records filed\n                                        against ----- per available records on file with\n                                        this office as of the date of issuance thereof.\n                                    "
+                                      "This is to certify -----, --\n                                    years old, ----- citizen\n                                    , a native of ----- and presently residing at\n                                    -----\n                                    and whose signature appears hereunder, has no pending adverse cases and\n                                    deragatory records filed\n                                    against ----- per available records on file with\n                                    this office as of the date of issuance thereof.\n                                "
                                     )
                                   ])
                                 ]),
@@ -109287,7 +109305,7 @@ var render = function() {
                                   _vm._v(" "),
                                   _c("p", [
                                     _vm._v(
-                                      "Issued this ----- day of -----\n                                        at Ambiong-Baguio Barangay, Baguio City, Philippines"
+                                      "Issued this ----- day of -----\n                                    at Ambiong-Baguio Barangay, Baguio City, Philippines"
                                     )
                                   ])
                                 ]),
