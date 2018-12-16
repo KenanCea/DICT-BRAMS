@@ -1,146 +1,82 @@
 @extends('layouts.app')
-
 @section('content')
-<div class="container-fluid">
-    <div class="row vh-1">
-        <div class="col-md-6 pbc-1 p-0">
-            <div class="text-center mt-5">
-                <img src="/img/logo.png" class="img-fluid" alt="BRAMS logo">
-            </div>
-            <div class="mt-5">
-                    <img src="/img/lines.png" class="img-fluid" style="bottom:0px; position:absolute" alt="Responsive image">
-                </div>
-            
-        </div>
-        <div class="col-md-6 p-5">
-            <h1 class="text-center mt-3 mb-5 pc-1">Barangay Record Automation Management System</h1>
-            <h6 class="text-center mb-4">Welcome back! Please login to your account.</h6>
-            <form method="POST" action="{{ route('login') }}">
-                @csrf
-                <div class="form-group row">
-                    <label for="username" class="col-sm-4 col-form-label text-md-right">{{ __('Username') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="username" type="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" name="username" value="{{ old('username') }}" required autofocus>
-
-                        @if ($errors->has('username'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('username') }}</strong>
-                        </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                        @if ($errors->has('password'))
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $errors->first('password') }}</strong>
-                        </span>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-5 offset-md-2 pt-xs-5 pb-xs-5">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                            <label class="form-check-label text-md-left" for="remember">
-                                {{ __('Remember Me') }}
-                            </label>
+<v-app id="login" class="primary">
+    <v-content>
+        <v-container fluid fill-height>
+            <v-layout align-center justify-center>
+                <v-flex xs12 sm8 md4 lg4>
+                    <v-card class="elevation-1 pa-5">
+                        <div class="layout column align-center">
+                            <img src="/img/logo.png" alt="Vue Material Admin" width="120" height="120">
+                            <h1 class="flex my-4 primary--text">BRAMS 2.0</h1>
                         </div>
-                    </div>
-
-                    <div class="col-md-2">
-                        <a class="btn" href="{{ route('password.request') }}">
-                            {{ __('Forgot Password?') }}</a>
-                    </div>
-
-
-
-                </div>
-                <div class="form-group row">
-                    <div class="offset-md-5 mt-3">
-                        <button type="submit" class="btn btn-primary pr-5 pl-5">
-                            {{ __('Login') }}
-                        </button>
-                    </div>
-                </div>
-
-            </form>
-
-        </div>
-    </div>
-
-    <!--    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-sm-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                        <v-form method="POST" action="{{ route('login') }}">
+                            @csrf
+                            <v-text-field append-icon="person" name="username" placeholder="Username"></v-text-field>
+                            {{-- <input type="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
+                                name="username" value="{{ old('username') }}" required autofocus>
+                            @if ($errors->has('username'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('username') }}</strong>
+                            </span>
+                            @endif --}}
+                            <v-text-field append-icon="lock" name="password" placeholder="Password"></v-text-field>
+                            {{-- <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
+                                name="password" required>
+                            @if ($errors->has('password'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('password') }}</strong>
+                            </span>
+                            @endif --}}
+                            {{-- <div class="row">
+                                <div class="col-md-5 offset-md-2 pt-xs-5 pb-xs-5">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="remember" id="remember"
+                                            {{ old('remember') ? 'checked' : '' }}>
+                                        <label class="form-check-label text-md-left" for="remember">
+                                            {{ __('Remember Me') }}
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <a class="btn" href="{{ route('password.request') }}">
+                                        {{ __('Forgot Password?') }}</a>
                                 </div>
                             </div>
-                        </div>
+                            <div class="form-group row">
+                                <div class="offset-md-5 mt-3">
+                                    <button type="submit" class="btn btn-primary pr-5 pl-5">
+                                        {{ __('Login') }}
+                                    </button>
+                                </div>
+                            </div> --}}
+                            <v-card-actions>
+                                <v-checkbox name="remember" id="remember"
+                                {{ old('remember') ? 'checked' : '' }} label="Remember me"></v-checkbox>
+                                <v-spacer></v-spacer>
+                                <a class="btn" href="{{ route('password.request') }}">
+                                    Forgot Password</a>
+                            </v-card-actions>
+                            <v-btn block type="submit" color="primary">Login</v-btn>
+                        </v-form>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-content>
+    </div>
+</v-app>
+<style scoped lang="css">
+    #login {
+        height: 50%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        z-index: 0;
+    }
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    {{ __('Forgot Your Password?') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div> -->
-</div>
+</style>
 @endsection

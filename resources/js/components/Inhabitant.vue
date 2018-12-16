@@ -44,8 +44,7 @@
                 </b-col>
             </b-row>
         </div>
-        <div class="trial">
-        <b-table hover bordered responsive show-empty :current-page="currentPage" :per-page="perPage" :items="members"
+        <b-table class="dataExport" hover bordered responsive show-empty :current-page="currentPage" :per-page="perPage" :items="members"
             :fields="fields" :filter="filter" @filtered="onFiltered">
             <template slot="actions" slot-scope="row">
                 <b-button variant="outline-info" @click.stop="info(row.item, row.index, $event.target)">
@@ -62,7 +61,6 @@
                 </b-card>
             </template>
         </b-table>
-        </div>
         <b-row>
             <b-col md="6" class="my-3">
                 <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
@@ -303,15 +301,7 @@ export default {
       this.$modal.show("hello-world");
     },
     generate(){ 
-        var trial = this
-        var columns = [
-            {title: "First Name", dataKey: "first_name"},
-            {title: "Middle Name", dataKey: "middle_name"},
-            {title: "Last Name", dataKey:"family_name"},
-            {title: "Age", dataKey:"age"},
-            {title: "Gender", dataKey:"sex"},
-            {title: "Date Created", dataKey:"created_at"},
-        ];
+        var trial = tableToJson(document.getElementsByClassName("trial")[0]);
         var doc = new jsPDF('p','pt');
         doc.setFontSize(10);
         doc.text(240, 50, 'Republic of the Philippines');
@@ -319,7 +309,7 @@ export default {
         doc.text(230, 90, 'Cordillera Administrative Region');
         doc.setFontSize(20);
         doc.text(250, 115, 'Inhabitants');
-        doc.autoTable(columns, trial.members,{
+        doc.autoTable(trial.columns, trial.rows,{
             startY: doc.autoTableEndPosY() + 130}
             );
         doc.save("trial" + '.pdf');

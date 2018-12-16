@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -10,11 +10,12 @@
     <link rel="stylesheet" href="/css/app.css">
 </head>
 
-<body class="hold-transition sidebar-mini">
-    <div class="wrapper" id="app">
-        <nav class="main-header navbar navbar-expand fixed-top bg-white navbar-light border-bottom">
+<body>
+    <div id="app">
+        {{-- <nav class="main-header navbar navbar-expand fixed-top bg-white navbar-light border-bottom">
             <ul class="navbar-nav">
-                <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a> </li>
+                <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
+                </li>
             </ul>
             <form class="form-inline ml-3">
                 <div class="input-group">
@@ -26,45 +27,55 @@
             </form>
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                <a class="nav-link px-2" data-toggle="dropdown" href="#"> <i class="fas fa-life-ring"></i></a>
+                    <a class="nav-link px-2" data-toggle="dropdown" href="#"> <i class="fas fa-life-ring"></i></a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link px-2" data-toggle="dropdown" href="#"> <i class="fas fa-bell"></i>
                         <!-- <span class="badge badge-danger navbar-badge" style="font-size:12px; border-radius:50%;">3</span></a> -->
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> 
-                        <span class="dropdown-header">Notifications</span>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> <i class="fa fa-envelope mr-2"></i> 4 new messages <span class="float-right text-muted text-sm">3 mins</span> </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> <i class="fas fa-users mr-2"></i> 8 friend requests <span class="float-right text-muted text-sm">12 hours</span> </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item"> <i class="fa fa-file mr-2"></i> 3 new reports <span class="float-right text-muted text-sm">2 days</span> </a>
-                        <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-                    </div>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                            <span class="dropdown-header">Notifications</span>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item"> <i class="fa fa-envelope mr-2"></i> 4 new messages <span
+                                    class="float-right text-muted text-sm">3 mins</span> </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item"> <i class="fas fa-users mr-2"></i> 8 friend requests
+                                <span class="float-right text-muted text-sm">12 hours</span> </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="#" class="dropdown-item"> <i class="fa fa-file mr-2"></i> 3 new reports <span
+                                    class="float-right text-muted text-sm">2 days</span> </a>
+                            <div class="dropdown-divider"></div> <a href="#" class="dropdown-item dropdown-footer">See
+                                All Notifications</a>
+                        </div>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link p-1" data-toggle="dropdown" href="#">
                         <div class="user-panel d-flex">
-                        <div class="image"><img src="/img/profile/{{ Auth::user()->photo }}" class="img-circle" alt="Logo"></div>
+                            <div class="image"><img src="/img/profile/{{ Auth::user()->photo }}" class="img-circle" alt="Logo"></div>
                         </div>
                     </a>
-                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item"> <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->username }} </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right"> <a href="#" class="dropdown-item">
+                            <i class="fas fa-circle green mr-2"></i> {{ Auth::user()->username }} </a>
                         <div class="dropdown-divider"></div>
-                        <router-link to="/account" class="dropdown-item"> <i class="fas fa-user mr-2"></i> Account Info </router-link>
+                        <router-link to="/account" class="dropdown-item"> <i class="fas fa-user mr-2"></i> Account Info
+                        </router-link>
                         @can('isUser')
                         <div class="dropdown-divider"></div>
-                        <router-link to="/profile" class="dropdown-item"> <i class="fas fa-map mr-2"></i> Barangay Profile </router-link>
+                        <router-link to="/profile" class="dropdown-item"> <i class="fas fa-map mr-2"></i> Barangay
+                            Profile </router-link>
                         @endcan
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();"> <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }} </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;"> @csrf </form>
+                                                     document.getElementById('logout-form').submit();">
+                            <i class="fas fa-sign-out-alt mr-2"></i> {{ __('Logout') }} </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf </form>
                     </div>
                 </li>
             </ul>
         </nav>
         <aside class="main-sidebar sidebar-blue-primary elevation-4">
-            <router-link to="/home" class="brand-link"> <img src="/img/logo.png" alt="BRAMS Logo" class="brand-image img-circle elevation-3"> <span class="brand-text font-weight-bold">B.R.A.M.S</span> </router-link>
+            <router-link to="/home" class="brand-link"> <img src="/img/logo.png" alt="BRAMS Logo" class="brand-image img-circle elevation-3">
+                <span class="brand-text font-weight-bold">B.R.A.M.S</span> </router-link>
             <div class="sidebar">
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
@@ -211,13 +222,21 @@
                 <vue-progress-bar></vue-progress-bar>
             </div>
         </div>
-        <footer class="main-footer"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>
+        <footer class="main-footer"> <strong>Copyright &copy; 2018.</strong> All rights reserved. </footer>--}}
+        <main>
+            @yield('content')
+
+        </main>
+
+
+
     </div>
-    @auth
+    {{-- @auth
     <script>
-    window.user = @json(auth()->user())
-    </script>  
-    @endauth
+        window.user = @json(auth() - > user())
+
+    </script>
+    @endauth --}}
     <script src="/js/app.js"></script>
 </body>
 
