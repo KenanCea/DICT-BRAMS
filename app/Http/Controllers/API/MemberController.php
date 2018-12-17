@@ -35,14 +35,12 @@ class MemberController extends Controller
             'first_name' => 'required|string|max:50',
             'family_name' => 'required|string|max:50',
             'middle_name' => 'required|string|max:50',
-            'age' => 'required|integer',
             'sex' => 'required|string|max:50'
         ]);
         return Member::create([
             'first_name' => $request['first_name'],
             'family_name' => $request['family_name'],
             'middle_name' => $request['middle_name'],
-            'age' => $request['age'],
             'sex' => $request['sex'],
         ]);
     }

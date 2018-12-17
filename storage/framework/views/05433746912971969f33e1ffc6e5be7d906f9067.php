@@ -13,7 +13,7 @@
                             <?php echo csrf_field(); ?>
                             <v-text-field append-icon="person" name="username" placeholder="Username"></v-text-field>
                             
-                            <v-text-field append-icon="lock" name="password" placeholder="Password"></v-text-field>
+                            <v-text-field append-icon="lock" name="password" type="password" placeholder="Password" required></v-text-field>
                             
                             
                             <v-card-actions>

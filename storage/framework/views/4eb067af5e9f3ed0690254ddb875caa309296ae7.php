@@ -1,82 +1,50 @@
 <?php $__env->startSection('content'); ?>
-<div class="container-fluid">
-    <div class="row vh-1">
-        <div class="col-md-6 pbc-1 p-0">
-            <div class="text-center mt-5">
-                <img src="/img/logo.png" class="img-fluid" alt="BRAMS logo">
-            </div>
-            <div class="mt-5">
-                    <img src="/img/lines.png" class="img-fluid" style="bottom:0px; position:absolute" alt="Responsive image">
-                </div>
-            
-        </div>
-        <div class="col-md-6 p-5">
-            <h1 class="text-center mt-3 mb-5 pc-1">Barangay Record Automation Management System</h1>
-            <h6 class="text-center mb-4">Welcome back! Please login to your account.</h6>
-            <form method="POST" action="<?php echo e(route('login')); ?>">
-                <?php echo csrf_field(); ?>
-                <div class="form-group row">
-                    <label for="username" class="col-sm-4 col-form-label text-md-right"><?php echo e(__('Username')); ?></label>
-
-                    <div class="col-md-6">
-                        <input id="username" type="username" class="form-control<?php echo e($errors->has('username') ? ' is-invalid' : ''); ?>" name="username" value="<?php echo e(old('username')); ?>" required autofocus>
-
-                        <?php if($errors->has('username')): ?>
-                        <span class="invalid-feedback" role="alert">
-                            <strong><?php echo e($errors->first('username')); ?></strong>
-                        </span>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label for="password" class="col-md-4 col-form-label text-md-right"><?php echo e(__('Password')); ?></label>
-
-                    <div class="col-md-6">
-                        <input id="password" type="password" class="form-control<?php echo e($errors->has('password') ? ' is-invalid' : ''); ?>" name="password" required>
-
-                        <?php if($errors->has('password')): ?>
-                        <span class="invalid-feedback" role="alert">
-                            <strong><?php echo e($errors->first('password')); ?></strong>
-                        </span>
-                        <?php endif; ?>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-md-5 offset-md-2 pt-xs-5 pb-xs-5">
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="remember" id="remember" <?php echo e(old('remember') ? 'checked' : ''); ?>>
-
-                            <label class="form-check-label text-md-left" for="remember">
-                                <?php echo e(__('Remember Me')); ?>
-
-                            </label>
+<v-app id="login" class="primary">
+    <v-content>
+        <v-container fluid fill-height>
+            <v-layout align-center justify-center>
+                <v-flex xs12 sm8 md4 lg4>
+                    <v-card class="elevation-1 pa-5">
+                        <div class="layout column align-center">
+                            <img src="/img/logo.png" alt="Vue Material Admin" width="120" height="120">
+                            <h1 class="flex my-4 primary--text">BRAMS 2.0</h1>
                         </div>
-                    </div>
+                        <v-form method="POST" action="<?php echo e(route('login')); ?>">
+                            <?php echo csrf_field(); ?>
+                            <v-text-field append-icon="person" name="username" placeholder="Username" class="form-control<?php echo e($errors->has('username') ? ' is-invalid' : ''); ?>" required></v-text-field>
+                            
+                            <v-text-field append-icon="lock" name="password" type="password" placeholder="Password" required></v-text-field>
+                            
+                            
+                            <v-card-actions>
+                                <v-checkbox name="remember" id="remember"
+                                <?php echo e(old('remember') ? 'checked' : ''); ?> label="Remember me"></v-checkbox>
+                                <v-spacer></v-spacer>
+                                <a class="btn" href="<?php echo e(route('password.request')); ?>">
+                                    Forgot Password</a>
+                            </v-card-actions>
+                            <v-btn block type="submit" color="primary">Login</v-btn>
+                        </v-form>
 
-                    <div class="col-md-2">
-                        <a class="btn" href="<?php echo e(route('password.request')); ?>">
-                            <?php echo e(__('Forgot Password?')); ?></a>
-                    </div>
-
-
-
-                </div>
-                <div class="form-group row">
-                    <div class="offset-md-5 mt-3">
-                        <button type="submit" class="btn btn-primary pr-5 pl-5">
-                            <?php echo e(__('Login')); ?>
-
-                        </button>
-                    </div>
-                </div>
-
-            </form>
-
-        </div>
+                    </v-card>
+                </v-flex>
+            </v-layout>
+        </v-container>
+    </v-content>
     </div>
-</div>
+</v-app>
+<style scoped lang="css">
+    #login {
+        height: 50%;
+        width: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        content: "";
+        z-index: 0;
+    }
+
+</style>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>

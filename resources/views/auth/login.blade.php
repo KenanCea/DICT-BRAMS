@@ -12,7 +12,7 @@
                         </div>
                         <v-form method="POST" action="{{ route('login') }}">
                             @csrf
-                            <v-text-field append-icon="person" name="username" placeholder="Username"></v-text-field>
+                            <v-text-field append-icon="person" name="username" placeholder="Username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}" required></v-text-field>
                             {{-- <input type="username" class="form-control{{ $errors->has('username') ? ' is-invalid' : '' }}"
                                 name="username" value="{{ old('username') }}" required autofocus>
                             @if ($errors->has('username'))
@@ -20,7 +20,7 @@
                                 <strong>{{ $errors->first('username') }}</strong>
                             </span>
                             @endif --}}
-                            <v-text-field append-icon="lock" name="password" placeholder="Password"></v-text-field>
+                            <v-text-field append-icon="lock" name="password" type="password" placeholder="Password" required></v-text-field>
                             {{-- <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}"
                                 name="password" required>
                             @if ($errors->has('password'))

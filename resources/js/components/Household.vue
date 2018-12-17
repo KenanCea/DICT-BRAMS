@@ -114,10 +114,34 @@
               <td>{{ props.item.first_name }}</td>
               <td>{{ props.item.middle_name }}</td>
               <td>{{ props.item.family_name }}</td>
-              <td>{{ props.item.age }}</td>
               <td>{{ props.item.sex }}</td>
               <td>{{ props.item.created_at }}</td>
               <td>{{ props.item.updated_at }}</td>
+              <td>{{ props.item.region_barangay }}</td>
+              <td>{{ props.item.relation_to_head }}</td>
+              <td>{{ props.item.placeOfBirth }}</td>
+              <td>{{ props.item.dateOfBirth }}</td>
+              <td>{{ props.item.email_add }}</td>
+              <td>{{ props.item.mobile_no }}</td>
+              <td>{{ props.item.telephone_no }}</td>
+              <td>{{ props.item.civilStatus }}</td>
+              <td>{{ props.item.citizenship }}</td>
+              <td>{{ props.item.religion }}</td>
+              <td>{{ props.item.schooling }}</td>
+              <td>{{ props.item.Highest_educational_attainment }}</td>
+              <td>{{ props.item.familyIncome }}</td>
+              <td>{{ props.item.statusOfResidency }}</td>
+              <td>{{ props.item.ethnicGroup }}</td>
+              <td>{{ props.item.height }}</td>
+              <td>{{ props.item.weight }}</td>
+              <td>{{ props.item.bloodType }}</td>
+              <td>{{ props.item.registeredVoterOfTheBrgy }}</td>
+              <td>{{ props.item.previousResidence }}</td>
+              <td>{{ props.item.no_of_months_and_year_living_in_this_brgy }}</td>
+              <td>{{ props.item.reason_you_left_in_previous_brgy }}</td>
+              <td>{{ props.item.reason_you_came_in_this_brgy }}</td>
+              <td>{{ props.item.until_when_you_stay_in_this_brgy }}</td>
+              <td>{{ props.item.who_accompanied_you_to_transfer_here }}</td>
               <td>
                 <v-btn color="primary" class="mx-1" fab small dark @click="editItem(props.item)">
                   <v-icon>remove_red_eye</v-icon>
@@ -138,10 +162,10 @@
 </template>
 <script>
 import menu from "./api/menu";
-import * as jsPDF from 'jspdf';
-import * as autoTable from 'jspdf-autotable';
-import htmlDocx from 'html-docx-js/dist/html-docx';
-import saveAs from 'file-saver';
+import * as jsPDF from "jspdf";
+import * as autoTable from "jspdf-autotable";
+import htmlDocx from "html-docx-js/dist/html-docx";
+import saveAs from "file-saver";
 export default {
   data: () => ({
     search: "",
@@ -168,7 +192,6 @@ export default {
         width: "200px",
         title: "Family name"
       },
-      { text: "Age", value: "age", width: "100px", title: "Age" },
       { text: "Sex", value: "sex", width: "100px", title: "Sex" },
       {
         text: "Created at",
@@ -183,6 +206,156 @@ export default {
         title: "Updated at"
       },
       {
+        text: "Region",
+        value: "region_barangay",
+        width: "200px",
+        title: "Region"
+      },
+      {
+        text: "Relation to Head",
+        value: "relation_to_head",
+        width: "200px",
+        title: "Relation to Head"
+      },
+      {
+        text: "Place of Birth",
+        value: "placeOfBirth",
+        width: "200px",
+        title: "Place of Birth"
+      },
+      {
+        text: "Date of Birth",
+        value: "dateOfBirth",
+        width: "200px",
+        title: "Date of Birth"
+      },
+      {
+        text: "Email Address",
+        value: "email_add",
+        width: "200px",
+        title: "Email Address"
+      },
+      {
+        text: "Mobile Number",
+        value: "mobile_no",
+        width: "200px",
+        title: "Mobile Number"
+      },
+      {
+        text: "Telephone Number",
+        value: "telephone_no",
+        width: "200px",
+        title: "Telephone Number"
+      },
+      {
+        text: "Civil Status",
+        value: "civilStatus",
+        width: "200px",
+        title: "Civil Status"
+      },
+      {
+        text: "Citizenship",
+        value: "citizenship",
+        width: "200px",
+        title: "Citizenship"
+      },
+      {
+        text: "Religion",
+        value: "religion",
+        width: "200px",
+        title: "Religion"
+      },
+      {
+        text: "Schooling",
+        value: "schooling",
+        width: "200px",
+        title: "Schooling"
+      },
+      {
+        text: "Highest Educational Attainment",
+        value: "Highest_educational_attainment",
+        width: "200px",
+        title: "Highest Educational Attainment"
+      },
+      {
+        text: "Family Income",
+        value: "familyIncome",
+        width: "200px",
+        title: "Family Income"
+      },
+      {
+        text: "Status Of Residency",
+        value: "statusOfResidency",
+        width: "200px",
+        title: "Status Of Residency"
+      },
+      {
+        text: "Ethnic Group",
+        value: "ethnicGroup",
+        width: "200px",
+        title: "Ethnic Group"
+      },
+      {
+        text: "Height",
+        value: "height",
+        width: "200px",
+        title: "Height"
+      },
+      {
+        text: "Weight",
+        value: "weight",
+        width: "200px",
+        title: "Weight"
+      },
+      {
+        text: "Blood Type",
+        value: "bloodType",
+        width: "200px",
+        title: "Blood Type"
+      },
+      {
+        text: "Registered Voter of the Barangay",
+        value: "registeredVoterOfTheBrgy",
+        width: "200px",
+        title: "Registered Voter of the Barangay"
+      },
+      {
+        text: "Previous Residence",
+        value: "previousResidence",
+        width: "200px",
+        title: "Previous Residence"
+      },
+      {
+        text: "No. of months and year living in this Brgy",
+        value: "no_of_months_and_year_living_in_this_brgy",
+        width: "200px",
+        title: "No. of months and year living in this Brgy"
+      },
+      {
+        text: "Reason you left in previous brgy",
+        value: "reason_you_left_in_previous_brgy",
+        width: "200px",
+        title: "Reason you left in previous brgy"
+      },
+      {
+        text: "Reason you came in this brgy",
+        value: "reason_you_came_in_this_brgy",
+        width: "200px",
+        title: "Reason you came in this brgy"
+      },
+      {
+        text: "Until when you stay in this brgy",
+        value: "until_when_you_stay_in_this_brgy",
+        width: "200px",
+        title: "Until when you stay in this brgy"
+      },
+      {
+        text: "Accompanied you to transfer here",
+        value: "who_accompanied_you_to_transfer_here",
+        width: "200px",
+        title: "Accompanied you to transfer here"
+      },
+      {
         text: "Actions",
         value: "name",
         sortable: false,
@@ -191,7 +364,6 @@ export default {
         title: "Actions"
       }
     ],
-    desserts: [],
     members: [],
     editedIndex: -1,
     editedItem: {
@@ -258,50 +430,71 @@ export default {
       }
       this.close();
     },
-    exporting(name){
-      var copy = document.getElementsByClassName("v-datatable v-table theme--light")[0];
+    exporting(name) {
+      var copy = document.getElementsByClassName(
+        "v-datatable v-table theme--light"
+      )[0];
       var content = copy.cloneNode(true);
-      
       //remove unnecessary columns
-      for(var ctr=0; content.getElementsByTagName("TR")[ctr]!=null ;ctr++){
-          content.getElementsByTagName("TR")[ctr].lastChild.remove();
+      for (
+        var ctr = 0;
+        content.getElementsByTagName("TR")[ctr] != null;
+        ctr++
+      ) {
+        content.getElementsByTagName("TR")[ctr].lastChild.remove();
       }
       //remove "arrow up" tag
-      for(var ctr=0; content.getElementsByTagName("TH")[ctr] != null; ctr++){
-        content.getElementsByTagName("TH")[ctr].removeChild(content.getElementsByTagName("I")[0]);
+      for (
+        var ctr = 0;
+        content.getElementsByTagName("TH")[ctr] != null;
+        ctr++
+      ) {
+        content
+          .getElementsByTagName("TH")
+          [ctr].removeChild(content.getElementsByTagName("I")[0]);
       }
-      if(name == 'PDF'){
-        var doc = new jsPDF('landscape','pt');
+      if (name == "PDF") {
+        var doc = new jsPDF("landscape", "pt");
         var trial = doc.autoTableHtmlToJson(content);
         doc.setFontSize(10);
-        doc.text(340, 50, 'Republic of the Philippines');
-        doc.text(270, 70, 'Department of Information and Communications Technology');
-        doc.text(330, 90, 'Cordillera Administrative Region');
+        doc.text(340, 50, "Republic of the Philippines");
+        doc.text(
+          270,
+          70,
+          "Department of Information and Communications Technology"
+        );
+        doc.text(330, 90, "Cordillera Administrative Region");
         doc.setFontSize(20);
-        doc.text(350, 115, 'Inhabitants');
-        doc.autoTable(trial.columns, trial.data,{
-            startY: 130}
-            );
-        doc.save("trial" + '.pdf');
+        doc.text(350, 115, "Inhabitants");
+        doc.autoTable(trial.columns, trial.data, {
+          startY: 130
+        });
+        doc.save("trial" + ".pdf");
       }
-      if(name == 'Word'){
-        var headings = "<div style='text-align: center'>Republic of the Philippines<br>Department of Information and Communications Technology<br>Cordillera Administrative Region<br>";
+      if (name == "Word") {
+        var headings =
+          "<div style='text-align: center'>Republic of the Philippines<br>Department of Information and Communications Technology<br>Cordillera Administrative Region<br>";
         var title = "<span style='font-size:30'>Inhabitant</div>";
         content.style.width = "100%";
         content.style.borderCollapse = "collapse";
         content.getElementsByTagName("TR")[0].style.backgroundColor = "#5c85d6";
         content.getElementsByTagName("TR")[0].style.color = "white";
-        for(var ctr=0; content.getElementsByTagName("TR")[ctr]!=null ;ctr++){
-            if(ctr%2==1){
-                content.getElementsByTagName("TR")[ctr].style.backgroundColor = "#f2f2f2";
-            }
+        for (
+          var ctr = 0;
+          content.getElementsByTagName("TR")[ctr] != null;
+          ctr++
+        ) {
+          if (ctr % 2 == 1) {
+            content.getElementsByTagName("TR")[ctr].style.backgroundColor =
+              "#f2f2f2";
+          }
         }
         var elem = document.createElement("Table");
         elem.appendChild(content);
-        var converted = htmlDocx.asBlob(headings + title + elem.innerHTML,{
-          orientation: 'landscape'
+        var converted = htmlDocx.asBlob(headings + title + elem.innerHTML, {
+          orientation: "landscape"
         });
-        saveAs(converted, 'test.docx');
+        saveAs(converted, "test.docx");
       }
     }
   }

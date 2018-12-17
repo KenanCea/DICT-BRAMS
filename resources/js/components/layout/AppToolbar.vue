@@ -21,7 +21,7 @@
           <img src="img/profile/1540267402.jpeg" alt="Michael Wang">
         </v-avatar>
       </v-btn>
-      <v-list class="pa-0">
+      <v-list>
         <v-list-tile
           v-for="(item,index) in items"
           :to="!item.href ? { name: item.name } : null"
@@ -66,7 +66,7 @@ export default {
         }
       },
       {
-        icon: "fullscreen_exit",
+        icon: "power_settings_new",
         href: "#",
         title: "Logout",
         click: e => {
