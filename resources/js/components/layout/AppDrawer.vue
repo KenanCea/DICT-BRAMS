@@ -3,11 +3,12 @@
     id="appDrawer"
     :mini-variant.sync="mini"
     fixed
+    dark
     app
     v-model="drawer"
     width="260"
   >
-    <v-toolbar color="primary darken-1" dark>
+    <v-toolbar color="blue darken-4" height="58" dark>
       <img v-bind:src="computeLogo" height="36" alt="Logo">
       <v-toolbar-title class="ml-0 pl-3">
         <span class="headline">BRAMS</span>

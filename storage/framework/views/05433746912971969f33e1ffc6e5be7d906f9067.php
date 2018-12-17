@@ -11,7 +11,7 @@
                         </div>
                         <v-form method="POST" action="<?php echo e(route('login')); ?>">
                             <?php echo csrf_field(); ?>
-                            <v-text-field append-icon="person" name="username" placeholder="Username"></v-text-field>
+                            <v-text-field append-icon="person" name="username" placeholder="Username" class="form-control<?php echo e($errors->has('username') ? ' is-invalid' : ''); ?>" required></v-text-field>
                             
                             <v-text-field append-icon="lock" name="password" type="password" placeholder="Password" required></v-text-field>
                             

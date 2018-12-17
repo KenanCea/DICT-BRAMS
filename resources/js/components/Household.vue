@@ -1,395 +1,207 @@
 <template>
-  <v-app>
-    <v-container>
-      <v-layout row wrap>
-        <v-card>
-          <v-card-title class="pb-0">
-            <h1 class="font-weight-light">Household</h1>
-            <v-divider class="ma-2" vertical></v-divider>
-            <v-spacer></v-spacer>
-            <v-text-field v-model="search" prepend-inner-icon="search" label="Search"></v-text-field>
-            <v-menu offset-y>
-              <v-btn slot="activator" color="primary" dark>Export</v-btn>
-              <v-list>
-                <v-list-tile v-for="(item, index) in exports" :key="index">
-                  <button @click="exporting(item.title)">
-                    <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                  </button>
-                </v-list-tile>
-              </v-list>
-            </v-menu>
-            <v-menu v-model="menu" :close-on-content-click="false" offset-y>
-              <v-btn slot="activator" color="primary" dark>Column</v-btn>
-              <v-list>
-                <v-list-tile v-for="(item, index) in headers" :key="index">
-                  <v-switch></v-switch>
-                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-                </v-list-tile>
-              </v-list>
-              <v-btn flat @click="menu = false">Cancel</v-btn>
-              <v-btn color="primary" flat @click="menu = false">Save</v-btn>
-            </v-menu>
-          </v-card-title>
-          <v-dialog v-model="dialog" scrollable>
-            <v-btn slot="activator" absolute dark fab top right color="primary">
-              <v-icon>add</v-icon>
-            </v-btn>
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-divider></v-divider>
-              <v-card-text>
-                <v-container grid-list-md>
-                  <v-layout wrap>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-text>
-              <v-divider></v-divider>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="primary" @click="close">Cancel</v-btn>
-                <v-btn color="primary" @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-          <v-divider></v-divider>
-          <v-data-table
-            :headers="headers"
-            :items="members"
-            :search="search"
-            item-key="name"
-            class="fixed-header"
-          >
-            <template class="tableData" slot="items" slot-scope="props">
-              <td>{{ props.item.id }}</td>
-              <td>{{ props.item.first_name }}</td>
-              <td>{{ props.item.middle_name }}</td>
-              <td>{{ props.item.family_name }}</td>
-              <td>{{ props.item.sex }}</td>
-              <td>{{ props.item.created_at }}</td>
-              <td>{{ props.item.updated_at }}</td>
-              <td>{{ props.item.region_barangay }}</td>
-              <td>{{ props.item.relation_to_head }}</td>
-              <td>{{ props.item.placeOfBirth }}</td>
-              <td>{{ props.item.dateOfBirth }}</td>
-              <td>{{ props.item.email_add }}</td>
-              <td>{{ props.item.mobile_no }}</td>
-              <td>{{ props.item.telephone_no }}</td>
-              <td>{{ props.item.civilStatus }}</td>
-              <td>{{ props.item.citizenship }}</td>
-              <td>{{ props.item.religion }}</td>
-              <td>{{ props.item.schooling }}</td>
-              <td>{{ props.item.Highest_educational_attainment }}</td>
-              <td>{{ props.item.familyIncome }}</td>
-              <td>{{ props.item.statusOfResidency }}</td>
-              <td>{{ props.item.ethnicGroup }}</td>
-              <td>{{ props.item.height }}</td>
-              <td>{{ props.item.weight }}</td>
-              <td>{{ props.item.bloodType }}</td>
-              <td>{{ props.item.registeredVoterOfTheBrgy }}</td>
-              <td>{{ props.item.previousResidence }}</td>
-              <td>{{ props.item.no_of_months_and_year_living_in_this_brgy }}</td>
-              <td>{{ props.item.reason_you_left_in_previous_brgy }}</td>
-              <td>{{ props.item.reason_you_came_in_this_brgy }}</td>
-              <td>{{ props.item.until_when_you_stay_in_this_brgy }}</td>
-              <td>{{ props.item.who_accompanied_you_to_transfer_here }}</td>
-              <td>
-                <v-btn color="primary" class="mx-1" fab small dark @click="editItem(props.item)">
-                  <v-icon>remove_red_eye</v-icon>
-                </v-btn>
-                <v-btn color="primary" class="mx-1" fab small dark @click="editItem(props.item)">
-                  <v-icon>edit</v-icon>
-                </v-btn>
-                <v-btn color="primary" class="mx-1" fab small dark @click="deleteItem(props.item)">
-                  <v-icon>delete</v-icon>
-                </v-btn>
-              </td>
+    <b-card fluid v-if="$gate.isUser()">
+        <div>
+            <b-row>
+                <b-col md="7">
+                    <h1>Inhabitant</h1>
+                </b-col>
+                <b-col md="2">
+                    <b-input-group prepend="Show">
+                        <b-form-select :options="pageOptions" v-model="perPage" />
+                    </b-input-group>
+                </b-col>
+                <b-col md="3">
+                    <b-input-group prepend="Filter">
+                        <b-form-input v-model="filter" placeholder="Type to Search" />
+                    </b-input-group>
+                </b-col>
+            </b-row>
+            <b-row class="float-right">
+                <b-col class="mb-3">
+                    <b-btn variant="primary"> Columns <i class="fas fa-columns ml-1"></i> </b-btn>
+                </b-col>
+                <b-col class="mb-3">
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Export
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a @click="generate()" class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
+                            <a><download-excel class="btn" :data="members" name="Inhabitants.xls">
+                             <i class="fas fa-file-excel mr-2 green"></i>   Excel 
+                            </download-excel></a>
+                            <a @click="generateWord()" class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a>
+                        </div>
+                        </div>
+                    <!-- <a @click="generate()" class="dropdown-item" href="#"><i class="fas fa-file-pdf mr-2 red"></i>PDF</a>
+                    <download-excel class="btn btn-primary" :data="members" name="Inhabitants.xls">
+                        Export <i class="fas fa-file-export ml-1"></i>
+                    </download-excel>
+                    <a @click="generateWord()" class="dropdown-item" href="#"><i class="fas fa-file-word mr-2 blue"></i>Word</a> -->
+                </b-col>
+                <b-col class="mb-3">
+                    <b-btn @click="newModal" variant="primary"> Add New <i class="fas fa-user-plus ml-1"></i> </b-btn>
+                </b-col>
+            </b-row>
+        </div>
+        <b-table class="dataExport" hover bordered responsive show-empty :current-page="currentPage" :per-page="perPage" :items="members"
+            :fields="fields" :filter="filter" @filtered="onFiltered">
+            <template slot="actions" slot-scope="row">
+                <b-button variant="outline-info" @click.stop="info(row.item, row.index, $event.target)">
+                    <i class="fa fa-eye"></i>
+                </b-button>
+                <b-button variant="outline-success" @click="editModal(row.item)"><i class="fa fa-edit"></i></b-button>
+                <b-button variant="outline-danger" @click="deleteMember(row.item.id)"><i class="fa fa-trash"></i></b-button>
             </template>
-          </v-data-table>
-        </v-card>
-      </v-layout>
-    </v-container>
-  </v-app>
+            <template slot="row-details" slot-scope="row">
+                <b-card>
+                    <ul>
+                        <li v-for="(value, key) in row.item" :key="key">{{ key }}: {{ value}}</li>
+                    </ul>
+                </b-card>
+            </template>
+        </b-table>
+        <b-row>
+            <b-col md="6" class="my-3">
+                <b-pagination :total-rows="totalRows" :per-page="perPage" v-model="currentPage" class="my-0" />
+            </b-col>
+        </b-row>
+        <b-modal id="modalInfo" @hide="resetModal" :title="modalInfo.title" ok-only>
+            <pre>{{ modalInfo.content }}</pre>
+        </b-modal>
+        <div class="modal fade" id="addinhabitant" tabindex="-1" role="dialog"
+            aria-labelledby="addinhabitantTitle" aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <form @submit.prevent="editmode ? updateMember() : createMember()">
+                        <div class="modal-header py-2">
+                            <h4 class="modal-title" v-show="!editmode" id="addinhabitantLongTitle"> <i class="fas fa-plus-square blue"></i>
+                                ADD
+                                NEW MEMBER</h4>
+                            <h4 class="modal-title" v-show="editmode" id="addinhabitantLongTitle"><i class="fas fa-pen-square blue"></i>
+                                EDIT MEMBER
+                            </h4>
+                            <button type="button" class="close" data-dismiss="modal"> <i class="fas fa-times mt-2"></i></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="first_name">First Name:</label>
+                                        <input v-model="form.first_name" type="text" id="first_name" placeholder="First Name"
+                                            name="first_name" class="form-control" :class="{ 'is-invalid': form.errors.has('first_name') }">
+                                        <has-error :form="form" field="first_name"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Family Name:</label>
+                                        <input v-model="form.family_name" type="text" placeholder="Family Name" name="family_name"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('family_name') }">
+                                        <has-error :form="form" field="family_name"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label>Middle Name:</label>
+                                        <input v-model="form.middle_name" type="text" placeholder="Middle Name" name="middle_name"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('middle_name') }">
+                                        <has-error :form="form" field="middle_name"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Gender:</label>
+                                        <select v-model="form.sex" type="text" placeholder="Sex" name="sex" id="sex"
+                                            class="form-control" :class="{ 'is-invalid': form.errors.has('sex') }">
+                                            <option value="">Select Gender</option>
+                                            <option value="male">Male</option>
+                                            <option value="female">Female</option>
+                                        </select>
+                                        <has-error :form="form" field="sex"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <label>Age:</label>
+                                        <input v-model="form.age" type="text" placeholder="Age" name="age" class="form-control"
+                                            :class="{ 'is-invalid': form.errors.has('age') }">
+                                        <has-error :form="form" field="age"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer py-2">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </b-card>
 </template>
 <script>
-import menu from "./api/menu";
-import * as jsPDF from "jspdf";
-import * as autoTable from "jspdf-autotable";
-import htmlDocx from "html-docx-js/dist/html-docx";
-import saveAs from "file-saver";
+import * as jsPDF from 'jspdf';
+import * as autoTable from 'jspdf-autotable';
+import htmlDocx from 'html-docx-js/dist/html-docx';
+import saveAs from 'file-saver';
+const members = [];
 export default {
-  data: () => ({
-    search: "",
-    menu: false,
-    exports: [{ title: "Word" }, { title: "PDF" }, { title: "Excel" }],
-    dialog: false,
-    headers: [
-      { text: "ID", value: "id", width: "100px", title: "ID" },
-      {
-        text: "First name",
-        value: "first_name",
-        width: "200px",
-        title: "First name"
+  data() {
+    return {
+      members: members,
+      currentPage: 1,
+      perPage: 5,
+      totalRows: members.length,
+      pageOptions: [5, 10, 25, 50],
+      filter: null,
+      modalInfo: {
+        title: "",
+        content: ""
       },
-      {
-        text: "Middle name",
-        value: "middle_name",
-        width: "200px",
-        title: "Middle name"
+      fields: {
+        id: {
+          label: "No.",
+          sortable: true
+        },
+        first_name: {
+          label: "First name",
+          sortable: true
+        },
+        family_name: {
+          label: "Family name",
+          sortable: true
+        },
+        middle_name: {
+          label: "Middle name",
+          sortable: true
+        },
+        age: {
+          label: "Age",
+          sortable: true
+        },
+        sex: {
+          label: "Gender",
+          sortable: true
+        },
+        actions: {
+          label: "Actions",
+          class: "text-center pt-1 px-0"
+        }
       },
-      {
-        text: "Family name",
-        value: "family_name",
-        width: "200px",
-        title: "Family name"
-      },
-      { text: "Sex", value: "sex", width: "100px", title: "Sex" },
-      {
-        text: "Created at",
-        value: "created_at",
-        width: "200px",
-        title: "Created at"
-      },
-      {
-        text: "Updated at",
-        value: "updated_at",
-        width: "200px",
-        title: "Updated at"
-      },
-      {
-        text: "Region",
-        value: "region_barangay",
-        width: "200px",
-        title: "Region"
-      },
-      {
-        text: "Relation to Head",
-        value: "relation_to_head",
-        width: "200px",
-        title: "Relation to Head"
-      },
-      {
-        text: "Place of Birth",
-        value: "placeOfBirth",
-        width: "200px",
-        title: "Place of Birth"
-      },
-      {
-        text: "Date of Birth",
-        value: "dateOfBirth",
-        width: "200px",
-        title: "Date of Birth"
-      },
-      {
-        text: "Email Address",
-        value: "email_add",
-        width: "200px",
-        title: "Email Address"
-      },
-      {
-        text: "Mobile Number",
-        value: "mobile_no",
-        width: "200px",
-        title: "Mobile Number"
-      },
-      {
-        text: "Telephone Number",
-        value: "telephone_no",
-        width: "200px",
-        title: "Telephone Number"
-      },
-      {
-        text: "Civil Status",
-        value: "civilStatus",
-        width: "200px",
-        title: "Civil Status"
-      },
-      {
-        text: "Citizenship",
-        value: "citizenship",
-        width: "200px",
-        title: "Citizenship"
-      },
-      {
-        text: "Religion",
-        value: "religion",
-        width: "200px",
-        title: "Religion"
-      },
-      {
-        text: "Schooling",
-        value: "schooling",
-        width: "200px",
-        title: "Schooling"
-      },
-      {
-        text: "Highest Educational Attainment",
-        value: "Highest_educational_attainment",
-        width: "200px",
-        title: "Highest Educational Attainment"
-      },
-      {
-        text: "Family Income",
-        value: "familyIncome",
-        width: "200px",
-        title: "Family Income"
-      },
-      {
-        text: "Status Of Residency",
-        value: "statusOfResidency",
-        width: "200px",
-        title: "Status Of Residency"
-      },
-      {
-        text: "Ethnic Group",
-        value: "ethnicGroup",
-        width: "200px",
-        title: "Ethnic Group"
-      },
-      {
-        text: "Height",
-        value: "height",
-        width: "200px",
-        title: "Height"
-      },
-      {
-        text: "Weight",
-        value: "weight",
-        width: "200px",
-        title: "Weight"
-      },
-      {
-        text: "Blood Type",
-        value: "bloodType",
-        width: "200px",
-        title: "Blood Type"
-      },
-      {
-        text: "Registered Voter of the Barangay",
-        value: "registeredVoterOfTheBrgy",
-        width: "200px",
-        title: "Registered Voter of the Barangay"
-      },
-      {
-        text: "Previous Residence",
-        value: "previousResidence",
-        width: "200px",
-        title: "Previous Residence"
-      },
-      {
-        text: "No. of months and year living in this Brgy",
-        value: "no_of_months_and_year_living_in_this_brgy",
-        width: "200px",
-        title: "No. of months and year living in this Brgy"
-      },
-      {
-        text: "Reason you left in previous brgy",
-        value: "reason_you_left_in_previous_brgy",
-        width: "200px",
-        title: "Reason you left in previous brgy"
-      },
-      {
-        text: "Reason you came in this brgy",
-        value: "reason_you_came_in_this_brgy",
-        width: "200px",
-        title: "Reason you came in this brgy"
-      },
-      {
-        text: "Until when you stay in this brgy",
-        value: "until_when_you_stay_in_this_brgy",
-        width: "200px",
-        title: "Until when you stay in this brgy"
-      },
-      {
-        text: "Accompanied you to transfer here",
-        value: "who_accompanied_you_to_transfer_here",
-        width: "200px",
-        title: "Accompanied you to transfer here"
-      },
-      {
-        text: "Actions",
-        value: "name",
-        sortable: false,
-        fixed: true,
-        width: "200px",
-        title: "Actions"
-      }
-    ],
-    members: [],
-    editedIndex: -1,
-    editedItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: "",
-      calories: 0,
-      fat: 0,
-      carbs: 0,
-      protein: 0
-    }
-  }),
-  computed: {
-    formTitle() {
-      return this.editedIndex === -1 ? "New Inhabitant" : "Edit Item";
-    }
-  },
-  watch: {
-    dialog(val) {
-      val || this.close();
-    }
+      editmode: false,
+      form: new Form({
+        id: "",
+        first_name: "",
+        family_name: "",
+        middle_name: "",
+        age: "",
+        sex: ""
+      })
+    };
   },
   created() {
     this.loadMember();
@@ -400,102 +212,175 @@ export default {
   methods: {
     loadMember() {
       this.$Progress.start();
-      axios.get("api/member").then(({ data }) => {
-        this.members = data.data;
-        this.$Progress.finish();
+      if (this.$gate.isUser()) {
+        axios.get("api/member").then(({ data }) => {
+          this.members = data.data;
+          this.$Progress.finish();
+        });
+      }
+    },
+    createMember() {
+      this.$Progress.start();
+      this.form
+        .post("api/member")
+        .then(() => {
+          Fire.$emit("AfterDo");
+          $("#addinhabitant").modal("hide");
+          swal("Created!", "Member has been created.", "success");
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
+    updateMember() {
+      this.$Progress.start();
+      this.form
+        .put("api/member/" + this.form.id)
+        .then(() => {
+          $("#addinhabitant").modal("hide");
+          swal("Updated!", "Member has been updated.", "success");
+          Fire.$emit("AfterDo");
+          this.$Progress.finish();
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
+    deleteMember(id) {
+      swal({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        type: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.$Progress.start();
+          this.form
+            .delete("api/member/" + id)
+            .then(() => {
+              swal("Deleted!", "Member has been deleted.", "success");
+              Fire.$emit("AfterDo");
+              this.$Progress.finish();
+            })
+            .catch(() => {
+              this.$Progress.fail();
+              swal("Failed!", "There was something wrong.", "warning");
+            });
+        }
       });
     },
-    editItem(item) {
-      this.editedIndex = this.desserts.indexOf(item);
-      this.editedItem = Object.assign({}, item);
-      this.dialog = true;
+    resetModal() {
+      this.modalInfo.title = "";
+      this.modalInfo.content = "";
     },
-    deleteItem(item) {
-      const index = this.desserts.indexOf(item);
-      confirm("Are you sure you want to delete this item?") &&
-        this.desserts.splice(index, 1);
+    editModal(member) {
+      this.editmode = true;
+      this.form.reset();
+      $("#addinhabitant").modal("show");
+      this.form.fill(member);
     },
-    close() {
-      this.dialog = false;
-      setTimeout(() => {
-        this.editedItem = Object.assign({}, this.defaultItem);
-        this.editedIndex = -1;
-      }, 300);
+    newModal() {
+      this.editmode = false;
+      this.form.reset();
+      $("#addinhabitant").modal("show");
     },
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.desserts[this.editedIndex], this.editedItem);
-      } else {
-        this.desserts.push(this.editedItem);
-      }
-      this.close();
+    onFiltered(filteredItems) {
+      this.totalRows = filteredItems.length;
+      this.currentPage = 1;
     },
-    exporting(name) {
-      var copy = document.getElementsByClassName(
-        "v-datatable v-table theme--light"
-      )[0];
-      var content = copy.cloneNode(true);
-      //remove unnecessary columns
-      for (
-        var ctr = 0;
-        content.getElementsByTagName("TR")[ctr] != null;
-        ctr++
-      ) {
-        content.getElementsByTagName("TR")[ctr].lastChild.remove();
-      }
-      //remove "arrow up" tag
-      for (
-        var ctr = 0;
-        content.getElementsByTagName("TH")[ctr] != null;
-        ctr++
-      ) {
-        content
-          .getElementsByTagName("TH")
-          [ctr].removeChild(content.getElementsByTagName("I")[0]);
-      }
-      if (name == "PDF") {
-        var doc = new jsPDF("landscape", "pt");
-        var trial = doc.autoTableHtmlToJson(content);
+    info(item, index, button) {
+      this.modalInfo.title = `Row index: ${index}`;
+      this.modalInfo.content = JSON.stringify(item, null, 2);
+      this.$root.$emit("bv::show::modal", "modalInfo", button);
+    },
+    show() {
+      this.$modal.show("hello-world");
+    },
+    generate(){ 
+        var trial = tableToJson(document.getElementsByClassName("trial")[0]);
+        var doc = new jsPDF('p','pt');
         doc.setFontSize(10);
-        doc.text(340, 50, "Republic of the Philippines");
-        doc.text(
-          270,
-          70,
-          "Department of Information and Communications Technology"
-        );
-        doc.text(330, 90, "Cordillera Administrative Region");
+        doc.text(240, 50, 'Republic of the Philippines');
+        doc.text(170, 70, 'Department of Information and Communications Technology');
+        doc.text(230, 90, 'Cordillera Administrative Region');
         doc.setFontSize(20);
-        doc.text(350, 115, "Inhabitants");
-        doc.autoTable(trial.columns, trial.data, {
-          startY: 130
-        });
-        doc.save("trial" + ".pdf");
-      }
-      if (name == "Word") {
-        var headings =
-          "<div style='text-align: center'>Republic of the Philippines<br>Department of Information and Communications Technology<br>Cordillera Administrative Region<br>";
+        doc.text(250, 115, 'Inhabitants');
+        doc.autoTable(trial.columns, trial.rows,{
+            startY: doc.autoTableEndPosY() + 130}
+            );
+        doc.save("trial" + '.pdf');
+    },
+    generateWord(){
+        var headings = "<div style='text-align: center'>Republic of the Philippines<br>Department of Information and Communications Technology<br>Cordillera Administrative Region<br>";
         var title = "<span style='font-size:30'>Inhabitant</div>";
-        content.style.width = "100%";
-        content.style.borderCollapse = "collapse";
+        var copy = document.getElementsByClassName("trial")[0];
+        var content = copy.cloneNode(true);
+        content.getElementsByTagName("TABLE")[0].style.width = "100%";
+        content.getElementsByTagName("TABLE")[0].style.borderCollapse = "collapse";
         content.getElementsByTagName("TR")[0].style.backgroundColor = "#5c85d6";
         content.getElementsByTagName("TR")[0].style.color = "white";
-        for (
-          var ctr = 0;
-          content.getElementsByTagName("TR")[ctr] != null;
-          ctr++
-        ) {
-          if (ctr % 2 == 1) {
-            content.getElementsByTagName("TR")[ctr].style.backgroundColor =
-              "#f2f2f2";
-          }
+        for(var ctr=0; content.getElementsByTagName("TR")[ctr]!=null ;ctr++){
+            if(ctr%2==1){
+                content.getElementsByTagName("TR")[ctr].style.backgroundColor = "#f2f2f2";
+            }
+            content.getElementsByTagName("TR")[ctr].lastChild.remove();
         }
-        var elem = document.createElement("Table");
-        elem.appendChild(content);
-        var converted = htmlDocx.asBlob(headings + title + elem.innerHTML, {
-          orientation: "landscape"
-        });
-        saveAs(converted, "test.docx");
-      }
+        var converted = htmlDocx.asBlob(headings + title + content.innerHTML);
+        saveAs(converted, 'test.docx');
+
+        //first word generation 
+        /*var content = document.getElementsByClassName("card-body table-responsive p-0")[0];
+        var copy = content.cloneNode(true);
+        content.getElementsByTagName("TABLE")[0].style.width = "100%";
+        content.getElementsByTagName("TABLE")[0].style.borderCollapse = "collapse";
+        content.getElementsByTagName("TR")[0].style.backgroundColor = "#5c85d6";
+        content.getElementsByTagName("TR")[0].style.color = "white";
+        for(var ctr=0; content.getElementsByTagName("TR")[ctr]!=null ;ctr++){
+            if(ctr%2==1){
+                content.getElementsByTagName("TR")[ctr].style.backgroundColor = "#f2f2f2";
+            }
+            content.getElementsByTagName("TR")[ctr].lastChild.remove();
+        }
+        var headings = "<div style='text-align: center'>Republic of the Philippines<br>Department of Information and Communications Technology<br>Cordillera Administrative Region<br>";
+        var title = "<span style='font-size:30'>Inhabitant</div>";
+        var converted = htmlDocx.asBlob(headings + title + content.innerHTML);
+        saveAs(converted, 'test.docx');
+        document.getElementsByClassName("card-body table-responsive p-0")[0].children[0].remove();
+        document.getElementsByClassName("card-body table-responsive p-0")[0].appendChild(copy);*/
+
+
+        /*var headings = "<div style='text-align: center'>Republic of the Philippines<br>Department of Information and Communications Technology<br>Cordillera Administrative Region<br>";
+        var title = "<span style='font-size:30'>Inhabitant</div>";
+        var content = document.getElementsByClassName("trial")[0].innerHTML;
+        alert(content);
+        var converted = htmlDocx.asBlob(headings + title + content);
+        saveAs(converted, 'test.docx');*/
+
+        /* fail(data content display code)
+        var table = "<table style='width:100%;border-collapse:collapse'>";
+        var headers ="<tbody><tr style='background-color:#5c85d6'>";
+        var headersTitle1 = "<th>First Name</th> <th>Middle Name</th> <th>Last Name</th>";
+        var headersTitle2 = "<th>Age</th> <th>Gender</th> <th>Date Created</th>";
+        var data = "</tr><tr v-for='member in members' :key='member.id'>";
+        var dataContent1 = "<td>{{member.first_name}}</td> <td>{{member.middle_name}}</td> <td>{{member.family_name}}</td>";
+        var dataContent2 = "<td>{{member.age}}</td> <td>{{member.sex | uptext}}</td> <td>{{member.created_at | myDate}}</td>";
+        var tableEnd = "</tr></tbody></table>";
+        var content = headings + title + table + headers + headersTitle1 + headersTitle2 + data + dataContent1 + dataContent2 + tableEnd;
+        */
+    }
+  },
+  computed: {
+    sortOptions() {
+      return this.fields.filter(f => f.sortable).map(f => {
+        return {
+          text: f.label,
+          value: f.key
+        };
+      });
     }
   }
 };

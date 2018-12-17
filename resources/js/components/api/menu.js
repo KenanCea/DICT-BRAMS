@@ -35,9 +35,9 @@ const Menu = [
     },
     {
         icon: "account_box",
-        title: "Household",
-        name: "Household",
-        to: "/household"
+        title: "Inhabitant",
+        name: "Inhabitant",
+        to: "/inhabitant"
     },
     {
         icon: "calendar_today",
@@ -55,5 +55,4 @@ Menu.forEach((item) => {
       });
     }
   });
-  
   export default Menu;
