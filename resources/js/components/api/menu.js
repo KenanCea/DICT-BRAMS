@@ -44,7 +44,19 @@ const Menu = [
         title: "Calendar",
         name: "Calendar",
         to: "/calendar"
-    }
+    },
+    {
+        icon: "archive",
+        title: "Archive",
+        group: "Archive",
+        model: false,
+        children: [{
+                title: "Inhabitant",
+                name: "Inhabitant",
+                to: "/archivehousehold"
+            }
+        ]
+    },
 ];
 Menu.forEach((item) => {
     if (item.items) {

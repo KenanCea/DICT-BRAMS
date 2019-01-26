@@ -16,9 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+Route::post('member/archived/{id}', 'API\MemberController@archive');
+Route::get('member/archived', 'API\MemberController@archived_list');
 Route::resources(['user' => 'API\UserController', 
                 'member' => 'API\MemberController',
                 'profile' => 'API\ProfileController']);
 Route::put('profile', 'API\ProfileController@update');
-Route::get('search','API\SearchController@index');
-Route::get('autocomplete','API\SearchController@autocomplete');
+Route::post('Inhabitants', 'API\DashboardController@TotalInhabitant');
+Route::post('Households', 'API\DashboardController@TotalHouseholds');
+Route::get('Purok', 'API\DashboardController@TotalPurok');

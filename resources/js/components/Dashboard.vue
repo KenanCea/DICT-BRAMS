@@ -3,13 +3,13 @@
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
         <v-flex lg4 sm6 xs12>
-          <mini-statistic icon="person" title="1109" sub-title="Inhabitants" color="indigo"></mini-statistic>
+          <mini-statistic icon="person" v-bind:title='inhabitant' sub-title="Inhabitants" color="indigo"></mini-statistic>
         </v-flex>
         <v-flex lg4 sm6 xs12>
-          <mini-statistic icon="people" title="252" sub-title="Households" color="purple"></mini-statistic>
+          <mini-statistic icon="people" v-bind:title='household' sub-title="Households" color="purple"></mini-statistic>
         </v-flex>
         <v-flex lg4 sm6 xs12>
-          <mini-statistic icon="map" title="5" sub-title="Purok / Sitio" color="light-blue"></mini-statistic>
+          <mini-statistic icon="map" title="" sub-title="Purok / Sitio" color="light-blue"></mini-statistic>
         </v-flex>
         <v-flex lg8 sm12 xs12>
           <v-card>
@@ -54,6 +54,8 @@ export default {
   },
   data() {
     return {
+      inhabitant: '',
+      household: '',
       color: Material,
       histogramData: {
         columns: ["Purok", "Male", "Female"],
@@ -92,6 +94,18 @@ export default {
         ]
       }
     };
+  },
+  created(){
+    this.getInhabitants();
+    this.getHouseholds();
+  },
+  methods:{
+    getInhabitants(){
+      axios.post("api/Inhabitants").then(response => (this.inhabitant = response.data));
+    },
+    getHouseholds(){
+      axios.post("api/Households").then(response => (this.household = response.data));
+    }
   }
 };
 </script>

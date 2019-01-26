@@ -30,6 +30,7 @@
               <v-btn color="primary" flat @click="menu = false">Save</v-btn>
             </v-menu>
           </v-card-title>
+  
           <v-dialog v-model="dialog" scrollable>
             <v-btn slot="activator" absolute dark fab top right color="primary">
               <v-icon>add</v-icon>
@@ -149,8 +150,8 @@
                 <v-btn color="primary" class="mx-1" fab small dark @click="editItem(props.item)">
                   <v-icon>edit</v-icon>
                 </v-btn>
-                <v-btn color="primary" class="mx-1" fab small dark @click="deleteItem(props.item)">
-                  <v-icon>delete</v-icon>
+                <v-btn color="primary" class="mx-1" fab small dark @click="archive(props.item.id)">
+                  <v-icon>archive</v-icon>
                 </v-btn>
               </td>
             </template>
@@ -409,11 +410,31 @@ export default {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);
       this.dialog = true;
-    },
-    deleteItem(item) {
-      const index = this.desserts.indexOf(item);
-      confirm("Are you sure you want to delete this item?") &&
-        this.desserts.splice(index, 1);
+    }, 
+    archive(id) {
+      swal({
+        title: "Are you sure?",
+        text: "Archiving will still allow you to undo",
+        type: "info",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33"
+      }).then(result => {
+        if (result.value) {
+          this.$Progress.start();
+          axios
+            .post("api/member/archived/"+ id )
+            .then(() => {
+              swal("Archived!", "Member has been archived.", "success");
+              Fire.$emit("AfterDo");
+              this.$Progress.finish();
+            })
+            .catch(() => {
+              this.$Progress.fail();
+              swal("Failed!", "There was something wrong.", "warning");
+            });
+        }
+      });
     },
     close() {
       this.dialog = false;
@@ -435,6 +456,7 @@ export default {
         "v-datatable v-table theme--light"
       )[0];
       var content = copy.cloneNode(true);
+      content.getElementsByTagName("TR")[1].remove();
       //remove unnecessary columns
       for (
         var ctr = 0;

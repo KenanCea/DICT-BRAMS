@@ -35,7 +35,7 @@
                 <v-list-tile-title>{{ item.title }}</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-            <v-list-tile :key="i" v-for="(child, i) in item.children" :to="item.children.to">
+            <v-list-tile :key="i" v-for="(child, i) in item.children" :to="child.to">
               <v-list-tile-content>
                 <v-list-tile-title>{{ child.title }}</v-list-tile-title>
               </v-list-tile-content>

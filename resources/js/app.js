@@ -65,6 +65,9 @@ let routes = [{
 }, {
     path: '/createaccount',
     component: require('./components/AccountCreate.vue')
+}, {
+    path: '/archivehousehold',
+    component: require('./components/ArchiveHousehold.vue')
 }]
 Vue.component(
     'passport-clients',

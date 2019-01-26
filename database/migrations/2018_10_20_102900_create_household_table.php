@@ -45,8 +45,8 @@ class CreateHouseholdTable extends Migration
             $table->string('cause of death_ch');
             $table->integer('no_of death_ad');
             $table->string('cause of death');
-                $table->integer('mem_id')->unsigned();
-                $table->integer('barangay_id')->unsigned();
+            $table->integer('mem_id')->unsigned();
+            $table->integer('barangay_id')->unsigned();
             $table->timestamps();
         });
 

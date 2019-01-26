@@ -45,6 +45,8 @@ class CreateMembersTable extends Migration
             $table->string('reason_you_came_in_this_brgy');
             $table->integer('until_when_you_stay_in_this_brgy');
             $table->string('who_accompanied_you_to_transfer_here');
+            $table->boolean('archive')->default(false);
+            $table->integer('barangay_id');
             $table->timestamps();
         });
     }
