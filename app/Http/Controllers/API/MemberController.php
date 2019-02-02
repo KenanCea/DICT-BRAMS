@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Member;
+use Auth;
 
 class MemberController extends Controller
 {
@@ -20,8 +21,10 @@ class MemberController extends Controller
 
     public function index()
     {
-        return Member::where('archive', 0)
-        ->Join('users','members.barangay_id','=','users.id')
+        return Member::leftJoin('users','members.barangay_id','=','users.id')
+        ->select('members.*')
+        ->Where('archive',0)
+        ->where('users.id',Auth::user()->id)
         ->latest()
         ->paginate(1000);
     }
@@ -36,7 +39,12 @@ class MemberController extends Controller
 
     public function archived_list()
     {
-        return Member::where('archive', 1)->latest()->paginate(1000);
+        return Member::leftJoin('users','members.barangay_id','=','users.id')
+        ->select('members.*')
+        ->Where('archive',1)
+        ->where('users.id',Auth::user()->id)
+        ->latest()
+        ->paginate(1000);
     }
 
 
