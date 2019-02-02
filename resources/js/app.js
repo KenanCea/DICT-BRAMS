@@ -16,7 +16,7 @@ window.Vue = require('vue');
 window.Form = Form;
 Vue.use(Vuetify, {
     theme: {
-        primary: colors.blue.darken3,
+        primary: colors.blue,
         secondary: colors.grey.darken1,
         accent: colors.shades.black,
         error: colors.red.accent3
@@ -26,7 +26,6 @@ Vue.prototype.$gate = new Gate(window.user);
 window.swal = swal;
 Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
-// export excel
 Vue.component('downloadExcel', JsonExcel)
 Vue.use(VueRouter);
 let routes = [{
@@ -98,7 +97,7 @@ const router = new VueRouter({
     routes
 });
 Vue.use(VueProgressBar, {
-    color: '#2196F3',
+    color: '#03A9F4',
     failedColor: 'red',
     thickness: '3px'
 });

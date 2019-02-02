@@ -20,17 +20,14 @@ class MemberController extends Controller
 
     public function index()
     {
-        return Member::where('archive', 0)->latest()->paginate(1000);
+        return Member::where('archive', 0)
+        ->Join('users','members.barangay_id','=','users.id')
+        ->latest()
+        ->paginate(1000);
     }
 
 
     public function archive($id)
-    {
-        $members = Member::findOrFail($id);
-        $members->archive = ! $members->archive;
-        $members->save();
-    }
-    public function unarchive($id)
     {
         $members = Member::findOrFail($id);
         $members->archive = ! $members->archive;

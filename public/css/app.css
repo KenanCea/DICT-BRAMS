@@ -13818,158 +13818,7 @@ table.v-table tfoot tr td {
   -webkit-font-feature-settings: 'liga';
           font-feature-settings: 'liga';
   font-display: block;
-}.red {
-  color: #f44336;
-}
-
-.red-lighten1 {
-  color: #ef5350;
-}
-
-.red-lighten2 {
-  color: #e57373;
-}
-
-.red-lighten3 {
-  color: #ef9a9a;
-}
-
-.red-lighten4 {
-  color: #ffcdd2;
-}
-
-.red-lighten5 {
-  color: #ffebee;
-}
-
-.red-darken1 {
-  color: #e53935;
-}
-
-.red-darken2 {
-  color: #d32f2f;
-}
-
-.red-darken3 {
-  color: #c62828;
-}
-
-.red-darken4 {
-  color: #b71c1c;
-}
-
-.pink {
-  color: #e91e63;
-}
-
-.pink-lighten1 {
-  color: #ec407a;
-}
-
-.pink-lighten2 {
-  color: #f06292;
-}
-
-.pink-lighten3 {
-  color: #f48fb1;
-}
-
-.pink-lighten4 {
-  color: #f8bbd0;
-}
-
-.pink-lighten5 {
-  color: #fce4ec;
-}
-
-.pink-darken1 {
-  color: #d81b60;
-}
-
-.pink-darken2 {
-  color: #c2185b;
-}
-
-.pink-darken3 {
-  color: #ad1457;
-}
-
-.pink-darken4 {
-  color: #880e4f;
-}
-
-.blue {
-  color: #2196f3;
-}
-
-.green {
-  color: #4caf50;
-}
-
-.red {
-  color: #f44336;
-}
-
-.cyan {
-  color: #00bcd4;
-}
-
-.bg-white {
-  background-color: #ffffff;
-  color: #ffffff;
-}
-
-.bg-green {
-  background-color: #4caf50;
-  color: #fff;
-}
-
-.bg-orange {
-  background-color: #ff9800;
-  color: #fff;
-}
-
-.bg-cyan {
-  background-color: #00bcd4;
-  color: #fff;
-}
-
-.bg-indigo {
-  background-color: #3f51b5;
-  color: #fff;
-}
-
-.bg-red {
-  background-color: #f44336;
-  color: #fff;
-}
-
-.bg-pink {
-  background-color: #e91e63;
-  color: #fff;
-}
-
-.bg-purple {
-  background-color: #9c27b0;
-  color: #fff;
-}
-
-.bg-yellow {
-  background-color: #ffeb3b;
-  color: #fff;
-}
-
-.bg-blue {
-  background-color: #2196f3;
-  color: #fff;
-}
-
-.bg-teal {
-  background-color: #009688;
-  color: #fff;
-}
-
-.v-navigation-drawer {
+}.v-navigation-drawer {
   z-index: 6;
 }
 
@@ -13980,6 +13829,10 @@ table.v-table tfoot tr td {
 .v-toolbar__content {
   padding-left: 16px;
   padding-right: 16px;
+}
+
+#appDrawer {
+  background-color: #0D47A1;
 }
 
 .fixed-header table {

@@ -1,19 +1,13 @@
 <template>
-  <v-toolbar color="primary" fixed dark app>
-    <v-toolbar-title class="ml-0">
-      <v-toolbar-side-icon @click.stop="handleDrawerToggle"></v-toolbar-side-icon>
-    </v-toolbar-title>
-    <v-text-field
-      flat
-      solo-inverted
-      hide-details
-      prepend-inner-icon="search"
-      label="Search"
-      class="hidden-sm-and-down"
-    ></v-text-field>
+  <v-toolbar fixed light app height="58">
+    <v-btn icon>
+    <v-icon color="grey" @click.stop="handleDrawerToggle">menu</v-icon>
+    </v-btn>
+    <!-- <v-text-field single-line append-icon="search" placeholder="Search" class="hidden-sm-and-down"></v-text-field> -->
+    <!-- <v-text-field solo flat label="Append" append-icon="search"></v-text-field> -->
     <v-spacer></v-spacer>
     <v-btn icon>
-      <v-icon>notifications</v-icon>
+      <v-icon color="grey">notifications</v-icon>
     </v-btn>
     <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
       <v-btn icon large flat slot="activator">
