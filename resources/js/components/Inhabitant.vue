@@ -45,38 +45,137 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-dialog v-model="dialog1" max-width="500px">
-            <v-card>
-              <v-card-title>
-                <span class="headline">{{ formTitle }}</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container grid-list-md>
-                  <v-layout wrap>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="form.first_name" label="First name"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="form.middle_name" label="Middle name"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="form.family_name" label="Family name"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="form.sex" label="Sex"></v-text-field>
-                    </v-flex>
-                    <v-flex xs12 sm6 md4>
-                      <v-text-field v-model="form.region_barangay" label="Region"></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="close">Cancel</v-btn>
-                <v-btn color="blue darken-1" flat @click="save">Save</v-btn>
-              </v-card-actions>
-            </v-card>
+          <v-dialog v-model="dialog1" fullscreen hide-overlay transition="dialog-bottom-transition">
+            <v-form @submit.prevent="editmode ? updateMember() : createMember()">
+              <v-card tile>
+                <v-toolbar fixed card dark color="blue darken-3">
+                  <v-btn icon dark @click="dialog1 = false">
+                    <v-icon>close</v-icon>
+                  </v-btn>
+                  <v-toolbar-title v-show="!editmode">New Member</v-toolbar-title>
+                  <!-- <v-toolbar-title v-show="!editmode">EDIT MEMBER</v-toolbar-title> -->
+                  <v-spacer></v-spacer>
+                  <v-toolbar-items>
+                    <v-btn dark flat type="submit">Save</v-btn>
+                  </v-toolbar-items>
+                </v-toolbar>
+                <v-card-text>
+                  <v-container grid-list-md class="mt-5">
+                    <v-layout wrap>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.first_name" label="First name"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.family_name" label="Family name"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.middle_name" label="Middle name"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-select :items="sex" label="Sex"></v-select>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.schooling" label="Schooling"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.dateOfBirth" label="Date of Birth"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.region_barangay" label="Region"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.relation_to_head" label="Relation to head"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.placeOfBirth" label="Place of Birth"></v-text-field>
+                      </v-flex>
+                      <v-text-field
+                        v-model="form.Highest_educational_attainment"
+                        label="Highest Educational Attainment"
+                      ></v-text-field>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.email_add" label="Email Address"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-select :items="civilStatus" label="Civil Status"></v-select>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.mobile_no" label="Mobile No"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.telephone_no" label="Telephone no"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.citizenship" label="Citizenship"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.religion" label="Religion"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.height" label="Height"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.weight" label="Weight"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.familyIncome" label="Family Income"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-select :items="statusOfResidency" label="Civil Status"></v-select>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.ethnicGroup" label="Ethnic Group"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.height" label="Height"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.weight" label="Weight"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-select :items="bloodType" label="Blood Type"></v-select>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.mem_pic" label="Mem Pic"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="form.previousResidence" label="Previous Residence"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field
+                          v-model="form.no_of_months_and_year_living_in_this_brgy"
+                          label="No of months and year living in this brgy"
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field
+                          v-model="form.reason_you_left_in_previous_brgy"
+                          label="Reason you left in previous brgy"
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field
+                          v-model="form.reason_you_came_in_this_brgy"
+                          label="Reason you came in this brgy"
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field
+                          v-model="form.until_when_you_stay_in_this_brgy"
+                          label="Until when you stay in this brgy"
+                        ></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field
+                          v-model="form.who_accompanied_you_to_transfer_here"
+                          label="Who accompanied you to transfer here"
+                        ></v-text-field>
+                      </v-flex>
+                    </v-layout>
+                  </v-container>
+                </v-card-text>
+              </v-card>
+            </v-form>
           </v-dialog>
           <v-divider></v-divider>
           <v-data-table
@@ -84,7 +183,7 @@
             :items="members"
             :search="search"
             item-key="name"
-            class="fixed-header"
+            class="fixed-header elevation-1"
           >
             <template class="tableData" slot="items" slot-scope="props">
               <td v-if="showColumn('id')">{{ props.item.id }}</td>
@@ -159,13 +258,32 @@ import htmlDocx from "html-docx-js/dist/html-docx";
 import saveAs from "file-saver";
 export default {
   data: () => ({
+    sex: ["female", "male"],
+    bloodType: ["A", "B", "O", "AB"],
+    registeredVoterOfTheBrgy: ["yes", "no"],
+    civilStatus: [
+      "single",
+      "married",
+      "widow",
+      "separated",
+      "common-law",
+      "complicated"
+    ],
+    statusOfResidency: [
+      "permanent",
+      "live-in relative",
+      "boarder",
+      "buss resident",
+      "moved out",
+      "deceased"
+    ],
     search: "",
     dialog: false,
     dialog1: false,
     menu: false,
     exports: [{ title: "Word" }, { title: "PDF" }, { title: "Excel" }],
     headers: [
-      { text: "ID", value: "id", width: "100px", title: "ID", selected: true },
+      { text: "ID", value: "id", width: "100px", title: "ID", selected: false },
       {
         text: "First name",
         value: "first_name",

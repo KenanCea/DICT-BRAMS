@@ -470,7 +470,7 @@
                         <?php echo $__env->yieldContent('message'); ?>
                     </p>
 
-                    <a href="<?php echo e(url('/')); ?>">
+                    <a href="<?php echo e(app('router')->has('home') ? route('home') : url('/')); ?>">
                         <button class="bg-transparent text-grey-darkest font-bold uppercase tracking-wide py-3 px-6 border-2 border-grey-light hover:border-grey rounded-lg">
                             <?php echo e(__('Go Home')); ?>
 

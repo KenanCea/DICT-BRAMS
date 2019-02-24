@@ -36,7 +36,7 @@ $factory->define(App\Member::class, function (Faker $faker) {
         'reason_you_came_in_this_brgy' => $faker->sentence,
         'until_when_you_stay_in_this_brgy' => $faker->randomDigit,
         'who_accompanied_you_to_transfer_here' => $faker->lastName,
-        'barangay_id' => $faker->numberBetween($min = 1, $max = 2),
+        'barangay_id' => $faker->numberBetween($min = 2, $max = 129),
         'archive' => $faker->numberBetween($min = 0, $max = 1), 
     ];
 });

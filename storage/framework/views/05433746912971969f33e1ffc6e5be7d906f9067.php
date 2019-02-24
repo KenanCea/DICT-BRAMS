@@ -33,18 +33,6 @@
     </v-content>
     </div>
 </v-app>
-<style scoped lang="css">
-    #login {
-        height: 50%;
-        width: 100%;
-        position: absolute;
-        top: 0;
-        left: 0;
-        content: "";
-        z-index: 0;
-    }
-
-</style>
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), array('__data', '__path')))->render(); ?>
