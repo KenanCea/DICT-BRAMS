@@ -1,5 +1,4 @@
 <template>
-  <v-app>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
         <v-flex lg4 sm6 xs12>
@@ -39,7 +38,6 @@
         </v-flex>
       </v-layout>
     </v-container>
-  </v-app>
 </template>
 <script>
 import MiniStatistic from "./widgets/MiniStatistic";

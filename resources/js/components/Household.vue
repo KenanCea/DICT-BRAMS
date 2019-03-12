@@ -561,6 +561,20 @@ export default {
         this.$Progress.finish();
       });
     },
+    updateMember() {
+      this.$Progress.start();
+      this.form
+        .put("api/member/" + this.form.id)
+        .then(() => {
+          $("#addinhabitant").modal("hide");
+          swal("Updated!", "Member has been updated.", "success");
+          this.$Progress.finish();
+          Fire.$emit("AfterDo");
+        })
+        .catch(() => {
+          this.$Progress.fail();
+        });
+    },
     editItem(item) {
       this.editedIndex = this.desserts.indexOf(item);
       this.editedItem = Object.assign({}, item);

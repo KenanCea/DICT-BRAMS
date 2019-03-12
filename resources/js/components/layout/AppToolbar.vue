@@ -12,7 +12,7 @@
     <v-menu offset-y origin="center center" :nudge-bottom="10" transition="scale-transition">
       <v-btn icon large flat slot="activator">
         <v-avatar size="30px">
-          <img src="img/profile/1540267402.jpeg" alt="Michael Wang">
+          <img src="img/profile/1540267402.jpeg" alt="Profile">
         </v-avatar>
       </v-btn>
       <v-list>
@@ -45,27 +45,19 @@ export default {
     items: [
       {
         icon: "account_circle",
-        href: "#",
+        href: "/account",
         title: "Profile",
-        click: e => {
-          console.log(e);
-        }
       },
       {
         icon: "settings",
-        href: "#",
         title: "Settings",
-        click: e => {
-          console.log(e);
-        }
+        name: "Settings",
+        href: "/account"
       },
       {
         icon: "power_settings_new",
         href: "#",
         title: "Logout",
-        click: e => {
-          window.getApp.$emit("APP_LOGOUT");
-        }
       }
     ]
   }),

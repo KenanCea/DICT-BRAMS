@@ -12,7 +12,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         //    $this->call(UsersTableSeeder::class);
-        $members = factory(App\Member::class, 1000)->create();
+        $members = factory(App\Member::class, 10000)->create();
         if (DB::table('users')->get()->count() == 0) {
             DB::table('users')->insert([
                 [
