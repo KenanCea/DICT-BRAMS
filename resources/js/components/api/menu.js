@@ -12,6 +12,29 @@ const Menu = [
         to: "/dashboard"
     },
     {
+        icon: "save_alt",
+        title: "Documents",
+        group: "Documents",
+        model: false,
+        children: [{
+                title: "Resolutions",
+                name: "Resolutions",
+                to: "/resoupload"
+            },
+            {
+                title: "Memorandum",
+                name: "Memorandum",
+                to: "/memoupload"
+            },
+            {
+                title: "Reso",
+                name: "reso",
+                to: "/reso"
+          }
+
+        ]
+    },
+    {
         icon: "insert_drive_file",
         title: "Forms",
         group: "forms",
