@@ -30,59 +30,68 @@ Vue.component('downloadExcel', JsonExcel)
 Vue.use(VueRouter);
 let routes = [{
     path: '/home',
-    component: require('./components/Home.vue').default
+    component: require('./components/Home.vue')
 }, {
     path: '/dashboard',
-    component: require('./components/Dashboard.vue').default
+    component: require('./components/Dashboard.vue')
+}, {
+    path: '/memoupload',
+    component: require('./components/Memo.vue')
+}, {
+    path: '/resoupload',
+    component: require('./components/Reso.vue')
+},{
+    path: '/reso',
+    component: require('./components/Resolutions.vue')
 }, {
     path: '/household',
-    component: require('./components/Household.vue').default
+    component: require('./components/Household.vue')
 }, {
     path: '/inhabitant',
-    component: require('./components/Inhabitant.vue').default
+    component: require('./components/Inhabitant.vue')
 },  {
     path: '/calendar',
-    component: require('./components/Calendar.vue').default
+    component: require('./components/Calendar.vue')
 }, {
     path: '/barangayclearance',
-    component: require('./components/Barangayclearance.vue').default
+    component: require('./components/Barangayclearance.vue')
 }, {
     path: '/businessclearance',
-    component: require('./components/Businessclearance.vue').default
+    component: require('./components/Businessclearance.vue')
 }, {
     path: '/barangaycertificate',
-    component: require('./components/Barangaycertificate.vue').default
+    component: require('./components/Barangaycertificate.vue')
 }, {
     path: '/profile',
-    component: require('./components/Profile.vue').default
+    component: require('./components/Profile.vue')
 }, {
     path: '/account',
-    component: require('./components/Account.vue').default
+    component: require('./components/Account.vue')
 }, {
     path: '/api',
-    component: require('./components/API.vue').default
+    component: require('./components/API.vue')
 }, {
     path: '/createaccount',
-    component: require('./components/AccountCreate.vue').default
+    component: require('./components/AccountCreate.vue')
 }, {
     path: '/archivehousehold',
-    component: require('./components/ArchiveHousehold.vue').default
+    component: require('./components/ArchiveHousehold.vue')
 }]
 Vue.component(
     'passport-clients',
-    require('./components/passport/Clients.vue').default
+    require('./components/passport/Clients.vue')
 );
 Vue.component(
     'passport-authorized-clients',
-    require('./components/passport/AuthorizedClients.vue').default
+    require('./components/passport/AuthorizedClients.vue')
 );
 Vue.component(
     'passport-personal-access-tokens',
-    require('./components/passport/PersonalAccessTokens.vue').default
+    require('./components/passport/PersonalAccessTokens.vue')
 );
 Vue.component(
     'vue-layout',
-    require('./components/App.vue').default
+    require('./components/App.vue')
 );
 window.Fire = new Vue();
 const toast = swal.mixin({
