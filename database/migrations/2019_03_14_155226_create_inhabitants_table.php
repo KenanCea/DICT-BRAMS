@@ -15,7 +15,7 @@ class CreateInhabitantsTable extends Migration
     {
         Schema::create('inhabitants', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('household_id');
+            $table->unsignedBigInteger('household_id');
             $table->string('first_name');
             $table->string('middle_name');
             $table->string('last_name');
@@ -32,7 +32,7 @@ class CreateInhabitantsTable extends Migration
             $table->enum('status_of_residency', ['Permanent', 'Live-in relative', 'Boarder', 'Buss Resident', 'Moved Out', 'Deceased']);
             $table->enum('schooling', ['In school', 'Out of school', 'Not yet in school', 'Graduate']);
             $table->integer('no_of_years_in_barangay');
-            $table->enum('highest_educ_attainment', ['Elem. undergraduate', 'Elementary', 'High sch undergraduate', 'High school', 'College undergraduate', 'College Graduate', 'Vocational', 'Post Graduate', 'Pre-school', 'Not yet attending school']);
+            $table->enum('highest_educ_attainment', ['Elementary undergraduate', 'Elementary', 'High school undergraduate', 'High school', 'College undergraduate', 'College Graduate', 'Vocational', 'Post Graduate', 'Pre-school', 'Not yet attending school']);
             $table->string('date_settled_in_the_barangay');
             $table->string('specific_job_description');
             $table->enum('citizenship', ['Filipino']);

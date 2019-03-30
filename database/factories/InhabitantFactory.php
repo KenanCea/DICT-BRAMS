@@ -5,7 +5,7 @@ use Faker\Generator as Faker;
 
 $factory->define(App\Inhabitant::class, function (Faker $faker) {
     return [
-        'household_id'=> $faker->randomDigit,
+        'household_id' => App\Household::all()->random()->id,
         'first_name'=> $faker->firstName,
         'middle_name'=> $faker->lastName,
         'last_name'=> $faker->lastName,
@@ -22,7 +22,7 @@ $factory->define(App\Inhabitant::class, function (Faker $faker) {
         'status_of_residency'=> $faker->randomElement(['Permanent', 'Live-in relative', 'Boarder', 'Buss Resident', 'Moved Out', 'Deceased']),
         'schooling'=> $faker->randomElement(['In school', 'Out of school', 'Not yet in school', 'Graduate']),
         'no_of_years_in_barangay'=> $faker->randomDigit,
-        'highest_educ_attainment'=> $faker->randomElement(['Elem. undergraduate', 'Elementary', 'High sch undergraduate', 'High school', 'College undergraduate', 'College Graduate', 'Vocational', 'Post Graduate', 'Pre-school', 'Not yet attending school']),
+        'highest_educ_attainment'=> $faker->randomElement(['Elementary undergraduate', 'Elementary', 'High school undergraduate', 'High school', 'College undergraduate', 'College Graduate', 'Vocational', 'Post Graduate', 'Pre-school', 'Not yet attending school']),
         'date_settled_in_the_barangay'=> $faker->date($format = 'Y-m-d', $max = 'now'),
         'specific_job_description'=> $faker->sentence,
         'citizenship'=> $faker->randomElement(['Filipino']),
@@ -35,6 +35,5 @@ $factory->define(App\Inhabitant::class, function (Faker $faker) {
         'child_parent'=> $faker->name,
         'weight'=> $faker->randomDigit,
         'height'=> $faker->randomDigit,
-        //'household_id' => App\Household::all()->random()->id,
     ];
 });

@@ -15,7 +15,7 @@ class CreateHouseholdsTable extends Migration
     {
         Schema::create('households', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->string('house_number');
             $table->string('barangay');
             $table->string('email_address');
@@ -25,8 +25,8 @@ class CreateHouseholdsTable extends Migration
             $table->string('street');
             $table->enum('ethnic_group',['Bicol','Bisaya','Boholano','Capizeno','Cuyunon','Ibaloi','Ilonggo','Ifugao','Ilocano','Ivatan','Kalinga','Kankana-ey','Kapangpangan','Maguindanao','Maranao','Masbateno','Pangasinan','Surigaoan','Tagalog','Tausog','Waray','Yakan','Zambagueno/Chavacano','N/A']);
             $table->string('telephone_no');
-            $table->enum('status_of_ownership-house',['Owned','Rented','Caretaker','Others']);//housing
-            $table->enum('status_of_ownership-lot',['Owned','Rented','Caretaker','Others']);//housing
+            $table->enum('status_of_ownership_house',['Owned','Rented','Caretaker','Others']);//housing
+            $table->enum('status_of_ownership_lot',['Owned','Rented','Caretaker','Others']);//housing
             $table->enum('type_of_dwelling',['Permanent Concrete','Semi Permanent','Temporary']);//housing
             $table->timestamps();
         });
