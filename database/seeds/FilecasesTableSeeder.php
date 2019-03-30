@@ -3,7 +3,7 @@
 use App\Filecase;
 use Illuminate\Database\Seeder;
 
-class FilecaseSeeder extends Seeder
+class FilecasesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

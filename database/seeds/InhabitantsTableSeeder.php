@@ -14,6 +14,6 @@ class InhabitantsTableSeeder extends Seeder
     {
         ini_set('memory_limit', '512M');
         DB::disableQueryLog();
-         return factory(Inhabitant::class,1000)->create();
+         return factory(Inhabitant::class,5000)->create();
     }
 }

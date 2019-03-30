@@ -2830,6 +2830,41 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -8207,7 +8242,7 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { "max-width": "800px" },
+          attrs: { persistent: "", scrollable: "", "max-width": "800px" },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -8229,376 +8264,94 @@ var render = function() {
             },
             [
               _c(
-                "v-card",
+                "v-tabs",
+                {
+                  attrs: { centered: "", "icons-and-text": "" },
+                  model: {
+                    value: _vm.tabs,
+                    callback: function($$v) {
+                      _vm.tabs = $$v
+                    },
+                    expression: "tabs"
+                  }
+                },
                 [
-                  _c("v-card-title", [
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: !_vm.editmode,
-                            expression: "!editmode"
-                          }
-                        ],
-                        staticClass: "headline"
-                      },
-                      [_vm._v("ADD")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "span",
-                      {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.editmode,
-                            expression: "editmode"
-                          }
-                        ],
-                        staticClass: "headline"
-                      },
-                      [_vm._v("EDIT")]
-                    )
-                  ]),
+                  _c("v-tabs-slider", { attrs: { color: "primary" } }),
                   _vm._v(" "),
                   _c(
-                    "v-card-text",
+                    "v-tab",
+                    { attrs: { "h-ref": "tab-1", ripple: "" } },
                     [
-                      _c(
-                        "v-container",
-                        { attrs: { "grid-list-md": "" } },
-                        [
-                          _c(
-                            "v-layout",
-                            { attrs: { wrap: "" } },
-                            [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "House Number" },
-                                    model: {
-                                      value: _vm.form.house_number,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "house_number", $$v)
-                                      },
-                                      expression: "form.house_number"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Barangay" },
-                                    model: {
-                                      value: _vm.form.barangay,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "barangay", $$v)
-                                      },
-                                      expression: "form.barangay"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Email Address" },
-                                    model: {
-                                      value: _vm.form.email_address,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "email_address", $$v)
-                                      },
-                                      expression: "form.email_address"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Purok" },
-                                    model: {
-                                      value: _vm.form.purok,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "purok", $$v)
-                                      },
-                                      expression: "form.purok"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Place of Origin" },
-                                    model: {
-                                      value: _vm.form.place_of_origin,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "place_of_origin",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "form.place_of_origin"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Mobile Number" },
-                                    model: {
-                                      value: _vm.form.mobile_number,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "mobile_number", $$v)
-                                      },
-                                      expression: "form.mobile_number"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Street" },
-                                    model: {
-                                      value: _vm.form.street,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "street", $$v)
-                                      },
-                                      expression: "form.street"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: [
-                                        "Bicol",
-                                        "Bisaya",
-                                        "Boholano",
-                                        "Capizeno",
-                                        "Cuyunon",
-                                        "Ibaloi",
-                                        "Ilonggo",
-                                        "Ifugao",
-                                        "Ilocano",
-                                        "Ivatan",
-                                        "Kalinga",
-                                        "Kankanaey",
-                                        "Kapangpangan",
-                                        "Maguindanao",
-                                        "Maranao",
-                                        "Masbateno",
-                                        "Pangasinan",
-                                        "Surigaoan",
-                                        "Tagalog",
-                                        "Tausog",
-                                        "Waray",
-                                        "Yakan",
-                                        "Zamboagueno/Chavacano",
-                                        "N/A"
-                                      ],
-                                      label: "Ethnic Group"
-                                    },
-                                    model: {
-                                      value: _vm.form.ethnic_group,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "ethnic_group", $$v)
-                                      },
-                                      expression: "form.ethnic_group"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-text-field", {
-                                    attrs: { label: "Telephone No." },
-                                    model: {
-                                      value: _vm.form.telephone_no,
-                                      callback: function($$v) {
-                                        _vm.$set(_vm.form, "telephone_no", $$v)
-                                      },
-                                      expression: "form.telephone_no"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: [
-                                        "Owned",
-                                        "Rented",
-                                        "Caretaker",
-                                        "Others"
-                                      ],
-                                      label: "Status of Ownership-House"
-                                    },
-                                    model: {
-                                      value: _vm.form.status_of_ownership_house,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "status_of_ownership_house",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "form.status_of_ownership_house"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: [
-                                        "Owned",
-                                        "Rented",
-                                        "Caretaker",
-                                        "Others"
-                                      ],
-                                      label: "Status of Ownership-Lot"
-                                    },
-                                    model: {
-                                      value: _vm.form.status_of_ownership_lot,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "status_of_ownership_lot",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "form.status_of_ownership_lot"
-                                    }
-                                  })
-                                ],
-                                1
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "", sm6: "", md4: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: [
-                                        "Permanent Concrete",
-                                        "Semi Permanent",
-                                        "Temporary"
-                                      ],
-                                      label: "Type of Dwelling Structure"
-                                    },
-                                    model: {
-                                      value:
-                                        _vm.form.type_of_dwelling_structure,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.form,
-                                          "type_of_dwelling_structure",
-                                          $$v
-                                        )
-                                      },
-                                      expression:
-                                        "form.type_of_dwelling_structure"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
+                      _vm._v("\n          Household Information\n          "),
+                      _c("v-icon", [_vm._v("home")])
                     ],
                     1
                   ),
                   _vm._v(" "),
                   _c(
-                    "v-card-actions",
+                    "v-tab",
+                    { attrs: { ripple: "" } },
                     [
-                      _c("v-spacer"),
-                      _vm._v(" "),
+                      _vm._v("\n          Head Information\n          "),
+                      _c("v-icon", [_vm._v("person")])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-tab",
+                    { attrs: { ripple: "" } },
+                    [
+                      _vm._v("\n          Educational Information\n          "),
+                      _c("v-icon", [_vm._v("school")])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-tab",
+                    { attrs: { ripple: "" } },
+                    [
+                      _vm._v("\n          Environment Information\n          "),
+                      _c("v-icon", [_vm._v("nature_people")])
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-tab",
+                    { attrs: { ripple: "" } },
+                    [
+                      _vm._v("\n          Health Information\n          "),
+                      _c("v-icon", [_vm._v("local_hospital")])
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-tabs-items",
+                {
+                  model: {
+                    value: _vm.tabs,
+                    callback: function($$v) {
+                      _vm.tabs = $$v
+                    },
+                    expression: "tabs"
+                  }
+                },
+                [
+                  _c(
+                    "v-tab-item",
+                    { attrs: { value: "0" } },
+                    [
                       _c(
-                        "v-btn",
-                        {
-                          attrs: { color: "blue darken-1", flat: "" },
-                          on: {
-                            click: function($event) {
-                              _vm.dialog = false
-                            }
-                          }
-                        },
-                        [_vm._v("Cancel")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            color: "blue darken-1",
-                            flat: "",
-                            type: "submit"
-                          }
-                        },
-                        [_vm._v("Save")]
+                        "v-card",
+                        { attrs: { flat: "" } },
+                        [_c("v-card-text", [_vm._v(" sdsddsdsds")])],
+                        1
                       )
                     ],
                     1
@@ -8896,7 +8649,7 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { persistent: "", "max-width": "600px" },
+          attrs: { persistent: "", "max-width": "800px" },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -13878,7 +13631,7 @@ if (inBrowser && window.Vue) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(global, setImmediate) {/*!
- * Vue.js v2.6.9
+ * Vue.js v2.6.10
  * (c) 2014-2019 Evan You
  * Released under the MIT License.
  */
@@ -16423,8 +16176,8 @@ function normalizeScopedSlots (
   prevSlots
 ) {
   var res;
-  var isStable = slots ? !!slots.$stable : true;
   var hasNormalSlots = Object.keys(normalSlots).length > 0;
+  var isStable = slots ? !!slots.$stable : !hasNormalSlots;
   var key = slots && slots.$key;
   if (!slots) {
     res = {};
@@ -17508,7 +17261,9 @@ function resolveAsyncComponent (
 
   if (owner && !isDef(factory.owners)) {
     var owners = factory.owners = [owner];
-    var sync = true
+    var sync = true;
+    var timerLoading = null;
+    var timerTimeout = null
 
     ;(owner).$on('hook:destroyed', function () { return remove(owners, owner); });
 
@@ -17519,6 +17274,14 @@ function resolveAsyncComponent (
 
       if (renderCompleted) {
         owners.length = 0;
+        if (timerLoading !== null) {
+          clearTimeout(timerLoading);
+          timerLoading = null;
+        }
+        if (timerTimeout !== null) {
+          clearTimeout(timerTimeout);
+          timerTimeout = null;
+        }
       }
     };
 
@@ -17565,7 +17328,8 @@ function resolveAsyncComponent (
           if (res.delay === 0) {
             factory.loading = true;
           } else {
-            setTimeout(function () {
+            timerLoading = setTimeout(function () {
+              timerLoading = null;
               if (isUndef(factory.resolved) && isUndef(factory.error)) {
                 factory.loading = true;
                 forceRender(false);
@@ -17575,7 +17339,8 @@ function resolveAsyncComponent (
         }
 
         if (isDef(res.timeout)) {
-          setTimeout(function () {
+          timerTimeout = setTimeout(function () {
+            timerTimeout = null;
             if (isUndef(factory.resolved)) {
               reject(
                 "timeout (" + (res.timeout) + "ms)"
@@ -18121,16 +17886,21 @@ var getNow = Date.now;
 // timestamp can either be hi-res (relative to page load) or low-res
 // (relative to UNIX epoch), so in order to compare time we have to use the
 // same timestamp type when saving the flush timestamp.
-if (
-  inBrowser &&
-  window.performance &&
-  typeof performance.now === 'function' &&
-  document.createEvent('Event').timeStamp <= performance.now()
-) {
-  // if the event timestamp is bigger than the hi-res timestamp
-  // (which is evaluated AFTER) it means the event is using a lo-res timestamp,
-  // and we need to use the lo-res version for event listeners as well.
-  getNow = function () { return performance.now(); };
+// All IE versions use low-res event timestamps, and have problematic clock
+// implementations (#9632)
+if (inBrowser && !isIE) {
+  var performance = window.performance;
+  if (
+    performance &&
+    typeof performance.now === 'function' &&
+    getNow() > document.createEvent('Event').timeStamp
+  ) {
+    // if the event timestamp, although evaluated AFTER the Date.now(), is
+    // smaller than it, it means the event is using a hi-res timestamp,
+    // and we need to use the hi-res version for event listener timestamps as
+    // well.
+    getNow = function () { return performance.now(); };
+  }
 }
 
 /**
@@ -19295,7 +19065,7 @@ Object.defineProperty(Vue, 'FunctionalRenderContext', {
   value: FunctionalRenderContext
 });
 
-Vue.version = '2.6.9';
+Vue.version = '2.6.10';
 
 /*  */
 
@@ -21457,10 +21227,11 @@ function updateDOMProps (oldVnode, vnode) {
   }
 
   for (key in oldProps) {
-    if (isUndef(props[key])) {
+    if (!(key in props)) {
       elm[key] = '';
     }
   }
+
   for (key in props) {
     cur = props[key];
     // ignore children if the node has textContent or innerHTML,
@@ -24577,7 +24348,7 @@ function isDirectChildOfTemplateFor (node) {
 
 /*  */
 
-var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*\(/;
+var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function\s*(?:[\w$]+)?\s*\(/;
 var fnInvokeRE = /\([^)]*?\);*$/;
 var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/;
 
@@ -32264,7 +32035,7 @@ var __assign = undefined && undefined.__assign || function () {
             // If the dialog content contains
             // the click event, or if the
             // dialog is not active
-            if (this.$refs.content.contains(e.target) || !this.isActive) return false;
+            if (!this.isActive || this.$refs.content.contains(e.target)) return false;
             // If we made it here, the click is outside
             // and is active. If persistent, and the
             // click is on the overlay, animate
@@ -32274,7 +32045,7 @@ var __assign = undefined && undefined.__assign || function () {
             }
             // close dialog if !persistent, clicked outside and we're the topmost dialog.
             // Since this should only be called in a capture event (bottom up), we shouldn't need to stop propagation
-            return Object(_util_helpers__WEBPACK_IMPORTED_MODULE_8__["getZIndex"])(this.$refs.content) >= this.getMaxZIndex();
+            return this.activeZIndex >= this.getMaxZIndex();
         },
         hideScroll: function hideScroll() {
             if (this.fullscreen) {
@@ -32286,16 +32057,62 @@ var __assign = undefined && undefined.__assign || function () {
         show: function show() {
             !this.fullscreen && !this.hideOverlay && this.genOverlay();
             this.$refs.content.focus();
-            this.$listeners.keydown && this.bind();
+            this.bind();
         },
         bind: function bind() {
-            window.addEventListener('keydown', this.onKeydown);
+            window.addEventListener('focusin', this.onFocusin);
         },
         unbind: function unbind() {
-            window.removeEventListener('keydown', this.onKeydown);
+            window.removeEventListener('focusin', this.onFocusin);
         },
         onKeydown: function onKeydown(e) {
+            if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_8__["keyCodes"].esc && !this.getOpenDependents().length) {
+                if (!this.persistent) {
+                    this.isActive = false;
+                    var activator_1 = this.getActivator();
+                    this.$nextTick(function () {
+                        return activator_1 && activator_1.focus();
+                    });
+                } else if (!this.noClickAnimation) {
+                    this.animateClick();
+                }
+            }
             this.$emit('keydown', e);
+        },
+        onFocusin: function onFocusin(e) {
+            var target = event.target;
+            if (
+            // It isn't the document or the dialog body
+            ![document, this.$refs.content].includes(target) &&
+            // It isn't inside the dialog body
+            !this.$refs.content.contains(target) &&
+            // We're the topmost dialog
+            this.activeZIndex >= this.getMaxZIndex() &&
+            // It isn't inside a dependent element (like a menu)
+            !this.getOpenDependentElements().some(function (el) {
+                return el.contains(target);
+            })
+            // So we must have focused something outside the dialog and its children
+            ) {
+                    // Find and focus the first available element inside the dialog
+                    var focusable = this.$refs.content.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+                    focusable.length && focusable[0].focus();
+                }
+        },
+        getActivator: function getActivator(e) {
+            if (this.$refs.activator) {
+                return this.$refs.activator.children.length > 0 ? this.$refs.activator.children[0] : this.$refs.activator;
+            }
+            if (e) {
+                this.activatedBy = e.currentTarget || e.target;
+            }
+            if (this.activatedBy) return this.activatedBy;
+            if (this.activatorNode) {
+                var activator = Array.isArray(this.activatorNode) ? this.activatorNode[0] : this.activatorNode;
+                var el = activator && activator.elm;
+                if (el) return el;
+            }
+            Object(_util_console__WEBPACK_IMPORTED_MODULE_10__["consoleError"])('No activator found');
         },
         genActivator: function genActivator() {
             var _this = this;
@@ -32303,6 +32120,7 @@ var __assign = undefined && undefined.__assign || function () {
             var listeners = this.disabled ? {} : {
                 click: function click(e) {
                     e.stopPropagation();
+                    _this.getActivator(e);
                     if (!_this.disabled) _this.isActive = !_this.isActive;
                 }
             };
@@ -32313,9 +32131,10 @@ var __assign = undefined && undefined.__assign || function () {
             }
             return this.$createElement('div', {
                 staticClass: 'v-dialog__activator',
-                'class': {
+                class: {
                     'v-dialog__activator--disabled': this.disabled
                 },
+                ref: 'activator',
                 on: listeners
             }, this.$slots.activator);
         }
@@ -32329,7 +32148,7 @@ var __assign = undefined && undefined.__assign || function () {
             directives: [{
                 name: 'click-outside',
                 value: function value() {
-                    return _this.isActive = false;
+                    _this.isActive = false;
                 },
                 args: {
                     closeConditional: this.closeConditional,
@@ -32361,6 +32180,9 @@ var __assign = undefined && undefined.__assign || function () {
         children.push(h('div', {
             'class': this.contentClasses,
             attrs: __assign({ tabIndex: '-1' }, this.getScopeIdAttrs()),
+            on: {
+                keydown: this.onKeydown
+            },
             style: { zIndex: this.activeZIndex },
             ref: 'content'
         }, [this.$createElement(_util_ThemeProvider__WEBPACK_IMPORTED_MODULE_9__["default"], {
@@ -35243,8 +35065,8 @@ __webpack_require__.r(__webpack_exports__);
                 });
             });
         },
-        closeConditional: function closeConditional() {
-            return this.isActive && this.closeOnClick;
+        closeConditional: function closeConditional(e) {
+            return this.isActive && this.closeOnClick && !this.$refs.content.contains(e.target);
         },
         onResize: function onResize() {
             if (!this.isActive) return;
@@ -35468,7 +35290,7 @@ var __spread = undefined && undefined.__spread || function () {
             var directives = !this.openOnHover && this.closeOnClick ? [{
                 name: 'click-outside',
                 value: function value() {
-                    return _this.isActive = false;
+                    _this.isActive = false;
                 },
                 args: {
                     closeConditional: this.closeConditional,
@@ -35489,7 +35311,7 @@ var __spread = undefined && undefined.__spread || function () {
             var options = {
                 attrs: this.getScopeIdAttrs(),
                 staticClass: 'v-menu__content',
-                'class': __assign({}, this.rootThemeClasses, (_a = { 'v-menu__content--auto': this.auto, 'menuable__content__active': this.isActive }, _a[this.contentClass.trim()] = true, _a)),
+                'class': __assign({}, this.rootThemeClasses, (_a = { 'v-menu__content--auto': this.auto, 'v-menu__content--fixed': this.activatorFixed, 'menuable__content__active': this.isActive }, _a[this.contentClass.trim()] = true, _a)),
                 style: this.styles,
                 directives: this.genDirectives(),
                 ref: 'content',
@@ -35498,7 +35320,8 @@ var __spread = undefined && undefined.__spread || function () {
                         e.stopPropagation();
                         if (e.target.getAttribute('disabled')) return;
                         if (_this.closeOnContentClick) _this.isActive = false;
-                    }
+                    },
+                    keydown: this.onKeyDown
                 }
             };
             !this.disabled && this.openOnHover && (options.on.mouseenter = this.mouseEnterHandler);
@@ -35559,7 +35382,14 @@ __webpack_require__.r(__webpack_exports__);
         onKeyDown: function onKeyDown(e) {
             var _this = this;
             if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_0__["keyCodes"].esc) {
-                this.isActive = false;
+                // Wait for dependent elements to close first
+                setTimeout(function () {
+                    _this.isActive = false;
+                });
+                var activator_1 = this.getActivator();
+                this.$nextTick(function () {
+                    return activator_1 && activator_1.focus();
+                });
             } else if (e.keyCode === _util_helpers__WEBPACK_IMPORTED_MODULE_0__["keyCodes"].tab) {
                 setTimeout(function () {
                     if (!_this.$refs.content.contains(document.activeElement)) {
@@ -38329,6 +38159,8 @@ var defaultMenuProps = {
             // open `v-menu`
             if (this.selectedItems.length === 0) {
                 this.isMenuActive = true;
+            } else {
+                this.isMenuActive = false;
             }
             this.selectedIndex = -1;
         },
@@ -38360,11 +38192,15 @@ var defaultMenuProps = {
             }
             this.keyboardLookupPrefix += e.key.toLowerCase();
             this.keyboardLookupLastTime = now;
-            var item = this.allItems.find(function (item) {
+            var index = this.allItems.findIndex(function (item) {
                 return _this.getText(item).toLowerCase().startsWith(_this.keyboardLookupPrefix);
             });
-            if (item !== undefined) {
+            var item = this.allItems[index];
+            if (index !== -1) {
                 this.setValue(this.returnObject ? item : this.getValue(item));
+                setTimeout(function () {
+                    return _this.setMenuIndex(index);
+                });
             }
         },
         onKeyDown: function onKeyDown(e) {
@@ -41844,7 +41680,7 @@ var dirtyTypes = ['color', 'file', 'time', 'date', 'datetime-local', 'week', 'mo
                 return this.lazyValue;
             },
             set: function set(val) {
-                if (this.mask) {
+                if (this.mask && val !== this.lazyValue) {
                     this.lazyValue = this.unmaskText(this.maskText(this.unmaskText(val)));
                     this.setSelectionRange();
                 } else {
@@ -43644,7 +43480,7 @@ __webpack_require__.r(__webpack_exports__);
         var _a;
         var tooltip = h('div', this.setBackgroundColor(this.color, {
             staticClass: 'v-tooltip__content',
-            'class': (_a = {}, _a[this.contentClass] = true, _a['menuable__content__active'] = this.isActive, _a),
+            'class': (_a = {}, _a[this.contentClass] = true, _a['menuable__content__active'] = this.isActive, _a['v-tooltip__content--fixed'] = this.activatorFixed, _a),
             style: this.styles,
             attrs: this.getScopeIdAttrs(),
             directives: [{
@@ -45013,7 +44849,7 @@ var Vuetify = {
             return false;
         })(opts.components);
     },
-    version: '1.5.6'
+    version: '1.5.8'
 };
 function checkVueVersion(Vue, requiredVue) {
     var vueDep = requiredVue || '^2.5.18';
@@ -46146,17 +45982,6 @@ var VRowExpandTransition = Object(_util_helpers__WEBPACK_IMPORTED_MODULE_0__["cr
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-var __values = undefined && undefined.__values || function (o) {
-    var m = typeof Symbol === "function" && o[Symbol.iterator],
-        i = 0;
-    if (m) return m.call(o);
-    return {
-        next: function next() {
-            if (o && i >= o.length) o = void 0;
-            return { value: o && o[i++], done: !o };
-        }
-    };
-};
 function closeConditional() {
     return false;
 }
@@ -46186,41 +46011,13 @@ function directive(e, el, binding) {
     // Check if it's a click outside our elements, and then if our callback returns true.
     // Non-toggleable components should take action in their callback and return falsy.
     // Toggleable can return true if it wants to deactivate.
-    // Note that, because we're in the capture phase, this callback will occure before
+    // Note that, because we're in the capture phase, this callback will occur before
     // the bubbling click event on any outside elements.
-    !clickedInEls(e, elements) && setTimeout(function () {
+    !elements.some(function (el) {
+        return el.contains(e.target);
+    }) && setTimeout(function () {
         isActive(e) && binding.value && binding.value(e);
     }, 0);
-}
-function clickedInEls(e, elements) {
-    var e_1, _a;
-    // Get position of click
-    var x = e.clientX,
-        y = e.clientY;
-    try {
-        // Loop over all included elements to see if click was in any of them
-        for (var elements_1 = __values(elements), elements_1_1 = elements_1.next(); !elements_1_1.done; elements_1_1 = elements_1.next()) {
-            var el = elements_1_1.value;
-            if (clickedInEl(el, x, y)) return true;
-        }
-    } catch (e_1_1) {
-        e_1 = { error: e_1_1 };
-    } finally {
-        try {
-            if (elements_1_1 && !elements_1_1.done && (_a = elements_1.return)) _a.call(elements_1);
-        } finally {
-            if (e_1) throw e_1.error;
-        }
-    }
-    return false;
-}
-function clickedInEl(el, x, y) {
-    // Get bounding rect for element
-    // (we're in capturing event and we want to check for multiple elements,
-    //  so can't use target.)
-    var b = el.getBoundingClientRect();
-    // Check if the click was in the element's bounding rect
-    return x >= b.left && x <= b.right && y >= b.top && y <= b.bottom;
 }
 /* harmony default export */ __webpack_exports__["default"] = ({
     // [data-app] may not be found
@@ -46738,7 +46535,7 @@ var Vuetify = {
         Vue.use(_components_Vuetify__WEBPACK_IMPORTED_MODULE_1__["default"], __assign({ components: _components__WEBPACK_IMPORTED_MODULE_2__,
             directives: _directives__WEBPACK_IMPORTED_MODULE_3__["default"] }, args));
     },
-    version: '1.5.6'
+    version: '1.5.8'
 };
 if (typeof window !== 'undefined' && window.Vue) {
     window.Vue.use(Vuetify);
@@ -47697,6 +47494,7 @@ function searchChildren(children) {
         getClickableDependentElements: function getClickableDependentElements() {
             var result = [this.$el];
             if (this.$refs.content) result.push(this.$refs.content);
+            if (this.overlay) result.push(this.overlay);
             result.push.apply(result, __spread(this.getOpenDependentElements()));
             return result;
         }
@@ -48186,9 +47984,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _positionable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./positionable */ "./src/mixins/positionable.ts");
 /* harmony import */ var _stackable__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./stackable */ "./src/mixins/stackable.ts");
-/* harmony import */ var _util_console__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../util/console */ "./src/util/console.ts");
 var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 
 
 
@@ -48278,6 +48074,7 @@ var dimensions = {
         return {
             absoluteX: 0,
             absoluteY: 0,
+            activatorFixed: false,
             dimensions: Object.assign({}, dimensions),
             isContentActive: false,
             pageWidth: 0,
@@ -48402,8 +48199,20 @@ var dimensions = {
         },
         checkForPageYOffset: function checkForPageYOffset() {
             if (this.hasWindow) {
-                this.pageYOffset = this.getOffsetTop();
+                this.pageYOffset = this.activatorFixed ? 0 : this.getOffsetTop();
             }
+        },
+        checkActivatorFixed: function checkActivatorFixed() {
+            if (this.attach !== false) return;
+            var el = this.getActivator();
+            while (el) {
+                if (window.getComputedStyle(el).position === 'fixed') {
+                    this.activatorFixed = true;
+                    return;
+                }
+                el = el.offsetParent;
+            }
+            this.activatorFixed = false;
         },
         deactivate: function deactivate() {},
         getActivator: function getActivator(e) {
@@ -48426,7 +48235,6 @@ var dimensions = {
                 var el = activator && activator.elm;
                 if (el) return el;
             }
-            Object(_util_console__WEBPACK_IMPORTED_MODULE_3__["consoleError"])('No activator found');
         },
         getInnerHeight: function getInnerHeight() {
             if (!this.hasWindow) return 0;
@@ -48487,6 +48295,7 @@ var dimensions = {
         updateDimensions: function updateDimensions() {
             var _this = this;
             this.checkForWindow();
+            this.checkActivatorFixed();
             this.checkForPageYOffset();
             this.pageWidth = document.documentElement.clientWidth;
             var dimensions = {};
@@ -49029,8 +48838,11 @@ __webpack_require__.r(__webpack_exports__);
     },
     methods: {
         save: function save(value) {
+            var _this = this;
             this.originalValue = value;
-            this.isActive = false;
+            setTimeout(function () {
+                _this.isActive = false;
+            });
         }
     }
 }));
@@ -54925,8 +54737,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Ryan\Documents\GitHub\brams\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Ryan\Documents\GitHub\brams\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\TCMS-Server\Documents\GitHub\DICT-BRAMS\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\TCMS-Server\Documents\GitHub\DICT-BRAMS\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

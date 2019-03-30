@@ -1,12 +1,13 @@
 <template>
   <div class="elevation-1">
-    <v-dialog v-model="dialog" max-width="800px">
+    <v-dialog v-model="dialog" persistent scrollable max-width="800px">
       <v-form @submit.prevent="editmode ? updateHousehold() : createHousehold()">
-        <v-card>
+        <!-- <v-card>
           <v-card-title>
             <span class="headline" v-show="!editmode">ADD</span>
             <span class="headline" v-show="editmode">EDIT</span>
           </v-card-title>
+          <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
@@ -66,12 +67,46 @@
               </v-layout>
             </v-container>
           </v-card-text>
+          <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" flat @click="dialog=false">Cancel</v-btn>
             <v-btn color="blue darken-1" flat type="submit">Save</v-btn>
           </v-card-actions>
-        </v-card>
+        </v-card>-->
+
+        <v-tabs centered v-model="tabs" icons-and-text>
+          <v-tabs-slider color="primary"></v-tabs-slider>
+          <v-tab h-ref="tab-1" ripple>
+            Household Information
+            <v-icon>home</v-icon>
+          </v-tab>
+          <v-tab ripple>
+            Head Information
+            <v-icon>person</v-icon>
+          </v-tab>
+          <v-tab ripple>
+            Educational Information
+            <v-icon>school</v-icon>
+          </v-tab>
+          <v-tab ripple>
+            Environment Information
+            <v-icon>nature_people</v-icon>
+          </v-tab>
+          <v-tab ripple>
+            Health Information
+            <v-icon>local_hospital</v-icon>
+          </v-tab>
+        </v-tabs>
+
+        <v-tabs-items v-model="tabs">
+          <v-tab-item value="0">
+            <v-card flat>
+              <v-card-text> sdsddsdsds</v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs-items>
+
       </v-form>
     </v-dialog>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="elevation-1">
-    <v-dialog v-model="dialog" persistent max-width="600px">
+    <v-dialog v-model="dialog" persistent max-width="800px">
       <v-form @submit.prevent="editmode ? updateInhabitant() : createInhabitant()">
         <v-card>
           <v-card-title>

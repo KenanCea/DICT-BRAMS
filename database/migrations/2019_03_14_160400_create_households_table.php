@@ -27,7 +27,7 @@ class CreateHouseholdsTable extends Migration
             $table->string('telephone_no');
             $table->enum('status_of_ownership_house',['Owned','Rented','Caretaker','Others']);//housing
             $table->enum('status_of_ownership_lot',['Owned','Rented','Caretaker','Others']);//housing
-            $table->enum('type_of_dwelling',['Permanent Concrete','Semi Permanent','Temporary']);//housing
+            $table->enum('type_of_dwelling_structure',['Permanent Concrete','Semi Permanent','Temporary']);//housing
             $table->timestamps();
         });
     }

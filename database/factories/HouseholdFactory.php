@@ -17,6 +17,6 @@ $factory->define(App\Household::class, function (Faker $faker) {
         'telephone_no'=> $faker->randomDigit,
         'status_of_ownership_house'=> $faker->randomElement(['Owned','Rented','Caretaker','Others']),
         'status_of_ownership_lot'=> $faker->randomElement(['Owned','Rented','Caretaker','Others']),
-        'type_of_dwelling'=> $faker->randomElement(['Permanent Concrete','Semi Permanent','Temporary']),
+        'type_of_dwelling_structure'=> $faker->randomElement(['Permanent Concrete','Semi Permanent','Temporary']),
     ];
 });
