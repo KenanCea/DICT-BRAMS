@@ -1,173 +1,101 @@
 <!DOCTYPE html>
-<html lang="{{ app()->getLocale() }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="user" content="{{ Auth::user() }}">
-    {{-- <link rel="manifest" href="/manifest.json"> --}}
     <title>{{ config('app.name', 'Laravel') }}</title>
-    <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
+
 <body>
-<v-app id="app" v-cloak>
-    <snackbar></snackbar>
-    <v-navigation-drawer
-            v-model="drawer"
-            fixed
-            clipped
-            app
-            class='elevation-1'
-            width=250px
-    >
-        <v-list>
-            <template v-for="(item, i) in items">
-                <template v-if="checkRoles(item)">
-                    <v-layout
-                            row
-                            v-if="item.heading"
-                            align-center
-                            :key="i"
-                    >
+    <v-app id="app" v-cloak>
+        @auth
+        <v-navigation-drawer app dense v-model="drawer" fixed clipped>
+            <v-list shaped>
+                <template v-for="item in items">
+                    <v-layout v-if="item.heading" :key="item.heading" row align-center>
                         <v-flex xs6>
-                            <v-subheader v-if="item.heading">
-                                @{{ item.heading }}
-                            </v-subheader>
+                            <v-subheader v-if="item.heading">@{{ item.heading }}</v-subheader>
                         </v-flex>
                     </v-layout>
-                    <v-list-group v-else-if="item.children" v-model="item.model" no-action>
-                        <v-list-tile slot="item" :to="item.to">
-                            <v-list-tile-action>
-                                <v-icon>@{{ item.model ? item.icon : item['icon-alt'] }}</v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>
-                                    @{{ item.text }}
-                                </v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
-                        <v-list-tile
-                                v-for="(child, i) in item.children"
-                                :key="i"
-                                :to="child.to"
-                        >
-                            <v-list-tile-action v-if="child.icon">
-                                <v-icon>@{{ child.icon }}</v-icon>
-                            </v-list-tile-action>
-                            <v-list-tile-content>
-                                <v-list-tile-title>
-                                    @{{ child.text }}
-                                </v-list-tile-title>
-                            </v-list-tile-content>
-                        </v-list-tile>
+                    <v-list-group v-else-if="item.children" v-model="item.model" :key="item.title" :prepend-icon="item.icon" append-icon="mdi-menu-down" no-action>
+                        <v-list-item slot="activator">
+                            <v-list-item-content>
+                                <v-list-item-title class="font-weight-medium">@{{ item.title }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item :key="i" v-for="(child, i) in item.children" :to="child.to">
+                            <v-list-item-content>
+                                <v-list-item-title class="font-weight-medium">@{{ child.title }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
                     </v-list-group>
-                    <v-list-tile v-else :to="item.to">
-                        <v-list-tile-action>
+                    <v-list-item v-else :key="item.title" :to="item.to">
+                        <v-list-item-action>
                             <v-icon>@{{ item.icon }}</v-icon>
-                        </v-list-tile-action>
-                        <v-list-tile-content>
-                            <v-list-tile-title>
-                                @{{ item.text }}
-                            </v-list-tile-title>
-                        </v-list-tile-content>
-                    </v-list-tile>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title class="font-weight-medium">@{{ item.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
                 </template>
-            </template>
-        </v-list>
-    </v-navigation-drawer>
-    <v-navigation-drawer
-    v-model="drawerRight"
-    right
-    fixed
-    clipped
-    app
-    >
-    <v-card>
-        <v-container fluid grid-list-md class="grey lighten-4">
-            <v-layout row wrap>
-                <v-flex xs12>
-                    <gravatar :user="{{ Auth::user() }}" size="100px"></gravatar>
-                </v-flex>
-                <v-flex xs12>
-                    <h3>@{{  user.name }}</h3>
-                    <a href="https://en.gravatar.com/connect/">Change Avatar</a>
-                </v-flex>
-            </v-layout>
-        </v-container>
-        <v-card-text class="px-0 grey lighten-3">
-            <v-form class="pl-3 pr-1 ma-0">
-                <v-text-field :readonly="!editingUser"
-                            label="Email"
-                            :value="user.email"
-                            ref="email"
-                            @input="updateEmail"
-                ></v-text-field>
-                <v-text-field :readonly="!editingUser"
-                            label="User name"
-                            :value="user.name"
-                            @input="updateName"
-                ></v-text-field>
-                <v-text-field readonly
-                            label="Created at"
-                            :value="user.created_at"
-                            readonly
-                ></v-text-field>
-            </v-form>
-        </v-card-text>
-        <v-card-actions>
+            </v-list>
+        </v-navigation-drawer>
+        <v-app-bar :clipped-left="$vuetify.breakpoint.mdAndUp" tile flat fixed app>
+            <v-toolbar-title style="width: 250px" class="ml-0 grey--text text--darken-2">
+                <v-app-bar-nav-icon size="30px" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+                <v-avatar class="mx-2" size="40px"> <img src="/img/logo.png" alt="Logo">
+                </v-avatar>
+                <span class="hidden-sm-and-down">BRAMS</span>
+            </v-toolbar-title>
+            <v-autocomplete clearable light solo flat background-color="grey lighten-3" hide-details prepend-inner-icon="mdi-magnify" label="Search" class="hidden-sm-and-down"></v-autocomplete>
             <v-spacer></v-spacer>
-            <v-btn :loading="updatingUser" flat color="green" @click="updateUser" v-if="editingUser">
-                <v-icon right dark>save</v-icon>
-                Save
-            </v-btn>
-            <v-btn flat color="orange" @click="editUser()" v-else>
-                <v-icon right dark>edit</v-icon>
-                Edit
-            </v-btn>
-            <v-btn :loading="logoutLoading" @click="logout" flat color="orange">
-                <v-icon right dark>exit_to_app</v-icon>
-                Logout</v-btn>
-            <v-spacer></v-spacer>
-        </v-card-actions>
-        <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn :loading="changingPassword" flat color="orange" @click="changePassword">
-                    <v-icon right dark>exit_to_app</v-icon>
-                    Change Password</v-btn>
-            <v-spacer></v-spacer>
-        </v-card-actions>
-    </v-card>
-    </v-navigation-drawer>
-    <v-toolbar
-            app
-            clipped-left
-            clipped-right
-            fixed
-            class='elevation-1'
-    >
-        <v-toolbar-title :style="$vuetify.breakpoint.smAndUp ? 'width: 300px; min-width: 250px' : 'min-width: 72px'" class="ml-0 pl-3">
-            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-            <span class="hidden-xs-only">{{ config('app.shortname', 'BRAMS') }}</span>
-        </v-toolbar-title>
-        <div class="d-flex align-center" style="margin-left: auto">
-            <v-btn icon>
-                <v-icon>notifications</v-icon>
-            </v-btn>
-            <v-btn icon large @click="toogleRightDrawer">
-                <gravatar :user="{{ Auth::user() }}" size="30px"></gravatar>
-            </v-btn>
-        </div>
-    </v-toolbar>
-    <v-content>
-        <v-container>
+            <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-btn rounded text class="pl-0" color="primary" v-on="on">
+                        <v-avatar size="35px" class="mr-3"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo">
+                        </v-avatar>
+                        <span class="grey--text text--darken-2 text-none">{{ Auth::user()->name }}</span>
+                    </v-btn>
+                </template>
+                <v-card>
+                    <v-list nav>
+                        <v-list-item :to="menu.to" v-for="(menu, i) in menus" :key="i">
+                            <v-list-item-icon class="mr-3">
+                                <v-icon v-text="menu.icon"></v-icon>
+                            </v-list-item-icon>
+
+                            <v-list-item-content>
+                                <v-list-item-title v-text="menu.title"></v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                    <v-divider></v-divider>
+                    <v-card-actions>
+                        <v-spacer></v-spacer>
+                        <v-btn color="secondary" outline href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</v-btn>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            @csrf
+                        </form>
+                    </v-card-actions>
+                </v-card>
+            </v-menu>
+        </v-app-bar>
+        <v-content class="white">
             <router-view></router-view>
-        </v-container>
-    </v-content>
-</v-app>
-@stack('beforeScripts')
-<script src="{{ mix('js/app.js') }}"></script>
-@stack('afterScripts')
+        </v-content>
+        @endauth
+        <main>
+            @yield('content')
+        </main>
+    </v-app>
+    @stack('beforeScripts')
+    <script src="{{ mix('js/app.js') }}"></script>
+    @stack('afterScripts')
 </body>
+
 </html>

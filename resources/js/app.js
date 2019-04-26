@@ -1,165 +1,133 @@
+
 require('./bootstrap');
-window.Vue = require('vue');
-window.Vuetify = require('vuetify');
 window.Form = Form;
+
+import Vue from 'vue'
+import Vuetify from 'vuetify'
+import '@mdi/font/css/materialdesignicons.css'
+import colors from 'vuetify/es5/util/colors'
 import VueRouter from 'vue-router';
 import {
-  routes
+    routes
 } from './routes';
 import {
-  Form,
-  HasError,
-  AlertError
+    Form,
+    HasError,
+    AlertError
 } from 'vform';
 
-
-Vue.use(VueRouter)
-const router = new VueRouter({
-  mode: 'history',
-  routes
-});
+const opts = {
+    icons: {
+        iconfont: 'mdi'
+    },
+    theme: {
+        themes: {
+            light: {
+                primary: colors.blue.darken1,
+                secondary: colors.grey.darken1,
+                accent: colors.shades.black,
+                error: colors.red.accent3
+            },
+            dark: {
+                primary: colors.blue.lighten1
+            }
+        }
+    }
+}
 
 Vue.use(Vuetify)
 
-Vue.component(HasError.name, HasError);
-Vue.component(AlertError.name, AlertError);
-Vue.component('login-button', require('./components/Auth/LoginButtonComponent.vue').default);
-Vue.component('register-button', require('./components/Auth/RegisterButtonComponent.vue').default);
-Vue.component('remember-password', require('./components/Auth/RememberPasswordComponent.vue').default);
-Vue.component('reset-password', require('./components/Auth/ResetPasswordComponent.vue').default);
-Vue.component('snackbar', require('./components/SnackBarComponent.vue').default);
-Vue.component('gravatar', require('./components/GravatarComponent.vue').default);
+Vue.use(VueRouter)
+const router = new VueRouter({
+    mode: 'history',
+    routes
+});
 
-import store from './store'
-import * as actions from './store/action-types'
-import * as mutations from './store/mutation-types'
-import {
-  mapGetters
-} from 'vuex'
-import withSnackbar from './components/mixins/withSnackbar'
-if (window.user) {
-  store.commit(mutations.USER, user)
-  store.commit(mutations.LOGGED, true)
-}
 
 const app = new Vue({
-  el: '#app',
-  store,
-  router,
-  mixins: [withSnackbar],
-  data: () => ({
-    drawer: null,
-    drawerRight: false,
-    editingUser: false,
-    logoutLoading: false,
-    changingPassword: false,
-    updatingUser: false,
-    items: [{
-        icon: 'home',
-        text: 'Home',
-        to: '/home'
-      },
-      {
-        icon: 'supervised_user_circle',
-        text: 'Household',
-        to: '/household',
-      },
-      {
-        icon: 'supervised_user_circle',
-        text: 'Inhabitant',
-        to: '/inhabitant'
-      },
-      {
-        icon: 'insert_drive_file',
-        text: 'Barangay Clearance',
-        to: '/barangayclearance',
-      },
-      {
-        icon: 'calendar_today',
-        text: 'Calendar',
-        to: '/calendar',
-      },
-      {
-        icon: 'print',
-        text: 'Print Document',
-        to: '/printdocument',
-      }
-    ]
-  }),
-  computed: {
-    ...mapGetters({
-      user: 'user'
-    })
-  },
-  methods: {
-    editUser() {
-      this.editingUser = true
-      this.$nextTick(this.$refs.email.focus)
-    },
-    updateUser() {
-      this.updatingUser = true
-      this.$store.dispatch(actions.UPDATE_USER, this.user).then(response => {
-        this.showMessage('User modified ok!')
-      }).catch(error => {
-        console.dir(error)
-        this.showError(error)
-      }).then(() => {
-        this.editingUser = false
-        this.updatingUser = false
-      })
-    },
-    updateEmail(email) {
-      this.$store.commit(mutations.USER, {
-        ...this.user,
-        email
-      })
-    },
-    updateName(name) {
-      this.$store.commit(mutations.USER, {
-        ...this.user,
-        name
-      })
-    },
-    toogleRightDrawer() {
-      this.drawerRight = !this.drawerRight
-    },
-    checkRoles(item) {
-      if (item.role) {
-        return this.$store.getters.roles.find(function (role) {
-          return role == item.role
-        })
-      }
-      return true
-    },
-    logout() {
-      this.logoutLoading = true
-      this.$store.dispatch(actions.LOGOUT).then(response => {
-        window.location = '/'
-      }).catch(error => {
-        console.log(error)
-      }).then(() => {
-        this.logoutLoading = false
-      })
-    },
-    menuItemSelected(item) {
-      if (item.to) {
-        if (item.new) {
-          window.open(item.to)
-        } else {
-          window.location.href = item.to
-        }
-      }
-    },
-    changePassword() {
-      this.changingPassword = true
-      this.$store.dispatch(actions.REMEMBER_PASSWORD, this.user.email).then(response => {
-        this.showMessage(`Email sent to change password`)
-      }).catch(error => {
-        console.dir(error)
-        this.showError(error)
-      }).then(() => {
-        this.changingPassword = false
-      })
+    vuetify: new Vuetify(opts),
+    el: '#app',
+    router,
+    data: () => ({
+        drawer: null,
+        items: [
+            {
+                icon: "mdi-view-dashboard",
+                title: "Dashboard",
+                name: "Dashboard",
+                to: "/dashboard"
+            },
+            {
+                icon: "mdi-file-account",
+                title: "Forms",
+                group: "forms",
+                model: false,
+                children: [{
+                    title: "Barangay Clearance",
+                    name: "Barangay Clearance",
+                    to: "/barangayclearance"
+                },
+                {
+                    title: "Business Clearance",
+                    name: "Business Clearance",
+                    to: "/businessclearance"
+                },
+                {
+                    title: "Barangay Certificate",
+                    name: "Barangay Certificate",
+                    to: "/barangaycertificate"
+                },
+                {
+                    title: "Business Certificate",
+                    name: "Business Certificate",
+                    to: "/businesscertificate"
+                }
+                ]
+            },
+            {
+                icon: "mdi-home",
+                title: "Households",
+                name: "Household",
+                to: "/households"
+            },
+            {
+                icon: "mdi-account",
+                title: "Inhabitants",
+                name: "Inhabitants",
+                to: "/inhabitants"
+            },
+            {
+                icon: "mdi-archive",
+                title: "Archive",
+                group: "Archive",
+                model: false,
+                children: [{
+                    title: "Inhabitant",
+                    name: "Inhabitant",
+                    to: "/archivehousehold"
+                }
+                ]
+            },
+        ],
+        menu: 0,
+        menus: [
+            {
+                icon: "mdi-account-box",
+                title: "User Account",
+                name: "User Account",
+                to: "/useraccount"
+            },
+
+            {
+                icon: "mdi-map",
+                title: "Barangay Information",
+                name: "Barangay Information",
+                to: "/barangayinformation"
+            }
+        ],
+
+    }),
+    methods: {
+
     }
-  }
 });

@@ -14,6 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Auth::routes();
 
-Route::get('{path}',"HomeController@index")->where( 'path', '([A-z\d-\/_.]+)?' );
+Auth::routes();
+Route::get('/{any}', 'SpaController@index')->where('any', '.*');

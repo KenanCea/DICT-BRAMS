@@ -1,0 +1,29 @@
+#app > div.application--wrap > nav {
+  border-bottom: rgba(19, 17, 17, 0.12) 1px solid;
+}
+#app > div.application--wrap > main.v-content.white > div > nav {
+  border-bottom: rgba(19, 17, 17, 0.12) 1px solid !important;
+}
+
+#app > div.application--wrap > aside > div.v-navigation-drawer__border {
+  width: 0px !important;
+}
+
+#app > div.application--wrap > aside {
+  top: 64px !important;
+}
+
+#app > div.application--wrap > nav > div > button {
+  background-color: #eeeeee !important;
+}
+
+#navbar {
+  top: 64px;
+  border-bottom: rgba(19, 17, 17, 0.12) 1px solid !important;
+  z-index: 4;
+  width: auto;
+}
+
+.form-border-right {
+  border-right: #4caf50 3px solid;
+}

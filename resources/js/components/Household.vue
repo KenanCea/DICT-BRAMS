@@ -102,11 +102,10 @@
         <v-tabs-items v-model="tabs">
           <v-tab-item value="0">
             <v-card flat>
-              <v-card-text> sdsddsdsds</v-card-text>
+              <v-card-text>sdsddsdsds</v-card-text>
             </v-card>
           </v-tab-item>
         </v-tabs-items>
-
       </v-form>
     </v-dialog>
 
@@ -125,21 +124,21 @@
     </v-dialog>
 
     <v-toolbar flat color="white">
-      <v-toolbar-title>HOUSEHOLD</v-toolbar-title>
+      <v-toolbar-title>Households</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu :close-on-content-click="false" offset-y max-height="400px">
         <template v-slot:activator="{ on }">
           <v-btn color="primary" dark v-on="on">Columns</v-btn>
         </template>
         <v-list>
-          <v-list-tile v-for="(item, index) in headers" :key="index">
+          <v-list-item v-for="(item, index) in headers" :key="index">
             <v-switch
               color="green"
               v-bind:label="item.text"
               v-model="item.selected"
               :value="item.selected"
             ></v-switch>
-          </v-list-tile>
+          </v-list-item>
         </v-list>
       </v-menu>
       <v-btn color="primary" dark @click="newDialog()">New</v-btn>
@@ -169,6 +168,9 @@
           <v-icon small class="mr-2" @click="editDialog(props.item)">edit</v-icon>
           <v-icon small @click="archiveHousehold(props.item.id)">archive</v-icon>
         </td>
+      </template>
+      <template v-slot:progress>
+        <v-progress-linear color="primary" :height="4" indeterminate></v-progress-linear>
       </template>
     </v-data-table>
   </div>

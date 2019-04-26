@@ -20,8 +20,8 @@ class HouseholdController extends Controller
      */
     public function index()
     {
-        $household = request()->user()->households;
-        return $household;
+        $households = request()->user()->households;
+        return $households;
     }
 
     /**

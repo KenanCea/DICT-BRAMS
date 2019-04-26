@@ -2,43 +2,91 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Inhabitant extends Model
 {
     protected $fillable = [
-        'household_id',
+        'last_name',
         'first_name',
         'middle_name',
-        'last_name',
         'relation_to_the_head',
-        'employment_category',
         'sex',
-        'est_monthly_income_cash',
         'date_of_birth',
-        'est_monthly_income_kind',
-        'total_family_income',
+        'dateLastEntry',
+        'placeOfBirth/native',
         'civil_status',
-        'final_family_income',
         'religion',
-        'status_of_residency',
         'schooling',
+        'Highest_educational_attainment',
+        'Final_family_income',
+        'Total_family_income',
+        'status_of_residency',
         'no_of_years_in_barangay',
-        'highest_educ_attainment',
-        'date_settled_in_the_barangay',
-        'specific_job_description',
+        'date_settled_in_barangay',
         'citizenship',
+        'ethnicGroup',
+        'registeredVoterOfTheBrgy',
+        'pregnant',
+        'expected_date',
+        'blood_type',
+        'disability',
+        'dissability_others',
+        'remarks',
+        'specific_job_description',
         'gen_job_description',
         'employment_status',
-        'ethnic_group',
         'job_category',
-        'place_of_birth',
-        'registered_voter',
-        'child_parent',
-        'weight',
-        'height'];
+        'employment_category',
+        'estimated_monthly_income_cash',
+        'estimated_monthly_income_kind',
+        'inhabitant_id',
+        'childs_parent/guardian',
+        'bcg',
+        'dpi1',
+        'dpi2',
+        'dpi3',
+        'opd1',
+        'opd2',
+        'opd3',
+        'measles',
+        'others1',
+        'others2',
+        'others3',
+        'weight(kg)',
+        'height(cm)',
+        'date_measured_height/weight',
+        'dewormed',
+        'received_vitaminA',
+        'ip'
+    ];
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
     public function household()
     {
         return $this->belongsTo('App\Household');
+    }
+    public function barangayCertificate()
+    {
+        return $this->hasMany('App\BarangayCertificate');
+    }
+    public function barangayClearance()
+    {
+        return $this->hasMany('App\BarangayClearance');
+    }
+    public function businessClearance()
+    {
+        return $this->hasMany('App\BusinessClearance');
+    }
+    public function filedCase()
+    {
+        return $this->hasMany('App\Filecase');
+    }
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->attributes['date_of_birth'])->age;
     }
 }

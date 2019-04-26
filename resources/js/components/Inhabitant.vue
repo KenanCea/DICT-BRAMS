@@ -1,5 +1,5 @@
 <template>
-  <div class="elevation-1">
+  <div>
     <v-dialog v-model="dialog" persistent max-width="800px">
       <v-form @submit.prevent="editmode ? updateInhabitant() : createInhabitant()">
         <v-card>
@@ -248,8 +248,8 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="dialog=false">Cancel</v-btn>
-            <v-btn color="blue darken-1" flat type="submit">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="dialog=false">Cancel</v-btn>
+            <v-btn color="blue darken-1" text type="submit">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -275,24 +275,55 @@
         <v-divider></v-divider>
         <v-expand-transition>
           <v-list v-if="model">
-            <v-list-tile v-for="(field, i) in fields" :key="i">
-              <v-list-tile-content>
-                <v-list-tile-sub-title v-text="field.key"></v-list-tile-sub-title>
-                <v-list-tile-title v-text="field.value"></v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
+            <v-list-item v-for="(field, i) in fields" :key="i">
+              <v-list-item-content>
+                <v-list-item-sub-title v-text="field.key"></v-list-item-sub-title>
+                <v-list-item-title v-text="field.value"></v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
           </v-list>
         </v-expand-transition>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" flat @click="dialog2=false">Close</v-btn>
-          <v-btn color="primary" flat :disabled="!model" @click="model = null">Clear</v-btn>
-          <v-btn color="primary" flat :disabled="!model" @click="newDialog()">Next</v-btn>
+          <v-btn color="primary" text @click="dialog2=false">Close</v-btn>
+          <v-btn color="primary" text :disabled="!model" @click="model = null">Clear</v-btn>
+          <v-btn color="primary" text :disabled="!model" @click="newDialog()">Next</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
 
-    <v-toolbar flat color="white">
+    <v-app-bar id="navbar" dense flat app>
+      <v-toolbar-title>
+        <span class="hidden-sm-and-down">Inhabitants</span>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn text icon color="primary" v-on="on">
+            <v-icon color="grey darken-2">mdi-table-column</v-icon>
+          </v-btn>
+        </template>
+        <span>Column Visibility</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn text icon color="primary" v-on="on" @click="dialog2 = true">
+            <v-icon color="grey darken-2">mdi-account-plus</v-icon>
+          </v-btn>
+        </template>
+        <span>Create New Inhabitant</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn text icon color="primary" v-on="on">
+            <v-icon color="grey darken-2">mdi-refresh</v-icon>
+          </v-btn>
+        </template>
+        <span>Refresh</span>
+      </v-tooltip>
+    </v-app-bar>
+
+    <!-- <v-toolbar flat color="white">
       <v-toolbar-title>INHABITANTS</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-menu :close-on-content-click="false" offset-y max-height="400">
@@ -300,26 +331,32 @@
           <v-btn color="primary" dark v-on="on">Columns</v-btn>
         </template>
         <v-list>
-          <v-list-tile v-for="(item, index) in headers" :key="index">
+          <v-list-item v-for="(item, index) in headers" :key="index">
             <v-switch
               color="green"
               v-bind:label="item.text"
               v-model="item.selected"
               :value="item.selected"
             ></v-switch>
-          </v-list-tile>
+          </v-list-item>
         </v-list>
       </v-menu>
       <v-btn color="primary" dark @click="dialog2 = true">NEW</v-btn>
-    </v-toolbar>
+    </v-toolbar>-->
 
-    <v-data-table v-bind:headers="filteredHeaders" :items="inhabitants" :loading="loading">
+    <v-data-table
+      v-bind:headers="filteredHeaders"
+      :items="inhabitants"
+      :loading="loading"
+      class="elevation-1"
+    >
       <template v-slot:items="props">
         <td v-if="showColumn('id')">{{ props.item.id }}</td>
         <td v-if="showColumn('first_name')">{{ props.item.first_name }}</td>
         <td v-if="showColumn('middle_name')">{{ props.item.middle_name }}</td>
         <td v-if="showColumn('last_name')">{{ props.item.last_name }}</td>
         <td v-if="showColumn('relation_to_the_head')">{{ props.item.relation_to_the_head }}</td>
+        <td v-if="showColumn('age')">{{ props.item.age }}</td>
         <td v-if="showColumn('employment_category')">{{ props.item.employment_category }}</td>
         <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
         <td v-if="showColumn('est_monthly_income_cash')">{{ props.item.est_monthly_income_cash }}</td>
@@ -348,9 +385,9 @@
         <td v-if="showColumn('weight')">{{ props.item.weight }}</td>
         <td v-if="showColumn('height')">{{ props.item.height }}</td>
         <td v-if="showColumn('actions')">
-          <v-icon small class="mr-2" @click="editDialog(props.item)">remove_red_eye</v-icon>
-          <v-icon small class="mr-2" @click="editDialog(props.item)">edit</v-icon>
-          <v-icon small @click="deleteInhabitant(props.item.id)">delete</v-icon>
+          <v-icon small class="mr-2" @click="editDialog(props.item)">mdi-eye-circle</v-icon>
+          <v-icon small class="mr-2" @click="editDialog(props.item)">mdi-file-document-edit</v-icon>
+          <v-icon small @click="deleteInhabitant(props.item.id)">mdi-trash-can</v-icon>
         </td>
       </template>
     </v-data-table>
@@ -363,7 +400,8 @@ export default {
     headers: [
       {
         text: "ID",
-        value: "id"
+        value: "id",
+        selected: true
       },
       {
         text: "First name",
@@ -387,13 +425,18 @@ export default {
         selected: true
       },
       {
+        text: "Age",
+        value: "age",
+        selected: true
+      },
+
+      {
         text: "Employment Category",
         value: "employment_category"
       },
       {
         text: "Sex",
-        value: "sex",
-        selected: true
+        value: "sex"
       },
       {
         text: "EST. Monthly Income-cash",
@@ -401,8 +444,7 @@ export default {
       },
       {
         text: "Date of Birth",
-        value: "date_of_birth",
-        selected: true
+        value: "date_of_birth"
       },
       {
         text: "EST. Monthly Income-kind",
@@ -414,8 +456,7 @@ export default {
       },
       {
         text: "Civil Status",
-        value: "civil_status",
-        selected: true
+        value: "civil_status"
       },
       {
         text: "Final Family Income",
@@ -423,18 +464,15 @@ export default {
       },
       {
         text: "Religion",
-        value: "religion",
-        selected: true
+        value: "religion"
       },
       {
         text: "Status of Residency",
-        value: "status_of_residency",
-        selected: true
+        value: "status_of_residency"
       },
       {
         text: "Shooling",
-        value: "schooling",
-        selected: true
+        value: "schooling"
       },
       {
         text: "No. of Years in Barangay",
@@ -442,8 +480,7 @@ export default {
       },
       {
         text: "Highest Educ'l Attainment",
-        value: "highest_educ_attainment",
-        selected: true
+        value: "highest_educ_attainment"
       },
       {
         text: "Date Settled in the Barangay",
@@ -455,8 +492,7 @@ export default {
       },
       {
         text: "Citizenship",
-        value: "citizenship",
-        selected: true
+        value: "citizenship"
       },
       {
         text: "Gen. Job Description",
@@ -497,10 +533,7 @@ export default {
       },
       {
         text: "Actions",
-        value: "actions",
-        sortable: false,
-        selected: true,
-        width: "200px"
+        value: "actions"
       }
     ],
     inhabitants: [],
@@ -635,7 +668,7 @@ export default {
         .put("api/inhabitant/" + this.form.id)
         .then(() => {
           this.dialog = false;
-          this.getInhabitant()
+          this.getInhabitant();
         })
         .catch(() => {});
     },

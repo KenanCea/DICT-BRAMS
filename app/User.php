@@ -28,8 +28,23 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function barangay()
+    {
+        return $this->hasOne('App\Barangay');
+    }
+    /**
+     * Get the households for the user.
+     */
     public function households()
     {
         return $this->hasMany('App\Household');
+    }
+    public function inhabitants()
+    {
+        return $this->hasMany('App\Inhabitant');
+    }
+    public function officials()
+    {
+        return $this->hasMany('App\Official');
     }
 }

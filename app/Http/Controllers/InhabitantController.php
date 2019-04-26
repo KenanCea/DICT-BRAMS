@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Household;
-use App\Inhabitant;
 use Illuminate\Http\Request;
+use App\Inhabitant;
 
 class InhabitantController extends Controller
 {
@@ -19,10 +18,8 @@ class InhabitantController extends Controller
      */
     public function index()
     {
-        $inhabitants=Inhabitant::all();
+        $inhabitants = Inhabitant::paginate();
         return $inhabitants;
-        // $household = Household::select('name','id')->get();
-        // return $household;
     }
 
     /**
