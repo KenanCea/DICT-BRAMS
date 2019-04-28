@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Inhabitant;
+use DB;
 
 class InhabitantController extends Controller
 {
@@ -18,8 +20,21 @@ class InhabitantController extends Controller
      */
     public function index()
     {
-        $inhabitants = Inhabitant::paginate();
-        return $inhabitants;
+        return Inhabitant::leftJoin('users','inhabitants.user_id','=','users.id')
+        ->select('inhabitants.*',
+                DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
+                '-',
+                MONTH(inhabitants.date_of_birth),
+                '-',
+                DAY(inhabitants.date_of_birth)),
+        '%Y-%c-%e') > CURDATE(),
+        1,
+        0) as age"))
+        ->Where('inhabitants.archive',0)
+        ->where('users.id',Auth::user()->id)
+        ->limit(1000)
+        ->get();
+        // return Inhabitant::getAgeAttribute();
     }
 
     /**
@@ -30,7 +45,8 @@ class InhabitantController extends Controller
      */
     public function store(Request $request)
     {
-        return Inhabitant::create($request->all());
+        $inhabitant = $request->user()->inhabitants()->create($request->all());
+        return new $inhabitant;
     }
 
     /**
@@ -58,15 +74,27 @@ class InhabitantController extends Controller
         $inhabitants->update($request->all());
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Inhabitant  $inhabitant
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    public function archived_Inhabitant()
+    {
+        return Inhabitant::leftJoin('users','inhabitants.user_id','=','users.id')
+        ->select('inhabitants.*',
+                DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
+                '-',
+                MONTH(inhabitants.date_of_birth),
+                '-',
+                DAY(inhabitants.date_of_birth)),
+        '%Y-%c-%e') > CURDATE(),
+        1,
+        0) as age"))
+        ->Where('inhabitants.archive',1)
+        ->where('users.id',Auth::user()->id)
+        ->get();
+    }
+
+    public function archive($id)
     {
         $inhabitants = Inhabitant::findOrFail($id);
-        $inhabitants->delete();
+        $inhabitants->archive = ! $inhabitants->archive;
+        $inhabitants->save();
     }
 }

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'BRAMS') }}</title>
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -14,7 +14,7 @@
 <body>
     <v-app id="app" v-cloak>
         @auth
-        <v-navigation-drawer app dense v-model="drawer" fixed clipped>
+        <v-navigation-drawer app v-model="drawer" fixed clipped>
             <v-list shaped>
                 <template v-for="item in items">
                     <v-layout v-if="item.heading" :key="item.heading" row align-center>
@@ -54,21 +54,47 @@
             </v-toolbar-title>
             <v-autocomplete clearable light solo flat background-color="grey lighten-3" hide-details prepend-inner-icon="mdi-magnify" label="Search" class="hidden-sm-and-down"></v-autocomplete>
             <v-spacer></v-spacer>
-            <v-menu offset-y>
+            <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
-                    <v-btn rounded text class="pl-0" color="primary" v-on="on">
-                        <v-avatar size="35px" class="mr-3"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo">
-                        </v-avatar>
-                        <span class="grey--text text--darken-2 text-none">{{ Auth::user()->name }}</span>
+                    <v-btn to="/needquestions" text icon v-on="on">
+                        <v-icon>mdi-help-circle-outline</v-icon>
                     </v-btn>
                 </template>
-                <v-card>
+                <span>Question</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn to="/secretaryduties" text icon v-on="on">
+                        <v-icon>mdi-information-outline</v-icon>
+                    </v-btn>
+                </template>
+                <span>Secretary Duties</span>
+            </v-tooltip>
+            <v-menu offset-y>
+                <template v-slot:activator="{ on }">
+                    <v-btn icon large v-on="on" class="mr-0">
+                        <v-avatar size="40px" v-on="on"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo"></div>
+                        </v-avatar>
+                    </v-btn>
+                </template>
+                <v-card width="300">
+                    <v-list>
+                        <v-list-item>
+                            <v-list-item-avatar>
+                                <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo">
+                            </v-list-item-avatar>
+                            <v-list-item-content>
+                                <v-list-item-title>{{ Auth::user()->name }}</v-list-item-title>
+                                <v-list-item-subtitle>{{ Auth::user()->email }}</v-list-item-subtitle>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                    <v-divider></v-divider>
                     <v-list nav>
                         <v-list-item :to="menu.to" v-for="(menu, i) in menus" :key="i">
                             <v-list-item-icon class="mr-3">
                                 <v-icon v-text="menu.icon"></v-icon>
                             </v-list-item-icon>
-
                             <v-list-item-content>
                                 <v-list-item-title v-text="menu.title"></v-list-item-title>
                             </v-list-item-content>

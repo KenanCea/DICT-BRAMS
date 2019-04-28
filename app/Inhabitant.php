@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Inhabitant extends Model
 {
     protected $fillable = [
+        'household_id',
         'last_name',
         'first_name',
         'middle_name',
@@ -15,7 +16,7 @@ class Inhabitant extends Model
         'sex',
         'date_of_birth',
         'dateLastEntry',
-        'placeOfBirth/native',
+        'placeOfBirth_native',
         'civil_status',
         'religion',
         'schooling',
@@ -85,7 +86,7 @@ class Inhabitant extends Model
     {
         return $this->hasMany('App\Filecase');
     }
-    public function getAgeAttribute()
+    public function scopeAge()
     {
         return Carbon::parse($this->attributes['date_of_birth'])->age;
     }

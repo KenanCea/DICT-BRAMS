@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Inhabitant;
 use App\Household;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HouseholdController extends Controller
 {
@@ -20,8 +21,11 @@ class HouseholdController extends Controller
      */
     public function index()
     {
-        $households = request()->user()->households;
-        return $households;
+        return Household::leftJoin('users','households.user_id','=','users.id')
+        ->select('households.*')
+        ->where('households.archive',0)
+        ->where('users.id',Auth::user()->id)
+        ->get();
     }
 
     /**
@@ -65,16 +69,15 @@ class HouseholdController extends Controller
     {
         $household = Household::findOrFail($id);
         $household->archive = ! $household->archive;
-        return $household;
+        $household->save();
     }
 
-    public function archived_list()
+    public function archived_Household()
     {
-        return Member::leftJoin('users','inhabitants.barangay_id','=','users.id')
-        ->select('inhabitants.*')
-        ->Where('archive',1)
+        return Household::leftJoin('users','households.user_id','=','users.id')
+        ->select('households.*')
+        ->Where('households.archive',1)
         ->where('users.id',Auth::user()->id)
-        ->latest()
-        ->paginate(1000);
+        ->get();
     }
 }

@@ -49,6 +49,7 @@
         flat
         hide-details
         hide-selected
+        clearable
         item-text="first_name"
         item-value="API"
         label="Inhabitants"
@@ -73,7 +74,7 @@
       </v-tooltip>
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
+          <v-btn text icon color="primary" v-on:click='pdf()'>
             <v-icon color="grey darken-2">mdi-file-export</v-icon>
           </v-btn>
         </template>
@@ -88,7 +89,7 @@
         <span>Refresh</span>
       </v-tooltip>
     </v-app-bar>
-    <v-container grid-list-md text-xs-center>
+    <v-container grid-list-md text-xs-center id="printForm">
       <v-layout row wrap>
         <v-flex xs4>
           <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
@@ -131,21 +132,31 @@
           <p class="mb-0">RONALD C. GOMEZ</p>
           <p>Barangay Treasurer</p>
         </v-flex>
-        <v-flex xs8 text-xs-left class="pl-3">
+                <v-flex xs8 text-xs-left class="pl-3">
           <p>TO WHOM IT MAY CONCERN:</p>
           <p>
-            This is to certify that {{select.first_name}} {{select.middle_name}} {{select.last_name}}, years old, {{select.citizenship}} citizen, a native of {{select.barangay}}, and presently residing at
-            {{select.barangay}} and whose signature appears hereunder, has no pending adverse case and deragatory records filed
-            against,per available records on file with this office as of the date of issuance thereof.
+            This is to certify that
+            <span v-if="select">{{select.first_name}} {{select.middle_name}} {{select.last_name}}</span>
+            <span v-else>______________________________________________</span>,
+            <span v-if="select"> {{select.age}}</span>
+            <span v-else>________</span> years old,
+            <span v-if="select">{{select.citizenship}}</span>
+            <span v-else>________________________</span> citizen, a native of <span v-if="select">{{select.placeOfBirth_native}}</span>
+            <span v-else>________________________</span>, and presently residing at <span v-if="select">{{select.house_no}}, {{select.purok}}
+              {{select.street}}, {{select.barangay}}
+            </span>
+            <span v-else>________________________________________________</span>
+             and whose signature appears hereunder, has no pending adverse case and deragatory records filed
+            against per available records on file with this office as of the date of issuance thereof.
           </p>
-          <p>Issued {{form.purpose_of_clearance}} purposes.</p>
-
+          <p>Issued <span v-if="form.purpose_of_clearance">{{form.purpose_of_clearance}}</span>
+            <span v-else>________________________________________</span>  purposes.</p>
           <p class="mb-0">________________________</p>
           <p class="mb-5">Signature Over Printed Name</p>
-          <p class="mb-0">Community Tax Certificate Number: {{form.ctc_no}}</p>
-          <p class="mb-0">Issued On: {{form.ctc_issued_on}}</p>
-          <p class="mb-0">Issued At: {{form.ctc_issued_at}}</p>
-          <p class="mb-0">Official Receipt Number: {{form.official_receipt_no}}</p>
+          <p class="mb-0">Community Tax Certificate Number: <span v-if="form.ctc_no">{{form.ctc_no}}</span><span v-else>____________</span> </p>
+          <p class="mb-0">Issued On: <span v-if="form.ctc_issued_on">{{form.ctc_no}}</span> <span v-else>____________</span> </p>
+          <p class="mb-0">Issued At: <span v-if="form.ctc_issued_at">{{form.ctc_no}}</span><span v-else>____________</span> </p>
+          <p class="mb-0">Official Receipt Number: <span v-if="form.ctc_issued_at">{{form.official_receipt_no}}</span> <span v-else>____________</span> </p>
           <div class="text-xs-right text-xs-center">
             <p class="mb-5">CERTIFIED AND ISSUED BY:</p>
             <p class="mb-0 mr-5">RANDY P. GATI</p>
@@ -159,9 +170,11 @@
 </template>
 
 <script>
+import jsPDF from 'jspdf'
+import html2canvas from 'html2canvas';
 export default {
   data: () => ({
-    inhabitants: [],
+    inhabitants:[],
     dialog: false,
     form: new Form({
       control_no: "",
@@ -174,7 +187,7 @@ export default {
       inhabitant_id: ""
     }),
     search: null,
-    select: {},
+    select: null,
     isLoading: false
   }),
   computed: {
@@ -197,7 +210,7 @@ export default {
       if (this.isLoading) return;
       this.isLoading = true;
       axios
-        .get("api/inhabitant")
+        .get("api/form")
         .then(response => {
           this.inhabitants = response.data;
         })
@@ -205,6 +218,15 @@ export default {
           console.log(err);
         })
         .finally(() => (this.isLoading = false));
+    }
+  },
+  methods:{
+    pdf(){
+      html2canvas(document.getElementById('printForm')).then(canvas => {
+        let pdf = new jsPDF('p', 'mm', 'letter');
+        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 205, 248);
+        pdf.save("BarangayClearance.pdf");
+      });
     }
   }
 };

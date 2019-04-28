@@ -14,9 +14,9 @@ class InhabitantsTableSeeder extends Seeder
      */
     public function run()
     {
-        // return factory(Inhabitant::class, 1000)->create();
+        // return factory(Inhabitant::class, 30000)->create();
         $faker = Faker::create();
-        foreach (range(1, 1000) as $index) {
+        foreach (range(1, 10000) as $index) {
             DB::table('inhabitants')->insert([
                 'household_id'=>App\Household::all()->random()->id,
                 'user_id'=>App\User::all()->random()->id,
@@ -26,8 +26,7 @@ class InhabitantsTableSeeder extends Seeder
                 'relation_to_the_head' => $faker->randomElement(['The Head','Aunt','Uncle','Brother-in-law','Brother','Daughter-in-law','Daughter','Son','Son-in-law','Sister','Sister-in-law','Father','Mother','Grandfather','Grandmother','Husband','Wife','Tenant','Househelper','Common law wife']),
                 'sex' => $faker->randomElement(['female', 'male']),
                 'date_of_birth' => $faker->date,
-                'dateLastEntry' => $faker->date,
-                'placeOfBirth/native' =>$faker->address,
+                'placeOfBirth_native' =>$faker->address,
                 'civil_status' => $faker->randomElement(['Single', 'Married', 'Widow/er', 'Separated', 'Common-law', 'Complicated']),
                 'religion' => $faker->randomElement(['Aglipayan','Anglican','Apostolic Christian','Assembly of God','Baptist','Church of Christ','Born Again Christian','Iglesia ni Cristo','Islam','Saksi ni Jehovah','Seventh Day Adventist','Methodist','Mormons','Pentecost','Protestant','Roman Catholic']),
                 'schooling' => $faker->randomElement(['n/a','In School','Out of School','Not yet in school','Graduate']),
@@ -57,7 +56,7 @@ class InhabitantsTableSeeder extends Seeder
                 'employment_category' => $faker->randomElement(['Private','Government','Self employed','Overseas']),
                 'estimated_monthly_income_cash' => $faker->numberBetween($min=1, $max=10000),
                 'estimated_monthly_income_kind' => $faker->sentence(),
-                'childs_parent/guardian' => $faker->name,
+                'childs_parent_guardian' => $faker->name,
                 'bcg' => $faker->randomelement(['y','n']),
                 'dpi1' => $faker->randomelement(['y','n']),
                 'dpi2' => $faker->randomelement(['y','n']),
@@ -69,9 +68,9 @@ class InhabitantsTableSeeder extends Seeder
                 'others1' => $faker->randomelement(['y','n']),
                 'others2' => $faker->randomelement(['y','n']),
                 'others3' => $faker->randomelement(['y','n']),
-                'weight(kg)' => $faker->numberBetween($min=1, $max=3),
-                'height(cm)' => $faker->numberBetween($min=1, $max=3),
-                'date_measured_height/weight' => $faker->date,
+                'weight' => $faker->numberBetween($min=1, $max=3),
+                'height' => $faker->numberBetween($min=1, $max=3),
+                'date_measured_height_weight' => $faker->date,
                 'dewormed' => $faker->randomelement(['yes','no']),
                 'received_vitaminA' => $faker->randomelement(['yes','no']),
                 'ip' => $faker->sentence()

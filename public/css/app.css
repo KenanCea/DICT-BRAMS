@@ -21,8 +21,12 @@
   top: 64px !important;
 }
 
-#app > div.application--wrap > nav > div > button {
-  background-color: #eeeeee !important;
+#app > div > main > div > div > div > div > div > div > form > div:nth-child(2) > div > div.v-input__slot {
+  border: 1px solid #dadce0;
+}
+
+#app > div > main > div > div > div > div > div > div > form > div:nth-child(3) > div > div.v-input__slot {
+  border: 1px solid #dadce0;
 }
 
 #navbar {
@@ -32,10 +36,24 @@
   width: auto;
 }
 
+#login {
+  height: 50%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "";
+  z-index: 0;
+}
+
 .form-border-right {
   border-right: #4caf50 3px solid;
 }
 
 [v-cloak] > * {
+  display: none;
+}
+
+#printHeader {
   display: none;
 }

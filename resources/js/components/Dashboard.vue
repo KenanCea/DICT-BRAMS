@@ -8,36 +8,54 @@
       <v-icon>mdi-refresh</v-icon>
     </v-app-bar>
 
-    <v-data-table
-      :headers="headers"
-      :items="inhabitants.data"
-      :items-per-page="inhabitants.per_page"
-      :page="inhabitants.current_page"
-      :server-items-length="inhabitants.total"
-    ></v-data-table>
   </div>
 </template>
 
 <script>
 export default {
   data() {
+    const srcs = {
+      1: "https://cdn.vuetifyjs.com/images/lists/1.jpg",
+      2: "https://cdn.vuetifyjs.com/images/lists/2.jpg",
+      3: "https://cdn.vuetifyjs.com/images/lists/3.jpg",
+      4: "https://cdn.vuetifyjs.com/images/lists/4.jpg",
+      5: "https://cdn.vuetifyjs.com/images/lists/5.jpg"
+    };
+
     return {
-      headers: [
-        { text: "First Name", value: "first_name" },
-        { text: "Middle Name", value: "middle_name" },
-        { text: "Last Name", value: "last_name" }
+
+      friends: [],
+
+      name: "Midnight Crew",
+      people: [
+        { header: "Group 1" },
+        { name: "Sandra Adams", group: "Group 1", avatar: srcs[1] },
+        { name: "Ali Connors", group: "Group 1", avatar: srcs[2] },
+        { name: "Trevor Hansen", group: "Group 1", avatar: srcs[3] },
+        { name: "Tucker Smith", group: "Group 1", avatar: srcs[2] },
+        { divider: true },
+        { header: "Group 2" },
+        { name: "Britta Holt", group: "Group 2", avatar: srcs[4] },
+        { name: "Jane Smith ", group: "Group 2", avatar: srcs[5] },
+        { name: "John Smith", group: "Group 2", avatar: srcs[1] },
+        { name: "Sandra Williams", group: "Group 2", avatar: srcs[3] }
       ],
-      inhabitants: {}
+      title: "The summer breeze"
     };
   },
-  created() {
-    this.getInhabitant();
+
+  watch: {
+    isUpdating(val) {
+      if (val) {
+        setTimeout(() => (this.isUpdating = false), 3000);
+      }
+    }
   },
+
   methods: {
-    getInhabitant() {
-      axios.get("api/inhabitant").then(response => {
-        this.inhabitants = response.data;
-      });
+    remove(item) {
+      const index = this.friends.indexOf(item.name);
+      if (index >= 0) this.friends.splice(index, 1);
     }
   }
 };

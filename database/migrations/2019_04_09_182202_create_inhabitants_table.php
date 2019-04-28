@@ -23,8 +23,7 @@ class CreateInhabitantsTable extends Migration
             $table->enum('relation_to_the_head', ['The Head', 'Aunt', 'Uncle', 'Brother-in-law', 'Brother', 'Daughter-in-law', 'Daughter', 'Son', 'Son-in-law', 'Sister', 'Sister-in-law', 'Father', 'Mother', 'Grandfather', 'Grandmother', 'Husband', 'Wife', 'Tenant', 'Househelper', 'Common law wife']);
             $table->enum('sex', ['female', 'male']);
             $table->date('date_of_birth');
-            $table->date('dateLastEntry');
-            $table->string('placeOfBirth/native');
+            $table->string('placeOfBirth_native');
             $table->enum('civil_status', ['Single', 'Married', 'Widow/er', 'Separated', 'Common-law', 'Complicated']);
             $table->enum('religion', ['Aglipayan', 'Anglican', 'Apostolic Christian', 'Assembly of God', 'Baptist', 'Church of Christ', 'Born Again Christian', 'Iglesia ni Cristo', 'Islam', 'Saksi ni Jehovah', 'Seventh Day Adventist', 'Methodist', 'Mormons', 'Pentecost', 'Protestant', 'Roman Catholic']);
             $table->enum('schooling', ['n/a', 'In School', 'Out of School', 'Not yet in school', 'Graduate']);
@@ -58,7 +57,7 @@ class CreateInhabitantsTable extends Migration
             $table->enum('employment_category', ['Private', 'Government', 'Self employed', 'Overseas']);
             $table->double('estimated_monthly_income_cash', 10);
             $table->string('estimated_monthly_income_kind');
-            $table->string('childs_parent/guardian', 50);
+            $table->string('childs_parent_guardian', 50);
             $table->enum('bcg', ['y', 'n']);
             $table->enum('dpi1', ['y', 'n']);
             $table->enum('dpi2', ['y', 'n']);
@@ -70,9 +69,9 @@ class CreateInhabitantsTable extends Migration
             $table->enum('others1', ['y', 'n']);
             $table->enum('others2', ['y', 'n']);
             $table->enum('others3', ['y', 'n']);
-            $table->double('weight(kg)', 5);
-            $table->double('height(cm)', 5);
-            $table->date('date_measured_height/weight');
+            $table->double('weight', 5);
+            $table->double('height', 5);
+            $table->date('date_measured_height_weight');
             $table->enum('dewormed', ['yes', 'no']);
             $table->enum('received_vitaminA', ['yes', 'no']);
             $table->string('ip');

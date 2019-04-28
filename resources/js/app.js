@@ -68,19 +68,19 @@ const app = new Vue({
                     to: "/barangayclearance"
                 },
                 {
-                    title: "Business Clearance",
-                    name: "Business Clearance",
-                    to: "/businessclearance"
-                },
-                {
                     title: "Barangay Certificate",
                     name: "Barangay Certificate",
                     to: "/barangaycertificate"
                 },
                 {
-                    title: "Business Certificate",
-                    name: "Business Certificate",
-                    to: "/businesscertificate"
+                    title: "Business Clearance",
+                    name: "Business Clearance",
+                    to: "/businessclearance"
+                },
+                {
+                    title: "Filed Case",
+                    name: "Filed Case",
+                    to: "/filedcase"
                 }
                 ]
             },
@@ -97,6 +97,12 @@ const app = new Vue({
                 to: "/inhabitants"
             },
             {
+                icon: "mdi-content-copy",
+                title: "Print Document",
+                name: "Print Document",
+                to: "/printdocument"
+            },
+            {
                 icon: "mdi-archive",
                 title: "Archive",
                 group: "Archive",
@@ -104,7 +110,11 @@ const app = new Vue({
                 children: [{
                     title: "Inhabitant",
                     name: "Inhabitant",
-                    to: "/archivehousehold"
+                    to: "/archivedInhabitants"
+                },{
+                    title: "Households",
+                    name: "Households",
+                    to: "/archivedHouseholds"
                 }
                 ]
             },

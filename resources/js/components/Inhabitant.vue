@@ -1,12 +1,13 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" persistent max-width="800px">
+    <v-dialog v-model="dialog" persistent scrollable max-width="800px">
       <v-form @submit.prevent="editmode ? updateInhabitant() : createInhabitant()">
         <v-card>
           <v-card-title>
-            <span class="headline" v-show="!editmode">ADD</span>
-            <span class="headline" v-show="editmode">EDIT</span>
+            <span class="headline" v-show="!editmode">Add Inhabitant</span>
+            <span class="headline" v-show="editmode">Edit Inhabitant</span>
           </v-card-title>
+          <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
@@ -26,23 +27,9 @@
                     label="Relation to THE HEAD"
                   ></v-select>
                 </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-model="form.employment_category"
-                    :items="['Private','Government','Self employed','Overseas']"
-                    label="Employment Category"
-                    required
-                  ></v-select>
-                </v-flex>
+
                 <v-flex xs12 sm6>
                   <v-select v-model="form.sex" :items="['Male','Female']" label="Sex" required></v-select>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-text-field
-                    v-model="form.est_monthly_income_cash"
-                    label="EST. Monthly Income-cash"
-                    required
-                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm6>
@@ -50,7 +37,7 @@
                     v-model="menu1"
                     :close-on-content-click="false"
                     :nudge-right="40"
-                    lazy
+                    eager
                     transition="scale-transition"
                     offset-y
                     full-width
@@ -60,25 +47,23 @@
                       <v-text-field
                         v-model="form.date_of_birth"
                         label="Date of Birth"
-                        prepend-icon="event"
+                        prepend-icon="mdi-calendar"
                         readonly
                         v-on="on"
                       ></v-text-field>
                     </template>
-                    <v-date-picker v-model="form.date_of_birth" @input="menu1 = false"></v-date-picker>
+                    <v-date-picker
+                      v-model="form.date_of_birth"
+                      no-title
+                      color="primary"
+                      @input="menu1 = false"
+                    ></v-date-picker>
                   </v-menu>
                 </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-model="form.est_monthly_income_kind"
-                    :items="['Rice','Vegetables','Free rental','City services']"
-                    label="EST. Monthly Income-kind"
-                    required
-                  ></v-select>
-                </v-flex>
+
                 <v-flex xs12 sm6>
                   <v-text-field
-                    v-model="form.total_family_income"
+                    v-model="form.Total_family_income"
                     label="Total Family Income"
                     required
                   ></v-text-field>
@@ -93,8 +78,15 @@
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-text-field
-                    v-model="form.final_family_income"
+                    v-model="form.Final_family_income"
                     label="Final Family Income"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    v-model="form.placeOfBirth_native"
+                    label="Place of Birth/Native"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -125,15 +117,16 @@
                 <v-flex xs12 sm6>
                   <v-text-field
                     v-model="form.no_of_years_in_barangay"
-                    label="No. of Years in Barangay"
+                    label="Number of Years in Barangay"
+                    type="number"
                     required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-select
-                    v-model="form.highest_educ_attainment"
-                    :items="['Elem. undergraduate','Elementary','High sch undergraduate','High school','College undergraduate','College Graduate','Vocational','Post Graduate','Pre-school','Not yet attending school']"
-                    label="Highest Educ'l Attainment"
+                    v-model="form.Highest_educational_attainment"
+                    :items="['Elem. Graduate','Elementary','High school undergraduate','High school','College undergraduate','College graduate','Vocational','Post Graduate','Pre-school','Not yet attending school']"
+                    label="Highest Educational Attainment"
                     required
                   ></v-select>
                 </v-flex>
@@ -142,7 +135,7 @@
                     v-model="menu2"
                     :close-on-content-click="false"
                     :nudge-right="40"
-                    lazy
+                    eager
                     transition="scale-transition"
                     offset-y
                     full-width
@@ -150,25 +143,27 @@
                   >
                     <template v-slot:activator="{ on }">
                       <v-text-field
-                        v-model="form.date_settled_in_the_barangay"
+                        v-model="form.date_settled_in_barangay"
                         label="Date Settled in the Barangay"
-                        prepend-icon="event"
+                        prepend-icon="mdi-calendar"
                         readonly
                         v-on="on"
                       ></v-text-field>
                     </template>
                     <v-date-picker
-                      v-model="form.date_settled_in_the_barangay"
+                      v-model="form.date_settled_in_barangay"
+                      no-title
+                      color="primary"
                       @input="menu2 = false"
                     ></v-date-picker>
                   </v-menu>
                 </v-flex>
+
                 <v-flex xs12 sm6>
-                  <v-text-field
-                    v-model="form.specific_job_description"
-                    label="Specific Job Description"
-                    required
-                  ></v-text-field>
+                  <v-text-field v-model="form.weight" label="Weight(kg)" required></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-text-field v-model="form.height" label="Height(cm)" required></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-select
@@ -180,54 +175,112 @@
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-select
-                    v-model="form.gen_job_description"
-                    :items="['Security Guard','Secretary','Service Crew','Student Assistant','Tailor/Sewer/Dressmaker','Technician','Vendor','Volunteer Woker','Welder','none','n/a']"
-                    label="Gen. Job Description"
-                    required
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-model="form.employment_status"
-                    :items="['Permanent','Contractual','Temporary','Self-employed','Retired']"
-                    label="Employment Status"
-                    required
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-model="form.ethnic_group"
+                    v-model="form.ethnicGroup"
                     :items="['Bago','Bicol','Bisaya','Boholano','Bontoc','Capizeno','Cuyunon','Ibaloi','Ilonggo','Ifugao','Ilocano','Ivatan','Kalinga','Kapangpangan','Maguindanao','Maranao','Masbateno','Pangasinan','Surigaoan','Tagalog','Tausog','Waray','Yakan','Zamboagueno/Chavacano']"
                     label="Ethnic Group"
                     required
                   ></v-select>
                 </v-flex>
+
                 <v-flex xs12 sm6>
                   <v-select
-                    v-model="form.job_category"
-                    :items="['Offical Government and Special Interest','Professional','Technicians and Assoc. Professional','Clerks','Service Workers & Market sales workers','Farmers & Forestry Workers','Trades & related workers','Machine Operators/Assemblers','Laborers & skilled workers','Special Occupations','n/a']"
-                    label="Job Category"
-                    required
-                  ></v-select>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-text-field
-                    v-model="form.place_of_birth"
-                    label="Place of Birth/Native"
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-select
-                    v-model="form.registered_voter"
+                    v-model="form.registeredVoterOfTheBrgy"
                     :items="['Yes','No']"
                     label="Registered Voter"
                     required
                   ></v-select>
                 </v-flex>
+                <v-flex xs12 sm6>
+                  <v-select
+                    v-model="form.pregnant"
+                    :items="['Yes','N/A']"
+                    label="Pregnant"
+                    required
+                  ></v-select>
+                </v-flex>
 
-                <v-checkbox v-model="vaccine" label="Immunized children (0-6 yrs. old)">Toggle</v-checkbox>
-                <v-flex xs12 sm6></v-flex>
+                <v-flex xs12 sm6>
+                  <v-select
+                    v-model="form.blood_type"
+                    :items="['A', 'B', 'AB', 'O', 'Do not know']"
+                    label="Blood Type"
+                    required
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-select
+                    v-model="form.disability"
+                    :items="['None', 'Total blindness of one eye', 'Total blindness of both eye', 'Missing one or both arms', 'Mongoloid', 'Cleff Palate', 'Malabo ang paningin/poor eyesight', 'Hunchback', 'Paralyzed legs', 'Paralyzed arms', 'Speech disorder', 'Authistic', 'Fractured Vertebrate column', 'Paralyzed from neck down', 'Hydrocephalus',
+                'Deaf', 'Mute and Deaf', 'Inability to walk alone', 'Deformity', 'Polio', 'Mental Impairment', 'Celebral Palsy', 'Epileptic', 'Dwarfism', 'Others']"
+                    label="Disability"
+                    required
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-text-field
+                    v-model="form.dissability_others"
+                    label="Disability Others"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-checkbox v-model="vaccine" label="Immunized children (0-6 yrs. old)">Toggle</v-checkbox>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-checkbox v-model="employed" label="Employed">Toggle</v-checkbox>
+                </v-flex>
+
+                <v-layout wrap v-if="employed">
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="form.specific_job_description"
+                      label="Specific Job Description"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="form.gen_job_description"
+                      :items="[ 'n/a', 'Accountant', 'Architect', 'Barangay Official', 'Businessman', 'Doctor', 'Engineer', 'Fireman', 'Government office worker', 'IT Worker', 'Lawyer', 'Librarian', 'Manager/Supervisor', 'Missionary', 'Nurse',
+                'OFW', 'Pharmacist', 'Policemen', 'Priest', 'Professor/Instructor', 'Preacher/Pastor', 'Researcher', 'Soldier', 'Seafarer', 'Teacher', 'Therapist', 'Call center agent', 'Caregiver', 'Carpenter', 'Caretaker', 'Cashier/clerk', 'Construction worker', 'Cosmetologist/Beautician',
+                'Dispatcher/Barker', 'Driver', 'Electrician', 'Factory Worker', 'Farmer/Gardener', 'Helper/Aide', 'Laborer', 'Laundrywoman', 'Machinist', 'Mechanic', 'Mason', 'Mine Worker', 'Porter', 'Plumber', 'Salesperson', 'Security Guard', 'Secretary', 'Service Crew', 'Student Assistance', 'Tailor/Sewer/Dressmaker',
+                'Technician', 'Vendor', 'Volunteer Woker', 'Welder']"
+                      label="Gen. Job Description"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="form.employment_status"
+                      :items="['Permanent','Contractual','Temporary','Self-employed','Retired']"
+                      label="Employment Status"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="form.job_category"
+                      :items="['Offical Government and Special Interest','Professional','Technicians and Assoc. Professional','Clerks','Service Workers & Market sales workers','Farmers & Forestry Workers','Trades & related workers','Machine Operators/Assemblers','Laborers & skilled workers','Special Occupations','n/a']"
+                      label="Job Category"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="form.estimated_monthly_income_cash"
+                      label="Estimated Monthly Income-cash"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="form.estimated_monthly_income_kind"
+                      :items="['Rice','Vegetables','Free rental','City services']"
+                      label="Estimated Monthly Income-kind"
+                      required
+                    ></v-select>
+                  </v-flex>
+                </v-layout>
                 <v-layout wrap v-if="vaccine">
                   <v-flex xs12 sm6>
                     <v-text-field
@@ -236,16 +289,11 @@
                       required
                     ></v-text-field>
                   </v-flex>
-                  <v-flex xs12 sm6>
-                    <v-text-field v-model="form.weight" label="Weight(kg)" required></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6>
-                    <v-text-field v-model="form.height" label="Height(cm)" required></v-text-field>
-                  </v-flex>
                 </v-layout>
               </v-layout>
             </v-container>
           </v-card-text>
+          <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" text @click="dialog=false">Cancel</v-btn>
@@ -255,39 +303,47 @@
       </v-form>
     </v-dialog>
 
-    <v-dialog v-model="dialog2" max-width="500px">
+    <v-dialog v-model="householdDialog" persistent scrollable max-width="500px">
       <v-card>
-        <v-card-text>
+        <v-card-title>
           <v-autocomplete
-            v-model="model"
+            v-model="selectedHousehold"
             :items="items"
             :loading="isLoading"
             :search-input.sync="search"
             hide-no-data
             hide-selected
-            item-text="house_number"
+            item-text="house_no"
             item-value="API"
-            label="Households"
-            placeholder="Start typing to Search"
+            label="Household where you belong.."
+            placeholder="Start typing to search Households"
             return-object
           ></v-autocomplete>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text>
+          <v-expand-transition>
+            <v-list v-if="selectedHousehold">
+              <v-list-item v-for="(field, i) in fields" :key="i">
+                <v-list-item-content>
+                  <v-list-item-subtitle v-text="field.key"></v-list-item-subtitle>
+                  <v-list-item-title v-text="field.value"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-expand-transition>
         </v-card-text>
         <v-divider></v-divider>
-        <v-expand-transition>
-          <v-list v-if="model">
-            <v-list-item v-for="(field, i) in fields" :key="i">
-              <v-list-item-content>
-                <v-list-item-sub-title v-text="field.key"></v-list-item-sub-title>
-                <v-list-item-title v-text="field.value"></v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-expand-transition>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="dialog2=false">Close</v-btn>
-          <v-btn color="primary" text :disabled="!model" @click="model = null">Clear</v-btn>
-          <v-btn color="primary" text :disabled="!model" @click="newDialog()">Next</v-btn>
+          <v-btn color="primary" text @click="householdDialog=false">Close</v-btn>
+          <v-btn
+            color="primary"
+            text
+            :disabled="!selectedHousehold"
+            @click="selectedHousehold = null"
+          >Clear</v-btn>
+          <v-btn color="primary" text :disabled="!selectedHousehold" @click="newDialog()">Next</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -299,36 +355,22 @@
       <v-spacer></v-spacer>
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-table-column</v-icon>
-          </v-btn>
-        </template>
-        <span>Column Visibility</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on" @click="dialog2 = true">
+          <v-btn text icon color="primary" v-on="on" @click="householdDialog = true">
             <v-icon color="grey darken-2">mdi-account-plus</v-icon>
           </v-btn>
         </template>
-        <span>Create New Inhabitant</span>
+        <span>Add New Household</span>
       </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-refresh</v-icon>
-          </v-btn>
-        </template>
-        <span>Refresh</span>
-      </v-tooltip>
-    </v-app-bar>
-
-    <!-- <v-toolbar flat color="white">
-      <v-toolbar-title>INHABITANTS</v-toolbar-title>
-      <v-spacer></v-spacer>
       <v-menu :close-on-content-click="false" offset-y max-height="400">
-        <template v-slot:activator="{ on }">
-          <v-btn color="primary" dark v-on="on">Columns</v-btn>
+        <template #activator="{ on: menu }">
+          <v-tooltip bottom>
+            <template #activator="{ on: tooltip }">
+              <v-btn text icon color="primary" v-on="{ ...tooltip, ...menu }">
+                <v-icon color="grey darken-2">mdi-table-column</v-icon>
+              </v-btn>
+            </template>
+            <span>Column Visibility</span>
+          </v-tooltip>
         </template>
         <v-list>
           <v-list-item v-for="(item, index) in headers" :key="index">
@@ -341,14 +383,23 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-btn color="primary" dark @click="dialog2 = true">NEW</v-btn>
-    </v-toolbar>-->
+      <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+      <v-tooltip bottom>
+        <template v-slot:activator="{ on }">
+          <v-btn text icon color="primary" v-on="on" @click="getInhabitant()">
+            <v-icon color="grey darken-2">mdi-refresh</v-icon>
+          </v-btn>
+        </template>
+        <span>Refresh</span>
+      </v-tooltip>
+    </v-app-bar>
 
     <v-data-table
+      id="printTable"
       v-bind:headers="filteredHeaders"
       :items="inhabitants"
       :loading="loading"
-      class="elevation-1"
+      :search="tableSearch"
     >
       <template v-slot:items="props">
         <td v-if="showColumn('id')">{{ props.item.id }}</td>
@@ -359,49 +410,55 @@
         <td v-if="showColumn('age')">{{ props.item.age }}</td>
         <td v-if="showColumn('employment_category')">{{ props.item.employment_category }}</td>
         <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
-        <td v-if="showColumn('est_monthly_income_cash')">{{ props.item.est_monthly_income_cash }}</td>
+        <td
+          v-if="showColumn('estimated_monthly_income_cash')"
+        >{{ props.item.estimated_monthly_income_cash }}</td>
         <td v-if="showColumn('date_of_birth')">{{ props.item.date_of_birth }}</td>
-        <td v-if="showColumn('est_monthly_income_kind')">{{ props.item.est_monthly_income_kind }}</td>
-        <td v-if="showColumn('total_family_income')">{{ props.item.total_family_income }}</td>
+        <td
+          v-if="showColumn('estimated_monthly_income_kind')"
+        >{{ props.item.estimated_monthly_income_kind }}</td>
+        <td v-if="showColumn('Total_family_income')">{{ props.item.Total_family_income }}</td>
         <td v-if="showColumn('civil_status')">{{ props.item.civil_status }}</td>
-        <td v-if="showColumn('final_family_income')">{{ props.item.final_family_income }}</td>
+        <td v-if="showColumn('Final_family_income')">{{ props.item.Final_family_income }}</td>
         <td v-if="showColumn('religion')">{{ props.item.religion }}</td>
         <td v-if="showColumn('status_of_residency')">{{ props.item.status_of_residency }}</td>
         <td v-if="showColumn('schooling')">{{ props.item.schooling }}</td>
         <td v-if="showColumn('no_of_years_in_barangay')">{{ props.item.no_of_years_in_barangay }}</td>
-        <td v-if="showColumn('highest_educ_attainment')">{{ props.item.highest_educ_attainment }}</td>
         <td
-          v-if="showColumn('date_settled_in_the_barangay')"
-        >{{ props.item.date_settled_in_the_barangay }}</td>
+          v-if="showColumn('Highest_educational_attainment')"
+        >{{ props.item.Highest_educational_attainment }}</td>
+        <td v-if="showColumn('date_settled_in_barangay')">{{ props.item.date_settled_in_barangay }}</td>
         <td v-if="showColumn('specific_job_description')">{{ props.item.specific_job_description }}</td>
         <td v-if="showColumn('citizenship')">{{ props.item.citizenship }}</td>
         <td v-if="showColumn('gen_job_description')">{{ props.item.gen_job_description }}</td>
         <td v-if="showColumn('employment_status')">{{ props.item.employment_status }}</td>
-        <td v-if="showColumn('ethnic_group')">{{ props.item.ethnic_group }}</td>
+        <td v-if="showColumn('ethnicGroup')">{{ props.item.ethnicGroup }}</td>
         <td v-if="showColumn('job_category')">{{ props.item.job_category }}</td>
-        <td v-if="showColumn('place_of_birth')">{{ props.item.place_of_birth }}</td>
-        <td v-if="showColumn('registered_voter')">{{ props.item.registered_voter }}</td>
-        <td v-if="showColumn('child_parent')">{{ props.item.child_parent }}</td>
+        <td v-if="showColumn('placeOfBirth_native')">{{ props.item.placeOfBirth_native }}</td>
+        <td v-if="showColumn('registeredVoterOfTheBrgy')">{{ props.item.registeredVoterOfTheBrgy }}</td>
+        <td v-if="showColumn('childs_parent_guardian')">{{ props.item.childs_parent_guardian }}</td>
         <td v-if="showColumn('weight')">{{ props.item.weight }}</td>
         <td v-if="showColumn('height')">{{ props.item.height }}</td>
-        <td v-if="showColumn('actions')">
-          <v-icon small class="mr-2" @click="editDialog(props.item)">mdi-eye-circle</v-icon>
-          <v-icon small class="mr-2" @click="editDialog(props.item)">mdi-file-document-edit</v-icon>
-          <v-icon small @click="deleteInhabitant(props.item.id)">mdi-trash-can</v-icon>
-        </td>
+      </template>
+      <template v-slot:item.column.action="{ item }">
+        <v-icon small class="mr-2" @click="editDialog(item)">mdi-eye-circle</v-icon>
+        <v-icon small class="mr-2" @click="editDialog(item)">mdi-file-document-edit</v-icon>
+        <v-icon small @click="archive(item.id)">mdi-archive</v-icon>
       </template>
     </v-data-table>
   </div>
 </template>
 
 <script>
+import Print from './Print.vue';
 export default {
   data: () => ({
+    Table:'Inhabitants',
+    Orientation:'landscape',
     headers: [
       {
         text: "ID",
-        value: "id",
-        selected: true
+        value: "id"
       },
       {
         text: "First name",
@@ -419,14 +476,21 @@ export default {
         value: "last_name",
         selected: true
       },
-      {
-        text: "Relation to The Head",
-        value: "relation_to_the_head",
-        selected: true
-      },
+
       {
         text: "Age",
         value: "age",
+        selected: true
+      },
+
+      {
+        text: "Gender",
+        value: "sex",
+        selected: true
+      },
+      {
+        text: "Relation to The Head",
+        value: "relation_to_the_head",
         selected: true
       },
 
@@ -435,24 +499,20 @@ export default {
         value: "employment_category"
       },
       {
-        text: "Sex",
-        value: "sex"
-      },
-      {
-        text: "EST. Monthly Income-cash",
-        value: "est_monthly_income_cash"
+        text: "Estimated Monthly Income-cash",
+        value: "estimated_monthly_income_cash"
       },
       {
         text: "Date of Birth",
         value: "date_of_birth"
       },
       {
-        text: "EST. Monthly Income-kind",
-        value: "est_monthly_income_kind"
+        text: "Estimated Monthly Income-kind",
+        value: "estimated_monthly_income_kind"
       },
       {
         text: "Total Family Income",
-        value: "total_family_income"
+        value: "Total_family_income"
       },
       {
         text: "Civil Status",
@@ -460,7 +520,7 @@ export default {
       },
       {
         text: "Final Family Income",
-        value: "final_family_income"
+        value: "Final_family_income"
       },
       {
         text: "Religion",
@@ -480,11 +540,11 @@ export default {
       },
       {
         text: "Highest Educ'l Attainment",
-        value: "highest_educ_attainment"
+        value: "Highest_educational_attainment"
       },
       {
         text: "Date Settled in the Barangay",
-        value: "date_settled_in_the_barangay"
+        value: "date_settled_in_barangay"
       },
       {
         text: "Specific Job Description",
@@ -505,7 +565,7 @@ export default {
 
       {
         text: "Ethnic Group",
-        value: "ethnic_group"
+        value: "ethnicGroup"
       },
       {
         text: "Job Category",
@@ -513,15 +573,15 @@ export default {
       },
       {
         text: "Place of Birth/Native",
-        value: "place_of_birth"
+        value: "placeOfBirth_native"
       },
       {
         text: "Registered Voter",
-        value: "registered_voter"
+        value: "registeredVoterOfTheBrgy"
       },
       {
         text: "Child's Parent/Guardian",
-        value: "child_parent"
+        value: "childs_parent_guardian"
       },
       {
         text: "Weight(kg)",
@@ -533,23 +593,26 @@ export default {
       },
       {
         text: "Actions",
-        value: "actions"
+        value: "action",
+        selected: true
       }
     ],
+    tableSearch: "",
     inhabitants: [],
     households: [],
     dialog: false,
-    dialog2: false,
+    householdDialog: false,
     loading: false,
     vaccine: false,
+    employed: false,
     isLoading: false,
     editmode: false,
     menu1: false,
     menu2: false,
+    menu3: false,
     search: null,
-    date: new Date().toISOString().substr(0, 10),
     descriptionLimit: 60,
-    model: {},
+    selectedHousehold: null,
     form: new Form({
       id: "",
       household_id: "",
@@ -559,27 +622,27 @@ export default {
       relation_to_the_head: "",
       employment_category: "",
       sex: "",
-      est_monthly_income_cash: "",
+      estimated_monthly_income_cash: "",
       date_of_birth: "",
-      est_monthly_income_kind: "",
-      total_family_income: "",
+      estimated_monthly_income_kind: "",
+      Total_family_income: "",
       civil_status: "",
-      final_family_income: "",
+      Final_family_income: "",
       religion: "",
       status_of_residency: "",
       schooling: "",
       no_of_years_in_barangay: "",
-      highest_educ_attainment: "",
-      date_settled_in_the_barangay: "",
+      Highest_educational_attainment: "",
+      date_settled_in_barangay: "",
       specific_job_description: "",
       citizenship: "",
       gen_job_description: "",
       employment_status: "",
-      ethnic_group: "",
+      ethnicGroup: "",
       job_category: "",
-      place_of_birth: "",
-      registered_voter: "",
-      child_parent: "",
+      placeOfBirth_native: "",
+      registeredVoterOfTheBrgy: "",
+      childs_parent_guardian: "",
       weight: "",
       height: ""
     })
@@ -591,11 +654,11 @@ export default {
 
   computed: {
     fields() {
-      if (!this.model) return [];
-      return Object.keys(this.model).map(key => {
+      if (!this.selectedHousehold) return [];
+      return Object.keys(this.selectedHousehold).map(key => {
         return {
           key,
-          value: this.model[key] || "n/a"
+          value: this.selectedHousehold[key] || "n/a"
         };
       });
     },
@@ -616,17 +679,19 @@ export default {
 
     items() {
       return this.households.map(entry => {
-        const house_number =
-          entry.house_number.length > this.descriptionLimit
-            ? entry.house_number.slice(0, this.descriptionLimit) + "..."
-            : entry.house_number;
+        const house_no =
+          entry.house_no.length > this.descriptionLimit
+            ? entry.house_no.slice(0, this.descriptionLimit) + "..."
+            : entry.house_no;
         return Object.assign({}, entry, {
-          house_number
+          house_no
         });
       });
     }
   },
-
+  components:{
+      'app-print': Print
+  },
   watch: {
     search(val) {
       if (this.items.length > 0) return;
@@ -689,13 +754,17 @@ export default {
 
     newDialog() {
       this.editmode = false;
-      this.form.household_id = this.model.id;
+      this.form.household_id = this.selectedHousehold.id;
       this.dialog = true;
-      this.dialog2 = false;
+      this.householdDialog = false;
     },
 
     showColumn(col) {
       return this.headers.find(h => h.value === col).selected;
+    },
+    archive(id) {
+      axios.post("api/inhabitant/archived/"+ id )
+      this.getInhabitant();
     }
   }
 };
