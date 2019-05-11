@@ -88,6 +88,7 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
+<<<<<<< HEAD
                   <v-select
                     v-model="form.type_of_dwelling"
                     :items="['Permanent Concrete', 'Semi Permanent', 'Temporary']"
@@ -95,6 +96,8 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
+=======
+>>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
                   <v-text-field v-model="form.telephone_no" label="Telephone No."></v-text-field>
                 </v-flex>
 
@@ -221,7 +224,11 @@
             <v-icon color="grey darken-2">mdi-home-plus</v-icon>
           </v-btn>
         </template>
+<<<<<<< HEAD
         <span>Add New Household</span>
+=======
+        <span>Add New Inhabitant</span>
+>>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
       </v-tooltip>
       <v-menu :close-on-content-click="false" offset-y max-height="400">
         <template #activator="{ on: menu }">

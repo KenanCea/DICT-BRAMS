@@ -44,6 +44,7 @@ Route::get('listOfOutOfSchoolYouth15_25', 'PrintDocumentController@OutOfSchool15
 Route::get('header', 'PrintDocumentController@location');
 
 // Forms
+<<<<<<< HEAD
 Route::get('form', 'FormController@index')->name('form.index');
 
 // Dashboard
@@ -52,3 +53,6 @@ Route::post('Households', 'DashboardController@TotalHouseholds');
 Route::post('Puroks', 'DashboardController@TotalPuroks');
 Route::post('Seniors', 'DashboardController@TotalSeniors');
 Route::post('Children', 'DashboardController@TotalChildren');
+=======
+Route::get('form', 'FormController@index')->name('form.index');
+>>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe

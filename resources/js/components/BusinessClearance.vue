@@ -95,7 +95,11 @@
         </v-flex>
         <v-flex xs4 class="green--text title">
           <p class="mb-0">Republic of the Philippines</p>
+<<<<<<< HEAD
           <p class="mb-0">BARANGAY LOAKAN</p>
+=======
+          <p class="mb-0">BARANGAY AMBIONG</p>
+>>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
           <p>Aurora Hill, Baguio</p>
         </v-flex>
         <v-flex xs4>
