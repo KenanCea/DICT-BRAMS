@@ -23,20 +23,14 @@
     },
     "dependencies": {
         "@mdi/font": "^3.6.95",
-<<<<<<< HEAD
         "echarts": "^4.2.1",
-=======
->>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
         "file-saver": "^2.0.1",
         "html-docx-js": "^0.3.1",
         "html2canvas": "^1.0.0-rc.1",
         "jspdf": "^1.5.3",
         "jspdf-autotable": "^3.1.1",
         "printd": "^1.4.0",
-<<<<<<< HEAD
         "v-charts": "^1.19.0",
-=======
->>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
         "vform": "^1.0.0",
         "vue-router": "^3.0.6",
         "vuetify": "^2.0.0-alpha.17"
