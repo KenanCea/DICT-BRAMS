@@ -362,10 +362,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         <span>Add New Inhabitant</span>
 =======
         <span>Add New Household</span>
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+        <span>Add New Household</span>
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
         <span>Add New Household</span>
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance

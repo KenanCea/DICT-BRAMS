@@ -2,6 +2,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <v-app>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
@@ -121,6 +122,8 @@
 =======
 =======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
+=======
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
   <div>
     <v-app-bar id="navbar" dense flat app>
       <v-toolbar-title>
@@ -132,6 +135,9 @@
 
   </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
+=======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
@@ -177,6 +183,7 @@ export default {
       }
     }
   },
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
   methods:{
@@ -251,6 +258,8 @@ export default {
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
+=======
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 
   methods: {
     remove(item) {
@@ -258,7 +267,10 @@ export default {
       if (index >= 0) this.friends.splice(index, 1);
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======

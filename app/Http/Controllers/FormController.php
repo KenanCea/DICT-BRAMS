@@ -19,10 +19,14 @@ class FormController extends Controller
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             ->leftJoin('users', 'households.user_id', '=', 'users.id')
 =======
             ->leftJoin('users','households.user_id','=','users.id')
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+            ->leftJoin('users','households.user_id','=','users.id')
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
             ->leftJoin('users','households.user_id','=','users.id')
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
@@ -49,6 +53,7 @@ class FormController extends Controller
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 0) as age")
             )
             ->where('users.id', Auth::user()->id)
@@ -57,6 +62,11 @@ class FormController extends Controller
             )
             ->where('users.id',Auth::user()->id)
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+0) as age"),
+            )
+            ->where('users.id',Auth::user()->id)
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
 0) as age"),
             )

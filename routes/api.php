@@ -44,6 +44,7 @@ Route::get('listOfOutOfSchoolYouth15_25', 'PrintDocumentController@OutOfSchool15
 Route::get('header', 'PrintDocumentController@location');
 
 // Forms
+<<<<<<< HEAD
 
 Route::get('form', 'FormController@index')->name('form.index');
 
@@ -56,3 +57,6 @@ Route::post('Children', 'DashboardController@TotalChildren');
 Route::get('form', 'FormController@index')->name('form.index');
 Route::get('form', 'FormController@index')->name('form.index');
 Route::get('form', 'FormController@index')->name('form.index');
+=======
+Route::get('form', 'FormController@index')->name('form.index');
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance

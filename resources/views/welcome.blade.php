@@ -21,10 +21,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <h1 class="white--text mt-3 display-1 text-xs-center">Barangay Records Automation and</h1>
 =======
                             <h1 class="white--text mt-3 display-1 text-xs-center">Barangay Records and Automation </h1>
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+                            <h1 class="white--text mt-3 display-1 text-xs-center">Barangay Records and Automation </h1>
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
                             <h1 class="white--text mt-3 display-1 text-xs-center">Barangay Records and Automation </h1>
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
@@ -46,10 +50,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                                 <h2 class="headline">Features of Barangay Records  <br> Automation and Management System</h2>
 =======
                                 <h2 class="headline">Features of Barangay Records and <br> Automation Management System</h2>
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+                                <h2 class="headline">Features of Barangay Records and <br> Automation Management System</h2>
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
                                 <h2 class="headline">Features of Barangay Records and <br> Automation Management System</h2>
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
@@ -86,10 +94,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 <div class="headline">Automation</div>
 =======
                                                 <div class="headline">Automation System</div>
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+                                                <div class="headline">Automation System</div>
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
                                                 <div class="headline">Automation System</div>
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
@@ -114,10 +126,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                                                 <div class="headline text-xs-center">Issuing Permit</div>
 =======
                                                 <div class="headline text-xs-center">Issuing Permits</div>
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+                                                <div class="headline text-xs-center">Issuing Permits</div>
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
                                                 <div class="headline text-xs-center">Issuing Permits</div>
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
@@ -159,10 +175,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                                         <div class="headline">Government info</div>
 =======
                                         <div class="headline">Company info</div>
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+                                        <div class="headline">Company info</div>
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
                                         <div class="headline">Company info</div>
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
