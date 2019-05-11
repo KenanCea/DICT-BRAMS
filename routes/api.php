@@ -45,3 +45,10 @@ Route::get('header', 'PrintDocumentController@location');
 
 // Forms
 Route::get('form', 'FormController@index')->name('form.index');
+
+// Dashboard
+Route::post('Inhabitants', 'DashboardController@TotalInhabitants');
+Route::post('Households', 'DashboardController@TotalHouseholds');
+Route::post('Puroks', 'DashboardController@TotalPuroks');
+Route::post('Seniors', 'DashboardController@TotalSeniors');
+Route::post('Children', 'DashboardController@TotalChildren');
