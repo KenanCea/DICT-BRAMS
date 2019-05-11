@@ -359,7 +359,7 @@
             <v-icon color="grey darken-2">mdi-account-plus</v-icon>
           </v-btn>
         </template>
-        <span>Add New Household</span>
+        <span>Add New Inhabitant</span>
       </v-tooltip>
       <v-menu :close-on-content-click="false" offset-y max-height="400">
         <template #activator="{ on: menu }">

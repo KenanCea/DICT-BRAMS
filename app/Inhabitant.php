@@ -15,6 +15,7 @@ class Inhabitant extends Model
         'relation_to_the_head',
         'sex',
         'date_of_birth',
+        'age',
         'dateLastEntry',
         'placeOfBirth_native',
         'civil_status',

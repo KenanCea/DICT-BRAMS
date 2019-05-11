@@ -16,7 +16,7 @@ class FormController extends Controller
     {
         return DB::table('inhabitants')
             ->leftJoin('households', 'inhabitants.household_id', '=', 'households.id')
-            ->leftJoin('users','households.user_id','=','users.id')
+            ->leftJoin('users', 'households.user_id', '=', 'users.id')
             ->select(
                 'inhabitants.first_name',
                 'inhabitants.middle_name',
@@ -34,9 +34,9 @@ class FormController extends Controller
          DAY(inhabitants.date_of_birth)),
  '%Y-%c-%e') > CURDATE(),
 1,
-0) as age"),
+0) as age")
             )
-            ->where('users.id',Auth::user()->id)
+            ->where('users.id', Auth::user()->id)
             ->get();
     }
 }

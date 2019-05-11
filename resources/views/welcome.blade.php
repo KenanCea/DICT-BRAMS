@@ -18,7 +18,7 @@
                     <v-parallax src="/img/hero.png" height="600">
                         <v-layout column align-center justify-center class="white--text">
                             <img src="/img/vuetify.png" alt="No logo.js" height="200">
-                            <h1 class="white--text mt-3 display-1 text-xs-center">Barangay Records and Automation </h1>
+                            <h1 class="white--text mt-3 display-1 text-xs-center">Barangay Records Automation and</h1>
                             <h1 class="white--text mb-2 display-1 text-xs-center"> Management System</h1>
                             <v-btn class="blue lighten-2 mt-5" dark large href="/dashboard">
                                 Get Started
@@ -31,7 +31,7 @@
                     <v-layout column wrap class="my-5" align-center>
                         <v-flex xs12 sm4 class="my-3">
                             <div class="text-xs-center">
-                                <h2 class="headline">Features of Barangay Records and <br> Automation Management System</h2>
+                                <h2 class="headline">Features of Barangay Records  <br> Automation and Management System</h2>
                             </div>
                         </v-flex>
                         <v-flex xs12>
@@ -59,7 +59,7 @@
                                                 <v-icon x-large class="blue--text text--lighten-2">mdi-home-automation</v-icon>
                                             </v-card-text>
                                             <v-card-title primary-title class="layout justify-center">
-                                                <div class="headline">Automation System</div>
+                                                <div class="headline">Automation</div>
                                             </v-card-title>
                                             <v-card-text>
                                                 Barangay Automation System and information management is a
@@ -75,7 +75,7 @@
                                                 <v-icon x-large class="blue--text text--lighten-2">mdi-file-document-box-multiple</v-icon>
                                             </v-card-text>
                                             <v-card-title primary-title class="layout justify-center">
-                                                <div class="headline text-xs-center">Issuing Permits</div>
+                                                <div class="headline text-xs-center">Issuing Permit</div>
                                             </v-card-title>
                                             <v-card-text>
                                                 Barangay Records and Automation Management System is to enhance the
@@ -108,7 +108,7 @@
                             <v-flex xs12 sm4>
                                 <v-card class="elevation-0 transparent">
                                     <v-card-title primary-title class="layout justify-center">
-                                        <div class="headline">Company info</div>
+                                        <div class="headline">Government info</div>
                                     </v-card-title>
                                     <v-card-text>
                                         The Department of Information and Communications Technology is the executive
