@@ -46,6 +46,7 @@ Route::get('header', 'PrintDocumentController@location');
 // Forms
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Route::get('form', 'FormController@index')->name('form.index');
 
 // Dashboard
@@ -57,6 +58,9 @@ Route::post('Children', 'DashboardController@TotalChildren');
 =======
 Route::get('form', 'FormController@index')->name('form.index');
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+Route::get('form', 'FormController@index')->name('form.index');
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
 Route::get('form', 'FormController@index')->name('form.index');
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance

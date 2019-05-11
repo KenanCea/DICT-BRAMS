@@ -1,6 +1,7 @@
 <template>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   <v-app>
     <v-container grid-list-xl fluid>
       <v-layout row wrap>
@@ -118,6 +119,8 @@
     </v-container>
   </v-app>
 =======
+=======
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
   <div>
     <v-app-bar id="navbar" dense flat app>
       <v-toolbar-title>
@@ -128,6 +131,9 @@
     </v-app-bar>
 
   </div>
+<<<<<<< HEAD
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
+=======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 </template>
 
@@ -171,6 +177,7 @@ export default {
       }
     }
   },
+<<<<<<< HEAD
 <<<<<<< HEAD
   methods:{
     getInhabitants() {
@@ -242,13 +249,18 @@ export default {
   },
 =======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
+=======
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 
   methods: {
     remove(item) {
       const index = this.friends.indexOf(item.name);
       if (index >= 0) this.friends.splice(index, 1);
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> c23e70b3992b1b81ab0a08ad3ead82358b36d6fe
+=======
+>>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
 =======
 >>>>>>> parent of a43aa4b... added dashboard and fix Barangay Clearance
     }
