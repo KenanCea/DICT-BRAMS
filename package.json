@@ -1,0 +1,38 @@
+{
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "watch": "npm run development -- --watch",
+        "watch-poll": "npm run watch -- --watch-poll",
+        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+        "prod": "npm run production",
+        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
+    },
+    "devDependencies": {
+        "axios": "^0.18",
+        "cross-env": "^5.2.0",
+        "laravel-mix": "^4.0.15",
+        "lodash": "^4.17.11",
+        "popper.js": "^1.15",
+        "resolve-url-loader": "^3.1.0",
+        "sass": "^1.19.0",
+        "sass-loader": "^7.1.0",
+        "vue": "^2.6.10",
+        "vue-template-compiler": "^2.6.10"
+    },
+    "dependencies": {
+        "@mdi/font": "^3.6.95",
+        "echarts": "^4.2.1",
+        "file-saver": "^2.0.1",
+        "html-docx-js": "^0.3.1",
+        "html2canvas": "^1.0.0-rc.1",
+        "jspdf": "^1.5.3",
+        "jspdf-autotable": "^3.1.1",
+        "printd": "^1.4.0",
+        "v-charts": "^1.19.0",
+        "vform": "^1.0.0",
+        "vue-router": "^3.0.6",
+        "vuetify": "^2.0.0-alpha.17"
+    }
+}
