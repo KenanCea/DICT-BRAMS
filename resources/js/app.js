@@ -17,7 +17,10 @@ import {
 } from 'vform';
 import Gate from "./Gate";
 Vue.prototype.$gate = new Gate(window.user);
-
+Vue.component(
+    'not-found',
+    require('./components/403Page.vue').default
+);
 
 const opts = {
     icons: {
