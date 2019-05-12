@@ -13,38 +13,72 @@
 
 <body>
     <v-app id="app" v-cloak>
-        @auth
+        @can('isUser')
         <v-navigation-drawer app v-model="drawer" fixed clipped>
             <v-list shaped>
-                <template v-for="item in items">
-                    <v-layout v-if="item.heading" :key="item.heading" row align-center>
+                <template v-for="user in users">
+                    <v-layout v-if="user.heading" :key="user.heading" row align-center>
                         <v-flex xs6>
-                            <v-subheader v-if="item.heading">@{{ item.heading }}</v-subheader>
+                            <v-subheader v-if="user.heading">@{{ user.heading }}</v-subheader>
                         </v-flex>
                     </v-layout>
-                    <v-list-group v-else-if="item.children" v-model="item.model" :key="item.title" :prepend-icon="item.icon" append-icon="mdi-menu-down" no-action>
+                    <v-list-group v-else-if="user.children" v-model="user.model" :key="user.title" :prepend-icon="user.icon" append-icon="mdi-menu-down" no-action>
                         <v-list-item slot="activator">
                             <v-list-item-content>
-                                <v-list-item-title class="font-weight-medium">@{{ item.title }}</v-list-item-title>
+                                <v-list-item-title class="font-weight-medium">@{{ user.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
-                        <v-list-item :key="i" v-for="(child, i) in item.children" :to="child.to">
+                        <v-list-item :key="i" v-for="(child, i) in user.children" :to="child.to">
                             <v-list-item-content>
                                 <v-list-item-title class="font-weight-medium">@{{ child.title }}</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-group>
-                    <v-list-item v-else :key="item.title" :to="item.to">
+                    <v-list-item v-else :key="user.title" :to="user.to">
                         <v-list-item-action>
-                            <v-icon>@{{ item.icon }}</v-icon>
+                            <v-icon>@{{ user.icon }}</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title class="font-weight-medium">@{{ item.title }}</v-list-item-title>
+                            <v-list-item-title class="font-weight-medium">@{{ user.title }}</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </template>
             </v-list>
         </v-navigation-drawer>
+        @endcan
+        @can('isAdmin')
+        <v-navigation-drawer app v-model="drawer" fixed clipped>
+            <v-list shaped>
+                <template v-for="admin in admins">
+                    <v-layout v-if="admin.heading" :key="admin.heading" row align-center>
+                        <v-flex xs6>
+                            <v-subheader v-if="admin.heading">@{{ admin.heading }}</v-subheader>
+                        </v-flex>
+                    </v-layout>
+                    <v-list-group v-else-if="admin.children" v-model="admin.model" :key="admin.title" :prepend-icon="admin.icon" append-icon="mdi-menu-down" no-action>
+                        <v-list-item slot="activator">
+                            <v-list-item-content>
+                                <v-list-item-title class="font-weight-medium">@{{ admin.title }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        <v-list-item :key="i" v-for="(child, i) in admin.children" :to="child.to">
+                            <v-list-item-content>
+                                <v-list-item-title class="font-weight-medium">@{{ child.title }}</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list-group>
+                    <v-list-item v-else :key="admin.title" :to="admin.to">
+                        <v-list-item-action>
+                            <v-icon>@{{ admin.icon }}</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title class="font-weight-medium">@{{ admin.title }}</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </template>
+            </v-list>
+        </v-navigation-drawer>
+        @endcan
         <v-app-bar :clipped-left="$vuetify.breakpoint.mdAndUp" tile flat fixed app>
             <v-toolbar-title style="width: 250px" class="ml-0 grey--text text--darken-2">
                 <v-app-bar-nav-icon size="30px" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
@@ -52,7 +86,7 @@
                 </v-avatar>
                 <span class="hidden-sm-and-down">BRAMS</span>
             </v-toolbar-title>
-            <v-autocomplete clearable light solo flat background-color="grey lighten-3" hide-details prepend-inner-icon="mdi-magnify" label="Search" class="hidden-sm-and-down"></v-autocomplete>
+            <!-- <v-autocomplete clearable light solo flat background-color="grey lighten-3" hide-details prepend-inner-icon="mdi-magnify" label="Search" class="hidden-sm-and-down"></v-autocomplete> -->
             <v-spacer></v-spacer>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">
@@ -111,14 +145,16 @@
                 </v-card>
             </v-menu>
         </v-app-bar>
+
         <v-content class="white">
             <router-view></router-view>
         </v-content>
-        @endauth
-        <main>
-            @yield('content')
-        </main>
     </v-app>
+    @auth
+    <script>
+        window.user = @json(auth() -> user())
+    </script>
+    @endauth
     @stack('beforeScripts')
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('afterScripts')
