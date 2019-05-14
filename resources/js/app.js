@@ -124,6 +124,12 @@ const app = new Vue({
                 }
                 ]
             },
+            {
+                icon: "mdi-dev-to",
+                title: "Development",
+                name: "Development",
+                to: "/dev"
+            },
         ],
         admins: [
             {

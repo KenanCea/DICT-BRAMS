@@ -1,5 +1,8 @@
 export const routes = [
   {
+    path: '*',
+    component: require('./components/404Page.vue').default
+  }, {
     path: '/dashboard',
     component: require('./components/Dashboard.vue').default
   }, {
@@ -68,4 +71,7 @@ export const routes = [
   }, {
     path: '/needquestions',
     component: require('./components/NeedQuestions.vue').default
+  }, {
+    path: '/dev',
+    component: require('./components/dev.vue').default
   }]
