@@ -12,6 +12,7 @@ class InhabitantController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+        $this->authorize('isUser');
     }
     /**
      * Display a listing of the resource.
@@ -33,7 +34,6 @@ class InhabitantController extends Controller
         ->where('users.id',Auth::user()->id)
         ->limit(1000)
         ->get();
-        // return Inhabitant::getAgeAttribute();
     }
 
     /**

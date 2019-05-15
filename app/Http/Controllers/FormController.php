@@ -16,7 +16,7 @@ class FormController extends Controller
     {
         return DB::table('inhabitants')
             ->leftJoin('households', 'inhabitants.household_id', '=', 'households.id')
-            ->leftJoin('users','households.user_id','=','users.id')
+            ->leftJoin('users', 'households.user_id', '=', 'users.id')
             ->select(
                 'inhabitants.first_name',
                 'inhabitants.middle_name',

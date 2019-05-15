@@ -54,3 +54,6 @@ Route::post('Households', 'DashboardController@TotalHouseholds');
 Route::post('Puroks', 'DashboardController@TotalPuroks');
 Route::post('Seniors', 'DashboardController@TotalSeniors');
 Route::post('Children', 'DashboardController@TotalChildren');
+
+// Address
+Route::get('address', 'AddressController@index')->name('address.index');

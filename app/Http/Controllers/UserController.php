@@ -18,10 +18,6 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    // {
-    //     return Auth::user()->first();
-    // }
-
     {
         return auth('api')->user();
     }

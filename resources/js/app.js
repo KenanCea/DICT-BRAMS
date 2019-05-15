@@ -15,6 +15,12 @@ import {
     HasError,
     AlertError
 } from 'vform';
+import Gate from "./Gate";
+Vue.prototype.$gate = new Gate(window.user);
+Vue.component(
+    'not-found',
+    require('./components/403Page.vue').default
+);
 
 const opts = {
     icons: {
@@ -50,7 +56,7 @@ const app = new Vue({
     router,
     data: () => ({
         drawer: null,
-        items: [
+        users: [
             {
                 icon: "mdi-view-dashboard",
                 title: "Dashboard",
@@ -124,6 +130,20 @@ const app = new Vue({
                 }
                 ]
             },
+            {
+                icon: "mdi-dev-to",
+                title: "Development",
+                name: "Development",
+                to: "/dev"
+            },
+        ],
+        admins: [
+            {
+                icon: "mdi-view-dashboard",
+                title: "Dashboard",
+                name: "Dashboard",
+                to: "/dashboard"
+            },
         ],
         menu: 0,
         menus: [
@@ -142,8 +162,5 @@ const app = new Vue({
             }
         ],
 
-    }),
-    methods: {
-
-    }
+    })
 });
