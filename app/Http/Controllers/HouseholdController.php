@@ -6,6 +6,7 @@ use App\Inhabitant;
 use App\Household;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use DB;
 
 class HouseholdController extends Controller
 {
@@ -23,7 +24,6 @@ class HouseholdController extends Controller
     {
         return Household::leftJoin('users','households.user_id','=','users.id')
         ->select('households.*')
-        ->where('households.archive',0)
         ->where('users.id',Auth::user()->id)
         ->get();
     }
@@ -68,15 +68,20 @@ class HouseholdController extends Controller
     public function archive($id)
     {
         $household = Household::findOrFail($id);
-        $household->archive = ! $household->archive;
-        $household->save();
+        $household->delete();
+    }
+
+    public function restore($id)
+    {
+        $household = Household::withTrashed()->findOrFail($id)->restore();
     }
 
     public function archived_Household()
     {
-        return Household::leftJoin('users','households.user_id','=','users.id')
+        return DB::table('households')
+        ->leftJoin('users','households.user_id','=','users.id')
         ->select('households.*')
-        ->Where('households.archive',1)
+        ->whereNotNull('deleted_at')
         ->where('users.id',Auth::user()->id)
         ->get();
     }

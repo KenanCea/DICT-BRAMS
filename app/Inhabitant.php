@@ -4,9 +4,11 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Inhabitant extends Model
 {
+    use SoftDeletes;
     protected $fillable = [
         'household_id',
         'last_name',

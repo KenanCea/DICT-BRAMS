@@ -24,10 +24,12 @@ Route::put('user', 'UserController@update');
 
 //inhabitants
 Route::post('inhabitant/archived/{id}', 'InhabitantController@archive');
+Route::post('inhabitant/restore/{id}', 'InhabitantController@restore');
 Route::get('archivedInhabitant', 'InhabitantController@archived_Inhabitant');
 
 //households
 Route::post('households/archived/{id}', 'HouseholdController@archive');
+Route::post('households/restore/{id}', 'HouseholdController@restore');
 Route::get('archivedHousehold', 'HouseholdController@archived_Household');
 
 // Print Document

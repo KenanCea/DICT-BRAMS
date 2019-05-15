@@ -408,7 +408,7 @@ export default {
       return this.headers.find(h => h.value === col).selected;
     },
     archive(id) {
-      axios.post("api/households/archived/"+ id )
+      axios.post("api/households/restore/"+ id )
       this.getHousehold();
     }
   }

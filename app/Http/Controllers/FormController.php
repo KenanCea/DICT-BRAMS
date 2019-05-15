@@ -34,8 +34,7 @@ class FormController extends Controller
          DAY(inhabitants.date_of_birth)),
  '%Y-%c-%e') > CURDATE(),
 1,
-0) as age"),
-            )
+0) as age"))
             ->where('users.id',Auth::user()->id)
             ->get();
     }

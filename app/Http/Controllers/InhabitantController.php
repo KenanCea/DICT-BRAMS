@@ -30,7 +30,6 @@ class InhabitantController extends Controller
         '%Y-%c-%e') > CURDATE(),
         1,
         0) as age"))
-        ->Where('inhabitants.archive',0)
         ->where('users.id',Auth::user()->id)
         ->limit(1000)
         ->get();
@@ -76,7 +75,8 @@ class InhabitantController extends Controller
 
     public function archived_Inhabitant()
     {
-        return Inhabitant::leftJoin('users','inhabitants.user_id','=','users.id')
+        return DB::table('inhabitants')
+        ->leftJoin('users','inhabitants.user_id','=','users.id')
         ->select('inhabitants.*',
                 DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                 '-',
@@ -86,7 +86,7 @@ class InhabitantController extends Controller
         '%Y-%c-%e') > CURDATE(),
         1,
         0) as age"))
-        ->Where('inhabitants.archive',1)
+        ->whereNotNull('deleted_at')
         ->where('users.id',Auth::user()->id)
         ->get();
     }
@@ -94,7 +94,11 @@ class InhabitantController extends Controller
     public function archive($id)
     {
         $inhabitants = Inhabitant::findOrFail($id);
-        $inhabitants->archive = ! $inhabitants->archive;
-        $inhabitants->save();
+        $inhabitants->delete();
+    }
+
+    public function restore($id)
+    {
+        $inhabitants = Inhabitant::withTrashed()->findOrFail($id)->restore();
     }
 }
