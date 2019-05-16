@@ -40,6 +40,7 @@ class PrintDocumentController extends Controller
         DB::raw('CONCAT(households.house_no," purok ",households.purok," ",households.street,", ",barangays.name) AS address'),
         'inhabitants.citizenship')
         ->where('inhabitants.registeredVoterOfTheBrgy','yes')
+        ->Where('inhabitants.archive',0)
         ->where('users.id',Auth::user()->id)
         ->get();
     }
@@ -68,6 +69,7 @@ class PrintDocumentController extends Controller
         DB::raw('CONCAT(households.house_no," purok ",households.purok," ",households.street,", ",barangays.name) AS address'),
         'inhabitants.status_of_residency')
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->having('age','>=','15')
         ->having('age','<=','17')
         ->get();
@@ -99,6 +101,7 @@ class PrintDocumentController extends Controller
         'inhabitants.citizenship'
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->having('age','>=','60')
         ->get();
     }
@@ -130,6 +133,7 @@ class PrintDocumentController extends Controller
         'filedcases.remarks'
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->having('age','>=','9')
         ->having('age','<=','14')
         ->get();
@@ -160,6 +164,7 @@ class PrintDocumentController extends Controller
         'inhabitants.highest_educational_attainment'
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->where('highest_educational_attainment','like','%undergraduat%')
         ->having('age','>=','7')
         ->having('age','<=','14')
@@ -192,6 +197,7 @@ class PrintDocumentController extends Controller
         DB::raw('ifnull(inhabitants.gen_job_description,"none") as gen_job_description')
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->where('highest_educational_attainment','like','%undergraduat%')
         ->having('age','>=','15')
         ->having('age','<=','25')
@@ -215,6 +221,7 @@ class PrintDocumentController extends Controller
         'inhabitants.others1'
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->get();
     }
 
@@ -231,6 +238,7 @@ class PrintDocumentController extends Controller
         'inhabitants.received_vitaminA'
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->get();
     }
 
@@ -247,6 +255,7 @@ class PrintDocumentController extends Controller
         'inhabitants.dewormed'
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->get();
     }
 
@@ -263,6 +272,7 @@ class PrintDocumentController extends Controller
         'inhabitants.date_measured_height_weight'
         )
         ->where('users.id',Auth::user()->id)
+        ->Where('inhabitants.archive',0)
         ->get();
     }
 

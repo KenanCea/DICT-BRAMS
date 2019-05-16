@@ -109,6 +109,12 @@ const app = new Vue({
                 to: "/printdocument"
             },
             {
+                icon: "mdi-content-copy",
+                title: "Barangay Kiosk",
+                name: "Barangay Kiosk",
+                to: "/barangaykiosk"
+            },
+            {
                 icon: "mdi-archive",
                 title: "Archive",
                 group: "Archive",

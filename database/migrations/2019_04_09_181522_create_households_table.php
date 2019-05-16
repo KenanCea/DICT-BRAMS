@@ -45,6 +45,7 @@ class CreateHouseholdsTable extends Migration
             $table->timestamps();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('restrict');  
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 

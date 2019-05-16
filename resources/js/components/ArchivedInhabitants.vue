@@ -663,7 +663,7 @@ export default {
     },
     
     archive(id) {
-      axios.post("api/inhabitant/archived/"+ id )
+      axios.post("api/inhabitant/restore/"+ id )
       this.getInhabitant();
     },
   }

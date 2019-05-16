@@ -74,4 +74,46 @@ export const routes = [
   }, {
     path: '/dev',
     component: require('./components/dev.vue').default
+  }, {
+    path: '/barangaykiosk',
+    component: require('./components/BarangayKiosk.vue').default
+  }, {
+    path: '/populationGenderAge',
+    component: require('./components/PopulationGenderAge.vue').default
+  }, {
+    path: '/civilstatusTribe',
+    component: require('./components/CivilstatusTribe.vue').default
+  }, {
+    path: '/familysizeReligion',
+    component: require('./components/FamilySizeReligion.vue').default
+  }, {
+    path: '/bloodtypeHealth',
+    component: require('./components/BloodtypeHealth.vue').default
+  }, {
+    path: '/planningDeath',
+    component: require('./components/PlanningDeath.vue').default
+  }, {
+    path: '/nutritionWaterGarbage',
+    component: require('./components/NutritionWaterGarbage.vue').default
+  }, {
+    path: '/garbCollectionToiletTenurial ',
+    component: require('./components/GarbCollectionToiletTenurial.vue').default
+  }, {
+    path: '/constMtlsResidencyCrime',
+    component: require('./components/ConstMtlsResidencyCrime.vue').default
+  }, {
+    path: '/familyIncomeEconomicActivity ',
+    component: require('./components/FamilyIncomeEconomicActivity.vue').default
+  }, {
+    path: '/jobStatusIndustry ',
+    component: require('./components/JobStatusIndustry.vue').default
+  }, {
+    path: '/educationAchievement',
+    component: require('./components/EducationAchievement.vue').default
+  }, {
+    path: '/soloParent',
+    component: require('./components/SoloParent.vue').default
+  }, {
+    path: '/disability',
+    component: require('./components/Disability.vue').default
   }]

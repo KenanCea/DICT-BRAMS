@@ -78,6 +78,7 @@ class CreateInhabitantsTable extends Migration
             $table->foreign('household_id')->references('id')->on('households')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->timestamp('deleted_at')->nullable();
         });
     }
 
