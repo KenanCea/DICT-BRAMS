@@ -4,7 +4,7 @@ use Faker\Generator as Faker;
 
 $factory->define(Infrastructure::class, function (Faker $faker) {
     return [
-        // 'barangay_id' => $faker->unique()->numberBetween(1, App\Barangay::count()),
+        'barangay_id' => $faker->numberBetween(1, App\Barangay::count()),
         'barangay_id'=>App\User::all()->random()->id,
         'national_m_concrete' => $faker->numberBetween($min = 100000, $max = 1000000000),
         'provincial_m_concrete' => $faker->numberBetween($min = 100000, $max = 1000000000),

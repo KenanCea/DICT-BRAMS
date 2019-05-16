@@ -124,30 +124,30 @@
                                 </v-card-title>
 
                                 <v-list class="transparent">
-                                    <v-list-tile>
-                                        <v-list-tile-action>
+                                    <v-list-item>
+                                        <v-list-item-action>
                                             <v-icon class="blue--text text--lighten-2">mdi-cellphone-android</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>(074) 442-3362</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-action>
+                                        </v-list-item-action>
+                                        <v-list-item-content>
+                                            <v-list-item-title>(074) 442-3362</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-list-item>
+                                        <v-list-item-action>
                                             <v-icon class="blue--text text--lighten-2">mdi-map-marker</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>Pacdal, Baguio City</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
-                                    <v-list-tile>
-                                        <v-list-tile-action>
+                                        </v-list-item-action>
+                                        <v-list-item-content>
+                                            <v-list-item-title>Pacdal, Baguio City</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
+                                    <v-list-item>
+                                        <v-list-item-action>
                                             <v-icon class="blue--text text--lighten-2">mdi-email</v-icon>
-                                        </v-list-tile-action>
-                                        <v-list-tile-content>
-                                            <v-list-tile-title>rey.parnacio@icto.dost.gov.ph</v-list-tile-title>
-                                        </v-list-tile-content>
-                                    </v-list-tile>
+                                        </v-list-item-action>
+                                        <v-list-item-content>
+                                            <v-list-item-title>rey.parnacio@icto.dost.gov.ph</v-list-item-title>
+                                        </v-list-item-content>
+                                    </v-list-item>
                                 </v-list>
                             </v-card>
                         </v-flex>

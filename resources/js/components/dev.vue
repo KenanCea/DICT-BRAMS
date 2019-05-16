@@ -8,20 +8,24 @@
       :color="selected.length ? 'blue lighten-5 blue--text' : 'white'"
     >
       <v-toolbar-title>
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon color="primary" @click="selected = []">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </template>
-          <span>Clear selected</span>
-        </v-tooltip>
-        <span
-          class="hidden-sm-and-down"
-        >{{ selected.length ? `#${selected[0].house_no} ${selected[0].street}, ${selected[0].barangay}, ${address[0].province}, Philippines` : 'Inhabitants' }}</span>
+
+        <span v-if="selected.length">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" icon color="primary" @click="selected = []">
+                <v-icon>mdi-close</v-icon>
+              </v-btn>
+            </template>
+            <span>Clear selected</span>
+          </v-tooltip>
+        </span>
+
+        <span>{{ selected.length ? `#${selected[0].house_no} ${selected[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}, Philippines` : 'Inhabitants' }}</span>
       </v-toolbar-title>
+
       <v-spacer></v-spacer>
-      <v-flex xs12 sm6 md3>
+
+      <v-flex xs12 sm6 md2>
         <v-text-field
           :color="selected.length ? 'primary' : ''"
           v-model="search"
@@ -32,6 +36,7 @@
           autofocus
         ></v-text-field>
       </v-flex>
+
       <v-tooltip bottom>
         <template v-slot:activator="{ on }">
           <v-btn :color="selected.length ? 'primary' : ''" v-on="on" text icon @click="toggle()">
@@ -41,73 +46,85 @@
         <span>Search</span>
       </v-tooltip>
 
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" v-if="!selected.length" icon>
-            <v-icon>mdi-home-plus</v-icon>
-          </v-btn>
-        </template>
-        <span>Add New Household</span>
-      </v-tooltip>
+      <div v-if="!selected.length">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="toggle()">
+              <v-icon>mdi-home-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Add New Household</span>
+        </v-tooltip>
+      </div>
 
-      <v-menu :close-on-content-click="false" offset-y max-height="400">
-        <template #activator="{ on: menu }">
-          <v-tooltip bottom>
-            <template #activator="{ on: tooltip }">
-              <v-btn v-if="!selected.length" icon color="primary" v-on="{ ...tooltip, ...menu }">
-                <v-icon color="grey darken-2">mdi-table-column</v-icon>
-              </v-btn>
-            </template>
-            <span>Column Visibility</span>
-          </v-tooltip>
-        </template>
-        <v-list>
-          <v-list-item v-for="(item, index) in headers" :key="index">
-            <v-switch
-              color="green"
-              v-bind:label="item.text"
-              v-model="item.selected"
-              :value="item.selected"
-            ></v-switch>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      <div v-if="!selected.length">
+        <v-menu :close-on-content-click="false" offset-y max-height="400">
+          <template #activator="{ on: menu }">
+            <v-tooltip bottom>
+              <template #activator="{ on: tooltip }">
+                <v-btn icon color="primary" v-on="{ ...tooltip, ...menu }">
+                  <v-icon>mdi-table-column</v-icon>
+                </v-btn>
+              </template>
+              <span>Column Visibility</span>
+            </v-tooltip>
+          </template>
+          <v-list>
+            <v-list-item v-for="(item, index) in headers" :key="index">
+              <v-switch
+                color="green"
+                v-bind:label="item.text"
+                v-model="item.selected"
+                :value="item.selected"
+              ></v-switch>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
 
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" v-if="selected.length" icon color="primary">
-            <v-icon>mdi-account-plus</v-icon>
-          </v-btn>
-        </template>
-        <span>Add New Inhabitant</span>
-      </v-tooltip>
+      <div v-if="selected.length">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon color="primary">
+              <v-icon>mdi-account-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Add New Inhabitant</span>
+        </v-tooltip>
+      </div>
 
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" v-if="selected.length" icon color="primary">
-            <v-icon>mdi-file-plus</v-icon>
-          </v-btn>
-        </template>
-        <span>Issue Barangay Clearance</span>
-      </v-tooltip>
+      <div v-if="selected.length">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon color="primary">
+              <v-icon>mdi-file-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Issue Barangay Clearance</span>
+        </v-tooltip>
+      </div>
 
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" v-if="selected.length" icon color="primary">
-            <v-icon>mdi-pencil</v-icon>
-          </v-btn>
-        </template>
-        <span>Edit</span>
-      </v-tooltip>
+      <div v-if="selected.length">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon color="primary">
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </template>
+          <span>Edit</span>
+        </v-tooltip>
+      </div>
 
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn v-on="on" v-if="selected.length" icon color="primary">
-            <v-icon>mdi-archive</v-icon>
-          </v-btn>
-        </template>
-        <span>Archive</span>
-      </v-tooltip>
+      <div v-if="selected.length">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon color="primary">
+              <v-icon>mdi-archive</v-icon>
+            </v-btn>
+          </template>
+          <span>Archive</span>
+        </v-tooltip>
+      </div>
     </v-app-bar>
 
     <v-dialog v-model="dialogHousehold" persistent scrollable max-width="800px">
@@ -164,9 +181,6 @@
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.house_no" type="number" label="House Number"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.barangay" label="Barangay"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.email_address" label="Email Address"></v-text-field>
@@ -312,7 +326,6 @@
       <template v-slot:items="props">
         <td v-if="showColumn('id')">{{ props.item.id }}</td>
         <td v-if="showColumn('house_no')">{{ props.item.house_no }}</td>
-        <td v-if="showColumn('barangay')">{{ props.item.barangay }}</td>
         <td v-if="showColumn('email_address')">{{ props.item.email_address }}</td>
         <td v-if="showColumn('purok')">{{ props.item.purok }}</td>
         <td v-if="showColumn('place_of_origin')">{{ props.item.place_of_origin }}</td>
@@ -354,7 +367,6 @@ export default {
         house_no: "",
         purok: "",
         street: "",
-        barangay: "",
         type_of_dwelling_structure: "",
         placeOfOrigin: "",
         ethnic_group: "",
@@ -377,7 +389,6 @@ export default {
       }),
       headers: [
         { text: "House Number", value: "house_no", selected: true },
-        { text: "Barangay", value: "barangay", selected: true },
         { text: "Purok", value: "purok", selected: true },
         { text: "Street", value: "street", selected: true },
         { text: "Email Address", value: "email_address" },

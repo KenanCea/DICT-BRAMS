@@ -17,10 +17,9 @@
                                 @if ($errors->has('email'))
                                 <v-snackbar color="error" top :value="true" timeout="6000">{{ $errors->first('email') }}
                                 </v-snackbar>
-                                <!-- <v-alert :value="true" color="error" icon="mdi-alert-circle" outlined>{{ $errors->first('email') }}</v-alert> -->
                                 @endif
-                                <v-text-field outline prepend-inner-icon="mdi-email" name="email" label="Email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" required autofocus></v-text-field>
-                                <v-text-field outline prepend-inner-icon="mdi-lock" name="password" label="Password" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required></v-text-field>
+                                <v-text-field outlined prepend-inner-icon="mdi-email" name="email" label="Email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" value="{{ old('email') }}" required autofocus></v-text-field>
+                                <v-text-field outlined prepend-inner-icon="mdi-lock" name="password" label="Password" id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" required></v-text-field>
                                 <v-spacer></v-spacer>
                                 <v-btn block color="primary" type="submit">Login</v-btn>
                                 @if (Route::has('password.request'))

@@ -11,6 +11,6 @@ class BarangaysTableSeeder extends Seeder
      */
     public function run()
     {
-        return factory(Barangay::class,1)->create();
+        return factory(Barangay::class,2)->create();
     }
 }

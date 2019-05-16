@@ -23,7 +23,7 @@ class CreateEnvironmentInfosTable extends Migration
             $table->enum('tank',['y','n']);//water storage facility
             $table->enum('elevated_tank',['y','n']);//water storage facility
             $table->enum('jars',['y','n']);//water storage facility
-            $table->enum('drums/cans',['y','n']);//water storage facility
+            $table->enum('drums_cans',['y','n']);//water storage facility
             $table->enum('plastic_conatainers',['y','n']);//water storage facility
             $table->string('others_water_storage');//water storage facility
             $table->enum('market',['y','n']);//Food Service  
@@ -31,7 +31,7 @@ class CreateEnvironmentInfosTable extends Migration
             $table->enum('ambulant_vendor',['y','n']);//Food Service  
             $table->string('others_food_service');//Food Service  
             $table->enum('refrigerator',['y','n']);//Household storage
-            $table->enum('cabinet/shelves',['y','n']);//Household storage
+            $table->enum('cabinet_shelves',['y','n']);//Household storage
             $table->string('others_hhold_storage');//Household storage
             $table->enum('fresh',['y','n']);//Kind of food storage
             $table->enum('dried',['y','n']);//Kind of food storage
@@ -39,7 +39,7 @@ class CreateEnvironmentInfosTable extends Migration
             $table->string('others_kind_of_foodstorage');//Kind of food storage
             $table->enum('with',['Flush with Septic','Flush with sewer','Water sealed(pit)','Pit Privy']);//Toilet Facilites
             $table->enum('drainage',['W/o drainage','Open drainage','Blind drainage']);//Drainage Facilites
-            $table->enum('city/mun_collection',['y','n']);//Garbage Disposal
+            $table->enum('city_mun_collection',['y','n']);//Garbage Disposal
             $table->enum('communal_pit',['y','n']);//Garbage Disposal
             $table->enum('backyard_pit',['y','n']);//Garbage Disposal
             $table->enum('open_dump',['y','n']);//Garbage Disposal

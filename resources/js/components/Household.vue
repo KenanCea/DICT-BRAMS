@@ -49,14 +49,9 @@
                     ></v-date-picker>
                   </v-menu>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.familysize" type="number" label="Family Size"></v-text-field>
-                </v-flex>
+
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.house_no" type="number" label="House Number"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.barangay" label="Barangay"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.email_address" label="Email Address"></v-text-field>
@@ -80,13 +75,17 @@
                     label="Ethnic Group"
                   ></v-select>
                 </v-flex>
+
                 <v-flex xs12 sm6 md4>
-                  <v-select
+                  <v-combobox
                     v-model="form.dialects"
                     :items="['Bicolano','Bontoc','Cebuano','English','Ibaloi','Ibanag','Ifugao','Ilocano','Itneg','Kalinga','Kankana-ey','Pampangan','Pangasinan','Tagalog','Waray-waray','Panggalatok','Visaya','Kapangpangan']"
                     label="Dialects"
-                  ></v-select>
+                    chips
+                    multiple
+                  ></v-combobox>
                 </v-flex>
+
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.telephone_no" label="Telephone No."></v-text-field>
                 </v-flex>
@@ -258,7 +257,6 @@
       <template v-slot:items="props">
         <td v-if="showColumn('id')">{{ props.item.id }}</td>
         <td v-if="showColumn('house_no')">{{ props.item.house_no }}</td>
-        <td v-if="showColumn('barangay')">{{ props.item.barangay }}</td>
         <td v-if="showColumn('email_address')">{{ props.item.email_address }}</td>
         <td v-if="showColumn('purok')">{{ props.item.purok }}</td>
         <td v-if="showColumn('place_of_origin')">{{ props.item.place_of_origin }}</td>
@@ -293,7 +291,6 @@ export default {
     headers: [
       { text: "id", value: "id" },
       { text: "House Number", value: "house_no", selected: true },
-      { text: "Barangay", value: "barangay", selected: true },
       { text: "Purok", value: "purok", selected: true },
       { text: "Street", value: "street", selected: true },
       { text: "Email Address", value: "email_address" },
@@ -304,7 +301,7 @@ export default {
       { text: "Solo parent", value: "solo_parent" },
       { text: "Solo parent others", value: "solo_parent_others" },
       { text: "DateOfSurvey", value: "dateOfSurvey" },
-      { text: "Familysize", value: "familysize" },
+
       { text: "PlaceOfOrigin", value: "placeOfOrigin" },
       { text: "Mobile no", value: "mobile_no" },
       { text: "Dialects", value: "dialects" },
@@ -362,11 +359,10 @@ export default {
       solo_parent: "",
       solo_parent_others: "",
       dateOfSurvey: "",
-      familysize: "",
+
       house_no: "",
       purok: "",
       street: "",
-      barangay: "",
       type_of_dwelling_structure: "",
       placeOfOrigin: "",
       ethnic_group: "",

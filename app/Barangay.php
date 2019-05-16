@@ -10,6 +10,7 @@ class Barangay extends Model
         'name',
         'province',
         'muni_city',
+        'zip_code',
         'region',
         'legal_basis',
         'date_legal_basis',
