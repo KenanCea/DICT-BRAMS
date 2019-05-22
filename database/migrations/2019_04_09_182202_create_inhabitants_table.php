@@ -36,8 +36,6 @@ class CreateInhabitantsTable extends Migration
             $table->enum('citizenship', ['Filipino']);
             $table->enum('ethnicGroup', ['Bago', 'Bicol', 'Bisaya', 'Boholano', 'Bontoc', 'Capizeno', 'Cuyunon', 'Ibaloi', 'Ilonggo', 'Ifugao', 'Ilocano', 'Ivatan', 'Kalinga', 'Kankana-ey', 'Kapangpangan', 'Maguindanao', 'Maranao', 'Masbateno', 'Pangasinan', 'Surigaoan', 'Tagalog', 'Tausog', 'Waray', 'Yakan', 'Zamboagueno/Chavacano']);
             $table->enum('registeredVoterOfTheBrgy', ['yes', 'no']);
-            $table->enum('pregnant', ['n/a', 'y']);
-            $table->date('expected_date')->nullable();
             $table->enum('blood_type', ['A', 'B', 'AB', 'O', 'Do not know']);
             $table->enum('disability', [
                 'None', 'Total blindness of one eye', 'Total blindness of both eye', 'Missing one or both arms', 'Mongoloid', 'Cleff Palate', 'Malabo ang paningin/poor eyesight', 'Hunchback', 'Paralyzed legs', 'Paralyzed arms', 'Speech disorder', 'Authistic', 'Fractured Vertebrate column', 'Paralyzed from neck down', 'Hydrocephalus',
@@ -55,9 +53,9 @@ class CreateInhabitantsTable extends Migration
             $table->enum('employment_status', ['Permanent', 'Contractual', 'Temporary', 'Self-employed', 'Retired', 'Unknown']);
             $table->enum('job_category', ['Offical Government and Special Interest', 'Professional', 'Technicians and Assoc. Professional', 'Clerks', 'Service Workers & Market sales workers', 'Farmers & Forestry Workers', 'Trades & related workers', 'Machine Operators/Assemblers', 'Laborers & skilled workers', 'Special Occupations', 'n/a']);
             $table->enum('employment_category', ['Private', 'Government', 'Self employed', 'Overseas']);
-            $table->double('estimated_monthly_income_cash', 10);
+            $table->double('estimated_monthly_income_cash');
             $table->string('estimated_monthly_income_kind');
-            $table->string('childs_parent_guardian', 50);
+            $table->string('childs_parent_guardian');
             $table->enum('bcg', ['y', 'n']);
             $table->enum('dpi1', ['y', 'n']);
             $table->enum('dpi2', ['y', 'n']);

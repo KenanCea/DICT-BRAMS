@@ -27,7 +27,7 @@
           <p>
               Table 1. Population Distribution by Age and Sex
           </p>
-            <table class='table'>
+            <table class='kiosktable'>
                 <thead>
                     <tr>
                         <th rowspan="2">Age Group</th>
@@ -40,6 +40,15 @@
                         <th>%</th>
                         <th>Total</th>
                         <th>%</th>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
                     </tr>
                 </thead>
             </table>
@@ -57,7 +66,7 @@ import Print from './Print.vue';
             Orientation:'landscape',
             search:'',
             loading: false,
-            registeredVoters: [],
+            demographics: []
         }),
        created() {
             this.loadQuery();

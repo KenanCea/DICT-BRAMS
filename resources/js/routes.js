@@ -116,4 +116,7 @@ export const routes = [
   }, {
     path: '/disability',
     component: require('./components/Disability.vue').default
+  }, {
+    path: '/users',
+    component: require('./components/BarangayUsers.vue').default
   }]

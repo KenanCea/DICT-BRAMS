@@ -26,7 +26,7 @@ class CreateHealthInfosTable extends Migration
             $table->date('date_still_birth');
             $table->integer('dead_children_afterbirth');
             $table->integer('dead-adults');
-            $table->string('cause/s');
+            $table->string('cause_s');
             $table->date('date_dead');
             $table->enum('uri', ['y', 'n']);//Common Illness in the family (Within last 2 weeks)
             $table->enum('diarrhea', ['y', 'n']);//Common Illness in the family (Within last 2 weeks)
@@ -42,7 +42,7 @@ class CreateHealthInfosTable extends Migration
             $table->string('others_health_services');//Health Facilities/Services availed of
             $table->enum('acceptor', ['y', 'n']);//family planning
             $table->enum('family_planning_yes', ['Condom', 'Diaphragm', 'Body temperature', 'Injectibles', 'IUD', 'Ligation', 'Pills', 'Rhythm', 'Mucus', 'Natural', 'Vasectomy', 'Withdrawal'])->nullable();
-            $table->string('go/ngo');
+            $table->string('go_ngo');
             $table->timestamps();
             $table->unsignedInteger('household_id');
             $table->foreign('household_id')->references('id')->on('households')->onUpdate('cascade')->onDelete('cascade');

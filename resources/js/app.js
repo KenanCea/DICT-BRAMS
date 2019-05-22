@@ -144,6 +144,12 @@ const app = new Vue({
                 name: "Dashboard",
                 to: "/dashboard"
             },
+            {
+                icon: "mdi-view-dashboard",
+                title: "Users",
+                name: "Users",
+                to: "/users"
+            },
         ],
         menu: 0,
         menus: [

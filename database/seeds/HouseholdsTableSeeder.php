@@ -12,6 +12,6 @@ class HouseholdsTableSeeder extends Seeder
      */
     public function run()
     {
-        return factory(Household::class,1)->create();
+        return factory(Household::class,1000)->create();
     }
 }

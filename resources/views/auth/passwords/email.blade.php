@@ -23,7 +23,7 @@
                                 <v-snackbar color="error" top :value="true" timeout="6000">{{ $errors->first('email') }}
                                 </v-snackbar>
                                 @endif
-                                <v-text-field outline prepend-inner-icon="mdi-email" name="email" label="Email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus></v-text-field>
+                                <v-text-field outlined prepend-inner-icon="mdi-email" name="email" label="Email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus></v-text-field>
                                 <v-spacer></v-spacer>
                                 <v-btn block color="primary" type="submit">Send Password Reset Link</v-btn>
                             </form>

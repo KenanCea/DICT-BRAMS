@@ -19,8 +19,15 @@ use Illuminate\Http\Request;
 
 
 Route::resources(['household' => 'HouseholdController', 
-'inhabitant' => 'InhabitantController','user' => 'UserController']);
+'inhabitant' => 'InhabitantController',
+'user' => 'UserController',
+'barangay' => 'BarangayUserController']);
 Route::put('user', 'UserController@update');
+
+//Barangay users
+Route::post('barangay/disable/{id}', 'BarangayUserController@disableUser');
+Route::post('barangay/archived/{id}', 'BarangayUserController@archive');
+Route::post('barangay/restore/{id}', 'BarangayUserController@restore');
 
 //inhabitants
 Route::post('inhabitant/archived/{id}', 'InhabitantController@archive');

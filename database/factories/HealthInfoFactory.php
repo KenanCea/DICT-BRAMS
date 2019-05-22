@@ -15,7 +15,7 @@ $factory->define(HealthInfo::class, function (Faker $faker) {
         'date_still_birth' => $faker->date(),
         'dead_children_afterbirth' => $faker->randomDigit(),
         'dead-adults' => $faker->randomDigit(),
-        'cause/s' => $faker->sentence(),
+        'cause_s' => $faker->sentence(),
         'date_dead' => $faker->date(),
         'uri' => $faker->randomElement(['y', 'n']),
         'diarrhea' => $faker->randomElement(['y', 'n']),
@@ -31,6 +31,6 @@ $factory->define(HealthInfo::class, function (Faker $faker) {
         'others_health_services' => $faker->sentence(),
         'acceptor' => $faker->randomElement(['y', 'n']),
         'family_planning_yes' => $faker->randomElement(['Condom', 'Diaphragm', 'Body temperature', 'Injectibles', 'IUD', 'Ligation', 'Pills', 'Rhythm', 'Mucus', 'Natural', 'Vasectomy', 'Withdrawal']),
-        'go/ngo' => $faker->sentence(),
+        'go_ngo' => $faker->sentence(),
     ];
 });

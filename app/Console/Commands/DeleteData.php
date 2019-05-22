@@ -41,6 +41,7 @@ class DeleteData extends Command
      */
     public function handle()
     {
-        $inhabitants = DB::table('inhabitants')->where('deleted_at', '<', Carbon::now()->subMinute(1))->delete();
+        $inhabitants = DB::table('inhabitants')->where('deleted_at', '<', Carbon::now()->addMinute(1))->delete();
+        $households = DB::table('households')->where('deleted_at', '<', Carbon::now()->addMinute(1))->delete();
     }
 }

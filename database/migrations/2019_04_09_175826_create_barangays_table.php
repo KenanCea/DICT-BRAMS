@@ -17,15 +17,18 @@ class CreateBarangaysTable extends Migration
         Schema::create('barangays', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('name')->unique();
-            $table->enum('province',['Benguet']);
-            $table->enum('muni_city',['Baguio']); 
-            $table->enum('region',['CAR']);
+            
+            $table->string('municipality');
+            $table->string('province');
+            $table->string('region');
+            $table->string('zip_code');
+
+            $table->string('mother_barangay')->nullable();
+            $table->string('old_name')->nullable();
             $table->string('legal_basis');
             $table->date('date_legal_basis'); 
             $table->date('date_ratification');
-            $table->string('mother_barangay', 20)->nullable();
-            $table->string('old_name',20)->nullable();
+
             $table->enum('type_barangay', ['Rural', 'Urban', 'Tribal']);
             $table->double('boundaries_north', 7);
             $table->double('boundaries_east',7);
@@ -36,9 +39,9 @@ class CreateBarangaysTable extends Migration
             $table->double('distance_municipal_city',9);
             $table->double('province_capitol', 9);
             $table->double('national_highway', 9);
-            $table->enum('mountainous',['0-25%','26-50%','51-75%','76-100%']);//landform type
-            $table->enum('plain',['0-25%','26-50%','51-75%','76-100%']);//landform type
-            $table->enum('valley',['0-25%','26-50%','51-75%','76-100%']);//landform type
+            $table->enum('mountainous',['0-25%','26-50%','51-75%','76-100%']);
+            $table->enum('plain',['0-25%','26-50%','51-75%','76-100%']);
+            $table->enum('valley',['0-25%','26-50%','51-75%','76-100%']);
             $table->timestamps();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');

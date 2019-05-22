@@ -11,6 +11,6 @@ class OfficialsTableSeeder extends Seeder
      */
     public function run()
     {
-        return factory(Official::class,1)->create();
+        return factory(Official::class,24)->create();
     }
 }
