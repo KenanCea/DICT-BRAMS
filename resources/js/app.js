@@ -1,8 +1,8 @@
 
 require('./bootstrap');
 window.Form = Form;
+window.Vue = require('vue');
 
-import Vue from 'vue'
 import Vuetify from 'vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/es5/util/colors'
@@ -15,8 +15,21 @@ import {
     HasError,
     AlertError
 } from 'vform';
+import swal from 'sweetalert2';
+window.swal = swal;
 import Gate from "./Gate";
+
 Vue.prototype.$gate = new Gate(window.user);
+
+window.Fire = new Vue();
+const toast = swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000
+});
+window.toast = toast;
+
 Vue.component(
     'not-found',
     require('./components/403Page.vue').default
@@ -56,6 +69,7 @@ const app = new Vue({
     router,
     data: () => ({
         drawer: null,
+        showPassword: false,
         users: [
             {
                 icon: "mdi-view-dashboard",
