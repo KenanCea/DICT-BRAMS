@@ -22,9 +22,14 @@ class HouseholdController extends Controller
      */
     public function index()
     {
-        return Household::leftJoin('users','households.user_id','=','users.id')
-        ->select('households.*')
+        return DB::table('households')
+        ->leftJoin('users','households.user_id','=','users.id')
+        ->leftJoin('inhabitants','households.id','=','inhabitants.household_id')
+        ->select('households.*',DB::raw('count(inhabitants.household_id) AS familysize'))
         ->where('users.id',Auth::user()->id)
+        ->whereNull('households.deleted_at')
+        ->groupBy('households.id')
+        ->orderBy('households.house_no')
         ->get();
     }
 

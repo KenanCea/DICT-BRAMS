@@ -1,5 +1,5 @@
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Nunito");
+// @import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // Vuetify
 @import "~vuetify/dist/vuetify.min.css";
@@ -11,7 +11,12 @@
   display: none;
 }
 
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+}
 
-#printHeader{
+#printHeader {
   display: none;
 }

@@ -1,34 +1,37 @@
-#app > div.application--wrap > nav {
-  border-bottom: rgba(19, 17, 17, 0.12) 1px solid;
-}
-#app > div.application--wrap > main.v-content.white > div > nav {
+.border-bottom {
   border-bottom: rgba(19, 17, 17, 0.12) 1px solid !important;
 }
 
-#app > div.application--wrap > aside > div.v-navigation-drawer__border {
-  width: 0px !important;
+// #app > div.application--wrap > aside > div.v-navigation-drawer__border {
+//   width: 0px !important;
+// }
+
+#navbar > div > div.flex.xs12.sm6.md2 > div > div > div {
+  min-height: 34px;
+}
+
+#navbar > div > div.flex.xs12.sm6.md2 > div > div > div > div.v-text-field__slot > label {
+  top: 7px;
+}
+
+#navbar > div > div.flex.xs12.sm6.md2 > div > div > div > div.v-text-field__slot > input[type=text]{
+  margin-top: 2px
+}
+
+#navbar > div > div.flex.xs12.sm6.md2 > div > div > div > div.v-input__append-inner{
+  margin-top: 5px
 }
 
 #app > div.application--wrap > aside {
   top: 64px !important;
+  max-height: calc(100% - 64px) !important;
 }
-
 
 #navbar {
   top: 64px;
   border-bottom: rgba(19, 17, 17, 0.12) 1px solid !important;
   z-index: 4;
   width: auto;
-}
-
-#login {
-  height: 50%;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: "";
-  z-index: 0;
 }
 
 .form-border-right {

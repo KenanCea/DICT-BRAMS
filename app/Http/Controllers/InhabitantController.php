@@ -12,7 +12,6 @@ class InhabitantController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
-        $this->authorize('isUser');
     }
     /**
      * Display a listing of the resource.

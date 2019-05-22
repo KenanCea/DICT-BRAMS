@@ -301,7 +301,6 @@ export default {
       { text: "Solo parent", value: "solo_parent" },
       { text: "Solo parent others", value: "solo_parent_others" },
       { text: "DateOfSurvey", value: "dateOfSurvey" },
-
       { text: "PlaceOfOrigin", value: "placeOfOrigin" },
       { text: "Mobile no", value: "mobile_no" },
       { text: "Dialects", value: "dialects" },
@@ -359,7 +358,6 @@ export default {
       solo_parent: "",
       solo_parent_others: "",
       dateOfSurvey: "",
-
       house_no: "",
       purok: "",
       street: "",
@@ -369,7 +367,7 @@ export default {
       email_address: "",
       mobile_no: "",
       telephone_no: "",
-      dialects: "",
+      dialects: [],
       status_of_ownership_house: "",
       status_of_ownership_house_others: "",
       status_of_ownership_lot: "",

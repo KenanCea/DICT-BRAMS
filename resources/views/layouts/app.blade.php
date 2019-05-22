@@ -6,8 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'BRAMS') }}</title>
-    <link rel="dns-prefetch" href="//fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
@@ -47,7 +45,7 @@
         </v-navigation-drawer>
         @endcan
         @can('isAdmin')
-        <v-navigation-drawer app v-model="drawer" fixed clipped>
+        <v-navigation-drawer app v-model="drawer">
             <v-list shaped>
                 <template v-for="admin in admins">
                     <v-layout v-if="admin.heading" :key="admin.heading" row align-center>
@@ -79,14 +77,13 @@
             </v-list>
         </v-navigation-drawer>
         @endcan
-        <v-app-bar :clipped-left="$vuetify.breakpoint.mdAndUp" tile flat fixed app>
+        <v-app-bar :clipped-left="$vuetify.breakpoint.mdAndUp" tile flat fixed class="border-bottom" app>
             <v-toolbar-title style="width: 250px" class="ml-0 grey--text text--darken-2">
                 <v-app-bar-nav-icon size="30px" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
                 <v-avatar class="mx-2" size="40px"> <img src="/img/logo.png" alt="Logo">
                 </v-avatar>
                 <span class="hidden-sm-and-down">BRAMS</span>
             </v-toolbar-title>
-            <!-- <v-autocomplete clearable light solo flat background-color="grey lighten-3" hide-details prepend-inner-icon="mdi-magnify" label="Search" class="hidden-sm-and-down"></v-autocomplete> -->
             <v-spacer></v-spacer>
             <v-tooltip bottom>
                 <template v-slot:activator="{ on }">

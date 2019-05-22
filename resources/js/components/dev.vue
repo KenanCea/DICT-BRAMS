@@ -1,72 +1,92 @@
 <template>
   <div>
-    <v-app-bar
-      id="navbar"
-      dense
-      flat
-      app
-      :color="selected.length ? 'blue lighten-5 blue--text' : 'white'"
-    >
+    <v-app-bar id="navbar" dense flat app>
       <v-toolbar-title>
-
-        <span v-if="selected.length">
-          <v-tooltip bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon color="primary" @click="selected = []">
-                <v-icon>mdi-close</v-icon>
-              </v-btn>
-            </template>
-            <span>Clear selected</span>
-          </v-tooltip>
-        </span>
-
-        <span>{{ selected.length ? `#${selected[0].house_no} ${selected[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}, Philippines` : 'Inhabitants' }}</span>
+        <span>{{ selected.length ? `#${selected[0].house_no} ${selected[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : 'Households' }}</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
-      <v-flex xs12 sm6 md2>
-        <v-text-field
-          :color="selected.length ? 'primary' : ''"
-          v-model="search"
-          v-show="searchInput"
-          label="Search"
-          single-line
-          hide-details
-          autofocus
-        ></v-text-field>
-      </v-flex>
-
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn :color="selected.length ? 'primary' : ''" v-on="on" text icon @click="toggle()">
-            <v-icon>mdi-magnify</v-icon>
-          </v-btn>
-        </template>
-        <span>Search</span>
-      </v-tooltip>
-
-      <div v-if="!selected.length">
+      <span v-if="selected.length">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="toggle()">
+            <v-btn v-on="on" icon @click="selected = []">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </template>
+          <span>Clear selected</span>
+        </v-tooltip>
+      </span>
+
+      <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
+
+      <div v-if="!selected.length" class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="newDialog()">
               <v-icon>mdi-home-plus</v-icon>
             </v-btn>
           </template>
-          <span>Add New Household</span>
+          <span>Add new household</span>
         </v-tooltip>
       </div>
 
-      <div v-if="!selected.length">
+      <div v-if="selected.length" class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon @click="createInhabitant(selected[0].id)">
+              <v-icon>mdi-account-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Add new inhabitant</span>
+        </v-tooltip>
+      </div>
+
+      <div v-if="selected.length" class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon>
+              <v-icon>mdi-account-network</v-icon>
+            </v-btn>
+          </template>
+          <span>View inhabitants</span>
+        </v-tooltip>
+      </div>
+
+      <div v-if="selected.length" class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon>
+              <v-icon>mdi-pencil</v-icon>
+            </v-btn>
+          </template>
+          <span>Edit household</span>
+        </v-tooltip>
+      </div>
+
+      <div v-if="selected.length" class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" v-if="selected.length" icon @click="archive(selected[0].id)">
+              <v-icon>mdi-archive</v-icon>
+            </v-btn>
+          </template>
+          <span>Archive household</span>
+        </v-tooltip>
+      </div>
+
+      <v-divider class="ml-1" inset vertical></v-divider>
+
+      <div class="ml-1">
         <v-menu :close-on-content-click="false" offset-y max-height="400">
           <template #activator="{ on: menu }">
             <v-tooltip bottom>
               <template #activator="{ on: tooltip }">
-                <v-btn icon color="primary" v-on="{ ...tooltip, ...menu }">
-                  <v-icon>mdi-table-column</v-icon>
+                <v-btn icon v-on="{ ...tooltip, ...menu }">
+                  <v-icon>mdi-table-column-width</v-icon>
                 </v-btn>
               </template>
-              <span>Column Visibility</span>
+              <span>Column visibility</span>
             </v-tooltip>
           </template>
           <v-list>
@@ -82,57 +102,26 @@
         </v-menu>
       </div>
 
-      <div v-if="selected.length">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon color="primary">
-              <v-icon>mdi-account-plus</v-icon>
-            </v-btn>
-          </template>
-          <span>Add New Inhabitant</span>
-        </v-tooltip>
-      </div>
-
-      <div v-if="selected.length">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon color="primary">
-              <v-icon>mdi-file-plus</v-icon>
-            </v-btn>
-          </template>
-          <span>Issue Barangay Clearance</span>
-        </v-tooltip>
-      </div>
-
-      <div v-if="selected.length">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon color="primary">
-              <v-icon>mdi-pencil</v-icon>
-            </v-btn>
-          </template>
-          <span>Edit</span>
-        </v-tooltip>
-      </div>
-
-      <div v-if="selected.length">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon color="primary">
-              <v-icon>mdi-archive</v-icon>
-            </v-btn>
-          </template>
-          <span>Archive</span>
-        </v-tooltip>
-      </div>
+      <v-flex xs12 sm6 md2 ml-1>
+        <v-text-field
+          v-model="search"
+          flat
+          outlined
+          single-line
+          hide-details
+          height="32"
+          append-icon="mdi-magnify"
+          label="Search"
+        ></v-text-field>
+      </v-flex>
     </v-app-bar>
 
     <v-dialog v-model="dialogHousehold" persistent scrollable max-width="800px">
       <v-form @submit.prevent="editmode ? updateHousehold() : createHousehold()">
         <v-card>
           <v-card-title>
-            <span class="headline" v-show="!editmode">Add Household</span>
-            <span class="headline" v-show="editmode">Edit Household Information</span>
+            <span class="headline" v-show="!editmode">Add household</span>
+            <span class="headline" v-show="editmode">Edit household information</span>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
@@ -177,9 +166,6 @@
                   </v-menu>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.familysize" type="number" label="Family Size"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.house_no" type="number" label="House Number"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -192,7 +178,7 @@
                   <v-text-field v-model="form.placeOfOrigin" label="Place of Origin"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.mobile_no" label="Mobile Number"></v-text-field>
+                  <v-text-field v-model="form.mobile_no" type="number" label="Mobile Number"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.street" label="Street"></v-text-field>
@@ -212,7 +198,7 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.telephone_no" label="Telephone No."></v-text-field>
+                  <v-text-field v-model="form.telephone_no" type="number" label="Telephone No."></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm6 md4>
@@ -246,6 +232,14 @@
                 <v-flex xs12 sm6 md4>
                   <v-select
                     v-model="form.type_of_dwelling_structure"
+                    :items="['Permanent Concrete','Semi Permanent','Temporary']"
+                    label="Type of Dwelling Structure"
+                  ></v-select>
+                </v-flex>
+
+                <v-flex xs12 sm6 md4>
+                  <v-select
+                    v-model="form.type_of_dwelling"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
                     label="Type of Dwelling Structure"
                   ></v-select>
@@ -306,7 +300,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog=false">Cancel</v-btn>
+            <v-btn color="blue darken-1" text @click="dialogHousehold=false">Cancel</v-btn>
             <v-btn color="blue darken-1" text type="submit">Save</v-btn>
           </v-card-actions>
         </v-card>
@@ -319,7 +313,6 @@
       :items="households"
       :search="search"
       :loading="loading"
-      item-key="id"
       show-select
       single-select
     >
@@ -355,7 +348,6 @@ export default {
       dialogHousehold: false,
       editmode: false,
       selected: [],
-      searchInput: false,
       calendarSurvey: false,
       search: "",
       form: new Form({
@@ -388,9 +380,14 @@ export default {
         means_of_transportation_others: ""
       }),
       headers: [
-        { text: "House Number", value: "house_no", selected: true },
+        {
+          text: "House Number",
+          value: "house_no",
+          selected: true
+        },
         { text: "Purok", value: "purok", selected: true },
         { text: "Street", value: "street", selected: true },
+        { text: "Familysize", value: "familysize", selected: true },
         { text: "Email Address", value: "email_address" },
         { text: "Place of Origin", value: "place_of_origin" },
         { text: "Mobile Number", value: "mobile_number" },
@@ -399,7 +396,6 @@ export default {
         { text: "Solo parent", value: "solo_parent" },
         { text: "Solo parent others", value: "solo_parent_others" },
         { text: "DateOfSurvey", value: "dateOfSurvey" },
-        { text: "Familysize", value: "familysize" },
         { text: "PlaceOfOrigin", value: "placeOfOrigin" },
         { text: "Mobile no", value: "mobile_no" },
         { text: "Dialects", value: "dialects" },
@@ -476,12 +472,37 @@ export default {
         this.address = response.data;
       });
     },
+    createHousehold() {
+      this.form
+        .post("api/household")
+        .then(() => {
+          this.dialogHousehold = false;
+          this.getHouseholds();
+          toast.fire({
+            type: "success",
+            title: "Household has been created"
+          });
+        })
+        .catch(() => {});
+    },
+    createInhabitant(id) {},
+    archive(id) {
+      axios.post("api/households/archived/" + id).then(response => {
+        this.getHouseholds();
+        toast.fire({
+          type: "success",
+          title: "Household has been archived"
+        });
+        this.selected.splice([0]);
+      });
+    },
+    newDialog() {
+      this.editmode = false;
+      this.form.reset();
+      this.dialogHousehold = true;
+    },
     showColumn(col) {
       return this.headers.find(h => h.value === col).selected;
-    },
-    toggle: function() {
-      this.searchInput = !this.searchInput;
-      this.autofucos;
     }
   }
 };
