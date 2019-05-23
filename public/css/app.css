@@ -54,15 +54,3 @@ body {
 #printHeader {
   display: none;
 }
-
-.kiosktable {
-  border-collapse: collapse;
-  width: 100%;
-}
-.kiosktable th, .kiosktable td {
-  border: black 1px solid;
-  text-align: center;
-}
-.kiosktable th {
-  background-color: #e0e0e0;
-}

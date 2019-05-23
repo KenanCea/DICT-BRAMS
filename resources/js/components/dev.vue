@@ -20,17 +20,6 @@
 
       <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
 
-      <div v-if="!selected.length" class="ml-1">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="newDialog()">
-              <v-icon>mdi-home-plus</v-icon>
-            </v-btn>
-          </template>
-          <span>Add new household</span>
-        </v-tooltip>
-      </div>
-
       <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
@@ -72,6 +61,17 @@
             </v-btn>
           </template>
           <span>Archive household</span>
+        </v-tooltip>
+      </div>
+
+      <div class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="newDialog()">
+              <v-icon>mdi-home-plus</v-icon>
+            </v-btn>
+          </template>
+          <span>Add new household</span>
         </v-tooltip>
       </div>
 

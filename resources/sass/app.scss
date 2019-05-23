@@ -1,0 +1,22 @@
+// Fonts
+// @import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Vuetify
+@import "~vuetify/dist/vuetify.min.css";
+
+// Overrides
+@import "overrides";
+
+[v-cloak] > * {
+  display: none;
+}
+
+html,
+body {
+  font-family: "Roboto", sans-serif;
+  line-height: 1.5;
+}
+
+#printHeader {
+  display: none;
+}
