@@ -64,3 +64,10 @@ Route::post('Children', 'DashboardController@TotalChildren');
 
 // Address
 Route::get('address', 'AddressController@index')->name('address.index');
+
+// Admin Dashboard
+Route::post('Barangays', 'AdminDashboardController@TotalBarangays');
+Route::post('Inhabitants', 'AdminDashboardController@TotalInhabitants');
+Route::post('Households', 'AdminDashboardController@TotalHouseholds');
+Route::post('Seniors', 'AdminDashboardController@TotalSeniors');
+Route::post('Children', 'AdminDashboardController@TotalChildren');
