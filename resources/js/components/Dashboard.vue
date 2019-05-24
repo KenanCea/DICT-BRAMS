@@ -6,7 +6,7 @@
           <mini-statistic icon="mdi-account" v-bind:title='inhabitant' sub-title="Inhabitants" color="indigo"></mini-statistic>
         </v-flex>
         <v-flex lg4 sm6 xs12>
-          <mini-statistic icon="mdi-account" v-bind:title="child" sub-title="Children" color="yellow"></mini-statistic>
+          <mini-statistic icon="mdi-account" v-bind:title="child" sub-title="Children" color="orange"></mini-statistic>
         </v-flex>
         <v-flex lg4 sm6 xs12>
           <mini-statistic icon="mdi-account" v-bind:title="senior" sub-title="Seniors" color="black"></mini-statistic>
