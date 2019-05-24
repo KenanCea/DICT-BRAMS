@@ -105,12 +105,6 @@ const app = new Vue({
                 to: "/households"
             },
             {
-                icon: "mdi-account",
-                title: "Inhabitants",
-                name: "Inhabitants",
-                to: "/inhabitants"
-            },
-            {
                 icon: "mdi-content-copy",
                 title: "Print Document",
                 name: "Print Document",
@@ -137,12 +131,6 @@ const app = new Vue({
                     to: "/archivedHouseholds"
                 }
                 ]
-            },
-            {
-                icon: "mdi-dev-to",
-                title: "Development",
-                name: "Development",
-                to: "/dev"
             },
         ],
         admins: [
