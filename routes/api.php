@@ -18,10 +18,12 @@ use Illuminate\Http\Request;
 // });
 
 
-Route::resources(['household' => 'HouseholdController', 
-'inhabitant' => 'InhabitantController',
-'user' => 'UserController',
-'barangay' => 'BarangayUserController']);
+Route::resources([
+    'household' => 'HouseholdController',
+    'inhabitant' => 'InhabitantController',
+    'user' => 'UserController',
+    'barangay' => 'BarangayUserController'
+]);
 Route::put('user', 'UserController@update');
 
 //Barangay users
@@ -37,6 +39,7 @@ Route::get('archivedInhabitant', 'InhabitantController@archived_Inhabitant');
 //households
 Route::post('households/archived/{id}', 'HouseholdController@archive');
 Route::post('households/restore/{id}', 'HouseholdController@restore');
+Route::post('createInhabitant/{id}', 'HouseholdController@create_Inhabitant');
 Route::get('archivedHousehold', 'HouseholdController@archived_Household');
 
 // Print Document

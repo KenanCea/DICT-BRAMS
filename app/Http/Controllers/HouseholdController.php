@@ -23,14 +23,14 @@ class HouseholdController extends Controller
     public function index()
     {
         return DB::table('households')
-        ->leftJoin('users','households.user_id','=','users.id')
-        ->leftJoin('inhabitants','households.id','=','inhabitants.household_id')
-        ->select('households.*',DB::raw('count(inhabitants.household_id) AS familysize'))
-        ->where('users.id',Auth::user()->id)
-        ->whereNull('households.deleted_at')
-        ->groupBy('households.id')
-        ->orderBy('households.house_no')
-        ->get();
+            ->leftJoin('users', 'households.user_id', '=', 'users.id')
+            ->leftJoin('inhabitants', 'households.id', '=', 'inhabitants.household_id')
+            ->select('households.*', DB::raw('count(inhabitants.household_id) AS familysize'))
+            ->where('users.id', Auth::user()->id)
+            ->whereNull('households.deleted_at')
+            ->groupBy('households.id')
+            ->orderBy('households.house_no')
+            ->get();
     }
 
     /**
@@ -53,7 +53,7 @@ class HouseholdController extends Controller
      */
     public function show($id)
     {
-        $inhabitant = Inhabitant::select('id','last_name','first_name','middle_name','relation_to_the_head')->where('household_id','=', $id)->get();
+        $inhabitant = Inhabitant::select('id', 'last_name', 'first_name', 'middle_name', 'relation_to_the_head')->where('household_id', '=', $id)->get();
         return $inhabitant;
     }
 
@@ -70,6 +70,11 @@ class HouseholdController extends Controller
         $household->update($request->all());
     }
 
+    public function create_Inhabitant($id)
+    {
+        $household = Household::findOrFail($id);
+    }
+
     public function archive($id)
     {
         $household = Household::findOrFail($id);
@@ -84,10 +89,10 @@ class HouseholdController extends Controller
     public function archived_Household()
     {
         return DB::table('households')
-        ->leftJoin('users','households.user_id','=','users.id')
-        ->select('households.*')
-        ->whereNotNull('deleted_at')
-        ->where('users.id',Auth::user()->id)
-        ->get();
+            ->leftJoin('u sers', 'households.use r_id ', '=', 'users.id')
+            ->select('households.*')
+            ->whereNotNull('deleted_at')
+            ->where('user s.id', Auth::user()->id)
+            ->get();
     }
 }
