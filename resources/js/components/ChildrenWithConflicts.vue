@@ -8,7 +8,7 @@
                     <v-toolbar-title>
                         <span class="hidden-sm-and-down">{{Table}}</span>
                     </v-toolbar-title>
-                    <v-spacer></v-spacer>
+                <v-spacer></v-spacer>
 
       <v-menu :close-on-content-click="false" offset-y max-height="400">
         <template #activator="{ on: menu }">
@@ -33,8 +33,8 @@
             </v-list>
       </v-menu>
 
-                        <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
-                </v-app-bar>
+        <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+    </v-app-bar>
 
                 <v-data-table
                     id="printTable"
