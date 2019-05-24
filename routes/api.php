@@ -74,3 +74,4 @@ Route::post('Inhabitants', 'AdminDashboardController@TotalInhabitants');
 Route::post('Households', 'AdminDashboardController@TotalHouseholds');
 Route::post('Seniors', 'AdminDashboardController@TotalSeniors');
 Route::post('Children', 'AdminDashboardController@TotalChildren');
+Route::post('Children', 'AdminDashboardController@TotalChildren');
