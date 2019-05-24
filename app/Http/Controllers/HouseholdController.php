@@ -29,7 +29,6 @@ class HouseholdController extends Controller
             ->where('users.id', Auth::user()->id)
             ->whereNull('households.deleted_at')
             ->groupBy('households.id')
-            ->orderBy('households.house_no')
             ->get();
     }
 
@@ -53,7 +52,7 @@ class HouseholdController extends Controller
      */
     public function show($id)
     {
-        $inhabitant = Inhabitant::select('id', 'last_name', 'first_name', 'middle_name', 'relation_to_the_head')->where('household_id', '=', $id)->get();
+        $inhabitant = Inhabitant::select('id', 'last_name', 'first_name', 'middle_name', 'relation_to_the_head')->where('household_id', '=', $id)->latest()->get();
         return $inhabitant;
     }
 
@@ -89,10 +88,10 @@ class HouseholdController extends Controller
     public function archived_Household()
     {
         return DB::table('households')
-            ->leftJoin('u sers', 'households.use r_id ', '=', 'users.id')
+            ->leftJoin('users', 'households.user_id', '=', 'users.id')
             ->select('households.*')
-            ->whereNotNull('deleted_at')
-            ->where('user s.id', Auth::user()->id)
+            ->whereNotNull('households.deleted_at')
+            ->where('users.id', Auth::user()->id)
             ->get();
     }
 }

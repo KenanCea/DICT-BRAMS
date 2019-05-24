@@ -20,32 +20,20 @@
 
       <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
 
-      <div v-if="selected.length" class="ml-1">
+      <div class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="newInhabitantDialog">
-              <v-icon>mdi-account-plus</v-icon>
+            <v-btn v-on="on" icon @click="newHouseholdDialog()">
+              <v-icon>mdi-home-plus</v-icon>
             </v-btn>
           </template>
-          <span>Add new inhabitant</span>
+          <span>Add new household</span>
         </v-tooltip>
       </div>
-
       <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="showInhabitants(selected[0].id)">
-              <v-icon>mdi-account-network</v-icon>
-            </v-btn>
-          </template>
-          <span>View inhabitants</span>
-        </v-tooltip>
-      </div>
-
-      <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="editHouseholdDialog(selected[0])">
+            <v-btn v-on="on" icon @click="editHouseholdDialog(selected[0])">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </template>
@@ -56,7 +44,7 @@
       <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="archive(selected[0].id)">
+            <v-btn v-on="on" icon @click="archive(selected[0].id)">
               <v-icon>mdi-archive</v-icon>
             </v-btn>
           </template>
@@ -64,14 +52,27 @@
         </v-tooltip>
       </div>
 
-      <div class="ml-1">
+      <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
+
+      <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="newHouseholdDialog()">
-              <v-icon>mdi-home-plus</v-icon>
+            <v-btn v-on="on" icon @click="newInhabitantDialog()">
+              <v-icon>mdi-account-plus</v-icon>
             </v-btn>
           </template>
-          <span>Add new household</span>
+          <span>Add new inhabitant</span>
+        </v-tooltip>
+      </div>
+
+      <div v-if="selected.length" class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="showInhabitants(selected[0].id)">
+              <v-icon>mdi-account-network</v-icon>
+            </v-btn>
+          </template>
+          <span>View inhabitants</span>
         </v-tooltip>
       </div>
 
@@ -88,7 +89,7 @@
 
       <v-divider class="ml-1" inset vertical></v-divider>
 
-      <div class="ml-1">
+      <div class="ml-1" v-if="!selected.length">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon>
@@ -99,7 +100,7 @@
         </v-tooltip>
       </div>
 
-      <div class="ml-1">
+      <div class="ml-1" v-if="!selected.length">
         <v-menu :close-on-content-click="false" offset-y max-height="400">
           <template #activator="{ on: menu }">
             <v-tooltip bottom>
@@ -188,7 +189,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <v-container grid-list-md>
+            <v-container grid-list-md pa-0>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
                   <v-select
@@ -391,7 +392,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <v-container grid-list-md>
+            <v-container grid-list-md pa-0>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="inhabitantForm.first_name" label="First name"></v-text-field>
@@ -861,6 +862,7 @@ export default {
           text: "House Number",
           value: "house_no",
           selected: true
+          
         },
         { text: "Purok", value: "purok", selected: true },
         { text: "Street", value: "street", selected: true },
@@ -979,6 +981,11 @@ export default {
         .post("api/inhabitant")
         .then(() => {
           this.dialogCreateInhabitant = false;
+          this.getHouseholds();
+          toast.fire({
+            type: "success",
+            title: "Inhabitant has been created"
+          });
         })
         .catch(() => {});
     },

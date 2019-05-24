@@ -32,8 +32,8 @@ Route::post('barangay/archived/{id}', 'BarangayUserController@archive');
 Route::post('barangay/restore/{id}', 'BarangayUserController@restore');
 
 //inhabitants
-Route::post('inhabitant/archived/{id}', 'InhabitantController@archive');
-Route::post('inhabitant/restore/{id}', 'InhabitantController@restore');
+Route::post('inhabitants/archived/{id}', 'InhabitantController@archive');
+Route::post('inhabitants/restore/{id}', 'InhabitantController@restore');
 Route::get('archivedInhabitant', 'InhabitantController@archived_Inhabitant');
 
 //households

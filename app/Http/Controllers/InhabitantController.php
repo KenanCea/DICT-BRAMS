@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Inhabitant;
+use App\Household;
 use DB;
 
 class InhabitantController extends Controller
@@ -20,8 +21,10 @@ class InhabitantController extends Controller
      */
     public function index()
     {
-        return Inhabitant::leftJoin('users','inhabitants.user_id','=','users.id')
-        ->select('inhabitants.*',
+        return DB::table('inhabitants')
+            ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
+            ->select(
+                'inhabitants.*',
                 DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                 '-',
                 MONTH(inhabitants.date_of_birth),
@@ -29,10 +32,11 @@ class InhabitantController extends Controller
                 DAY(inhabitants.date_of_birth)),
         '%Y-%c-%e') > CURDATE(),
         1,
-        0) as age"))
-        ->where('users.id',Auth::user()->id)
-        ->limit(1000)
-        ->get();
+        0) as age")
+            )
+            ->whereNull('inhabitants.deleted_at')
+            ->where('users.id', Auth::user()->id)
+            ->get();
     }
 
     /**
@@ -75,8 +79,9 @@ class InhabitantController extends Controller
     public function archived_Inhabitant()
     {
         return DB::table('inhabitants')
-        ->leftJoin('users','inhabitants.user_id','=','users.id')
-        ->select('inhabitants.*',
+            ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
+            ->select(
+                'inhabitants.*',
                 DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                 '-',
                 MONTH(inhabitants.date_of_birth),
@@ -84,18 +89,18 @@ class InhabitantController extends Controller
                 DAY(inhabitants.date_of_birth)),
         '%Y-%c-%e') > CURDATE(),
         1,
-        0) as age"))
-        ->whereNotNull('deleted_at')
-        ->where('users.id',Auth::user()->id)
-        ->get();
+        0) as age")
+            )
+            ->whereNotNull('inhabitants.deleted_at')
+            ->where('users.id', Auth::user()->id)
+            ->get();
     }
 
     public function archive($id)
     {
-        $inhabitants = Inhabitant::findOrFail($id);
-        $inhabitants->delete();
+        $inhabitant = Inhabitant::findOrFail($id);
+        $inhabitant->delete();
     }
-
     public function restore($id)
     {
         $inhabitants = Inhabitant::withTrashed()->findOrFail($id)->restore();
