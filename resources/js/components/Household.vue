@@ -384,11 +384,11 @@
     </v-dialog>
 
     <v-dialog v-model="dialogCreateInhabitant" persistent scrollable max-width="800px">
-      <v-form @submit.prevent="editmode ? updateInhabitant() : createInhabitant()">
+      <v-form @submit.prevent="editModeInhabitant ? updateInhabitant() : createInhabitant()">
         <v-card>
           <v-card-title>
-            <span class="headline" v-show="!editmode">Add Inhabitant</span>
-            <span class="headline" v-show="editmode">Edit Inhabitant</span>
+            <span class="headline" v-show="!editModeInhabitant">Add inhabitant</span>
+            <span class="headline" v-show="editModeInhabitant">Edit inhabitant</span>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
@@ -867,6 +867,7 @@ export default {
       dialogInhabitants: false,
       inhabitantsList: [],
       editmode: false,
+      editModeInhabitant: false,
       selected: [],
       selectedInhabitant: [],
       calendarSurvey: false,
@@ -1068,6 +1069,19 @@ export default {
         })
         .catch(() => {});
     },
+    updateInhabitant() {
+      this.inhabitantForm
+        .put("api/inhabitant/" + this.inhabitantForm.id)
+        .then(() => {
+          this.dialogCreateInhabitant = false;
+          toast.fire({
+            type: "success",
+            title: "Inhabitants has been edited"
+          });
+        })
+        .catch(() => {});
+    },
+
     updateHousehold() {
       this.householdForm
         .put("api/household/" + this.householdForm.id)
