@@ -34,7 +34,7 @@
       <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon>
+            <v-btn v-on="on" v-if="selected.length" icon @click="showInhabitants(selected[0].id)">
               <v-icon>mdi-account-network</v-icon>
             </v-btn>
           </template>
@@ -45,7 +45,7 @@
       <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon>
+            <v-btn v-on="on" v-if="selected.length" icon @click="editDialog(selected[0])">
               <v-icon>mdi-pencil</v-icon>
             </v-btn>
           </template>
@@ -72,6 +72,17 @@
             </v-btn>
           </template>
           <span>Add new household</span>
+        </v-tooltip>
+      </div>
+
+      <div class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon>
+              <v-icon>mdi-folder-account</v-icon>
+            </v-btn>
+          </template>
+          <span>View all inhabitants</span>
         </v-tooltip>
       </div>
 
@@ -132,6 +143,7 @@
                     v-model="form.solo_parent"
                     :items="['no','Death of spouse','Imprisonment of spouse of at least 1 year','Mental/physical incapacity of spouse','Legal or de facto separation from spouse for at least 1 year','Abandonment of spouse for at least 1 year','Unmarried mother/father who preferred to keep the child instead of others carrying him/her','Any other person who solely provides parental care and support to a child provided he/she is duly licensed foster parent of DSWD','Any family member who assumes the responsibility as head of the family as a result of death, abandonment, absence for at least one year','others']"
                     label="Solo Parent"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -166,19 +178,19 @@
                   </v-menu>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.house_no" type="number" label="House Number"></v-text-field>
+                  <v-text-field v-model="form.house_no" mask="####" label="House Number"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.email_address" label="Email Address"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.purok" type="number" label="Purok"></v-text-field>
+                  <v-text-field v-model="form.purok" mask="###" label="Purok"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.placeOfOrigin" label="Place of Origin"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.mobile_no" type="number" label="Mobile Number"></v-text-field>
+                  <v-text-field v-model="form.mobile_no" mask="###########" label="Mobile Number"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.street" label="Street"></v-text-field>
@@ -198,7 +210,11 @@
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.telephone_no" type="number" label="Telephone No."></v-text-field>
+                  <v-text-field
+                    v-model="form.telephone_no"
+                    mask="###########"
+                    label="Telephone No."
+                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 sm6 md4>
@@ -241,7 +257,7 @@
                   <v-select
                     v-model="form.type_of_dwelling"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
-                    label="Type of Dwelling Structure"
+                    label="Type of Dwelling "
                   ></v-select>
                 </v-flex>
 
@@ -307,6 +323,24 @@
       </v-form>
     </v-dialog>
 
+    <v-dialog v-model="dialogInhabitants" scrollable max-width="800px">
+      <v-card>
+        <v-card-title>
+          <span class="title">Inhabitants</span>
+        </v-card-title>
+        <v-card-text class="pa-0">
+          <v-data-table :headers="headersInhabitants" :items="inhabitantsList">
+            <template v-slot:items="props">
+              <td>{{ props.item.first_name }}</td>
+              <td>{{ props.item.middle_name }}</td>
+              <td>{{ props.item.last_name }}</td>
+              <td>{{ props.item.relation_to_the_head }}</td>
+            </template>
+          </v-data-table>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
     <v-data-table
       v-model="selected"
       v-bind:headers="filteredHeaders"
@@ -319,17 +353,36 @@
       <template v-slot:items="props">
         <td v-if="showColumn('id')">{{ props.item.id }}</td>
         <td v-if="showColumn('house_no')">{{ props.item.house_no }}</td>
+        <td v-if="showColumn('solo_parent')">{{ props.item.solo_parent }}</td>
+        <td v-if="showColumn('solo_parent_others')">{{ props.item.solo_parent_others }}</td>
+        <td v-if="showColumn('dateOfSurvey')">{{ props.item.dateOfSurvey }}</td>
+        <td v-if="showColumn('placeOfOrigin')">{{ props.item.placeOfOrigin }}</td>
         <td v-if="showColumn('email_address')">{{ props.item.email_address }}</td>
+        <td v-if="showColumn('mobile_no')">{{ props.item.mobile_no }}</td>
+        <td v-if="showColumn('dialects')">{{ props.item.dialects }}</td>
         <td v-if="showColumn('purok')">{{ props.item.purok }}</td>
         <td v-if="showColumn('place_of_origin')">{{ props.item.place_of_origin }}</td>
         <td v-if="showColumn('mobile_number')">{{ props.item.mobile_number }}</td>
         <td v-if="showColumn('street')">{{ props.item.street }}</td>
+        <td v-if="showColumn('lighting_source')">{{ props.item.lighting_source }}</td>
         <td v-if="showColumn('ethnic_group')">{{ props.item.ethnic_group }}</td>
+        <td v-if="showColumn('means_of_transportation_others')">{{ props.item.means_of_transportation_others }}</td>
+        <td v-if="showColumn('sources_of_info')">{{ props.item.sources_of_info }}</td>
+        <td v-if="showColumn('sources_of_info_others')">{{ props.item.sources_of_info_others }}</td>
         <td v-if="showColumn('telephone_no')">{{ props.item.telephone_no }}</td>
+        <td v-if="showColumn('means_of_transportation')">{{ props.item.means_of_transportation }}</td>
+        <td v-if="showColumn('communication_services')">{{ props.item.communication_services }}</td>
+        <td v-if="showColumn('communication_services_others')">{{ props.item.communication_services_others }}</td>
+        
+        <td v-if="showColumn('type_of_dwelling')">{{ props.item.type_of_dwelling }}</td>
         <td
           v-if="showColumn('status_of_ownership_house')"
         >{{ props.item.status_of_ownership_house }}</td>
+        <td
+          v-if="showColumn('status_of_ownership_house_others')"
+        >{{ props.item.status_of_ownership_house_others }}</td>
         <td v-if="showColumn('status_of_ownership_lot')">{{ props.item.status_of_ownership_lot }}</td>
+        <td v-if="showColumn('status_of_ownership_lot_others')">{{ props.item.status_of_ownership_lot_others }}</td>
         <td
           v-if="showColumn('type_of_dwelling_structure')"
         >{{ props.item.type_of_dwelling_structure }}</td>
@@ -346,6 +399,8 @@ export default {
       inhabitants: [],
       address: [],
       dialogHousehold: false,
+      dialogInhabitants: false,
+      inhabitantsList: [],
       editmode: false,
       selected: [],
       calendarSurvey: false,
@@ -434,6 +489,12 @@ export default {
           value: "type_of_dwelling_structure"
         },
         { text: "id", value: "id" }
+      ],
+      headersInhabitants: [
+        { text: "First name", value: "first_name" },
+        { text: "Middle name", value: "middle_name" },
+        { text: "Last name", value: "last_name" },
+        { text: "Relation to The Head", value: "relation_to_the_head" }
       ]
     };
   },
@@ -472,6 +533,12 @@ export default {
         this.address = response.data;
       });
     },
+    showInhabitants(id) {
+      axios.get("api/household/" + id).then(response => {
+        this.inhabitantsList = response.data;
+        this.dialogInhabitants = true;
+      });
+    },
     createHousehold() {
       this.form
         .post("api/household")
@@ -485,21 +552,50 @@ export default {
         })
         .catch(() => {});
     },
-    createInhabitant(id) {},
+    updateHousehold() {
+      this.form
+        .put("api/household/" + this.form.id)
+        .then(() => {
+          this.dialogHousehold = false;
+          this.getHouseholds();
+          toast.fire({
+            type: "success",
+            title: "Household has been edited"
+          });
+        })
+        .catch(() => {});
+    },
     archive(id) {
-      axios.post("api/households/archived/" + id).then(response => {
-        this.getHouseholds();
-        toast.fire({
-          type: "success",
-          title: "Household has been archived"
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "Inhabitants in this household will also be archived!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, archive it!"
+        })
+        .then(result => {
+          if (result.value) {
+            axios.post("api/households/archived/" + id).then(response => {
+              swal.fire("Archived!", "Household has been archived.", "success");
+              this.getHouseholds();
+              this.selected.splice([0]);
+            });
+          }
         });
-        this.selected.splice([0]);
-      });
     },
     newDialog() {
       this.editmode = false;
       this.form.reset();
       this.dialogHousehold = true;
+    },
+    editDialog(households) {
+      this.editmode = true;
+      this.form.reset();
+      this.dialogHousehold = true;
+      this.form.fill(households);
     },
     showColumn(col) {
       return this.headers.find(h => h.value === col).selected;

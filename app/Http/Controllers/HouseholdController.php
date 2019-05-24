@@ -53,7 +53,7 @@ class HouseholdController extends Controller
      */
     public function show($id)
     {
-        $inhabitant = Inhabitant::where('household_id','=', $id)->get();
+        $inhabitant = Inhabitant::select('id','last_name','first_name','middle_name','relation_to_the_head')->where('household_id','=', $id)->get();
         return $inhabitant;
     }
 

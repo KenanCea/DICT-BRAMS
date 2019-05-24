@@ -7,14 +7,8 @@ import Vuetify from 'vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/es5/util/colors'
 import VueRouter from 'vue-router';
-import {
-    routes
-} from './routes';
-import {
-    Form,
-    HasError,
-    AlertError
-} from 'vform';
+import { routes } from './routes';
+import Form from 'vform';
 import swal from 'sweetalert2';
 window.swal = swal;
 import Gate from "./Gate";
@@ -137,7 +131,7 @@ const app = new Vue({
                     title: "Inhabitant",
                     name: "Inhabitant",
                     to: "/archivedInhabitants"
-                },{
+                }, {
                     title: "Households",
                     name: "Households",
                     to: "/archivedHouseholds"
