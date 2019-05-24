@@ -2,33 +2,35 @@
     <div> 
        <header id='printHeader'>
             <h1>REPUBLIC OF THE PHILIPPINES</h1>
-            <h2> {{ reportshHeader[0].region }} </h2>
-            <h2> {{ reportshHeader[0].name }} - {{reportshHeader[0].province}} </h2>
+            <h2> {{ reportshHeader.region }} </h2>
+            <h2> {{ reportshHeader.name }} - {{reportshHeader.province}} </h2>
             <h3> {{ TableTitle }}</h3></header>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on:click='print()'>
-            <v-icon color="grey darken-2">mdi-printer</v-icon>
-          </v-btn>
-        </template>
-        <span>Print</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on:click='word()'>
-            <v-icon color="grey darken-2">mdi-file-word</v-icon>
-          </v-btn>
-        </template>
-        <span>Generate Word</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on:click='pdf()'>
-            <v-icon color="grey darken-2">mdi-file-pdf</v-icon>
-          </v-btn>
-        </template>
-        <span>Generate PDF</span>
-      </v-tooltip>
+
+      
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="print()">
+              <v-icon>mdi-printer</v-icon>
+            </v-btn>
+          </template>
+          <span>Print</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="word()">
+              <v-icon>mdi-file-word</v-icon>
+            </v-btn>
+          </template>
+          <span>Word</span>
+        </v-tooltip>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="pdf()">
+              <v-icon>mdi-file-pdf</v-icon>
+            </v-btn>
+          </template>
+          <span>PDF</span>
+        </v-tooltip>
     </div>
 </template>
 
@@ -100,7 +102,7 @@ export default {
     methods: {
         display(){
             axios.get('api/header').then(response => {
-                    this.reportshHeader = response.data ;
+                    this.reportshHeader = response.data[0] ;
                 });
         },
         print() {

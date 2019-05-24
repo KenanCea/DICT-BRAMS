@@ -28,7 +28,8 @@ class BarangayUserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = $request->user()->create($request->all());
+        return new $user;
     }
 
     /**
@@ -81,5 +82,12 @@ class BarangayUserController extends Controller
     public function restore($id)
     {
         $account = User::withTrashed()->findOrFail($id)->restore();
+    }
+
+    public function resetPassword($id)
+    {
+        $account = User::findOrFail($id);
+        $account->password = bcrypt('password');
+        $account -> save();
     }
 }

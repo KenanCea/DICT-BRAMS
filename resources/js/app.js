@@ -75,7 +75,8 @@ const app = new Vue({
                 icon: "mdi-view-dashboard",
                 title: "Dashboard",
                 name: "Dashboard",
-                to: "/dashboard"
+                to: "/dashboard",
+                meta: { requiuresAuth:true}
             },
             {
                 icon: "mdi-file-account",
