@@ -705,10 +705,89 @@
     <v-dialog v-model="dialogInhabitants" scrollable max-width="800px">
       <v-card>
         <v-card-title>
-          <span class="title">Inhabitants</span>
+          <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span>
+          <v-spacer></v-spacer>
+          <span v-if="selectedInhabitant.length">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" icon @click="selectedInhabitant = []">
+                  <v-icon>mdi-close</v-icon>
+                </v-btn>
+              </template>
+              <span>Clear selected</span>
+            </v-tooltip>
+          </span>
+          <v-divider v-if="selectedInhabitant.length" class="ml-1" inset vertical></v-divider>
+          <div v-if="selectedInhabitant.length" class="ml-1">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" icon  @click="editInhabitantDialog(selectedInhabitant[0])">
+                  <v-icon>mdi-pencil</v-icon>
+                </v-btn>
+              </template>
+              <span>Edit inhabitant</span>
+            </v-tooltip>
+          </div>
+          <div v-if="selectedInhabitant.length" class="ml-1">
+            <v-menu :close-on-content-click="false" offset-y max-height="400">
+              <template #activator="{ on: menu }">
+                <v-tooltip bottom>
+                  <template #activator="{ on: tooltip }">
+                    <v-btn icon v-on="{ ...tooltip, ...menu }">
+                      <v-icon>mdi-file-document-edit</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>Issue documents</span>
+                </v-tooltip>
+              </template>
+              <v-list>
+                <v-list-item @click="dialogBarangayClearance = true">
+                  <v-list-item-icon class="mr-2">
+                    <v-icon color="deep-orange">mdi-file-document-box</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Barangay Clearance</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon class="mr-2">
+                    <v-icon color="deep-orange">mdi-file-document-box</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Barangay Certificate</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-list-item>
+                  <v-list-item-icon class="mr-2">
+                    <v-icon color="deep-orange">mdi-file-document-box</v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-content>
+                    <v-list-item-title>Business Clearance</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </v-list>
+            </v-menu>
+          </div>
+          <div v-if="selectedInhabitant.length" class="ml-1">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" icon @click="archiveInhabitant(selectedInhabitant[0].id)">
+                  <v-icon>mdi-archive</v-icon>
+                </v-btn>
+              </template>
+              <span>Archive inhabitant</span>
+            </v-tooltip>
+          </div>
         </v-card-title>
+        <v-divider></v-divider>
         <v-card-text class="pa-0">
-          <v-data-table :headers="headersInhabitants" :items="inhabitantsList">
+          <v-data-table
+            v-model="selectedInhabitant"
+            :headers="headersInhabitants"
+            :items="inhabitantsList"
+            show-select
+            single-select
+          >
             <template v-slot:items="props">
               <td>{{ props.item.first_name }}</td>
               <td>{{ props.item.middle_name }}</td>
@@ -789,6 +868,7 @@ export default {
       inhabitantsList: [],
       editmode: false,
       selected: [],
+      selectedInhabitant: [],
       calendarSurvey: false,
       search: "",
       vaccine: false,
@@ -862,7 +942,6 @@ export default {
           text: "House Number",
           value: "house_no",
           selected: true
-          
         },
         { text: "Purok", value: "purok", selected: true },
         { text: "Street", value: "street", selected: true },
@@ -1002,6 +1081,30 @@ export default {
         })
         .catch(() => {});
     },
+    archiveInhabitant(id) {
+      swal
+        .fire({
+          title: "Are you sure?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, archive it!"
+        })
+        .then(result => {
+          if (result.value) {
+            axios.post("api/inhabitants/archived/" + id).then(response => {
+              swal.fire(
+                "Archived!",
+                "Inhabitant has been archived.",
+                "success"
+              );
+              this.getHouseholds();
+              this.selectedInhabitant.splice([0]);
+            });
+          }
+        });
+    },
     archive(id) {
       swal
         .fire({
@@ -1024,11 +1127,18 @@ export default {
         });
     },
     newInhabitantDialog() {
-      this.editmode = false;
+      this.editModeInhabitant = false;
       this.inhabitantForm.reset();
       this.inhabitantForm.household_id = this.selected[0].id;
       this.dialogCreateInhabitant = true;
     },
+    editInhabitantDialog(inhabitants) {
+      this.editModeInhabitant = true;
+      this.inhabitantForm.reset();
+      this.dialogCreateInhabitant = true;
+      this.inhabitantForm.fill(inhabitants);
+    },
+
     newHouseholdDialog() {
       this.editmode = false;
       this.householdForm.reset();

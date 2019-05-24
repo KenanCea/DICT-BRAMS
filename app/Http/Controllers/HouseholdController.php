@@ -28,6 +28,7 @@ class HouseholdController extends Controller
             ->select('households.*', DB::raw('count(inhabitants.household_id) AS familysize'))
             ->where('users.id', Auth::user()->id)
             ->whereNull('households.deleted_at')
+            ->whereNull('inhabitants.deleted_at')
             ->groupBy('households.id')
             ->get();
     }
@@ -52,7 +53,7 @@ class HouseholdController extends Controller
      */
     public function show($id)
     {
-        $inhabitant = Inhabitant::select('id', 'last_name', 'first_name', 'middle_name', 'relation_to_the_head')->where('household_id', '=', $id)->latest()->get();
+        $inhabitant = Inhabitant::where('household_id', '=', $id)->latest()->get();
         return $inhabitant;
     }
 

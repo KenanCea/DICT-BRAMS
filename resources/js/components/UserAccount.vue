@@ -5,24 +5,28 @@
         <span class="hidden-sm-and-down">User Account</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon @click="isEditing = !isEditing" v-on="on">
-            <v-icon v-if="isEditing">mdi-close</v-icon>
-            <v-icon v-else>mdi-pencil</v-icon>
-          </v-btn>
-        </template>
-        <span v-if="isEditing">Cancel</span>
-        <span v-else>Edit</span>
-      </v-tooltip>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-refresh</v-icon>
-          </v-btn>
-        </template>
-        <span>Refresh</span>
-      </v-tooltip>
+      <div>
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn text icon @click="isEditing = !isEditing" v-on="on">
+              <v-icon v-if="isEditing">mdi-close</v-icon>
+              <v-icon v-else>mdi-pencil</v-icon>
+            </v-btn>
+          </template>
+          <span v-if="isEditing">Cancel</span>
+          <span v-else>Edit</span>
+        </v-tooltip>
+      </div>
+      <div class="ml-1">
+        <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn text icon color="primary" v-on="on">
+              <v-icon color="grey darken-2">mdi-refresh</v-icon>
+            </v-btn>
+          </template>
+          <span>Refresh</span>
+        </v-tooltip>
+      </div>
     </v-app-bar>
     <v-container fill-height fluid grid-list-xl>
       <v-layout justify-center wrap>
@@ -58,7 +62,13 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <input type="file" @change="updateLogo" label="Logo" :disabled="!isEditing" required></input>
+                    <input
+                      type="file"
+                      @change="updateLogo"
+                      label="Logo"
+                      :disabled="!isEditing"
+                      required
+                    >
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field
@@ -120,7 +130,11 @@ export default {
       }
       this.form
         .put("api/user")
-        .then(() => {})
+        .then(() => {
+          swal.fire("Updated!", "Your profile has been updated.", "success");
+          this.getUser();
+          this.isEditing = null;
+        })
         .catch(() => {});
     },
     updateLogo(e) {

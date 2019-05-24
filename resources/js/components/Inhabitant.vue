@@ -573,7 +573,32 @@
                     <v-text-field v-model="formBarangayClearance.ctc_issued_at" label="Issued at"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="formBarangayClearance.ctc_issued_on" label="Issued on"></v-text-field>
+                    <v-menu
+                      v-model="menuIssued"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      eager
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="formBarangayClearance.ctc_issued_on"
+                          label="Issued on"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="formBarangayClearance.ctc_issued_on"
+                        no-title
+                        color="primary"
+                        @input="menuIssued = false"
+                      ></v-date-picker>
+                    </v-menu>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
@@ -699,6 +724,12 @@
                 v-if="barangayClearance"
                 @click="barangayClearance = false"
               >back</v-btn>
+              <v-btn
+                color="red darken-1"
+                text
+                v-if="!barangayClearance"
+                @click="clear()"
+              >cancel</v-btn>
               <v-spacer></v-spacer>
               <v-btn
                 color="blue darken-1"
@@ -843,6 +874,7 @@ export default {
     menuBirth: false,
     menuSettled: false,
     search: null,
+    menuIssued: false,
     inhabitantForm: new Form({
       id: "",
       household_id: "",
