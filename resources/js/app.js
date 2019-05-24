@@ -7,14 +7,8 @@ import Vuetify from 'vuetify'
 import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/es5/util/colors'
 import VueRouter from 'vue-router';
-import {
-    routes
-} from './routes';
-import {
-    Form,
-    HasError,
-    AlertError
-} from 'vform';
+import { routes } from './routes';
+import Form from 'vform';
 import swal from 'sweetalert2';
 window.swal = swal;
 import Gate from "./Gate";
@@ -112,12 +106,6 @@ const app = new Vue({
                 to: "/households"
             },
             {
-                icon: "mdi-account",
-                title: "Inhabitants",
-                name: "Inhabitants",
-                to: "/inhabitants"
-            },
-            {
                 icon: "mdi-content-copy",
                 title: "Print Document",
                 name: "Print Document",
@@ -138,18 +126,12 @@ const app = new Vue({
                     title: "Inhabitant",
                     name: "Inhabitant",
                     to: "/archivedInhabitants"
-                },{
+                }, {
                     title: "Households",
                     name: "Households",
                     to: "/archivedHouseholds"
                 }
                 ]
-            },
-            {
-                icon: "mdi-dev-to",
-                title: "Development",
-                name: "Development",
-                to: "/dev"
             },
         ],
         admins: [
@@ -157,7 +139,7 @@ const app = new Vue({
                 icon: "mdi-view-dashboard",
                 title: "Dashboard",
                 name: "Dashboard",
-                to: "/dashboard"
+                to: "/admindashboard"
             },
             {
                 icon: "mdi-view-dashboard",

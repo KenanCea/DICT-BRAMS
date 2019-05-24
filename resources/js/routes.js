@@ -78,9 +78,6 @@ export const routes = [
     path: '/needquestions',
     component: require('./components/NeedQuestions.vue').default
   }, {
-    path: '/dev',
-    component: require('./components/dev.vue').default
-  }, {
     path: '/barangaykiosk',
     component: require('./components/BarangayKiosk.vue').default
   }, {
@@ -125,4 +122,7 @@ export const routes = [
   }, {
     path: '/users',
     component: require('./components/BarangayUsers.vue').default
+  }, {
+    path: '/admindashboard',
+    component: require('./components/AdminDashboard.vue').default
   }]

@@ -30,7 +30,7 @@
         "jspdf": "^1.5.3",
         "jspdf-autotable": "^3.1.1",
         "printd": "^1.4.0",
-        "sweetalert2": "^8.11.0",
+        "sweetalert2": "^8.11.5",
         "v-charts": "^1.19.0",
         "vform": "^1.0.0",
         "vue-router": "^3.0.6",
