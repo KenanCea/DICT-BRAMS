@@ -45,7 +45,7 @@
         </v-navigation-drawer>
         @endcan
         @can('isAdmin')
-        <v-navigation-drawer app v-model="drawer">
+        <v-navigation-drawer app v-model="drawer" fixed clipped>
             <v-list shaped>
                 <template v-for="admin in admins">
                     <v-layout v-if="admin.heading" :key="admin.heading" row align-center>
