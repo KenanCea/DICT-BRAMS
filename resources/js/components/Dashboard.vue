@@ -20,7 +20,7 @@
         
         <v-flex xs6>
           <v-card>
-            <v-toolbar color="transparent" flat dense card>
+            <v-toolbar color="transparent" flat dense flat>
               <v-toolbar-title>
                 <h4>Total Inhabitants Per Purok</h4>
               </v-toolbar-title>
@@ -33,7 +33,7 @@
         </v-flex>
         <v-flex xs6>
           <v-card>
-            <v-toolbar color="transparent" flat dense card>
+            <v-toolbar color="transparent" flat dense flat>
               <v-toolbar-title>
                 <h4>Total Households Per Purok</h4>
               </v-toolbar-title>
@@ -46,7 +46,7 @@
         </v-flex>
         <v-flex xs6>
           <v-card>
-            <v-toolbar color="transparent" flat dense card>
+            <v-toolbar color="transparent" flat dense flat>
               <v-toolbar-title>
                 <h4>Ethnic Group</h4>
               </v-toolbar-title>
@@ -59,7 +59,7 @@
         </v-flex>
         <v-flex xs6>
           <v-card>
-            <v-toolbar color="transparent" flat dense card>
+            <v-toolbar color="transparent" flat dense flat>
               <v-toolbar-title>
                 <h4>Religions</h4>
               </v-toolbar-title>
@@ -72,7 +72,7 @@
         </v-flex>
         <v-flex xs4>
           <v-card>
-            <v-toolbar color="transparent" flat dense card>
+            <v-toolbar color="transparent" flat dense flat>
               <v-toolbar-title>
                 <h4>Male and Female</h4>
               </v-toolbar-title>
@@ -87,7 +87,7 @@
         
         <v-flex xs4>
           <v-card>
-            <v-toolbar color="transparent" flat dense card>
+            <v-toolbar color="transparent" flat dense flat>
               <v-toolbar-title>
                 <h4>Registered Voters</h4>
               </v-toolbar-title>
@@ -100,7 +100,7 @@
         </v-flex>
         <v-flex xs4>
           <v-card>
-            <v-toolbar color="transparent" flat dense card>
+            <v-toolbar color="transparent" flat dense flat>
               <v-toolbar-title>
                 <h4>Dialects</h4>
               </v-toolbar-title>
