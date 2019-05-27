@@ -48,19 +48,49 @@
                   <div class="mx-3">National Highway:</div>
                   <div>E. Land Form</div>
                   <div> 
-                  <v-data-table 
-                    :headers="headers" 
-                    :items="land" 
-                    hide-actions 
-                    class="elevation-1">
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.type }}</td>
-                          <td>{{ props.item.percent }}</td>
-                          <td class="justify-center layout px-0">
-                            <v-btn icon class="mx-0" @click="editItem(props.item)">
-                              <v-icon color="teal">edit</v-icon>
+                    <v-data-table 
+                      :headers="headers" 
+                      :items="land" 
+                      hide-default-footer>
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog" max-width="175px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex xs12 md12>
+                                    <v-text-field v-model="editedItem.percent" label="Percent"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
                             </v-btn>
-                          </td>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -68,7 +98,11 @@
               </v-layout>
             </v-card>
           </v-flex>
-
+        </v-layout>
+      </v-container>
+      
+      <v-container grid-list-xl fluid>
+        <v-layout row wrap>
           <v-flex xs12>
             <v-card>
               <v-layout>
@@ -76,15 +110,54 @@
                   <div>For Table F: Distribution of Land Use</div>
                   <div>
                     <v-data-table 
-                    :headers="distribheaders" 
-                    :items="use" 
-                    hide-actions 
-                    class="elevation-1">
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.distribution }}</td>
-                          <td>{{ props.item.square }}</td>
-                          <td>{{ props.item.hectare }}</td>
-                          <td>{{ props.item.total }}</td>
+                      :headers="distribheaders" 
+                      :items="use" 
+                      hide-default-footer>
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog2" max-width="300px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex xs4 md12>
+                                    <v-text-field v-model="editedItem2.square" label="Land Area (sq. kms.)"></v-text-field>
+                                  </v-flex>
+                                  <v-flex xs4 md12>
+                                    <v-text-field v-model="editedItem2.hectare" label="Land Area (hectares)"></v-text-field>
+                                  </v-flex>
+                                  <v-flex xs4 md12>
+                                    <v-text-field v-model="editedItem2.total" label="% Total Population"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close2">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save2">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem2(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -98,23 +171,65 @@
               </v-layout>
             </v-card>
           </v-flex>
+        </v-layout>
+      </v-container>
 
+      <v-container grid-list-xl fluid>
+        <v-layout row wrap>
           <v-flex xs12>
             <v-card>
               <v-layout>
                 <v-flex xs8>
-                  <div>Socio Cultural Data</div>
+                  <div>Socio Cultural Data</div><br/>
                   <div>For Table 2: Health Facilities</div>
                   <div>
                     <v-data-table 
-                    :headers="healthheaders" 
-                    :items="facilities" 
-                    hide-actions 
-                    class="elevation-1">
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.facility }}</td>
-                          <td>{{ props.item.number }}</td>
-                          <td>{{ props.item.patient }}</td>
+                      :headers="healthheaders" 
+                      :items="facilities" 
+                      hide-default-footer>
+
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog3" max-width="450px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem3.number" label="Number"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem3.patient" label="Number of patients served (preceding year)"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close3">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save3">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem3(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -123,22 +238,61 @@
               </v-layout>
             </v-card>
           </v-flex>
-
+        </v-layout>
+      </v-container>
+          
+      <v-container grid-list-xl fluid>
+        <v-layout row wrap>
           <v-flex xs12>
             <v-card>
               <v-layout>
                 <v-flex xs6>
-                  <div>Education</div>
+                  <div>Education</div><br/>
                   <div>For Table B.1 Number of School Buildings</div>
                   <div>
                     <v-data-table 
-                    :headers="schoolheaders" 
-                    :items="buildings" 
-                    hide-actions 
-                    class="elevation-1">
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.type }}</td>
-                          <td>{{ props.item.number }}</td>
+                      :headers="schoolheaders" 
+                      :items="buildings" 
+                      hide-default-footer>
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog4" max-width="175px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem4.number" label="Number"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close4">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save4">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem4(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -147,13 +301,49 @@
                   <div>For Table D: Sports and Recreational Facilities</div>
                   <div>
                     <v-data-table 
-                    :headers="sportheaders" 
-                    :items="sports" 
-                    hide-actions 
-                    class="elevation-1">
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.type }}</td>
-                          <td>{{ props.item.number }}</td>
+                      :headers="sportheaders" 
+                      :items="sports" 
+                      hide-default-footer>
+
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog5" max-width="175px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem5.number" label="Number"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close5">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save5">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem5(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -161,19 +351,22 @@
               </v-layout>
             </v-card>
           </v-flex>
+        </v-layout>
+      </v-container>
 
+      <v-container grid-list-xl fluid>
+        <v-layout row wrap>    
           <v-flex xs12>
             <v-card>
               <v-layout>
                 <v-flex xs12>
-                  <div>C. INFRASTRUCTURE: TRANSPORT FACILITIES AND SERVICES</div>
+                  <div>C. INFRASTRUCTURE: TRANSPORT FACILITIES AND SERVICES</div><br/>
                   <div class="ml-3">For Table 1: Bridge by Administrative level (in meters):</div>
                   <div class="ml-5">
                     <v-data-table 
                     :headers="bridgeheaders" 
                     :items="meters" 
-                    hide-actions 
-                    class="elevation-1">
+                    hide-default-footer>
                       <template slot="items" slot-scope="props">
                           <td>{{ props.item.type }}</td>
                           <td>{{ props.item.national }}</td>
@@ -184,14 +377,13 @@
                           <td>{{ props.item.operational }}</td>
                       </template>
                     </v-data-table>
-                  </div>
+                  </div><br/>
                   <div ml-3>Bridge by Administrative level (in kilometers)</div>
                   <div class="ml-5">
                     <v-data-table 
                     :headers="bridgeheaders" 
                     :items="kilometers" 
-                    hide-actions 
-                    class="elevation-1">
+                    hide-default-footer>
                       <template slot="items" slot-scope="props">
                           <td>{{ props.item.type }}</td>
                           <td>{{ props.item.national }}</td>
@@ -207,7 +399,11 @@
               </v-layout>
             </v-card>
           </v-flex>
+        </v-layout>
+      </v-container>
 
+      <v-container grid-list-xl fluid>
+        <v-layout row wrap>    
           <v-flex xs12>
             <v-card>
               <v-layout>
@@ -217,8 +413,7 @@
                     <v-data-table 
                     :headers="communicationheaders" 
                     :items="services" 
-                    hide-actions 
-                    class="elevation-1">
+                    hide-default-footer>
                       <template slot="items" slot-scope="props">
                           <td>{{ props.item.type }}</td>
                           <td>{{ props.item.provider }}</td>
@@ -237,23 +432,300 @@
 </template>
 
 <script>
-    export default {
-      data: () => ({
-        dialog: false,
-        headers: [
-          {
-            text: 'Type',
-            align: 'center',
-            sortable: false,
-            value: 'type'
-          },
-          { 
-            text: 'Percent', 
-            align: 'center',
-            value: 'percent' 
-          }
-        ],
-        land: [
+  export default {
+    data: () => ({
+      dialog: false,
+      dialog2: false,
+      dialog3: false,
+      dialog4: false,
+      dialog5: false,
+      dialog6: false,
+      dialog7: false,
+      dialog8: false,
+      headers: [
+        {
+          text: 'Type',
+          value: 'type',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Percent', 
+          value: 'percent', 
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false,
+          width: "1%" 
+        }
+      ],
+      land: [],
+      distribheaders: [
+        {
+          text: 'Type',
+          value: 'distribution',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Land Area (Square kms.)', 
+          value: 'square',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Land Area (Hectares)', 
+          value: 'hectare',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: '% Total Population', 
+          value: 'total',
+          sortable: false,
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false,
+          width: "1%" 
+        }
+      ],
+      use: [],
+      healthheaders: [
+        {
+          text: 'Type',
+          value: 'facility',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Number', 
+          value: 'number',
+          align: 'center',
+          sortable: false,
+          width: "1%" 
+        },
+        { 
+          text: 'Number of patients served (preceding year)', 
+          value: 'patient',
+          align: 'center',
+          sortable: false,
+          width: "1%" 
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false,
+          width: "1%" 
+        }
+      ],
+      facilities: [],
+      schoolheaders: [
+        {
+          text: 'Type',
+          value: 'type',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Number', 
+          value: 'number',
+          align: 'center',
+          sortable: false,
+          width: "1%" 
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false,
+          width: "1%" 
+        }
+      ],
+      buildings: [],
+      sportheaders: [
+        {
+          text: 'Type',
+          value: 'type',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Number', 
+          value: 'number',
+          align: 'center',
+          sortable: false,
+          width: "1%" 
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false,
+          width: "1%" 
+        }
+      ],
+      sports: [],
+      bridgeheaders: [
+        {
+          text: 'Type',
+          value: 'type',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'National', 
+          value: 'national',
+          align: 'center',
+          sortable: false,
+          width: "1%" 
+        },
+        {
+          text: 'Provincial', 
+          value: 'provincial',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'City/Municipality', 
+          value: 'city',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'Barangay', 
+          value: 'barangay',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'Total', 
+          value: 'total',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'Operational', 
+          value: 'operational',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false,
+          width: "1%" 
+        }
+      ],
+      meters: [],
+      kilometers: [],
+      communicationheaders: [
+        {
+          text: 'Type of Communications',
+          value: 'type',
+          align: 'center',
+          sortable: false
+        },
+        { 
+          text: 'Total Provider', 
+          value: 'provider',
+          align: 'center',
+          sortable: false
+        },
+        {
+          text: 'Name/s of Company', 
+          value: 'company',
+          align: 'center',
+          sortable: false
+        },
+        {
+          text: 'No. of households served', 
+          value: 'household',
+          align: 'center',
+          sortable: false
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false 
+        }
+      ],
+      services: [],
+      editedIndex: -1,
+      editedItem: {
+        percent: ''
+      },
+      editedItem2: {
+        square: '',
+        hectare: '',
+        total: ''
+      },
+      editedItem3: {
+        number: 0,
+        patient: 0
+      },
+      editedItem4: {
+        number: 0
+      },
+      editedItem5: {
+        number: 0
+      },
+      defaultItem: {
+        percent: '',
+        square: '',
+        hectare: '',
+        total: ''
+      },
+      defaultItem2: {
+        square: '',
+        hectare: '',
+        total: ''
+      },
+      defaultItem3: {
+        number: 0,
+        patient: 0
+      },
+      defaultItem4: {
+        number: 0
+      },
+      defaultItem5: {
+        number: 0
+      }
+    }),
+
+    created () {
+      this.initialize()
+    },
+
+    methods: {
+      initialize () {
+        this.land = [
           {
             type: 'Mountainous',
             percent: '15.67%'
@@ -267,30 +739,7 @@
             percent: '8%'
           }
         ],
-        distribheaders: [
-          {
-            text: 'Type',
-            align: 'center',
-            sortable: false,
-            value: 'distribution'
-          },
-          { 
-            text: 'Land Area (Square kms.)', 
-            align: 'center',
-            value: 'square' 
-          },
-          { 
-            text: 'Land Area (Hectares)', 
-            align: 'center',
-            value: 'hectare' 
-          },
-          { 
-            text: '% Total Population', 
-            align: 'center',
-            value: 'total' 
-          }
-        ],
-        use: [
+        this.use = [
           {
             distribution: 'Residential',
             square: '',
@@ -334,25 +783,7 @@
             total: ''
           }
         ],
-        healthheaders: [
-          {
-            text: 'Type',
-            align: 'center',
-            sortable: false,
-            value: 'facility'
-          },
-          { 
-            text: 'Number', 
-            align: 'center',
-            value: 'number' 
-          },
-          { 
-            text: 'Number of patients served (preceding year)', 
-            align: 'center',
-            value: 'patient' 
-          }
-        ],
-        facilities: [
+        this.facilities = [
           {
             facility: 'Public Hospital',
             number: '',
@@ -379,20 +810,7 @@
             patient: ''
           }
         ],
-        schoolheaders: [
-          {
-            text: 'Type',
-            align: 'center',
-            sortable: false,
-            value: 'type'
-          },
-          { 
-            text: 'Number', 
-            align: 'center',
-            value: 'number' 
-          }
-        ],
-        buildings: [
+        this.buildings = [
           {
             type: 'Pre-School Day Care Building',
             number: ''
@@ -418,20 +836,7 @@
             number: ''
           }
         ],
-        sportheaders: [
-          {
-            text: 'Type',
-            align: 'center',
-            sortable: false,
-            value: 'type'
-          },
-          { 
-            text: 'Number', 
-            align: 'center',
-            value: 'number' 
-          }
-        ],
-        sports: [
+        this.sports = [
           {
             type: 'Covered Court',
             number: ''
@@ -457,45 +862,7 @@
             number: ''
           }
         ],
-        bridgeheaders: [
-          {
-            text: 'Type',
-            align: 'center',
-            sortable: false,
-            value: 'type'
-          },
-          { 
-            text: 'National', 
-            align: 'center',
-            value: 'national' 
-          },
-          {
-            text: 'Provincial', 
-            align: 'center',
-            value: 'provincial'
-          },
-          {
-            text: 'City/Municipality', 
-            align: 'center',
-            value: 'city'
-          },
-          {
-            text: 'Barangay', 
-            align: 'center',
-            value: 'barangay'
-          },
-          {
-            text: 'Total', 
-            align: 'center',
-            value: 'total'
-          },
-          {
-            text: 'Operational', 
-            align: 'center',
-            value: 'operational'
-          }
-        ],
-        meters: [
+        this.meters = [
           {
             type: 'Concrete',
             national: '',
@@ -533,7 +900,7 @@
             operational: ''
           }
         ],
-        kilometers: [
+        this.kilometers = [
           {
             type: 'Concrete',
             national: '',
@@ -580,30 +947,7 @@
             operational: ''
           }
         ],
-        communicationheaders: [
-          {
-            text: 'Type of Communications',
-            align: 'center',
-            sortable: false,
-            value: 'type'
-          },
-          { 
-            text: 'Total Provider', 
-            align: 'center',
-            value: 'provider' 
-          },
-          {
-            text: 'Name/s of Company', 
-            align: 'center',
-            value: 'company'
-          },
-          {
-            text: 'No. of households served', 
-            align: 'center',
-            value: 'household'
-          }
-        ],
-        services: [
+        this.services = [
           {
             type: 'Telephone',
             provider: '',
@@ -635,6 +979,122 @@
             household: ''
           }
         ]
-      })
+      },
+
+      editItem (item) {
+        this.editedIndex = this.land.indexOf(item)
+        this.editedItem = Object.assign({}, item)
+        this.dialog = true
+      },
+
+      editItem2 (item) {
+        this.editedIndex = this.use.indexOf(item)
+        this.editedItem2 = Object.assign({}, item)
+        this.dialog2 = true
+      },
+
+      editItem3 (item) {
+        this.editedIndex = this.facilities.indexOf(item)
+        this.editedItem3 = Object.assign({}, item)
+        this.dialog3 = true
+      },
+
+      editItem4 (item) {
+        this.editedIndex = this.buildings.indexOf(item)
+        this.editedItem4 = Object.assign({}, item)
+        this.dialog4 = true
+      },
+
+      editItem5 (item) {
+        this.editedIndex = this.sports.indexOf(item)
+        this.editedItem5 = Object.assign({}, item)
+        this.dialog5 = true
+      },      
+
+      close () {
+        this.dialog = false
+        setTimeout(() => {
+          this.editedItem = Object.assign({}, this.defaultItem)
+          this.editedIndex = -1
+        }, 300)
+      },
+
+      close2 () {
+        this.dialog2 = false
+        setTimeout(() => {
+          this.editedItem2 = Object.assign({}, this.defaultItem2)
+          this.editedIndex = -1
+        }, 300)
+      },
+
+      close3 () {
+        this.dialog3 = false
+        setTimeout(() => {
+          this.editedItem3 = Object.assign({}, this.defaultItem3)
+          this.editedIndex = -1
+        }, 300)
+      },
+
+      close4 () {
+        this.dialog4 = false
+        setTimeout(() => {
+          this.editedItem4 = Object.assign({}, this.defaultItem4)
+          this.editedIndex = -1
+        }, 300)
+      },
+
+      close5 () {
+        this.dialog5 = false
+        setTimeout(() => {
+          this.editedItem5 = Object.assign({}, this.defaultItem5)
+          this.editedIndex = -1
+        }, 300)
+      },      
+
+      save () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.land[this.editedIndex], this.editedItem)
+        } else {
+          this.land.push(this.editedItem)
+        }
+        this.close()
+      },
+
+      save2 () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.use[this.editedIndex], this.editedItem2)
+        } else {
+          this.use.push(this.editedItem2)
+        }
+        this.close2()
+      },
+
+      save3 () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.facilities[this.editedIndex], this.editedItem3)
+        } else {
+          this.facilities.push(this.editedItem3)
+        }
+        this.close3()
+      },
+
+      save4 () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.facilities[this.editedIndex], this.editedItem4)
+        } else {
+          this.buildings.push(this.editedItem4)
+        }
+        this.close4()
+      },
+
+      save5 () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.facilities[this.editedIndex], this.editedItem5)
+        } else {
+          this.sports.push(this.editedItem5)
+        }
+        this.close5()
+      }
     }
+  }
 </script>
