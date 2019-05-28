@@ -33,8 +33,8 @@ Route::post('barangay/restore/{id}', 'BarangayUserController@restore');
 Route::get('barangay/reset/{id}', 'BarangayUserController@resetPassword');
 
 //inhabitants
-Route::post('inhabitant/archived/{id}', 'InhabitantController@archive');
-Route::post('inhabitant/restore/{id}', 'InhabitantController@restore');
+Route::post('inhabitants/archived/{id}', 'InhabitantController@archive');
+Route::post('inhabitants/restore/{id}', 'InhabitantController@restore');
 Route::get('archivedInhabitant', 'InhabitantController@archived_Inhabitant');
 
 //households
@@ -60,22 +60,20 @@ Route::get('header', 'PrintDocumentController@location');
 Route::get('form', 'FormController@index')->name('form.index');
 
 // Dashboard
-Route::post('Inhabitants', 'DashboardController@TotalInhabitants');
-Route::post('Households', 'DashboardController@TotalHouseholds');
-Route::post('Puroks', 'DashboardController@TotalPuroks');
-Route::post('Seniors', 'DashboardController@TotalSeniors');
-Route::post('Children', 'DashboardController@TotalChildren');
+Route::get('Inhabitants', 'DashboardController@TotalInhabitants');
+Route::get('Households', 'DashboardController@TotalHouseholds');
+Route::get('Puroks', 'DashboardController@TotalPuroks');
+Route::get('Seniors', 'DashboardController@TotalSeniors');
+Route::get('Children', 'DashboardController@TotalChildren');
+Route::get('HouseholdsPurok', 'DashboardController@TotalHouseholdsPurok');
+Route::get('RegisteredVoter', 'DashboardController@TotalRegisteredVoters');
+Route::get('Dialects', 'DashboardController@TotalDialects');
+Route::get('Gender', 'DashboardController@TotalGender');
+Route::get('Religion', 'DashboardController@TotalReligion');
+Route::get('EthnicGroup', 'DashboardController@TotalEthnicGroups');
 
 // Address
 Route::get('address', 'AddressController@index')->name('address.index');
-
-// Admin Dashboard
-Route::post('Barangays', 'AdminDashboardController@TotalBarangays');
-Route::post('Inhabitants', 'AdminDashboardController@TotalInhabitants');
-Route::post('Households', 'AdminDashboardController@TotalHouseholds');
-Route::post('Seniors', 'AdminDashboardController@TotalSeniors');
-Route::post('Children', 'AdminDashboardController@TotalChildren');
-Route::post('Children', 'AdminDashboardController@TotalChildren');
 
 // Kiosk
 Route::get('ageGroup', 'KioskController@AgeGroup');

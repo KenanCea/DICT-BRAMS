@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
     {
         ini_set('memory_limit', '512M');
         DB::disableQueryLog();
-        $this->call(UsersTableSeeder::class);
-        $this->call(BarangaysTableSeeder::class);
-        $this->call(HouseholdsTableSeeder::class);
-        $this->call(InhabitantsTableSeeder::class);
-        $this->call(OfficialsTableSeeder::class);
+        // $this->call(UsersTableSeeder::class);
+        // $this->call(BarangaysTableSeeder::class);
+        // $this->call(HouseholdsTableSeeder::class);
+        // $this->call(InhabitantsTableSeeder::class);
+        // $this->call(OfficialsTableSeeder::class);
         // $this->call(FiledcasesTableSeeder::class);
         // $this->call(EducationsTableSeeder::class);
         // $this->call(LandusesTableSeeder::class);

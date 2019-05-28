@@ -2,17 +2,23 @@
     <v-app>
       <v-container grid-list-xl fluid>
         <v-layout row wrap>
-          <v-flex xs12>
+          <v-flex md12>
             <v-card>
               <v-layout>
-                <v-flex xs6>
+                <v-flex md6>
                   <v-card-primary-title>
                     <div>Barangay Logo</div>
                   </v-card-primary-title>
-                  <v-img
-                  ></v-img>
+                  <v-card>
+                    <v-card-text class="text-xs-center">
+                      <v-avatar class="mx-auto d-block" size="180">
+                        <img src="https://picsum.photos/510/300?random" alt="User Logo">
+                      </v-avatar>
+                    </v-card-text>
+                  </v-card>
+                  <input type="file" @change="updateLogo" label="Logo"></input>
                 </v-flex>
-                <v-flex xs6>
+                <v-flex md6>
                   <div>Barangay Name:</div>
                   <div>Barangay Code</div>
                   <div>Region:</div>
@@ -28,14 +34,14 @@
       </v-container>
       <v-container grid-list-xl fluid>
         <v-layout row wrap>
-          <v-flex xs12>
+          <v-flex md12>
             <v-card>
               <v-layout>
-                <v-flex xs12>
+                <v-flex md12>
                   <v-data-table
                     :headers="headers"
                     :items="officials"
-                    hide-actions>
+                    hide-default-footer>
                     <template v-slot:top>
                       <v-dialog v-model="dialog" max-width="300px">
                         <v-card>
@@ -69,13 +75,14 @@
                     </template>
 
                     <template v-slot:item.action="{ item }">
-                      <v-icon
-                        small
-                        class="mr-2"
-                        @click="editItem(item)"
-                      >
-                        Edit
-                      </v-icon>
+                      <v-tooltip bottom>
+                        <template v-slot:activator="{ on }">
+                          <v-btn text icon @click="editItem(item)" v-on="on">
+                            <v-icon>mdi-pencil</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>Edit</span>
+                      </v-tooltip>
                     </template>
 
                     <template #no-data>
@@ -235,9 +242,22 @@
         if (this.editedIndex > -1) {
           Object.assign(this.officials[this.editedIndex], this.editedItem)
         } else {
-          this.desserts.push(this.editedItem)
+          this.officials.push(this.editedItem)
         }
         this.close()
+      },
+
+      updateLogo(e) {
+        let file = e.target.files[0];
+        console.log(file);
+        let reader = new FileReader();
+        if (file["size"] < 1048576) {
+          reader.onloadend = file => {
+            this.form.logo = reader.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+        }
       }
     }
   }

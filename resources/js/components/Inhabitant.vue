@@ -5,9 +5,7 @@
         <v-toolbar-title>
           <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span>
         </v-toolbar-title>
-
         <v-spacer></v-spacer>
-
         <span v-if="selectedInhabitant.length">
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -18,20 +16,17 @@
             <span>Clear selected</span>
           </v-tooltip>
         </span>
-
         <v-divider v-if="selectedInhabitant.length" class="ml-1" inset vertical></v-divider>
-
         <div v-if="selectedInhabitant.length" class="ml-1">
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon>
+              <v-btn v-on="on" icon @click="editDialog(selectedInhabitant[0])">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
             </template>
             <span>Edit inhabitant</span>
           </v-tooltip>
         </div>
-
         <div v-if="selectedInhabitant.length" class="ml-1">
           <v-menu :close-on-content-click="false" offset-y max-height="400">
             <template #activator="{ on: menu }">
@@ -72,7 +67,6 @@
             </v-list>
           </v-menu>
         </div>
-
         <div v-if="selectedInhabitant.length" class="ml-1">
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -83,9 +77,7 @@
             <span>Archive inhabitant</span>
           </v-tooltip>
         </div>
-
         <v-divider v-if="selectedInhabitant.length" class="ml-1" inset vertical></v-divider>
-
         <div class="ml-1">
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -107,7 +99,6 @@
             <span>Print</span>
           </v-tooltip>
         </div>
-
         <div class="ml-1">
           <v-menu :close-on-content-click="false" offset-y max-height="400">
             <template #activator="{ on: menu }">
@@ -148,7 +139,6 @@
             </v-list>
           </v-menu>
         </div>
-
         <div class="ml-1">
           <v-menu :close-on-content-click="false" offset-y max-height="400">
             <template #activator="{ on: menu }">
@@ -173,7 +163,6 @@
             </v-list>
           </v-menu>
         </div>
-
         <v-flex xs12 sm6 md2 ml-1>
           <v-text-field
             v-model="search"
@@ -188,12 +177,331 @@
         </v-flex>
       </v-app-bar>
 
+      <v-dialog v-model="dialogEditInhabitant" persistent scrollable max-width="800px">
+        <v-form @submit.prevent="updateInhabitant()">
+          <v-card>
+            <v-card-title>
+              <span class="headline">Edit Inhabitant</span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="inhabitantForm.first_name" label="First name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="inhabitantForm.middle_name" label="Middle name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="inhabitantForm.last_name" label="Last name"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.relation_to_the_head"
+                      :items="['THE HEAD','Aunt','Brother-in-law','Brother','Daugther-in-law','Daughter','Father','Grandfather','Grandmother','Househelper','Husband','Mother','Son','Son-in -law','Sister-in-law','Tenant','Uncle','Wife','Common law wife']"
+                      label="Relation to THE HEAD"
+                    ></v-select>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.sex"
+                      :items="['Male','Female']"
+                      label="Sex"
+                      required
+                    ></v-select>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <v-menu
+                      v-model="menuBirth"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      eager
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="inhabitantForm.date_of_birth"
+                          label="Date of Birth"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="inhabitantForm.date_of_birth"
+                        no-title
+                        color="primary"
+                        @input="menuBirth = false"
+                      ></v-date-picker>
+                    </v-menu>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="inhabitantForm.Total_family_income"
+                      label="Total Family Income"
+                      mask="############"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.civil_status"
+                      :items="['Single','Married','Widow/er','Separated','Common-Law','complicated']"
+                      label="Civil Status"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="inhabitantForm.Final_family_income"
+                      label="Final Family Income"
+                      mask="############"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="inhabitantForm.placeOfBirth_native"
+                      label="Place of Birth/Native"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.religion"
+                      :items="['Aglipayan','Anglican','Apostolic Christian','Assembly of God','Baptist','Church of Christ','Born Again Christian','Iglesia ni Cristo','Islam','Saksi ni Jehovah','Seventh Day Adventist','Methodist','Mormons','Pentecost','Protestant','Roman Catholic']"
+                      label="Religion"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.status_of_residency"
+                      :items="['Permanent','Live-in relative','Boarder','Buss Resident','Moved Out','Deceased']"
+                      label="Status of Residency"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.schooling"
+                      :items="['In school','Out of school','Not yet in school','Graduate']"
+                      label="Schooling"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="inhabitantForm.no_of_years_in_barangay"
+                      label="Number of Years in Barangay"
+                      type="number"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.Highest_educational_attainment"
+                      :items="['Elem. Graduate','Elementary','High school undergraduate','High school','College undergraduate','College graduate','Vocational','Post Graduate','Pre-school','Not yet attending school']"
+                      label="Highest Educational Attainment"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-menu
+                      v-model="menuSettled"
+                      :close-on-content-click="false"
+                      :nudge-right="40"
+                      eager
+                      transition="scale-transition"
+                      offset-y
+                      full-width
+                      min-width="290px"
+                    >
+                      <template v-slot:activator="{ on }">
+                        <v-text-field
+                          v-model="inhabitantForm.date_settled_in_barangay"
+                          label="Date Settled in the Barangay"
+                          prepend-icon="mdi-calendar"
+                          readonly
+                          v-on="on"
+                        ></v-text-field>
+                      </template>
+                      <v-date-picker
+                        v-model="inhabitantForm.date_settled_in_barangay"
+                        no-title
+                        color="primary"
+                        @input="menuSettled = false"
+                      ></v-date-picker>
+                    </v-menu>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="inhabitantForm.weight"
+                      mask="###"
+                      label="Weight(kg)"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="inhabitantForm.height"
+                      mask="###"
+                      label="Height(cm)"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.citizenship"
+                      :items="['Filipino']"
+                      label="Citizenship"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.ethnicGroup"
+                      :items="['Bago','Bicol','Bisaya','Boholano','Bontoc','Capizeno','Cuyunon','Ibaloi','Ilonggo','Ifugao','Ilocano','Ivatan','Kalinga','Kapangpangan','Maguindanao','Maranao','Masbateno','Pangasinan','Surigaoan','Tagalog','Tausog','Waray','Yakan','Zamboagueno/Chavacano']"
+                      label="Ethnic Group"
+                      required
+                    ></v-select>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.registeredVoterOfTheBrgy"
+                      :items="['Yes','No']"
+                      label="Registered Voter"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.pregnant"
+                      :items="['Yes','N/A']"
+                      label="Pregnant"
+                      required
+                    ></v-select>
+                  </v-flex>
+
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.blood_type"
+                      :items="['A', 'B', 'AB', 'O', 'Do not know']"
+                      label="Blood Type"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-select
+                      v-model="inhabitantForm.disability"
+                      :items="['None', 'Total blindness of one eye', 'Total blindness of both eye', 'Missing one or both arms', 'Mongoloid', 'Cleff Palate', 'Malabo ang paningin/poor eyesight', 'Hunchback', 'Paralyzed legs', 'Paralyzed arms', 'Speech disorder', 'Authistic', 'Fractured Vertebrate column', 'Paralyzed from neck down', 'Hydrocephalus',
+                'Deaf', 'Mute and Deaf', 'Inability to walk alone', 'Deformity', 'Polio', 'Mental Impairment', 'Celebral Palsy', 'Epileptic', 'Dwarfism', 'Others']"
+                      label="Disability"
+                      required
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-text-field
+                      v-model="inhabitantForm.dissability_others"
+                      label="Disability Others"
+                      required
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-checkbox v-model="vaccine" label="Immunized children (0-6 yrs. old)">Toggle</v-checkbox>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-checkbox v-model="employed" label="Employed">Toggle</v-checkbox>
+                  </v-flex>
+
+                  <v-layout wrap v-if="employed">
+                    <v-flex xs12 sm6>
+                      <v-text-field
+                        v-model="inhabitantForm.specific_job_description"
+                        label="Specific Job Description"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <v-select
+                        v-model="inhabitantForm.gen_job_description"
+                        :items="[ 'n/a', 'Accountant', 'Architect', 'Barangay Official', 'Businessman', 'Doctor', 'Engineer', 'Fireman', 'Government office worker', 'IT Worker', 'Lawyer', 'Librarian', 'Manager/Supervisor', 'Missionary', 'Nurse',
+                'OFW', 'Pharmacist', 'Policemen', 'Priest', 'Professor/Instructor', 'Preacher/Pastor', 'Researcher', 'Soldier', 'Seafarer', 'Teacher', 'Therapist', 'Call center agent', 'Caregiver', 'Carpenter', 'Caretaker', 'Cashier/clerk', 'Construction worker', 'Cosmetologist/Beautician',
+                'Dispatcher/Barker', 'Driver', 'Electrician', 'Factory Worker', 'Farmer/Gardener', 'Helper/Aide', 'Laborer', 'Laundrywoman', 'Machinist', 'Mechanic', 'Mason', 'Mine Worker', 'Porter', 'Plumber', 'Salesperson', 'Security Guard', 'Secretary', 'Service Crew', 'Student Assistance', 'Tailor/Sewer/Dressmaker',
+                'Technician', 'Vendor', 'Volunteer Woker', 'Welder']"
+                        label="Gen. Job Description"
+                        required
+                      ></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <v-select
+                        v-model="inhabitantForm.employment_status"
+                        :items="['Permanent','Contractual','Temporary','Self-employed','Retired']"
+                        label="Employment Status"
+                        required
+                      ></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <v-select
+                        v-model="inhabitantForm.job_category"
+                        :items="['Offical Government and Special Interest','Professional','Technicians and Assoc. Professional','Clerks','Service Workers & Market sales workers','Farmers & Forestry Workers','Trades & related workers','Machine Operators/Assemblers','Laborers & skilled workers','Special Occupations','n/a']"
+                        label="Job Category"
+                        required
+                      ></v-select>
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <v-text-field
+                        v-model="inhabitantForm.estimated_monthly_income_cash"
+                        label="Estimated Monthly Income-cash"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs12 sm6>
+                      <v-select
+                        v-model="inhabitantForm.estimated_monthly_income_kind"
+                        :items="['Rice','Vegetables','Free rental','City services']"
+                        label="Estimated Monthly Income-kind"
+                        required
+                      ></v-select>
+                    </v-flex>
+                  </v-layout>
+                  <v-layout wrap v-if="vaccine">
+                    <v-flex xs12 sm6>
+                      <v-text-field
+                        v-model="inhabitantForm.child_parent"
+                        label="Child's Parent/Guardian"
+                        required
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialogEditInhabitant=false">Cancel</v-btn>
+              <v-btn color="blue darken-1" text type="submit">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+
       <v-dialog v-model="dialogBarangayClearance" scrollable persistent max-width="800px">
         <v-form>
           <v-card>
             <v-card-title>
               <span class="headline">Issue barangay clearance</span>
               <v-spacer></v-spacer>
+
               <div class="ml-1" v-if="barangayClearance">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
@@ -246,9 +554,10 @@
                 </v-menu>
               </div>
             </v-card-title>
+
             <v-divider></v-divider>
             <v-card-text>
-              <v-container grid-list-md class="pa-0" v-if="!barangayClearance">
+              <v-container grid-list-md class="pa-0">
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
@@ -263,12 +572,6 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="formBarangayClearance.ctc_issued_at" label="Issued at"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="formBarangayClearance.ctc_issued_on" label="Issued on"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="formBarangayClearance.official_receipt_no"
                       label="Official Receipt Number"
@@ -276,23 +579,17 @@
                   </v-flex>
                 </v-layout>
               </v-container>
-              <v-container
-                grid-list-md
-                text-xs-center
-                class="pa-0"
-                v-if="barangayClearance"
-                id="printForm"
-              >
+              <v-divider></v-divider>
+              <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
                 <v-layout row wrap>
-                  <v-flex xs4>
+                  <v-flex xs3>
                     <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
                   </v-flex>
-                  <v-flex xs4 class="green--text title">
+                  <v-flex xs6 class="green--text title">
                     <p class="mb-0">Republic of the Philippines</p>
-                    <p class="mb-0">BARANGAY AMBIONG</p>
-                    <p>Aurora Hill, Baguio</p>
+                    <p class="mb-0">Barangay Camp Allen Baguio City</p>
                   </v-flex>
-                  <v-flex xs4>
+                  <v-flex xs3>
                     <v-img src="/img/profile/profile1.png" alt="Logo" contain height="100"></v-img>
                   </v-flex>
                 </v-layout>
@@ -386,15 +683,21 @@
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
-              <v-btn color="red darken-1" text v-if="barangayClearance" @click="barangayClearance = false">back</v-btn>
+              <v-btn
+                color="red darken-1"
+                text
+                v-if="barangayClearance"
+                @click="barangayClearance = false"
+              >back</v-btn>
+              <v-btn color="red darken-1" text v-if="!barangayClearance" @click="clear()">cancel</v-btn>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text v-if="!barangayClearance" @click="barangayClearance = true">proceed</v-btn>
               <v-btn
                 color="blue darken-1"
                 text
-                v-if="barangayClearance"
-                @click="clear()"
-              >Ok</v-btn>
+                v-if="!barangayClearance"
+                @click="barangayClearance = true"
+              >proceed</v-btn>
+              <v-btn color="blue darken-1" text v-if="barangayClearance" @click="clear()">Ok</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
@@ -468,13 +771,12 @@ export default {
   data: () => ({
     Table: "Inhabitants",
     Orientation: "landscape",
-    selectedInhabitant: [],
     headers: [
       { text: "First name", value: "first_name", selected: true },
       { text: "Middle name", value: "middle_name", selected: true },
       { text: "Last name", value: "last_name", selected: true },
       { text: "Age", value: "age", selected: true },
-      { text: "Gender", value: "sex", selected: true },
+      { text: "Sex", value: "sex", selected: true },
       {
         text: "Relation to The Head",
         value: "relation_to_the_head",
@@ -518,7 +820,9 @@ export default {
       { text: "Height(cm)", value: "height" },
       { text: "ID", value: "id" }
     ],
+    selectedInhabitant: [],
     inhabitants: [],
+    dialogEditInhabitant: false,
     dialogBarangayClearance: false,
     barangayClearance: false,
     loading: false,
@@ -526,7 +830,43 @@ export default {
     employed: false,
     isLoading: false,
     editmode: false,
+    menuBirth: false,
+    menuSettled: false,
     search: null,
+    menuIssued: false,
+    inhabitantForm: new Form({
+      id: "",
+      household_id: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      relation_to_the_head: "",
+      employment_category: "",
+      sex: "",
+      estimated_monthly_income_cash: "",
+      date_of_birth: "",
+      estimated_monthly_income_kind: "",
+      Total_family_income: "",
+      civil_status: "",
+      Final_family_income: "",
+      religion: "",
+      status_of_residency: "",
+      schooling: "",
+      no_of_years_in_barangay: "",
+      Highest_educational_attainment: "",
+      date_settled_in_barangay: "",
+      specific_job_description: "",
+      citizenship: "",
+      gen_job_description: "",
+      employment_status: "",
+      ethnicGroup: "",
+      job_category: "",
+      placeOfBirth_native: "",
+      registeredVoterOfTheBrgy: "",
+      childs_parent_guardian: "",
+      weight: "",
+      height: ""
+    }),
     formBarangayClearance: new Form({
       control_no: "",
       ctc_no: "",
@@ -570,22 +910,16 @@ export default {
       });
     },
 
-    createInhabitant() {
-      this.form
-        .post("api/inhabitant")
-        .then(() => {
-          this.dialog = false;
-          this.getInhabitants();
-        })
-        .catch(() => {});
-    },
-
     updateInhabitant() {
-      this.form
-        .put("api/inhabitant/" + this.form.id)
+      this.inhabitantForm
+        .put("api/inhabitant/" + this.inhabitantForm.id)
         .then(() => {
-          this.dialog = false;
+          this.dialogEditInhabitant = false;
           this.getInhabitants();
+          toast.fire({
+            type: "success",
+            title: "Inhabitants has been edited"
+          });
         })
         .catch(() => {});
     },
@@ -602,7 +936,7 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            axios.post("api/inhabitant/archived/" + id).then(response => {
+            axios.post("api/inhabitants/archived/" + id).then(response => {
               swal.fire(
                 "Archived!",
                 "Inhabitant has been archived.",
@@ -615,20 +949,12 @@ export default {
         });
     },
     editDialog(inhabitants) {
-      this.editmode = true;
-      this.form.reset();
-      this.dialog = true;
-      this.form.fill(inhabitants);
+      this.inhabitantForm.reset();
+      this.dialogEditInhabitant = true;
+      this.inhabitantForm.fill(inhabitants);
     },
 
-    newDialog() {
-      this.editmode = false;
-      this.form.household_id = this.selectedHousehold.id;
-      this.dialog = true;
-      this.householdDialog = false;
-    },
-
-    clear(){
+    clear() {
       this.dialogBarangayClearance = false;
       this.formBarangayClearance = [];
       this.barangayClearance = false;
