@@ -60,11 +60,12 @@ Route::get('header', 'PrintDocumentController@location');
 Route::get('form', 'FormController@index')->name('form.index');
 
 // Dashboard
-Route::post('Inhabitants', 'DashboardController@TotalInhabitants');
-Route::post('Households', 'DashboardController@TotalHouseholds');
-Route::post('Puroks', 'DashboardController@TotalPuroks');
-Route::post('Seniors', 'DashboardController@TotalSeniors');
-Route::post('Children', 'DashboardController@TotalChildren');
+Route::get('Inhabitants', 'DashboardController@TotalInhabitants');
+Route::get('Households', 'DashboardController@TotalHouseholds');
+Route::get('Puroks', 'DashboardController@TotalPuroks');
+Route::get('Seniors', 'DashboardController@TotalSeniors');
+Route::get('Children', 'DashboardController@TotalChildren');
+Route::get('HouseholdsPurok', 'DashboardController@TotalHouseholdsPurok');
 
 // Address
 Route::get('address', 'AddressController@index')->name('address.index');

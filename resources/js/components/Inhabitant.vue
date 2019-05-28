@@ -501,6 +501,7 @@
             <v-card-title>
               <span class="headline">Issue barangay clearance</span>
               <v-spacer></v-spacer>
+
               <div class="ml-1" v-if="barangayClearance">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
@@ -553,9 +554,10 @@
                 </v-menu>
               </div>
             </v-card-title>
+
             <v-divider></v-divider>
             <v-card-text>
-              <v-container grid-list-md class="pa-0" v-if="!barangayClearance">
+              <v-container grid-list-md class="pa-0">
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
@@ -570,37 +572,6 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
-                    <v-text-field v-model="formBarangayClearance.ctc_issued_at" label="Issued at"></v-text-field>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
-                    <v-menu
-                      v-model="menuIssued"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      eager
-                      transition="scale-transition"
-                      offset-y
-                      full-width
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="formBarangayClearance.ctc_issued_on"
-                          label="Issued on"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="formBarangayClearance.ctc_issued_on"
-                        no-title
-                        color="primary"
-                        @input="menuIssued = false"
-                      ></v-date-picker>
-                    </v-menu>
-                  </v-flex>
-                  <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="formBarangayClearance.official_receipt_no"
                       label="Official Receipt Number"
@@ -608,23 +579,17 @@
                   </v-flex>
                 </v-layout>
               </v-container>
-              <v-container
-                grid-list-md
-                text-xs-center
-                class="pa-0"
-                v-if="barangayClearance"
-                id="printForm"
-              >
+              <v-divider></v-divider>
+              <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
                 <v-layout row wrap>
-                  <v-flex xs4>
+                  <v-flex xs3>
                     <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
                   </v-flex>
-                  <v-flex xs4 class="green--text title">
+                  <v-flex xs6 class="green--text title">
                     <p class="mb-0">Republic of the Philippines</p>
-                    <p class="mb-0">BARANGAY AMBIONG</p>
-                    <p>Aurora Hill, Baguio</p>
+                    <p class="mb-0">Barangay Camp Allen Baguio City</p>
                   </v-flex>
-                  <v-flex xs4>
+                  <v-flex xs3>
                     <v-img src="/img/profile/profile1.png" alt="Logo" contain height="100"></v-img>
                   </v-flex>
                 </v-layout>
@@ -724,12 +689,7 @@
                 v-if="barangayClearance"
                 @click="barangayClearance = false"
               >back</v-btn>
-              <v-btn
-                color="red darken-1"
-                text
-                v-if="!barangayClearance"
-                @click="clear()"
-              >cancel</v-btn>
+              <v-btn color="red darken-1" text v-if="!barangayClearance" @click="clear()">cancel</v-btn>
               <v-spacer></v-spacer>
               <v-btn
                 color="blue darken-1"
