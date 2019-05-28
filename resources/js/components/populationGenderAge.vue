@@ -41,14 +41,14 @@
                         <th>Total</th>
                         <th>%</th>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr v-for="demographic in demographics" :key="demographic.id">
+                        <td>{{demographic.agegroup}}</td>
+                        <td>{{demographic.male}}</td>
+                        <td>{{demographic.malepercent}}</td>
+                        <td>{{demographic.female}}</td>
+                        <td>{{demographic.femalepercent}}</td>
+                        <td>{{demographic.total}}</td>
+                        <td>{{demographic.totalpercent}}</td>
                     </tr>
                 </thead>
             </table>
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import Print from './Print.vue';
+import Print from './DocumentPrint.vue';
     export default {
         data: () => ({
             Table:'List Of Registered Voters',
@@ -77,8 +77,8 @@ import Print from './Print.vue';
         methods: {
             loadQuery() {
                 this.loading = true;
-                axios.get("api/registeredVoters").then(response => {
-                    this.registeredVoters = response.data;
+                axios.get("api/ageGroup").then(response => {
+                    this.demographics = response.data;
                     this.loading = false;
                 });
             },

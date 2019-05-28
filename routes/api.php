@@ -30,7 +30,7 @@ Route::put('user', 'UserController@update');
 Route::post('barangay/disable/{id}', 'BarangayUserController@disableUser');
 Route::post('barangay/archived/{id}', 'BarangayUserController@archive');
 Route::post('barangay/restore/{id}', 'BarangayUserController@restore');
-Route::post('barangay/reset/{id}', 'BarangayUserController@resetPassword');
+Route::get('barangay/reset/{id}', 'BarangayUserController@resetPassword');
 
 //inhabitants
 Route::post('inhabitant/archived/{id}', 'InhabitantController@archive');
@@ -76,3 +76,6 @@ Route::post('Households', 'AdminDashboardController@TotalHouseholds');
 Route::post('Seniors', 'AdminDashboardController@TotalSeniors');
 Route::post('Children', 'AdminDashboardController@TotalChildren');
 Route::post('Children', 'AdminDashboardController@TotalChildren');
+
+// Kiosk
+Route::get('ageGroup', 'KioskController@AgeGroup');

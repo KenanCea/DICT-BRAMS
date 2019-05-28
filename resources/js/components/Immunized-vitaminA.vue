@@ -59,7 +59,7 @@
 </div>
 </template>
 <script>
-import Print from './Print.vue';
+import Print from './DocumentPrint.vue';
     export default {
         data: () => ({
             Table:'List of Children between 0 to 24 months old - for monthly monitoring',

@@ -61,7 +61,7 @@
 </div>
 </template>
 <script>
-import Print from './Print.vue';
+import Print from './DocumentPrint.vue';
     export default {
         data: () => ({
             Table:'Children With Conflicts in accordance to law',
