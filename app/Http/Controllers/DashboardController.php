@@ -64,4 +64,54 @@ class DashboardController extends Controller
             ->groupBy('households.purok')
             ->get();
     }
+    public function TotalRegisteredVoters()
+    {
+        return DB::table('inhabitants')
+            ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
+            ->select('inhabitants.registeredVoterOfTheBrgy as RegisteredVoter', DB::raw('count(*) as Total'))
+            ->where('users.id', Auth::user()->id)
+            ->whereNull('inhabitants.deleted_at')
+            ->groupby('registeredVoterOfTheBrgy')
+            ->get();
+    }
+    public function TotalDialects()
+    {
+        return DB::table('households')
+            ->leftJoin('users', 'households.user_id', '=', 'users.id')
+            ->select('households.dialects as Dialects', DB::raw('count(*) as Total'))
+            ->where('users.id', Auth::user()->id)
+            ->whereNull('households.deleted_at')
+            ->groupby('dialects')
+            ->get();
+    }
+    public function TotalGender()
+    {
+        return DB::table('inhabitants')
+            ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
+            ->select('inhabitants.sex as Gender', DB::raw('count(*) as Total'))
+            ->where('users.id', Auth::user()->id)
+            ->whereNull('inhabitants.deleted_at')
+            ->groupby('sex')
+            ->get();
+    }
+    public function TotalReligion()
+    {
+        return DB::table('inhabitants')
+            ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
+            ->select('inhabitants.religion as Religion', DB::raw('count(*) as Total'))
+            ->where('users.id', Auth::user()->id)
+            ->whereNull('inhabitants.deleted_at')
+            ->groupby('religion')
+            ->get();
+    }
+    public function TotalEthnicGroups()
+    {
+        return DB::table('inhabitants')
+            ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
+            ->select('inhabitants.ethnicGroup as EthnicGroup', DB::raw('count(*) as Total'))
+            ->where('users.id', Auth::user()->id)
+            ->whereNull('inhabitants.deleted_at')
+            ->groupby('ethnicGroup')
+            ->get();
+    }
 }

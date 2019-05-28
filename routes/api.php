@@ -66,6 +66,11 @@ Route::get('Puroks', 'DashboardController@TotalPuroks');
 Route::get('Seniors', 'DashboardController@TotalSeniors');
 Route::get('Children', 'DashboardController@TotalChildren');
 Route::get('HouseholdsPurok', 'DashboardController@TotalHouseholdsPurok');
+Route::get('RegisteredVoter', 'DashboardController@TotalRegisteredVoters');
+Route::get('Dialects', 'DashboardController@TotalDialects');
+Route::get('Gender', 'DashboardController@TotalGender');
+Route::get('Religion', 'DashboardController@TotalReligion');
+Route::get('EthnicGroup', 'DashboardController@TotalEthnicGroups');
 
 // Address
 Route::get('address', 'AddressController@index')->name('address.index');

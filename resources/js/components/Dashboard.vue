@@ -142,12 +142,12 @@
           <v-card>
             <v-toolbar flat dense>
               <v-toolbar-title>
-                <h4>Male and Female</h4>
+                <h4>Gender Population Summary</h4>
               </v-toolbar-title>
             </v-toolbar>
             <v-divider></v-divider>
             <v-card-text>
-              <ve-pie :data="maleFemale"></ve-pie>
+              <ve-pie :data="gender"></ve-pie>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -202,70 +202,39 @@ export default {
         rows: []
       },
       ethnicGroups: {
-        columns: ["Ethnic Group", "Total"],
-        rows: [
-          {
-            "Ethnic Group": "Maranao",
-            Total: 21
-          },
-          {
-            "Ethnic Group": "Ibaloi",
-            Total: 23
-          },
-          {
-            "Ethnic Group": "Tagalog",
-            Total: 61
-          },
-          {
-            "Ethnic Group": "Ilocano",
-            Total: 43
-          }
-        ]
+        columns: ["EthnicGroup", "Total"],
+        rows: []
       },
-      maleFemale: {
+      gender: {
         columns: ["Gender", "Total"],
-        rows: [{ Gender: "Male", Total: 550 }, { Gender: "Female", Total: 305 }]
+        rows: []
       },
       regVoters: {
-        columns: ["Registered", "Total"],
-        rows: [
-          { Registered: "Yes", Total: 350 },
-          { Registered: "No", Total: 401 }
-        ]
+        columns: ["RegisteredVoter", "Total"],
+        rows: []
       },
       religions: {
-        columns: ["Name", "Total"],
-        rows: [
-          { Name: "Islam", Total: 36 },
-          { Name: "Mormons", Total: 37 },
-          { Name: "Church of Christ", Total: 37 },
-          { Name: "Islam", Total: 30 },
-          { Name: "Iglesia ni Cristo", Total: 36 },
-          { Name: "Roman Catholic", Total: 96 },
-          { Name: "Born Again Christian", Total: 46 }
-        ]
+        columns: ["Religion", "Total"],
+        rows: []
       },
       dialects: {
-        columns: ["Name", "Total"],
-        rows: [
-          { Name: "Visaya", Total: 26 },
-          { Name: "Cebuano", Total: 29 },
-          { Name: "Ifugao", Total: 27 },
-          { Name: "Kapangpangan", Total: 18 },
-          { Name: "English", Total: 58 },
-          { Name: "Tagalog", Total: 66 },
-          { Name: "Ilocano", Total: 44 }
-        ]
+        columns: ["Dialects", "Total"],
+        rows: []
       }
     };
   },
   created() {
     this.getInhabitants();
+    this.getChildren();
+    this.getSeniors();
     this.getHouseholds();
     this.getPuroks();
-    this.getSeniors();
-    this.getChildren();
     this.getHouseholdsPurok();
+    this.getReligion();
+    this.getEthnicGroup();
+    this.getGender();
+    this.getRegisteredVoter();
+    this.getDialects();
   },
   methods: {
     getInhabitants() {
@@ -291,7 +260,33 @@ export default {
       axios
         .get("api/HouseholdsPurok")
         .then(response => (this.totalInhabitantsPurok.rows = response.data));
-    }
+    },
+    getReligion(){
+      axios  
+        .get("api/Religion")
+        .then(response => (this.religions.rows = response.data));
+    },
+    getRegisteredVoter(){
+      axios  
+        .get("api/RegisteredVoter")
+        .then(response => (this.regVoters.rows = response.data));
+    },
+    getDialects(){
+      axios  
+        .get("api/Dialects")
+        .then(response => (this.dialects.rows = response.data));
+    },
+    getGender(){
+      axios  
+        .get("api/Gender")
+        .then(response => (this.gender.rows = response.data));
+    },
+    
+    getEthnicGroup(){
+      axios  
+        .get("api/EthnicGroup")
+        .then(response => (this.ethnicGroups.rows = response.data));
+    },
   }
 };
 </script>
