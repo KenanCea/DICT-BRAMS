@@ -77,3 +77,7 @@ Route::get('address', 'AddressController@index')->name('address.index');
 
 // Kiosk
 Route::get('ageGroup', 'KioskController@AgeGroup');
+Route::get('barangayInfo', 'KioskController@BarangayInfo');
+Route::get('householdsInfo', 'KioskController@HouseholdsInfo');
+Route::get('civilStatus', 'KioskController@CivilStatus');
+Route::get('ethnicGroup', 'KioskController@EthnicGroup');

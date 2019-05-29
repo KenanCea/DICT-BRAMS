@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Inhabitant;
+use App\Household;
 use DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -14,8 +15,24 @@ class KioskController extends Controller
     {
         $this->middleware('auth:api');
     }
-    public function AgeGroup()
-    {
+    public function BarangayInfo(){
+        return DB::table('barangays')
+        ->join('users','users.id','=','barangays.id' )
+        ->select('users.name', 
+        'barangays.province',
+        'barangays.municipality',
+        'barangays.region')
+        ->where('users.id',Auth::user()->id)
+        ->get();
+    }
+    public function HouseholdsInfo(){
+        return HouseHold::selectRaw('Count(id) as "totalhouseholds",
+        count(distinct(purok)) as "totalpurok",
+        (SELECT count(id) FROM inhabitants where user_id=? and deleted_at IS NULL) as "totalinhabitants"',[Auth::user()->id])
+        ->where('user_id',Auth::user()->id)
+        ->get();
+    }
+    public function AgeGroup(){
         $ageroup=array('1-4 years old','5-9 years old','10-14 years olds',
         '15-19 years old','20-24 years old','25-29 years old','30-34 years old',
         '35-39 years old','40-44 years old','45-49 years old','50-54 years old', 
@@ -102,9 +119,74 @@ class KioskController extends Controller
         ->where('users.id', Auth::user()->id);
         $query->union($querytwo);
 
+        $query=$query->get();
+        return $query;
+    }
 
+
+    public function CivilStatus(){
+        //civil status
+        $query = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('civil_status,
+        count(case when sex="male" then 1 end) as male,
+        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as malepercent,
+        count(case when sex="female" then 1 end) as female,
+        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? ))*100) as femalepercent,
+        count(*) as total,
+        ((count(*)/(SELECT COUNT(*) from inhabitants WHERE user_id = ?))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
+        )
+        ->groupBy('civil_status')
+        ->where('users.id', Auth::user()->id);
+        //total
+        $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('"total" as civil_status,
+        count(case when sex="male" then 1 end) as male,
+        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as malepercent,
+        count(case when sex="female" then 1 end) as female,
+        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? ))*100) as femalepercent,
+        count(*) as total,
+        ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
+        )
+        ->where('users.id', Auth::user()->id);
+        $query->union($querytwo);
 
         $query=$query->get();
         return $query;
     }
+
+    public function EthnicGroup(){
+        //ethnic group
+        $query = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('ethnicgroup,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->groupBy('ethnicgroup')
+        ->where('users.id', Auth::user()->id);
+        //non-ethnic
+        $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('"Non-Ethnic" as ethnicgroup,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->where('users.id', Auth::user()->id)
+        ->whereNull('ethnicgroup');
+        $query->union($querytwo);
+        //total
+        $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('"Total" as ethnicgroup,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->where('users.id', Auth::user()->id);
+        $query->union($querytwo);
+
+        $query=$query->get();
+        return $query;
+    }
+
+    
 }

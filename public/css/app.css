@@ -55,6 +55,14 @@ body {
   display: none;
 }
 
+.spacing span {
+  font-weight: normal;
+}
+
+.spacing {
+  font-weight: bold;
+}
+
 .kiosktable {
   font-family: Helvetica, Arial, sans-serif;
   border-collapse: collapse !important;
