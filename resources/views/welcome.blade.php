@@ -44,7 +44,7 @@
 
                 <v-layout row wrap align-center>
                     <v-flex xs6>
-                        <v-img src="/img/issue.png" />
+                        <v-img src="/img/issue11.png" />
                     </v-flex>
                     <v-flex xs6>
                         <h3 style="font-size:32px">Issuing Permits</h3>

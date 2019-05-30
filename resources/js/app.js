@@ -63,16 +63,16 @@ const app = new Vue({
         showPassword: false,
         items: [
             {
-                src: '/img/issue.png'
+                src: '/img/dashboard.png'
             },
             {
-                src: '/img/issue1.png'
+                src: '/img/form.png'
             },
             {
-                src: '/img/issue.png'
+                src: '/img/household.png'
             },
             {
-                src: '/img/issue.png'
+                src: '/img/inhabitant.png'
             }
         ],
         users: [
