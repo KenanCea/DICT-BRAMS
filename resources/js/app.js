@@ -61,13 +61,27 @@ const app = new Vue({
     data: () => ({
         drawer: null,
         showPassword: false,
+        items: [
+            {
+                src: '/img/issue.png'
+            },
+            {
+                src: '/img/issue1.png'
+            },
+            {
+                src: '/img/issue.png'
+            },
+            {
+                src: '/img/issue.png'
+            }
+        ],
         users: [
             {
                 icon: "mdi-view-dashboard",
                 title: "Dashboard",
                 name: "Dashboard",
                 to: "/dashboard",
-                meta: { requiuresAuth:true}
+                meta: { requiuresAuth: true }
             },
             {
                 icon: "mdi-file-account",

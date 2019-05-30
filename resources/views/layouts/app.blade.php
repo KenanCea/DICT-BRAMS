@@ -142,7 +142,7 @@
                 </v-card>
             </v-menu>
         </v-app-bar>
-        <v-content>
+        <v-content style="background-color:white;">
             <router-view></router-view>
         </v-content>
     </v-app>
