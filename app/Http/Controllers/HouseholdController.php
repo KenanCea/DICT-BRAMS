@@ -41,6 +41,9 @@ class HouseholdController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'house_no' => 'required',
+        ]);
         $household = $request->user()->households()->create($request->all());
         return new $household;
     }
@@ -95,4 +98,5 @@ class HouseholdController extends Controller
             ->where('users.id', Auth::user()->id)
             ->get();
     }
+
 }

@@ -2,9 +2,9 @@
   border-bottom: rgba(19, 17, 17, 0.12) 1px solid !important;
 }
 
-// #app > div.application--wrap > aside > div.v-navigation-drawer__border {
-//   width: 0px !important;
-// }
+#app > div.application--wrap > aside > div.v-navigation-drawer__border {
+  width: 0px !important;
+}
 
 #navbar > div > div.flex.xs12.sm6.md2 > div > div > div {
   min-height: 34px;

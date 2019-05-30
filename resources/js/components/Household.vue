@@ -44,7 +44,7 @@
       <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="archive(selected[0].id)">
+            <v-btn v-on="on" icon @click="archiveHousehold(selected[0].id)">
               <v-icon>mdi-archive</v-icon>
             </v-btn>
           </template>
@@ -181,7 +181,12 @@
     </v-app-bar>
 
     <v-dialog v-model="dialogHousehold" persistent scrollable max-width="800px">
-      <v-form @submit.prevent="editmode ? updateHousehold() : createHousehold()">
+      <v-form
+        ref="formHouseholds"
+        v-model="valid"
+        lazy-validation
+        @submit.prevent="editmode ? updateHousehold() : createHousehold()"
+      >
         <v-card>
           <v-card-title>
             <span class="headline" v-show="!editmode">Add household</span>
@@ -196,6 +201,7 @@
                     v-model="householdForm.solo_parent"
                     :items="['no','Death of spouse','Imprisonment of spouse of at least 1 year','Mental/physical incapacity of spouse','Legal or de facto separation from spouse for at least 1 year','Abandonment of spouse for at least 1 year','Unmarried mother/father who preferred to keep the child instead of others carrying him/her','Any other person who solely provides parental care and support to a child provided he/she is duly licensed foster parent of DSWD','Any family member who assumes the responsibility as head of the family as a result of death, abandonment, absence for at least one year','others']"
                     label="Solo Parent"
+                    :rules="[v => !!v || 'House Number is required']"
                     required
                   ></v-select>
                 </v-flex>
@@ -222,7 +228,9 @@
                         label="Date of Survey"
                         prepend-icon="mdi-calendar"
                         readonly
+                        required
                         v-on="on"
+                        :rules="[v => !!v || 'Date of Survey is required']"
                       ></v-text-field>
                     </template>
                     <v-date-picker
@@ -234,32 +242,63 @@
                   </v-menu>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="householdForm.house_no" mask="####" label="House Number"></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.house_no"
+                    mask="####"
+                    label="House Number"
+                    :rules="[v => !!v || 'House Number is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="householdForm.email_address" label="Email Address"></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.email_address"
+                    label="Email Address"
+                    :rules="[v => !!v || 'E-mail is required', v => /.+@.+\..+/.test(v) || 'E-mail must be valid']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="householdForm.purok" mask="###" label="Purok"></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.purok"
+                    mask="###"
+                    label="Purok"
+                    :rules="[v => !!v || 'Purok is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="householdForm.placeOfOrigin" label="Place of Origin"></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.placeOfOrigin"
+                    label="Place of Origin"
+                    :rules="[v => !!v || 'Place of Origin is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="householdForm.mobile_no"
                     mask="###########"
                     label="Mobile Number"
+                    :rules="[v => !!v || 'Mobile Number is required']"
+                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="householdForm.street" label="Street"></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.street"
+                    label="Street"
+                    :rules="[v => !!v || 'Street is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-select
                     v-model="householdForm.ethnic_group"
                     :items="['Bicol','Bisaya','Boholano','Capizeno','Cuyunon','Ibaloi','Ilonggo','Ifugao','Ilocano','Ivatan','Kalinga','Kankanaey','Kapangpangan','Maguindanao','Maranao','Masbateno','Pangasinan','Surigaoan','Tagalog','Tausog','Waray','Yakan','Zamboagueno/Chavacano','N/A']"
                     label="Ethnic Group"
+                    :rules="[v => !!v || 'Ethnic Group is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -267,13 +306,17 @@
                     v-model="householdForm.dialects"
                     :items="['Bicolano','Bontoc','Cebuano','English','Ibaloi','Ibanag','Ifugao','Ilocano','Itneg','Kalinga','Kankana-ey','Pampangan','Pangasinan','Tagalog','Waray-waray','Panggalatok','Visaya','Kapangpangan']"
                     label="Dialects"
+                    :rules="[v => !!v || 'Dialects is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="householdForm.telephone_no"
                     mask="###########"
-                    label="Telephone No."
+                    label="Telephone Number."
+                    :rules="[v => !!v || 'Telephone Number is required']"
+                    required
                   ></v-text-field>
                 </v-flex>
 
@@ -282,6 +325,8 @@
                     v-model="householdForm.status_of_ownership_house"
                     :items="['Owned','Rented','Caretaker','Others']"
                     label="Status of Ownership-House"
+                    :rules="[v => !!v || 'Status of Ownership-House is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -296,6 +341,8 @@
                     v-model="householdForm.status_of_ownership_lot"
                     :items="['Owned','Rented','Caretaker','Others']"
                     label="Status of Ownership-Lot"
+                    :rules="[v => !!v || 'Status of Ownership-Lot is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -310,6 +357,8 @@
                     v-model="householdForm.type_of_dwelling_structure"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
                     label="Type of Dwelling Structure"
+                    :rules="[v => !!v || 'Type of Dwelling Structure is required']"
+                    required
                   ></v-select>
                 </v-flex>
 
@@ -317,7 +366,9 @@
                   <v-select
                     v-model="householdForm.type_of_dwelling"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
-                    label="Type of Dwelling "
+                    label="Type of Dwelling"
+                    :rules="[v => !!v || 'Type of Dwelling is required']"
+                    required
                   ></v-select>
                 </v-flex>
 
@@ -326,6 +377,8 @@
                     v-model="householdForm.lighting_source"
                     :items="['Electricity','Solar','Petromax','Kerosene']"
                     label="Lighting Source"
+                    :rules="[v => !!v || 'Lighting Source is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -333,6 +386,8 @@
                     v-model="householdForm.sources_of_info"
                     :items="['Television','Radio','Newspaper','Others']"
                     label="Sources of Info"
+                    :rules="[v => !!v || 'Sources of Info is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -347,6 +402,8 @@
                     v-model="householdForm.communication_services"
                     :items="['Cell sites/Net','Internet','Telephone','Postal services','others']"
                     label="Communication Services"
+                    :rules="[v => !!v || 'Communication Services is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -361,6 +418,8 @@
                     v-model="householdForm.means_of_transportation"
                     :items="['PU jeep',' Taxi','Tricycle','PU bus','Private car','others']"
                     label="Means of Transportation"
+                    :rules="[v => !!v || 'Means of Transportation is required']"
+                    required
                   ></v-select>
                 </v-flex>
 
@@ -376,8 +435,8 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogHousehold=false">Cancel</v-btn>
-            <v-btn color="blue darken-1" text type="submit">Save</v-btn>
+            <v-btn color="blue darken-1" text @click="dialogHousehold = false">Cancel</v-btn>
+            <v-btn color="blue darken-1" text :disabled="!valid" type="submit">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -695,7 +754,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogCreateInhabitant=false">Cancel</v-btn>
+            <v-btn color="blue darken-1" text @click="dialogInhabitants = false">Cancel</v-btn>
             <v-btn color="blue darken-1" text type="submit">Save</v-btn>
           </v-card-actions>
         </v-card>
@@ -721,7 +780,7 @@
           <div v-if="selectedInhabitant.length" class="ml-1">
             <v-tooltip bottom>
               <template v-slot:activator="{ on }">
-                <v-btn v-on="on" icon  @click="editInhabitantDialog(selectedInhabitant[0])">
+                <v-btn v-on="on" icon @click="editInhabitantDialog(selectedInhabitant[0])">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
               </template>
@@ -872,6 +931,7 @@ export default {
       selectedInhabitant: [],
       calendarSurvey: false,
       search: "",
+      valid: true,
       vaccine: false,
       employed: false,
       menuBirth: false,
@@ -1099,6 +1159,7 @@ export default {
       swal
         .fire({
           title: "Are you sure?",
+          text: "This inhabitant will be archived!",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -1108,18 +1169,17 @@ export default {
         .then(result => {
           if (result.value) {
             axios.post("api/inhabitants/archived/" + id).then(response => {
-              swal.fire(
-                "Archived!",
-                "Inhabitant has been archived.",
-                "success"
-              );
+              toast.fire({
+                type: "success",
+                title: "Inhabitant has been archived."
+              });
               this.getHouseholds();
               this.selectedInhabitant.splice([0]);
             });
           }
         });
     },
-    archive(id) {
+    archiveHousehold(id) {
       swal
         .fire({
           title: "Are you sure?",
@@ -1133,7 +1193,10 @@ export default {
         .then(result => {
           if (result.value) {
             axios.post("api/households/archived/" + id).then(response => {
-              swal.fire("Archived!", "Household has been archived.", "success");
+              toast.fire({
+                type: "success",
+                title: "Household has been archived."
+              });
               this.getHouseholds();
               this.selected.splice([0]);
             });
@@ -1158,6 +1221,7 @@ export default {
       this.householdForm.reset();
       this.dialogHousehold = true;
     },
+
     editHouseholdDialog(households) {
       this.editmode = true;
       this.householdForm.reset();
