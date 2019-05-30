@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use DB;
 
+use Mail;
+
 class BarangayUserController extends Controller
 {
     /**
@@ -28,8 +30,17 @@ class BarangayUserController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $request->user()->create($request->all());
-        return new $user;
+        $users = new User();
+        $users->name=request('name');
+        $users->email=request('email');
+        $users->password=bcrypt("password");
+        $users->roles=request('roles');
+        $users->logo='profile.png';
+        $users->email_verified_at=now();
+        $users->remember_token=str_random(10);
+        $users->created_at=now();
+        $users->updated_at=now();
+        $users->save();
     }
 
     /**
@@ -87,7 +98,8 @@ class BarangayUserController extends Controller
     public function resetPassword($id)
     {
         $account = User::findOrFail($id);
-        $account->password = bcrypt('password');
+        $account->password = bcrypt("password");
         $account -> save();
+
     }
 }

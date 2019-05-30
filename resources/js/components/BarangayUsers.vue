@@ -116,19 +116,16 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex>
-                  <v-text-field v-model="form.name" label="Name"></v-text-field>
+                  <v-text-field v-model="form.name" label="name"></v-text-field>
                 </v-flex>
                 <v-flex>
-                  <v-text-field v-model="form.email" label="Email"></v-text-field>
-                </v-flex>
-                <v-flex>
-                  <v-text-field v-model="form.password" label="Password"></v-text-field>
+                  <v-text-field v-model="form.email" label="email"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-select
                     v-model="form.roles"
                     :items="['user','admin']"
-                    label="Role"
+                    label="role"
                   ></v-select>
                 </v-flex>
              </v-layout>

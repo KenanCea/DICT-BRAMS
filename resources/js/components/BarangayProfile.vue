@@ -18,7 +18,6 @@
                 <v-flex xs4>
                   <div>
                     <v-btn small color="primary">Print</v-btn>
-                    <v-btn small color="primary">Edit</v-btn>
                   </div>
                 </v-flex> 
               </v-layout>
@@ -26,26 +25,170 @@
                 <v-flex xs6>
                   <div>I. General Information</div>
                   <div class="ml-3">A. Creation</div>
-                  <div class="ml-4">Legal Basis:</div>
-                  <div class="ml-4">Date Legal Basis:</div>
-                  <div class="ml-4">Date Ratification/Plebiscite:</div>
-                  <div class="ml-4">Mother Barangay/s</div>
-                  <div class="ml-4">Old Name, if named:</div>
-                  <div class="ml-3">B. Type of Barangay</div>
+                  <div class="ml-4">
+                    <v-form 
+                      ref="form"
+                      v-model="valid"
+                      lazy-validation>
+
+                      <v-text-field
+                        v-model="legal_basis"
+                        label="Legal Basis"
+                      ></v-text-field>
+
+                      <v-menu
+                        ref="date_legal"
+                        v-model="date_legal"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        :return-value.sync="date"
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        min-width="290px"
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-text-field
+                            v-model="date"
+                            label="Date Legal Basis"
+                            readonly
+                            v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="date" no-title scrollable>
+                          <v-spacer></v-spacer>
+                          <v-btn text color="primary" @click="date_legal = false">Cancel</v-btn>
+                          <v-btn text color="primary" @click="$refs.date_legal.save(date)">OK</v-btn>
+                        </v-date-picker>
+                      </v-menu>
+
+                      <v-menu
+                        ref="date_ratification"
+                        v-model="date_ratification"
+                        :close-on-content-click="false"
+                        :nudge-right="40"
+                        :return-value.sync="date"
+                        transition="scale-transition"
+                        offset-y
+                        full-width
+                        min-width="290px"
+                      >
+                        <template v-slot:activator="{ on }">
+                          <v-text-field
+                            v-model="date"
+                            label="Date Ratification/Plebiscite"
+                            readonly
+                            v-on="on"
+                          ></v-text-field>
+                        </template>
+                        <v-date-picker v-model="date" no-title scrollable>
+                          <v-spacer></v-spacer>
+                          <v-btn text color="primary" @click="date_ratification = false">Cancel</v-btn>
+                          <v-btn text color="primary" @click="$refs.date_ratification.save(date)">OK</v-btn>
+                        </v-date-picker>
+                      </v-menu>
+
+                      <v-text-field
+                        v-model="mother_barangay"
+                        label="Mother Barangay/s"
+                      ></v-text-field>
+
+                      <v-text-field
+                        v-model="old_name"
+                        label="Old Name, if named"
+                      ></v-text-field>
+                    </v-form>
+                  </div>
+                  <div class="ml-3">
+                    <v-form
+                      ref="form"
+                      v-model="valid"
+                      lazy-validation>
+
+                      <v-select
+                        v-model="select"
+                        :items="type_barangay"
+                        :rules="[v => !!v || 'Item is required']"
+                        label="B. Type of Barangay"
+                        required
+                      ></v-select>
+
+                    </v-form>
+                  </div>
                   <div class="ml-4">Boundaries</div>
-                  <div class="ml-5">North:</div>
-                  <div class="ml-5">East:</div>
-                  <div class="ml-5">West:</div>
-                  <div class="ml-5">South:</div>
+                  <div class="ml-5">
+                    <v-form
+                      ref="form"
+                      v-model="valid"
+                      lazy-validation>
+
+                      <v-text-field
+                        v-model="north"
+                        label="North"
+                      ></v-text-field>
+
+                      <v-text-field
+                        v-model="east"
+                        label="East"
+                      ></v-text-field>
+
+                      <v-text-field
+                        v-model="west"
+                        label="West"
+                      ></v-text-field>
+
+                      <v-text-field
+                        v-model="south"
+                        label="South"
+                      ></v-text-field>
+
+                    </v-form>
+                  </div>
                 </v-flex>
                 <v-flex xs6>
                   <div>C. Total Land Area</div>
-                  <div class="mx-3">Total Land Area (sq. km.):</div>
-                  <div class="mx-3">Total Land Area (hec.):</div>
+                  <div class="mx-3">
+                    <v-form
+                      ref="form"
+                      v-model="valid"
+                      lazy-validation>
+
+                      <v-text-field
+                        v-model="total_square"
+                        label="Total Land Area (sq. km.)"
+                      ></v-text-field>
+
+                      <v-text-field
+                        v-model="total_hectare"
+                        label="Total Land Area (hec.)"
+                      ></v-text-field>
+
+                    </v-form>
+                  </div>
                   <div>D. Distance from:</div>
-                  <div class="mx-3">City/Municipal Hall:</div>
-                  <div class="mx-3">Provincial Capitol:</div>
-                  <div class="mx-3">National Highway:</div>
+                  <div class="mx-3">
+                    <v-form
+                      ref="form"
+                      v-model="valid"
+                      lazy-validation>
+
+                      <v-text-field
+                        v-model="city"
+                        label="City/Municipal Hall"
+                      ></v-text-field>
+
+                      <v-text-field
+                        v-model="capitol"
+                        label="Provincial Capitol"
+                      ></v-text-field>
+
+                      <v-text-field
+                        v-model="highway"
+                        label="National Highway"
+                      ></v-text-field>
+
+                    </v-form>
+                  </div><br/>
                   <div>E. Land Form</div>
                   <div> 
                     <v-data-table 
@@ -265,7 +408,7 @@
                               <v-container grid-list-md>
                                 <v-layout wrap>
                                   <v-flex md12>
-                                    <v-text-field v-model="editedItem4.number" label="Number"></v-text-field>
+                                    <v-text-field v-model="editedItem4.number2" label="Number"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                               </v-container>
@@ -316,7 +459,7 @@
                               <v-container grid-list-md>
                                 <v-layout wrap>
                                   <v-flex md12>
-                                    <v-text-field v-model="editedItem5.number" label="Number"></v-text-field>
+                                    <v-text-field v-model="editedItem5.number3" label="Number"></v-text-field>
                                   </v-flex>
                                 </v-layout>
                               </v-container>
@@ -364,34 +507,128 @@
                   <div class="ml-3">For Table 1: Bridge by Administrative level (in meters):</div>
                   <div class="ml-5">
                     <v-data-table 
-                    :headers="bridgeheaders" 
-                    :items="meters" 
-                    hide-default-footer>
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.type }}</td>
-                          <td>{{ props.item.national }}</td>
-                          <td>{{ props.item.provincial }}</td>
-                          <td>{{ props.item.city }}</td>
-                          <td>{{ props.item.barangay }}</td>
-                          <td>{{ props.item.total }}</td>
-                          <td>{{ props.item.operational }}</td>
+                      :headers="bridgemeters" 
+                      :items="meters" 
+                      hide-default-footer>
+
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog6" max-width="300px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem6.national" label="National"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem6.provincial" label="Provincial"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem6.city" label="City/Municipality"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem6.barangay" label="Barangay"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem6.total" label="Barangay"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem6.operational" label="Barangay"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close6">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save6">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem6(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div><br/>
                   <div ml-3>Bridge by Administrative level (in kilometers)</div>
                   <div class="ml-5">
                     <v-data-table 
-                    :headers="bridgeheaders" 
-                    :items="kilometers" 
-                    hide-default-footer>
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.type }}</td>
-                          <td>{{ props.item.national }}</td>
-                          <td>{{ props.item.provincial }}</td>
-                          <td>{{ props.item.city }}</td>
-                          <td>{{ props.item.barangay }}</td>
-                          <td>{{ props.item.total }}</td>
-                          <td>{{ props.item.operational }}</td>
+                      :headers="bridgekilometers" 
+                      :items="kilometers" 
+                      hide-default-footer>
+
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog7" max-width="300px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem7.national2" label="National"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem7.provincial2" label="Provincial"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem7.city2" label="City/Municipality"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem7.barangay2" label="Barangay"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem7.total2" label="Barangay"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem7.operational2" label="Barangay"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close7">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save7">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem7(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -411,9 +648,57 @@
                   <div class="ml-3">For Table 2: Communications Services:</div>
                   <div class="ml-5">
                     <v-data-table 
-                    :headers="communicationheaders" 
-                    :items="services" 
-                    hide-default-footer>
+                      :headers="communicationheaders" 
+                      :items="services" 
+                      hide-default-footer>
+
+                      <template v-slot:top>
+                        <v-dialog v-model="dialog8" max-width="300px">
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline">Edit Row</span>
+                            </v-card-title>
+                      
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem8.provider" label="Provider"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem8.company" label="Company"></v-text-field>
+                                  </v-flex>
+                                  <v-flex md12>
+                                    <v-text-field v-model="editedItem8.household" label="Household"></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+                      
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="close8">Cancel</v-btn>
+                              <v-btn color="blue darken-1" text @click="save8">Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-dialog>
+                      </template>
+
+                      <template v-slot:item.action="{ item }">
+                        <v-tooltip bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn text icon @click="editItem8(item)" v-on="on">
+                              <v-icon>mdi-pencil</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Edit</span>
+                        </v-tooltip>
+                      </template>
+
+                      <template #no-data>
+                        <v-btn color="primary" @click="initialize">Reset</v-btn>
+                      </template>
+
                       <template slot="items" slot-scope="props">
                           <td>{{ props.item.type }}</td>
                           <td>{{ props.item.provider }}</td>
@@ -442,6 +727,28 @@
       dialog6: false,
       dialog7: false,
       dialog8: false,
+      valid: true,
+      legal_basis: '',    
+      date: new Date().toISOString().substr(0, 10),
+      date_legal: false,
+      date_ratification: false,
+      mother_barangay: '',
+      old_name: '',
+      north: '',
+      east: '',
+      west: '',
+      south: '',
+      total_square: '',
+      total_hectare: '',
+      city: '',
+      capitol: '',
+      highway: '',
+      select: null,
+      type_barangay: [
+        'Rural',
+        'Urban',
+        'Tribal'
+      ],
       headers: [
         {
           text: 'Type',
@@ -546,7 +853,7 @@
         },
         { 
           text: 'Number', 
-          value: 'number',
+          value: 'number2',
           align: 'center',
           sortable: false,
           width: "1%" 
@@ -570,7 +877,7 @@
         },
         { 
           text: 'Number', 
-          value: 'number',
+          value: 'number3',
           align: 'center',
           sortable: false,
           width: "1%" 
@@ -584,7 +891,7 @@
         }
       ],
       sports: [],
-      bridgeheaders: [
+      bridgemeters: [
         {
           text: 'Type',
           value: 'type',
@@ -643,6 +950,64 @@
         }
       ],
       meters: [],
+      bridgekilometers: [
+        {
+          text: 'Type',
+          value: 'type2',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'National', 
+          value: 'national2',
+          align: 'center',
+          sortable: false,
+          width: "1%" 
+        },
+        {
+          text: 'Provincial', 
+          value: 'provincial2',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'City/Municipality', 
+          value: 'city2',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'Barangay', 
+          value: 'barangay2',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'Total', 
+          value: 'total2',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        {
+          text: 'Operational', 
+          value: 'operational2',
+          align: 'center',
+          sortable: false,
+          width: "1%"
+        },
+        { 
+          text: 'Actions', 
+          value: 'action',
+          align: 'center', 
+          sortable: false,
+          width: "1%" 
+        }
+      ],
       kilometers: [],
       communicationheaders: [
         {
@@ -691,10 +1056,31 @@
         patient: 0
       },
       editedItem4: {
-        number: 0
+        number2: 0
       },
       editedItem5: {
-        number: 0
+        number3: 0
+      },
+      editedItem6: {
+        national: 0,
+        provincial: 0,
+        city: 0,
+        barangay: 0,
+        total: 0,
+        operational: 0
+      },
+      editedItem7: {
+        national2: 0,
+        provincial2: 0,
+        city2: 0,
+        barangay2: 0,
+        total2: 0,
+        operational2: 0
+      },
+      editedItem8: {
+        provider: '',
+        company: '',
+        household: ''
       },
       defaultItem: {
         percent: '',
@@ -712,11 +1098,32 @@
         patient: 0
       },
       defaultItem4: {
-        number: 0
+        number2: 0
       },
       defaultItem5: {
-        number: 0
-      }
+        number3: 0
+      },
+      defaultItem6: {
+        national: 0,
+        provincial: 0,
+        city: 0,
+        barangay: 0,
+        total: 0,
+        operational: 0
+      },
+      defaultItem7: {
+        national2: 0,
+        provincial2: 0,
+        city2: 0,
+        barangay2: 0,
+        total2: 0,
+        operational2: 0
+      },
+      defaultItem8: {
+        provider: '',
+        company: '',
+        household: ''
+      },
     }),
 
     created () {
@@ -724,6 +1131,19 @@
     },
 
     methods: {
+      formatDate (date) {
+        if (!date) return null
+
+        const [year, month, day] = date.split('-')
+        return `${month}/${day}/${year}`
+      },
+      parseDate (date) {
+        if (!date) return null
+
+        const [month, day, year] = date.split('/')
+        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      },
+
       initialize () {
         this.land = [
           {
@@ -813,53 +1233,53 @@
         this.buildings = [
           {
             type: 'Pre-School Day Care Building',
-            number: ''
+            number2: ''
           },
           {
             type: 'Primary/Elementary Building',
-            number: ''
+            number2: ''
           },
           {
             type: 'Secondary/High School Building',
-            number: ''
+            number2: ''
           },
           {
             type: 'Vocational/Technical Building',
-            number: ''
+            number2: ''
           },
           {
             type: 'College/University Building',
-            number: ''
+            number2: ''
           },
           {
             type: 'Post Graduate Building',
-            number: ''
+            number2: ''
           }
         ],
         this.sports = [
           {
             type: 'Covered Court',
-            number: ''
+            number3: ''
           },
           {
             type: 'Gymnasium',
-            number: ''
+            number3: ''
           },
           {
             type: 'Park/Plaza',
-            number: ''
+            number3: ''
           },
           {
             type: 'Specify Other Sports Facilities',
-            number: ''
+            number3: ''
           },
           {
             type: 'Specify Sports/Recreational Facilities',
-            number: ''
+            number3: ''
           },
           {
             type: 'Total Facilities',
-            number: ''
+            number3: ''
           }
         ],
         this.meters = [
@@ -902,49 +1322,49 @@
         ],
         this.kilometers = [
           {
-            type: 'Concrete',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
+            type2: 'Concrete',
+            national2: '',
+            provincial2: '',
+            city2: '',
+            barangay2: '',
+            total2: '',
+            operational2: ''
           },
           {
-            type: 'Asphalt',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
+            type2: 'Asphalt',
+            national2: '',
+            provincial2: '',
+            city2: '',
+            barangay2: '',
+            total2: '',
+            operational2: ''
           },
           {
-            type: 'Gravel',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
+            type2: 'Gravel',
+            national2: '',
+            provincial2: '',
+            city2: '',
+            barangay2: '',
+            total2: '',
+            operational2: ''
           },
           {
-            type: 'Earthfill',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
+            type2: 'Earthfill',
+            national2: '',
+            provincial2: '',
+            city2: '',
+            barangay2: '',
+            total2: '',
+            operational2: ''
           },
           {
-            type: 'TOTAL',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
+            type2: 'TOTAL',
+            national2: '',
+            provincial2: '',
+            city2: '',
+            barangay2: '',
+            total2: '',
+            operational2: ''
           }
         ],
         this.services = [
@@ -1009,6 +1429,24 @@
         this.editedIndex = this.sports.indexOf(item)
         this.editedItem5 = Object.assign({}, item)
         this.dialog5 = true
+      },   
+
+      editItem6 (item) {
+        this.editedIndex = this.meters.indexOf(item)
+        this.editedItem6 = Object.assign({}, item)
+        this.dialog6 = true
+      },   
+
+      editItem7 (item) {
+        this.editedIndex = this.kilometers.indexOf(item)
+        this.editedItem7 = Object.assign({}, item)
+        this.dialog7 = true
+      },
+
+      editItem8 (item) {
+        this.editedIndex = this.services.indexOf(item)
+        this.editedItem8 = Object.assign({}, item)
+        this.dialog8 = true
       },      
 
       close () {
@@ -1049,6 +1487,30 @@
           this.editedItem5 = Object.assign({}, this.defaultItem5)
           this.editedIndex = -1
         }, 300)
+      },   
+
+      close6 () {
+        this.dialog6 = false
+        setTimeout(() => {
+          this.editedItem6 = Object.assign({}, this.defaultItem6)
+          this.editedIndex = -1
+        }, 300)
+      },  
+
+      close7 () {
+        this.dialog7 = false
+        setTimeout(() => {
+          this.editedItem7 = Object.assign({}, this.defaultItem7)
+          this.editedIndex = -1
+        }, 300)
+      },
+
+      close8 () {
+        this.dialog8 = false
+        setTimeout(() => {
+          this.editedItem8 = Object.assign({}, this.defaultItem8)
+          this.editedIndex = -1
+        }, 300)
       },      
 
       save () {
@@ -1080,7 +1542,7 @@
 
       save4 () {
         if (this.editedIndex > -1) {
-          Object.assign(this.facilities[this.editedIndex], this.editedItem4)
+          Object.assign(this.buildings[this.editedIndex], this.editedItem4)
         } else {
           this.buildings.push(this.editedItem4)
         }
@@ -1089,11 +1551,38 @@
 
       save5 () {
         if (this.editedIndex > -1) {
-          Object.assign(this.facilities[this.editedIndex], this.editedItem5)
+          Object.assign(this.sports[this.editedIndex], this.editedItem5)
         } else {
           this.sports.push(this.editedItem5)
         }
         this.close5()
+      },
+
+      save6 () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.meters[this.editedIndex], this.editedItem6)
+        } else {
+          this.meters.push(this.editedItem6)
+        }
+        this.close6()
+      },
+
+      save7 () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.kilometers[this.editedIndex], this.editedItem7)
+        } else {
+          this.kilometers.push(this.editedItem7)
+        }
+        this.close7()
+      },
+
+      save8 () {
+        if (this.editedIndex > -1) {
+          Object.assign(this.services[this.editedIndex], this.editedItem8)
+        } else {
+          this.services.push(this.editedItem8)
+        }
+        this.close8()
       }
     }
   }

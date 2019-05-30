@@ -58,7 +58,7 @@
     </v-app>
 </template>
 <script>
-import Print from './Print.vue';
+import Print from './DocumentPrint.vue';
     export default {
         data: () => ({
             Table:'List Of Prospective Sanguniang Kabataan Voters',

@@ -58,3 +58,31 @@ body {
 #printHeader {
   display: none;
 }
+
+.spacing span {
+  font-weight: normal;
+}
+
+.spacing {
+  font-weight: bold;
+}
+
+.kiosktable {
+  font-family: Helvetica, Arial, sans-serif;
+  border-collapse: collapse !important;
+  padding: 0;
+  margin: 0;
+  width: 720px;
+}
+.kiosktable td, .kiosktable th {
+  border: 1px solid black;
+  height: 30px;
+  font-size: 17px;
+}
+.kiosktable th {
+  font-weight: bold;
+  text-align: center;
+}
+.kiosktable td {
+  text-align: center;
+}

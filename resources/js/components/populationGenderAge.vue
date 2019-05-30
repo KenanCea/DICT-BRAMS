@@ -1,26 +1,31 @@
 <template>
   <div>
     <v-app-bar id="navbar" dense flat app>
-      <v-toolbar-title>
-        <span class="hidden-sm-and-down">Barangay Population Gender Age</span>
-      </v-toolbar-title>
+        <v-toolbar-title>
+            <span class="hidden-sm-and-down">{{Table}}</span>
+        </v-toolbar-title>
+    <v-spacer></v-spacer>
+
+    <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
     </v-app-bar>
-    <v-container grid-list-md text-xs-center id="printForm">
+    <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
-        <v-flex text-xs-left class="pl-3">
+        <v-flex text-xs-left class="pl-3" id="printKiosk">
           <p class="mb-4">I. IDENTIFYING DATA</p>
-          <p>
-              Region:<br>
-              Province:<br>
-              City:<br>
-              Barangay:<br>
-          </p>
-          <p class="mb-4">
-              Total Number Of Puroks:<br>
-              Total Household:<br>
-              Ave. Size Per Household:<br>
-              Barangay Population:<br>
-          </p>
+          <div class='spacing'>
+            <p>
+                <span>Region  :  </span>{{barangayInfo.municipality}}<br>
+                <span>Province  :  </span>{{barangayInfo.province}}<br>
+                <span>City :  </span>{{barangayInfo.municipality}}<br>
+                <span>Barangay  :  </span>{{barangayInfo.name}}<br>
+            </p>
+            <p class="mb-4">
+                <span>Total Number Of Puroks  :  </span>{{householdInfo.totalpurok}}<br>
+                <span>Total Household  :  </span>{{householdInfo.totalhouseholds}}<br>
+                <span>Ave. Size Per Household  :  </span><br>
+                <span>Barangay Population  :  </span>{{householdInfo.totalinhabitants}}<br>
+            </p>
+          </div>
           <p class="mb-0">
               I. DEMOGRAPHICS
           </p>
@@ -41,14 +46,14 @@
                         <th>Total</th>
                         <th>%</th>
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                    <tr v-for="demographic in demographics" :key="demographic.id">
+                        <td>{{demographic.agegroup}}</td>
+                        <td>{{demographic.male}}</td>
+                        <td>{{demographic.malepercent}}</td>
+                        <td>{{demographic.female}}</td>
+                        <td>{{demographic.femalepercent}}</td>
+                        <td>{{demographic.total}}</td>
+                        <td>{{demographic.totalpercent}}</td>
                     </tr>
                 </thead>
             </table>
@@ -59,17 +64,21 @@
 </template>
 
 <script>
-import Print from './Print.vue';
+import Print from './KioskPrint.vue';
     export default {
         data: () => ({
-            Table:'List Of Registered Voters',
-            Orientation:'landscape',
+            Table:'Barangay Population Gender Age',
+            Orientation:'portrait',
             search:'',
             loading: false,
-            demographics: []
+            demographics: [],
+            barangayInfo: [],
+            householdInfo: []
         }),
-       created() {
+       mounted() {
             this.loadQuery();
+            this.loadInfo();
+            this.loadHousehold();
         },
         components:{
             'app-print': Print
@@ -77,9 +86,19 @@ import Print from './Print.vue';
         methods: {
             loadQuery() {
                 this.loading = true;
-                axios.get("api/registeredVoters").then(response => {
-                    this.registeredVoters = response.data;
+                axios.get("api/ageGroup").then(response => {
+                    this.demographics = response.data;
                     this.loading = false;
+                });
+            },
+            loadInfo(){
+            axios.get('api/barangayInfo').then(response => {
+                    this.barangayInfo = response.data[0] ;
+                });
+            },
+            loadHousehold(){
+            axios.get('api/householdsInfo').then(response => {
+                    this.householdInfo = response.data[0] ;
                 });
             },
             showColumn(col) {

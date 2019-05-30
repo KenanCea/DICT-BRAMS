@@ -6,8 +6,47 @@
             <h2> {{ reportshHeader.name }} - {{reportshHeader.province}} </h2>
             <h3> {{ TableTitle }}</h3></header>
 
-      
         <v-tooltip bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="print()">
+              <v-icon>mdi-printer</v-icon>
+            </v-btn>
+          </template>
+          <span>Print</span>
+        </v-tooltip>
+        <v-menu :close-on-content-click="false" offset-y max-height="400">
+          <template #activator="{ on: menu }">
+            <v-tooltip bottom>
+              <template #activator="{ on: tooltip }">
+                <v-btn icon v-on="{ ...tooltip, ...menu }">
+                  <v-icon>mdi-application-export</v-icon>
+                </v-btn>
+              </template>
+              <span>Export</span>
+            </v-tooltip>
+          </template>
+          <v-list>
+            <v-list-item @click="pdf()">
+              <v-list-item-icon class="mr-2">
+                <v-icon color="red">mdi-file-pdf</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>PDF</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="word()">
+              <v-list-item-icon class="mr-2">
+                <v-icon color="blue">mdi-file-word</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Word</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
+
+        <!--<v-tooltip bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="print()">
               <v-icon>mdi-printer</v-icon>
@@ -30,7 +69,7 @@
             </v-btn>
           </template>
           <span>PDF</span>
-        </v-tooltip>
+        </v-tooltip>-->
     </div>
 </template>
 
@@ -132,43 +171,37 @@ export default {
             var converted = htmlDocx.asBlob(html.innerHTML,{orientation: this.PageOrientation})
             saveAs(converted,  this.TableTitle+'.docx')
         },
-            pdf(){
-                var table = document.getElementById("printTable").getElementsByTagName("table")[0].cloneNode(true)
-                table.getElementsByTagName('colgroup')[0].remove()
-                var arrowUp =table.getElementsByTagName("i");
-                for(var i = arrowUp.length; i!=0 ;i--) { 
-                    arrowUp[0].remove();
-                }
-                var doc = new jsPDF(this.PageOrientation,'pt');
-                var width;
-                if(this.PageOrientation == 'portrait'){
-                    width=295;
-                }else{
-                    width=415;
-                }
-                doc.getFontList()
-                doc.setFontType("bold");
-                doc.setFont("Arial");
-                
-                doc.setFontSize(15)
-                doc.text('REPUBLIC OF THE PHILIPPINES',width,70,'center')
-
-                doc.setFontSize(13.5)
-                doc.text('REGION',width,85,'center')
-                doc.text('BARANGAY-PROVINCE',width, 98.5,'center')
-
-                doc.setFontSize(16.5)
-                doc.text(this.TableTitle, width, 140, 'center')
-                doc.autoTable({html: 'table',
-                    theme: 'plain',
-                    startY: 165,
-                    styles:{cellPadding:5,fontSize:9},
-                    headStyles:{halign:'center',lineWidth:1},
-                    bodyStyles:{halign:'center',valign:'middle',lineWidth:1,font: 'helvetica'}
-                }  
-                );
-                doc.save(this.TableTitle + ".pdf");
+        pdf(){
+            var doc = new jsPDF(this.PageOrientation,'pt');
+            var width;
+            if(this.PageOrientation == 'portrait'){
+                width=295;
+            }else{
+                width=415;
             }
+            doc.getFontList()
+            doc.setFontType("bold");
+            doc.setFont("Arial");
+            
+            doc.setFontSize(15)
+            doc.text('REPUBLIC OF THE PHILIPPINES',width,70,'center')
+
+            doc.setFontSize(13.5)
+            doc.text('REGION',width,85,'center')
+            doc.text('BARANGAY-PROVINCE',width, 98.5,'center')
+
+            doc.setFontSize(16.5)
+            doc.text(this.TableTitle, width, 140, 'center')
+            doc.autoTable({html: 'table',
+                theme: 'plain',
+                startY: 165,
+                styles:{cellPadding:5,fontSize:9},
+                headStyles:{halign:'center',lineWidth:1},
+                bodyStyles:{halign:'center',valign:'middle',lineWidth:1,font: 'helvetica'}
+            }  
+            );
+            doc.save(this.TableTitle + ".pdf");
+        }
     }
 }
 </script>

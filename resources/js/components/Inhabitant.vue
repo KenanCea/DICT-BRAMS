@@ -767,7 +767,6 @@
 </template>
 
 <script>
-import Print from "./Print.vue";
 export default {
   data: () => ({
     Table: "Inhabitants",
@@ -900,10 +899,6 @@ export default {
         return filtered;
       });
     }
-  },
-
-  components: {
-    "app-print": Print
   },
 
   methods: {
