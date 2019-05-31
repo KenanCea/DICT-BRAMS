@@ -7,6 +7,9 @@
             <v-layout align-center justify-center>
                 <v-flex xs12 sm8 md4>
                     <v-card outlined class="mx-auto pa-3">
+                        <v-btn absolute fab top left large color="primary" href="/">
+                            <v-icon>mdi-arrow-left</v-icon>
+                        </v-btn>
                         <v-card-text>
                             <div class="layout column align-center">
                                 <img src="/img/logo.png" alt="No logo" width="120" height="120" />
@@ -15,7 +18,7 @@
                             <form method="POST" action="{{ route('login') }}">
                                 @csrf
                                 @if ($errors->has('email'))
-                                <v-snackbar color="error" top :value="true" timeout="6000">{{ $errors->first('email') }}
+                                <v-snackbar color="error" top :value="true">{{ $errors->first('email') }}
                                 </v-snackbar>
                                 @endif
                                 <v-text-field outlined prepend-inner-icon="mdi-email" name="email" label="Email" type="email" required autofocus></v-text-field>

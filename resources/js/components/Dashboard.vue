@@ -19,8 +19,8 @@
 
     <v-container grid-list-md class="pl-0 pr-2 py-2" style="background-color:white;">
       <v-layout row wrap>
-        <v-flex lg4>
-          <v-card outlined>
+        <v-flex xs4>
+          <v-card :loading="loadingInhabitants" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
                 <v-layout row text-sm-center justify-center align-center class="ma-0">
@@ -36,8 +36,8 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex lg4>
-          <v-card outlined>
+        <v-flex xs4>
+          <v-card :loading="loadingHousehold" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
                 <v-layout row text-sm-center justify-center align-center class="ma-0">
@@ -53,8 +53,8 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex lg4>
-          <v-card outlined>
+        <v-flex xs4>
+          <v-card :loading="loadingPurok" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
                 <v-layout row text-sm-center justify-center align-center class="ma-0">
@@ -71,8 +71,8 @@
           </v-card>
         </v-flex>
 
-        <v-flex lg8>
-          <v-card outlined>
+        <v-flex xs8>
+          <v-card :loading="loadingInhabitantsPurok" outlined>
             <v-card-title>Inhabitants and households per purok</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -81,8 +81,8 @@
           </v-card>
         </v-flex>
 
-        <v-flex lg4>
-          <v-card outlined>
+        <v-flex xs4>
+          <v-card :loading="loadingGender" outlined>
             <v-card-title>Gender</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -91,8 +91,8 @@
           </v-card>
         </v-flex>
 
-        <v-flex lg4>
-          <v-card outlined>
+        <v-flex xs4>
+          <v-card :loading="loadingRegVoters" outlined>
             <v-card-title>Registered voters</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -101,8 +101,8 @@
           </v-card>
         </v-flex>
 
-        <v-flex lg12>
-          <v-card outlined>
+        <v-flex xs12>
+          <v-card :loading="loadingReligions" outlined>
             <v-card-title>Religions</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -111,8 +111,8 @@
           </v-card>
         </v-flex>
 
-        <v-flex lg12>
-          <v-card outlined>
+        <v-flex xs12>
+          <v-card :loading="loadingEthnicGroups" outlined>
             <v-card-title>Ethnic group</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -121,8 +121,8 @@
           </v-card>
         </v-flex>
 
-        <v-flex lg12>
-          <v-card outlined>
+        <v-flex xs12>
+          <v-card :loading="loadingDialects" outlined>
             <v-card-title>Dialects</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -147,6 +147,15 @@ export default {
       inhabitant: "",
       household: "",
       purok: "",
+      loadingInhabitants: true,
+      loadingHousehold: true,
+      loadingPurok: true,
+      loadingInhabitantsPurok: true,
+      loadingGender: true,
+      loadingRegVoters: true,
+      loadingReligions: true,
+      loadingEthnicGroups: true,
+      loadingDialects: true,
       totalInhabitantsPurok: {
         columns: ["Purok", "Households", "Inhabitants"],
         rows: []
@@ -186,48 +195,59 @@ export default {
   },
   methods: {
     getInhabitants() {
-      axios
-        .get("api/Inhabitants")
-        .then(response => (this.inhabitant = response.data));
+      axios.get("api/Inhabitants").then(response => {
+        this.inhabitant = response.data;
+        this.loadingInhabitants = false;
+      });
     },
     getHouseholds() {
-      axios
-        .get("api/Households")
-        .then(response => (this.household = response.data));
+      axios.get("api/Households").then(response => {
+        this.household = response.data;
+        this.loadingHousehold = false;
+      });
     },
     getPuroks() {
-      axios.get("api/Puroks").then(response => (this.purok = response.data));
+      axios.get("api/Puroks").then(response => {
+        this.purok = response.data;
+        this.loadingPurok = false;
+      });
     },
     getHouseholdsPurok() {
-      axios
-        .get("api/HouseholdsPurok")
-        .then(response => (this.totalInhabitantsPurok.rows = response.data));
+      axios.get("api/HouseholdsPurok").then(response => {
+        this.totalInhabitantsPurok.rows = response.data;
+        this.loadingInhabitantsPurok = false;
+      });
     },
     getReligion() {
-      axios
-        .get("api/Religion")
-        .then(response => (this.religions.rows = response.data));
+      axios.get("api/Religion").then(response => {
+        this.religions.rows = response.data;
+        this.loadingReligions = false;
+      });
     },
     getRegisteredVoter() {
-      axios
-        .get("api/RegisteredVoter")
-        .then(response => (this.regVoters.rows = response.data));
+      axios.get("api/RegisteredVoter").then(response => {
+        this.regVoters.rows = response.data;
+        this.loadingRegVoters = false;
+      });
     },
     getDialects() {
-      axios
-        .get("api/Dialects")
-        .then(response => (this.dialects.rows = response.data));
+      axios.get("api/Dialects").then(response => {
+        this.dialects.rows = response.data;
+        this.loadingDialects = false;
+      });
     },
     getGender() {
-      axios
-        .get("api/Gender")
-        .then(response => (this.gender.rows = response.data));
+      axios.get("api/Gender").then(response => {
+        this.gender.rows = response.data;
+        this.loadingGender = false;
+      });
     },
 
     getEthnicGroup() {
-      axios
-        .get("api/EthnicGroup")
-        .then(response => (this.ethnicGroups.rows = response.data));
+      axios.get("api/EthnicGroup").then(response => {
+        this.ethnicGroups.rows = response.data;
+        this.loadingEthnicGroups = false;
+      });
     },
 
     refresh() {

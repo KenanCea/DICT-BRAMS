@@ -163,7 +163,7 @@
             </v-list>
           </v-menu>
         </div>
-        <v-flex xs12 sm6 md2 ml-1>
+        <v-flex xs2 ml-1>
           <v-text-field
             v-model="search"
             flat
@@ -296,14 +296,7 @@
                       required
                     ></v-select>
                   </v-flex>
-                  <v-flex xs12 sm6>
-                    <v-text-field
-                      v-model="inhabitantForm.no_of_years_in_barangay"
-                      label="Number of Years in Barangay"
-                      type="number"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+
                   <v-flex xs12 sm6>
                     <v-select
                       v-model="inhabitantForm.Highest_educational_attainment"
@@ -735,7 +728,7 @@
           <td v-if="showColumn('religion')">{{ props.item.religion }}</td>
           <td v-if="showColumn('status_of_residency')">{{ props.item.status_of_residency }}</td>
           <td v-if="showColumn('schooling')">{{ props.item.schooling }}</td>
-          <td v-if="showColumn('no_of_years_in_barangay')">{{ props.item.no_of_years_in_barangay }}</td>
+
           <td
             v-if="showColumn('Highest_educational_attainment')"
           >{{ props.item.Highest_educational_attainment }}</td>
@@ -798,7 +791,7 @@ export default {
       { text: "Religion", value: "religion" },
       { text: "Status of Residency", value: "status_of_residency" },
       { text: "Shooling", value: "schooling" },
-      { text: "No. of Years in Barangay", value: "no_of_years_in_barangay" },
+
       {
         text: "Highest Educ'l Attainment",
         value: "Highest_educational_attainment"
@@ -852,7 +845,6 @@ export default {
       religion: "",
       status_of_residency: "",
       schooling: "",
-      no_of_years_in_barangay: "",
       Highest_educational_attainment: "",
       date_settled_in_barangay: "",
       specific_job_description: "",

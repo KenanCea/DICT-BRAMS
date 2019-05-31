@@ -13,19 +13,19 @@
   width: 0px !important;
 }
 
-#navbar > div > div.flex.xs12.sm6.md2 > div > div > div {
+#navbar > div > div.flex.xs2 > div > div > div {
   min-height: 34px;
 }
 
-#navbar > div > div.flex.xs12.sm6.md2 > div > div > div > div.v-text-field__slot > label {
+#navbar > div > div.flex.xs2 > div > div > div > div.v-text-field__slot > label {
   top: 7px;
 }
 
-#navbar > div > div.flex.xs12.sm6.md2 > div > div > div > div.v-text-field__slot > input[type=text] {
+#navbar > div > div.flex.xs2 > div > div > div > div.v-text-field__slot > input[type=text] {
   margin-top: 2px;
 }
 
-#navbar > div > div.flex.xs12.sm6.md2 > div > div > div > div.v-input__append-inner {
+#navbar > div > div.flex.xs2 > div > div > div > div.v-input__append-inner {
   margin-top: 5px;
 }
 
