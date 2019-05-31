@@ -9,8 +9,20 @@
           <v-card-text>
             <v-container grid-list-md>
               <v-layout wrap>
+                 <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="form.name" label="Full Name"></v-text-field>
+                </v-flex>
+                  <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="form.address" label="Address"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="form.location" label="Establishment Location"></v-text-field>
+                </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.ctc_no" label="Community Tax Certificate Number"></v-text-field>
+                </v-flex>
+                 <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="form.kind_of_business" label="Kind of business"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.purpose_of_clearance" label="Purpose of clearance"></v-text-field>
@@ -21,9 +33,7 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.ctc_issued_on" label="Issued on"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.official_receipt_no" label="Official Receipt Number"></v-text-field>
-                </v-flex>
+               
               </v-layout>
             </v-container>
           </v-card-text>
@@ -133,24 +143,34 @@
         </v-flex>
         <v-flex xs8 text-xs-left class="pl-3">
           <p>TO WHOM IT MAY CONCERN:</p>
+          <br>
           <p>
-            This is to certify that ____________________________________________________,
-            a resident of __________________________________________________________ established at
-            __________________________________________________________ is applying for ________________________
-            Business Permit for C.
+            This is to certify that
+            <span v-if="form.name">{{form.name}}</span> <span v-else>__________________________</span>,
+            is having a business located at <span v-if="form.location">{{form.location}}</span>
+            <span v-else>________________________________________________</span> and is within the jurisdiction of this barangay.
           </p>
-          <p>Issued {{form.purpose_of_clearance}} purposes.</p>
-          <p class="mb-0">________________________</p>
-          <p class="mb-5">Signature Over Printed Name</p>
-          <p class="mb-0">Community Tax Certificate Number: {{form.ctc_no}}</p>
-          <p class="mb-0">Issued On: {{form.ctc_issued_on}}</p>
-          <p class="mb-0">Issued At: {{form.ctc_issued_at}}</p>
-          <p class="mb-0">Official Receipt Number: {{form.official_receipt_no}}</p>
-          <div class="text-xs-right text-xs-center">
-            <p class="mb-5">CERTIFIED AND ISSUED BY:</p>
+
+          <p>The kind of business is {{form.kind_of_business}} goes under the trade name of NONE.</p>
+          
+          <p>The under signed recommends approval. </p>
+
+          <p>Issued this <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
+            <span v-else>________________________________________</span> at Barangay <span v-if="select">{{select.house_no}}, {{select.purok}}
+              {{select.street}}, {{select.barangay}} </span> </p>
+
+         <br>
+           <div class="text-xs-right text-xs-center">
+            <p class="mb-0-5">CERTIFIED AND ISSUED BY:</p>
             <p class="mb-0 mr-5">RANDY P. GATI</p>
             <p class="mb-5 mr-5">Punong Barangay</p>
           </div>
+    
+          <p class="mb-0">Community Tax Certificate Number: <span v-if="form.ctc_no">{{form.ctc_no}}</span><span v-else>____________</span> </p>
+          <p class="mb-0">Issued On: <span v-if="form.ctc_issued_on">{{form.ctc_no}}</span> <span v-else>____________</span> </p>
+          <p class="mb-0">Issued At: <span v-if="form.ctc_issued_at">{{form.ctc_no}}</span><span v-else>____________</span> </p>
+         <p>
+           <br>
           <p>Note: Not valid without Barangay Seal</p>
         </v-flex>
       </v-layout>
@@ -166,11 +186,14 @@ export default {
     inhabitants: [],
     dialog: false,
     form: new Form({
+      name: "",
+      address: "",
+      location: "",
       control_no: "",
       ctc_no: "",
+      kind_of_business: "",
       purpose_of_clearance: "",
       date_issued: "",
-      official_receipt_no: "",
       ctc_issued_on: "",
       ctc_issued_at: "",
       inhabitant_id: ""

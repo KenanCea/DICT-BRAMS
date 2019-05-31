@@ -17,8 +17,13 @@ class CreateBarangayCertificatesTable extends Migration
         Schema::create('barangay_certificates', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+			$table->string('name');
+			$table->integer('age');
+			$table->string('citizenship');
+			$table->string('barangay');
+			$table->string('postal_address');
             $table->integer('control_no');
-            $table->string('purpose_certification');
+            $table->string('purpose');
             $table->date('date_issued');
             $table->integer('ctc_no');
             $table->string('ctc_issued_at');

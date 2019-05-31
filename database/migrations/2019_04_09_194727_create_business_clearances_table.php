@@ -17,6 +17,9 @@ class CreateBusinessClearancesTable extends Migration
         Schema::create('business_clearances', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+			 $table->string('name');
+            $table->string('address');
+            $table->string('location');
             $table->integer('control_no');
             $table->string('business_address');
             $table->string('business_trade_name');
@@ -31,6 +34,7 @@ class CreateBusinessClearancesTable extends Migration
             $table->integer('ctc_no');
             $table->date('ctc_issued_on');
             $table->string('ctc_issued_at');
+            $table->string('kind_of_business');
             $table->integer('official_receipt_no');
             $table->date('date_OfficialReceipt');
             $table->double('total_amt_paid', 5);

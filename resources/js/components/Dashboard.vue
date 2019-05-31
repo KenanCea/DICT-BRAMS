@@ -17,63 +17,55 @@
       </div>
     </v-app-bar>
 
-    <v-container grid-list-md class="pl-0 pr-2 py-2" style="background-color:white">
+    <v-container grid-list-md class="pl-0 pr-2 py-2" style="background-color:white;">
       <v-layout row wrap>
         <v-flex lg4>
           <v-card outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
-                <div class="layout row ma-0">
-                  <div class="sm6 xs6 flex">
-                    <div class="layout column ma-0 justify-center align-center">
-                      <v-icon size="56px" color="red darken-1">mdi-account-multiple</v-icon>
-                    </div>
-                  </div>
-                  <div class="sm6 xs6 flex text-sm-center py-3 white--text red darken-1">
+                <v-layout row text-sm-center justify-center align-center class="ma-0">
+                  <v-flex xs6>
+                    <v-icon size="56px" color="red darken-1">mdi-account-multiple</v-icon>
+                  </v-flex>
+                  <v-flex xs6 py-3 class="white--text red darken-1">
                     <div class="headline">{{inhabitant}}</div>
                     <span class="caption">Inhabitants</span>
-                  </div>
-                </div>
+                  </v-flex>
+                </v-layout>
               </v-container>
             </v-card-text>
           </v-card>
         </v-flex>
-
         <v-flex lg4>
           <v-card outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
-                <div class="layout row ma-0">
-                  <div class="sm6 xs6 flex">
-                    <div class="layout column ma-0 justify-center align-center">
-                      <v-icon size="56px" color="deep-purple darken-1">mdi-home-group</v-icon>
-                    </div>
-                  </div>
-                  <div class="sm6 xs6 flex text-sm-center py-3 white--text deep-purple darken-1">
+                <v-layout row text-sm-center justify-center align-center class="ma-0">
+                  <v-flex xs6>
+                    <v-icon size="56px" color="deep-purple darken-1">mdi-home-group</v-icon>
+                  </v-flex>
+                  <v-flex xs6 py-3 class="white--text deep-purple darken-1">
                     <div class="headline">{{household}}</div>
                     <span class="caption">Households</span>
-                  </div>
-                </div>
+                  </v-flex>
+                </v-layout>
               </v-container>
             </v-card-text>
           </v-card>
         </v-flex>
-
         <v-flex lg4>
           <v-card outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
-                <div class="layout row ma-0">
-                  <div class="sm6 xs6 flex">
-                    <div class="layout column ma-0 justify-center align-center">
-                      <v-icon size="56px" color="indigo darken-1">mdi-map-marker</v-icon>
-                    </div>
-                  </div>
-                  <div class="sm6 xs6 flex text-sm-center py-3 white--text indigo darken-1">
+                <v-layout row text-sm-center justify-center align-center class="ma-0">
+                  <v-flex xs6>
+                    <v-icon size="56px" color="indigo darken-1">mdi-map-marker</v-icon>
+                  </v-flex>
+                  <v-flex xs6 py-3 class="white--text indigo darken-1">
                     <div class="headline">{{purok}}</div>
                     <span class="caption">Puroks / Sitios</span>
-                  </div>
-                </div>
+                  </v-flex>
+                </v-layout>
               </v-container>
             </v-card-text>
           </v-card>

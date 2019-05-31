@@ -17,6 +17,11 @@ class CreateBarangayClearancesTable extends Migration
         Schema::create('barangay_clearances', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+			$table->string('name');
+			$table->integer('age');
+			$table->string('citizenship');
+			$table->string('place_of_birth');
+			$table->string('address');
             $table->integer('control_no');
             $table->integer('ctc_no');
             $table->string('purpose_of_clearance');

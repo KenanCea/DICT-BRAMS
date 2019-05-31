@@ -62,18 +62,10 @@ const app = new Vue({
         drawer: null,
         showPassword: false,
         items: [
-            {
-                src: '/img/dashboard.png'
-            },
-            {
-                src: '/img/form.png'
-            },
-            {
-                src: '/img/household.png'
-            },
-            {
-                src: '/img/inhabitant.png'
-            }
+            { src: '/img/dashboard.png' },
+            { src: '/img/form.png' },
+            { src: '/img/household.png' },
+            { src: '/img/inhabitant.png' }
         ],
         users: [
             {
