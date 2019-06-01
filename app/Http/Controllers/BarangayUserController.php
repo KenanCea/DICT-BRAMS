@@ -30,17 +30,27 @@ class BarangayUserController extends Controller
      */
     public function store(Request $request)
     {
+        $password=str_random(8);
         $users = new User();
         $users->name=request('name');
         $users->email=request('email');
-        $users->password=bcrypt("password");
-        $users->roles=request('roles');
+        $users->password=bcrypt($password);
+        $users->roles='user';
+        $users->remember_token=str_random(60);
         $users->logo='profile.png';
-        $users->email_verified_at=now();
-        $users->remember_token=str_random(10);
         $users->created_at=now();
         $users->updated_at=now();
         $users->save();
+        
+        $data = [
+            'email' => $users->email,
+            'password' => $password,
+            'token' => $users->remember_token
+        ];
+
+        Mail::send('mailVerification',$data,function($message) use ($users){
+            $message->to($users->email)->subject('brams');
+        });
     }
 
     /**
@@ -97,9 +107,31 @@ class BarangayUserController extends Controller
 
     public function resetPassword($id)
     {
+        $password = str_random(8);
         $account = User::findOrFail($id);
-        $account->password = bcrypt("password");
+        $account->password = bcrypt($password);
         $account -> save();
 
+        $data = [
+            'email' => $account->email,
+            'password' => $password,
+        ];
+
+        Mail::send('passwordReset',$data,function($message) use ($account){
+            $message->to($account->email)->subject('password reset');
+        });
+    }
+
+    public function userActivation($token){
+        $check = DB::table('users')->where('remember_token',$token)->first();
+        if(!is_null($check)){
+            $user = User::find($check->id);
+            if(is_null($user->email_verified_at)){
+                return redirect()->to('login')->with('Success','User already activated');
+            }
+            $user->update(['email_verified_at' => now()]);
+            return redirect()->to('login')->with('success','User activated');
+        }
+        return redirect()->to('login')->with('warning','your token is invalid');
     }
 }

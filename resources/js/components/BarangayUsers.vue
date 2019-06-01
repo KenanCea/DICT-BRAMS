@@ -121,13 +121,6 @@
                 <v-flex>
                   <v-text-field v-model="form.email" label="email"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-select
-                    v-model="form.roles"
-                    :items="['user','admin']"
-                    label="role"
-                  ></v-select>
-                </v-flex>
              </v-layout>
             </v-container>
           </v-card-text>
@@ -173,9 +166,7 @@ export default {
       search: "",
       form: new Form({
         name: "",
-        email: "",
-        password: "",
-        roles: ""        
+        email: "",   
       }),
       headers: [
         { text: "id", value: "id", selected: true },
@@ -219,10 +210,10 @@ export default {
     },
 
     createUser() {
+      this.dialogAccounts = false;
       this.form
         .post("api/barangay")
         .then(() => {
-          this.dialogAccounts = false;
           this.getAccounts();
           toast.fire({
             type: "success",

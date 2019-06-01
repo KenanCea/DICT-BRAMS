@@ -26,11 +26,12 @@ Route::resources([
 ]);
 Route::put('user', 'UserController@update');
 
+
 //Barangay users
 Route::post('barangay/disable/{id}', 'BarangayUserController@disableUser');
 Route::post('barangay/archived/{id}', 'BarangayUserController@archive');
 Route::post('barangay/restore/{id}', 'BarangayUserController@restore');
-Route::get('barangay/reset/{id}', 'BarangayUserController@resetPassword');
+Route::post('barangay/reset/{id}', 'BarangayUserController@resetPassword');
 
 //inhabitants
 Route::post('inhabitants/archived/{id}', 'InhabitantController@archive');

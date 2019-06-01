@@ -48,7 +48,7 @@ const cssText = `
     width:100%;
     }
 
-    td, th { border: 1px solid #CCC; height: 30px; font-size:12px;}
+    td, th { border: 1px solid #CCC; height: 20px; font-size:12px;}
 
     th {  
         font-weight: bold; 
@@ -64,9 +64,6 @@ const cssText = `
 `
 
 export default {
-    created() {
-        this.display();
-    },
     props:['TableTitle','PageOrientation'],
     methods: {
         print() {
