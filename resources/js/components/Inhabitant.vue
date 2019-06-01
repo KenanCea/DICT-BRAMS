@@ -163,7 +163,7 @@
             </v-list>
           </v-menu>
         </div>
-        <v-flex xs12 sm6 md2 ml-1>
+        <v-flex xs2 ml-1>
           <v-text-field
             v-model="search"
             flat
@@ -296,14 +296,7 @@
                       required
                     ></v-select>
                   </v-flex>
-                  <v-flex xs12 sm6>
-                    <v-text-field
-                      v-model="inhabitantForm.no_of_years_in_barangay"
-                      label="Number of Years in Barangay"
-                      type="number"
-                      required
-                    ></v-text-field>
-                  </v-flex>
+
                   <v-flex xs12 sm6>
                     <v-select
                       v-model="inhabitantForm.Highest_educational_attainment"
@@ -590,7 +583,7 @@
                     <p class="mb-0">Barangay Camp Allen Baguio City</p>
                   </v-flex>
                   <v-flex xs3>
-                    <v-img src="/img/profile/profile1.png" alt="Logo" contain height="100"></v-img>
+                    <img :src="getLogo()" alt="Logo" contain height="100">
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap>
@@ -735,7 +728,7 @@
           <td v-if="showColumn('religion')">{{ props.item.religion }}</td>
           <td v-if="showColumn('status_of_residency')">{{ props.item.status_of_residency }}</td>
           <td v-if="showColumn('schooling')">{{ props.item.schooling }}</td>
-          <td v-if="showColumn('no_of_years_in_barangay')">{{ props.item.no_of_years_in_barangay }}</td>
+
           <td
             v-if="showColumn('Highest_educational_attainment')"
           >{{ props.item.Highest_educational_attainment }}</td>
@@ -798,7 +791,7 @@ export default {
       { text: "Religion", value: "religion" },
       { text: "Status of Residency", value: "status_of_residency" },
       { text: "Shooling", value: "schooling" },
-      { text: "No. of Years in Barangay", value: "no_of_years_in_barangay" },
+
       {
         text: "Highest Educ'l Attainment",
         value: "Highest_educational_attainment"
@@ -822,6 +815,7 @@ export default {
     ],
     selectedInhabitant: [],
     inhabitants: [],
+    user: {},
     dialogEditInhabitant: false,
     dialogBarangayClearance: false,
     barangayClearance: false,
@@ -835,6 +829,7 @@ export default {
     search: null,
     menuIssued: false,
     inhabitantForm: new Form({
+      
       id: "",
       household_id: "",
       first_name: "",
@@ -852,7 +847,6 @@ export default {
       religion: "",
       status_of_residency: "",
       schooling: "",
-      no_of_years_in_barangay: "",
       Highest_educational_attainment: "",
       date_settled_in_barangay: "",
       specific_job_description: "",
@@ -868,6 +862,7 @@ export default {
       height: ""
     }),
     formBarangayClearance: new Form({
+      logo: "",
       control_no: "",
       ctc_no: "",
       purpose_of_clearance: "",
@@ -882,6 +877,7 @@ export default {
   created() {
     if (this.$gate.isUser()) {
       this.getInhabitants();
+      this.getUser();
     }
   },
 
@@ -908,6 +904,9 @@ export default {
         this.inhabitants = response.data;
         this.loading = false;
       });
+    },
+     getUser() {
+      axios.get("api/user").then(({ data }) => this.formBarangayClearance.fill(data));
     },
 
     updateInhabitant() {
@@ -952,6 +951,14 @@ export default {
       this.inhabitantForm.reset();
       this.dialogEditInhabitant = true;
       this.inhabitantForm.fill(inhabitants);
+    },
+
+    getLogo() {
+      let logo =
+        this.formBarangayClearance.logo.length > 200
+          ? this.formBarangayClearance.logo
+          : "img/profile/" + this.formBarangayClearance.logo;
+      return logo;
     },
 
     clear() {

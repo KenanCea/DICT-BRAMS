@@ -17,6 +17,11 @@ class CreateFiledcasesTable extends Migration
         Schema::create('filedcases', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->string('complainants');
+            $table->string('complain');
+            $table->string('relief');
+			$table->string('place_of_birth');
+			$table->string('address');
             $table->integer('control_no');
             $table->string('respondent', 50);
             $table->enum('case',['Collecting sum of money','Estafa','Malicius Mischief','Physical Injury','Physical Injury with Robbery','Theft','Threat','Unjust Vexation','Murder','Rape','Children in Conflict of the law']);

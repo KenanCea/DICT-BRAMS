@@ -11,9 +11,9 @@
 
 <body>
     <v-app id="app" v-cloak>
-        <main>
-            @yield('content')
-        </main>
+
+        @yield('content')
+
     </v-app>
     @stack('beforeScripts')
     <script src="{{ mix('js/app.js') }}"></script>

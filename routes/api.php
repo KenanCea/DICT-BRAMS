@@ -24,7 +24,8 @@ Route::resources([
     'user' => 'UserController',
     'barangay' => 'BarangayUserController'
 ]);
-Route::put('user', 'UserController@update');
+Route::get('profile', 'UserController@profile');
+Route::put('updateProfile', 'UserController@updateProfile');
 
 
 //Barangay users

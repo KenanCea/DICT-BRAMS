@@ -64,7 +64,7 @@
                   <v-flex xs12>
                     <input
                       type="file"
-                      @change="updateLogo"
+                      @change="updateProfile"
                       label="Logo"
                       :disabled="!isEditing"
                       required
@@ -83,7 +83,7 @@
                       color="success"
                       type="submit"
                       :disabled="!isEditing"
-                      @click.prevent="updateUser"
+                      @click.prevent="updateInfo"
                     >Save</v-btn>
                   </v-flex>
                 </v-layout>
@@ -115,7 +115,7 @@ export default {
   },
   methods: {
     getUser() {
-      axios.get("api/user").then(({ data }) => this.form.fill(data));
+      axios.get("api/profile").then(({ data }) => this.form.fill(data));
     },
     getLogo() {
       let logo =
@@ -124,30 +124,33 @@ export default {
           : "img/profile/" + this.form.logo;
       return logo;
     },
-    updateUser() {
+    updateInfo() {
       if (this.form.password == "") {
         this.form.password = undefined;
       }
-      this.form
-        .put("api/user")
-        .then(() => {
-          swal.fire("Updated!", "Your profile has been updated.", "success");
-          this.getUser();
-          this.isEditing = null;
-        })
-        .catch(() => {});
+      this.form.put("api/updateProfile").then(() => {
+        toast.fire({
+          type: "success",
+          title: "User account has been updated"
+        });
+      });
     },
-    updateLogo(e) {
+
+    updateProfile(e) {
       let file = e.target.files[0];
-      console.log(file);
       let reader = new FileReader();
-      if (file["size"] < 1048576) {
-        reader.onloadend = file => {
-          this.form.logo = reader.result;
-        };
-        reader.readAsDataURL(file);
-      } else {
+      let limit = 1024 * 1024 * 2;
+      if (file["size"] > limit) {
+        toast.fire({
+          type: "error",
+          title: "You are uploading a large file"
+        });
+        return false;
       }
+      reader.onloadend = file => {
+        this.form.logo = reader.result;
+      };
+      reader.readAsDataURL(file);
     }
   }
 };

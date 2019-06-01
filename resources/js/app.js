@@ -39,10 +39,7 @@ const opts = {
                 primary: colors.blue.darken1,
                 secondary: colors.grey.darken1,
                 accent: colors.shades.black,
-                error: colors.red.accent3
-            },
-            dark: {
-                primary: colors.blue.lighten1
+                error: colors.red
             }
         }
     }
@@ -64,13 +61,19 @@ const app = new Vue({
     data: () => ({
         drawer: null,
         showPassword: false,
+        items: [
+            { src: '/img/dashboard.png' },
+            { src: '/img/form.png' },
+            { src: '/img/household.png' },
+            { src: '/img/inhabitant.png' }
+        ],
         users: [
             {
                 icon: "mdi-view-dashboard",
                 title: "Dashboard",
                 name: "Dashboard",
                 to: "/dashboard",
-                meta: { requiuresAuth:true}
+                meta: { requiuresAuth: true }
             },
             {
                 icon: "mdi-file-account",

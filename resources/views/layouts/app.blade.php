@@ -104,7 +104,7 @@
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn icon large v-on="on" class="mr-0">
-                        <v-avatar size="40px" v-on="on"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo"></div>
+                        <v-avatar size="40px"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo"></div>
                         </v-avatar>
                     </v-btn>
                 </template>
@@ -142,8 +142,7 @@
                 </v-card>
             </v-menu>
         </v-app-bar>
-
-        <v-content class="white">
+        <v-content style="background-color:white;">
             <router-view></router-view>
         </v-content>
     </v-app>

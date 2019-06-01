@@ -6,6 +6,9 @@
         <v-layout align-center justify-center>
             <v-flex xs12 sm8 md4>
                 <v-card outlined class="mx-auto pa-3">
+                    <v-btn absolute fab top left large color="primary" href="/login">
+                        <v-icon>mdi-arrow-left</v-icon>
+                    </v-btn>
                     <v-card-text>
                         <div class="layout column align-center">
                             <img src="/img/logo.png" alt="No logo" width="120" height="120" />
@@ -16,11 +19,11 @@
 
                             <input type="hidden" name="token" value="{{ $token }}">
                             @if ($errors->has('email'))
-                            <v-snackbar color="error" top :value="true" timeout="6000">{{ $errors->first('email') }} {{ $errors->first('password') }}
+                            <v-snackbar color="error" top :value="true">{{ $errors->first('email') }} {{ $errors->first('password') }}
                             </v-snackbar>
                             @endif
                             @if ($errors->has('password'))
-                            <v-snackbar color="error" top :value="true" timeout="6000">{{ $errors->first('password') }}
+                            <v-snackbar color="error" top :value="true">{{ $errors->first('password') }}
                             </v-snackbar>
                             @endif
                             <v-text-field outlined prepend-inner-icon="mdi-email" name="email" label="Email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus></v-text-field>

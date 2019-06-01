@@ -10,19 +10,19 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_no" label="Community Tax Certificate Number"></v-text-field>
+                  <v-text-field v-model="form.complainants" label="Complainants"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.purpose_of_clearance" label="Purpose of clearance"></v-text-field>
+                  <v-text-field v-model="form.complain" label="Complain"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="form.relief" label="Relief"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.ctc_issued_at" label="Issued at"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.ctc_issued_on" label="Issued on"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.official_receipt_no" label="Official Receipt Number"></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -102,10 +102,10 @@
           <v-img src="/img/profile/profile1.png" alt="Logo" contain height="100"></v-img>
         </v-flex>
       </v-layout>
-      <v-layout row wrap>
+       <v-layout row wrap>
         <v-flex xs12 class="subtitle-1 font-weight-bold">
           <p class="mb-0">Office of the Punong Barangay</p>
-          <p>Barangay Clearance</p>
+          <p>Barangay Business Clearance</p>
         </v-flex>
       </v-layout>
       <v-layout row wrap>
@@ -133,23 +133,35 @@
         </v-flex>
         <v-flex xs8 text-xs-left class="pl-3">
           <p>TO WHOM IT MAY CONCERN:</p>
+          <br>
           <p>
-            This is to certify that {{select.first_name}} {{select.middle_name}} {{select.last_name}}, years old, {{select.citizenship}} citizen, a native of {{select.barangay}}, and presently residing at
-            {{select.barangay}} and whose signature appears hereunder, has no pending adverse case and deragatory records filed
-            against,per available records on file with this office as of the date of issuance thereof.
+
+             <p>COMPLAINANT</p>
+          <p>
+            I/WE hereby complain against above named respondent/s for violating my/our rights and interest in the following manner.
+            <span v-if="form.complain">{{form.complain}}</span>
+            <span v-else>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</span>
           </p>
-          <p>Issued {{form.purpose_of_clearance}} purposes.</p>
-          <p class="mb-0">________________________</p>
-          <p class="mb-5">Signature Over Printed Name</p>
-          <p class="mb-0">Community Tax Certificate Number: {{form.ctc_no}}</p>
-          <p class="mb-0">Issued On: {{form.ctc_issued_on}}</p>
-          <p class="mb-0">Issued At: {{form.ctc_issued_at}}</p>
-          <p class="mb-0">Official Receipt Number: {{form.official_receipt_no}}</p>
+          <p>
+           THEREFORE, I/WE pray that the following relief/s be granted to me/us in accordance with law and or equity.
+            <span v-if="form.relief">{{form.relief}}</span> <span v-else>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</span>
+          </p>
+          <br>
+          <p>Made this <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
+            <span v-else>________________________________________</span> at Barangay <span v-if="select">{{select.house_no}}, {{select.purok}}
+              {{select.street}}, {{select.barangay}} </span> </p>
+
+             <p>Received and filed this <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
+            <span v-else>________________________________________</span></p>
+
+         <br>
           <div class="text-xs-right text-xs-center">
-            <p class="mb-5">CERTIFIED AND ISSUED BY:</p>
+            <p class="mb-0-5">CERTIFIED AND ISSUED BY:</p>
             <p class="mb-0 mr-5">RANDY P. GATI</p>
             <p class="mb-5 mr-5">Punong Barangay</p>
           </div>
+           <br>
+           
           <p>Note: Not valid without Barangay Seal</p>
         </v-flex>
       </v-layout>
@@ -165,11 +177,9 @@ export default {
     inhabitants: [],
     dialog: false,
     form: new Form({
-      control_no: "",
-      ctc_no: "",
-      purpose_of_clearance: "",
-      date_issued: "",
-      official_receipt_no: "",
+      complainants: "",
+      complain: "",
+      relief: "",
       ctc_issued_on: "",
       ctc_issued_at: "",
       inhabitant_id: ""

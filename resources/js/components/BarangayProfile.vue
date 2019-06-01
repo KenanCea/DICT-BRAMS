@@ -17,7 +17,26 @@
                 </v-flex>
                 <v-flex xs4>
                   <div>
-                    <v-btn small color="primary">Print</v-btn>
+                    <v-btn 
+                      small 
+                      color="primary"
+                      >Print</v-btn>
+                    <v-tooltip bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn text icon @click="isEditing = !isEditing" v-on="on">
+                          <v-icon v-if="isEditing">mdi-close</v-icon>
+                          <v-icon v-else>mdi-pencil</v-icon>
+                        </v-btn>
+                      </template>
+                      <span v-if="isEditing">Cancel</span>
+                      <span v-else>Edit</span>
+                    </v-tooltip>
+                    <v-btn
+                      color="success"
+                      type="submit"
+                      :disabled="!isEditing"
+                      @click.prevent="updateBarangay"
+                    >Save</v-btn>
                   </div>
                 </v-flex> 
               </v-layout>
@@ -26,14 +45,12 @@
                   <div>I. General Information</div>
                   <div class="ml-3">A. Creation</div>
                   <div class="ml-4">
-                    <v-form 
-                      ref="form"
-                      v-model="valid"
-                      lazy-validation>
+                    <v-form>
 
                       <v-text-field
-                        v-model="legal_basis"
+                        v-model="form.legal_basis"
                         label="Legal Basis"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-menu
@@ -49,8 +66,9 @@
                       >
                         <template v-slot:activator="{ on }">
                           <v-text-field
-                            v-model="date"
+                            v-model="form.date"
                             label="Date Legal Basis"
+                            :disabled="!isEditing"
                             readonly
                             v-on="on"
                           ></v-text-field>
@@ -75,8 +93,9 @@
                       >
                         <template v-slot:activator="{ on }">
                           <v-text-field
-                            v-model="date"
+                            v-model="form.date"
                             label="Date Ratification/Plebiscite"
+                            :disabled="!isEditing"
                             readonly
                             v-on="on"
                           ></v-text-field>
@@ -89,104 +108,96 @@
                       </v-menu>
 
                       <v-text-field
-                        v-model="mother_barangay"
+                        v-model="form.mother_barangay"
                         label="Mother Barangay/s"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="old_name"
+                        v-model="form.old_name"
                         label="Old Name, if named"
+                        :disabled="!isEditing"
                       ></v-text-field>
                     </v-form>
                   </div>
                   <div class="ml-3">
-                    <v-form
-                      ref="form"
-                      v-model="valid"
-                      lazy-validation>
-
+                    <v-form>
                       <v-select
-                        v-model="select"
+                        v-model="form.select"
                         :items="type_barangay"
                         :rules="[v => !!v || 'Item is required']"
                         label="B. Type of Barangay"
+                        :disabled="!isEditing"
                         required
                       ></v-select>
-
                     </v-form>
                   </div>
                   <div class="ml-4">Boundaries</div>
                   <div class="ml-5">
-                    <v-form
-                      ref="form"
-                      v-model="valid"
-                      lazy-validation>
-
+                    <v-form>
                       <v-text-field
-                        v-model="north"
+                        v-model="form.north"
                         label="North"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="east"
+                        v-model="form.east"
                         label="East"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="west"
+                        v-model="form.west"
                         label="West"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="south"
+                        v-model="form.south"
                         label="South"
+                        :disabled="!isEditing"
                       ></v-text-field>
-
                     </v-form>
                   </div>
                 </v-flex>
                 <v-flex xs6>
                   <div>C. Total Land Area</div>
                   <div class="mx-3">
-                    <v-form
-                      ref="form"
-                      v-model="valid"
-                      lazy-validation>
-
+                    <v-form>
                       <v-text-field
-                        v-model="total_square"
+                        v-model="form.total_square"
                         label="Total Land Area (sq. km.)"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="total_hectare"
+                        v-model="form.total_hectare"
                         label="Total Land Area (hec.)"
+                        :disabled="!isEditing"
                       ></v-text-field>
-
                     </v-form>
                   </div>
                   <div>D. Distance from:</div>
                   <div class="mx-3">
-                    <v-form
-                      ref="form"
-                      v-model="valid"
-                      lazy-validation>
-
+                    <v-form>
                       <v-text-field
-                        v-model="city"
+                        v-model="form.city"
                         label="City/Municipal Hall"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="capitol"
+                        v-model="form.capitol"
                         label="Provincial Capitol"
+                        :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="highway"
+                        v-model="form.highway"
                         label="National Highway"
+                        :disabled="!isEditing"
                       ></v-text-field>
-
                     </v-form>
                   </div><br/>
                   <div>E. Land Form</div>
@@ -719,6 +730,22 @@
 <script>
   export default {
     data: () => ({
+      form: new Form({
+        legal_basis: "",    
+        date: new Date().toISOString().substr(0, 10),
+        mother_barangay: "",
+        old_name: "",
+        north: "",
+        east: "",
+        west: "",
+        south: "",
+        total_square: "",
+        total_hectare: "",
+        city: "",
+        capitol: "",
+        highway: "",
+        select: null
+      }),
       dialog: false,
       dialog2: false,
       dialog3: false,
@@ -727,28 +754,14 @@
       dialog6: false,
       dialog7: false,
       dialog8: false,
-      valid: true,
-      legal_basis: '',    
-      date: new Date().toISOString().substr(0, 10),
       date_legal: false,
       date_ratification: false,
-      mother_barangay: '',
-      old_name: '',
-      north: '',
-      east: '',
-      west: '',
-      south: '',
-      total_square: '',
-      total_hectare: '',
-      city: '',
-      capitol: '',
-      highway: '',
-      select: null,
       type_barangay: [
         'Rural',
         'Urban',
         'Tribal'
       ],
+      isEditing: null,
       headers: [
         {
           text: 'Type',
@@ -1142,6 +1155,13 @@
 
         const [month, day, year] = date.split('/')
         return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
+      },
+
+      updateBarangay() {
+        this.form
+          .put("api/user")
+          .then(() => {})
+          .catch(() => {});
       },
 
       initialize () {

@@ -7,9 +7,12 @@
             <v-layout align-center justify-center>
                 <v-flex xs12 sm8 md4>
                     <v-card outlined class="mx-auto pa-3">
+                        <v-btn absolute fab top left large color="primary" href="/login">
+                            <v-icon>mdi-arrow-left</v-icon>
+                        </v-btn>
                         <v-card-text>
                             @if (session('status'))
-                            <v-snackbar color="success" top :value="true" timeout="6000">
+                            <v-snackbar color="success" top :value="true">
                                 {{ session('status') }}
                             </v-snackbar>
                             @endif
@@ -20,7 +23,7 @@
                             <form method="POST" action="{{ route('password.email') }}">
                                 @csrf
                                 @if ($errors->has('email'))
-                                <v-snackbar color="error" top :value="true" timeout="6000">{{ $errors->first('email') }}
+                                <v-snackbar color="error" top :value="true">{{ $errors->first('email') }}
                                 </v-snackbar>
                                 @endif
                                 <v-text-field outlined prepend-inner-icon="mdi-email" name="email" label="Email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required autofocus></v-text-field>

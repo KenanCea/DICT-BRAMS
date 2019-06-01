@@ -21,9 +21,7 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="form.ctc_issued_on" label="Issued on"></v-text-field>
                 </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.official_receipt_no" label="Official Receipt Number"></v-text-field>
-                </v-flex>
+              
               </v-layout>
             </v-container>
           </v-card-text>
@@ -96,6 +94,7 @@
         </v-flex>
         <v-flex xs4 class="green--text title">
           <p class="mb-0">Republic of the Philippines</p>
+          <span v-if="select"> {{select.province}}</span>
           <p class="mb-0">BARANGAY AMBIONG</p>
           <p>Aurora Hill, Baguio</p>
         </v-flex>
@@ -134,6 +133,7 @@
         </v-flex>
                 <v-flex xs8 text-xs-left class="pl-3">
           <p>TO WHOM IT MAY CONCERN:</p>
+          <br>
           <p>
             This is to certify that
             <span v-if="select">{{select.first_name}} {{select.middle_name}} {{select.last_name}}</span>
@@ -142,26 +142,37 @@
             <span v-else>________</span> years old,
             <span v-if="select">{{select.citizenship}}</span>
             <span v-else>________________________</span> citizen, a native of <span v-if="select">{{select.placeOfBirth_native}}</span>
-            <span v-else>________________________</span>, and presently residing at <span v-if="select">{{select.house_no}}, {{select.purok}}
-              {{select.street}}, {{select.barangay}}
+            <span v-else>________________________</span>, residing at <span v-if="select">{{select.house_no}}, {{select.purok}}
+              {{select.street}}, {{select.barangay}} is a resident of this barangay.
             </span>
-            <span v-else>________________________________________________</span>
-             and whose signature appears hereunder, has no pending adverse case and deragatory records filed
-            against per available records on file with this office as of the date of issuance thereof.
-          </p>
-          <p>Issued <span v-if="form.purpose_of_clearance">{{form.purpose_of_clearance}}</span>
-            <span v-else>________________________________________</span>  purposes.</p>
-          <p class="mb-0">________________________</p>
-          <p class="mb-5">Signature Over Printed Name</p>
-          <p class="mb-0">Community Tax Certificate Number: <span v-if="form.ctc_no">{{form.ctc_no}}</span><span v-else>____________</span> </p>
-          <p class="mb-0">Issued On: <span v-if="form.ctc_issued_on">{{form.ctc_no}}</span> <span v-else>____________</span> </p>
-          <p class="mb-0">Issued At: <span v-if="form.ctc_issued_at">{{form.ctc_no}}</span><span v-else>____________</span> </p>
-          <p class="mb-0">Official Receipt Number: <span v-if="form.ctc_issued_at">{{form.official_receipt_no}}</span> <span v-else>____________</span> </p>
-          <div class="text-xs-right text-xs-center">
-            <p class="mb-5">CERTIFIED AND ISSUED BY:</p>
+           </p>
+
+          <p>
+            THIS IS TO CERTIFY FURTHER that the above-named person has neither derogatory records nor pending
+            case in this barangay.
+          <p>
+
+             <p>
+            THIS CERTIFICATION is issued upon the request of the above named person for LEGAL INTENT.
+          <p>
+
+
+          <p>Issued this <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
+            <span v-else>________________________________________</span> at Barangay <span v-if="select">{{select.house_no}}, {{select.purok}}
+              {{select.street}}, {{select.barangay}} </span> </p>
+
+            <br>
+           <div class="text-xs-right text-xs-center">
+            <p class="mb-0-5">CERTIFIED AND ISSUED BY:</p>
             <p class="mb-0 mr-5">RANDY P. GATI</p>
             <p class="mb-5 mr-5">Punong Barangay</p>
           </div>
+    
+          <p class="mb-0">Community Tax Certificate Number: <span v-if="form.ctc_no">{{form.ctc_no}}</span><span v-else>____________</span> </p>
+          <p class="mb-0">Issued On: <span v-if="form.ctc_issued_on">{{form.ctc_no}}</span> <span v-else>____________</span> </p>
+          <p class="mb-0">Issued At: <span v-if="form.ctc_issued_at">{{form.ctc_no}}</span><span v-else>____________</span> </p>
+         <p>
+           <br>
           <p>Note: Not valid without Barangay Seal</p>
         </v-flex>
       </v-layout>
@@ -181,7 +192,6 @@ export default {
       ctc_no: "",
       purpose_of_clearance: "",
       date_issued: "",
-      official_receipt_no: "",
       ctc_issued_on: "",
       ctc_issued_at: "",
       inhabitant_id: ""
@@ -203,7 +213,6 @@ export default {
       });
     }
   },
-
   watch: {
     search(val) {
       if (this.items.length > 0) return;
