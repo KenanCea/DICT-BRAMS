@@ -93,6 +93,7 @@ class InhabitantController extends Controller
             )
             ->whereNotNull('inhabitants.deleted_at')
             ->where('users.id', Auth::user()->id)
+
             ->get();
     }
 

@@ -583,7 +583,7 @@
                     <p class="mb-0">Barangay Camp Allen Baguio City</p>
                   </v-flex>
                   <v-flex xs3>
-                    <v-img src="/img/profile/profile1.png" alt="Logo" contain height="100"></v-img>
+                    <img :src="getLogo()" alt="Logo" contain height="100">
                   </v-flex>
                 </v-layout>
                 <v-layout row wrap>
@@ -815,6 +815,7 @@ export default {
     ],
     selectedInhabitant: [],
     inhabitants: [],
+    user: {},
     dialogEditInhabitant: false,
     dialogBarangayClearance: false,
     barangayClearance: false,
@@ -828,6 +829,7 @@ export default {
     search: null,
     menuIssued: false,
     inhabitantForm: new Form({
+      
       id: "",
       household_id: "",
       first_name: "",
@@ -860,6 +862,7 @@ export default {
       height: ""
     }),
     formBarangayClearance: new Form({
+      logo: "",
       control_no: "",
       ctc_no: "",
       purpose_of_clearance: "",
@@ -874,6 +877,7 @@ export default {
   created() {
     if (this.$gate.isUser()) {
       this.getInhabitants();
+      this.getUser();
     }
   },
 
@@ -900,6 +904,9 @@ export default {
         this.inhabitants = response.data;
         this.loading = false;
       });
+    },
+     getUser() {
+      axios.get("api/user").then(({ data }) => this.formBarangayClearance.fill(data));
     },
 
     updateInhabitant() {
@@ -944,6 +951,14 @@ export default {
       this.inhabitantForm.reset();
       this.dialogEditInhabitant = true;
       this.inhabitantForm.fill(inhabitants);
+    },
+
+    getLogo() {
+      let logo =
+        this.formBarangayClearance.logo.length > 200
+          ? this.formBarangayClearance.logo
+          : "img/profile/" + this.formBarangayClearance.logo;
+      return logo;
     },
 
     clear() {
