@@ -1242,18 +1242,7 @@ export default {
         })
         .catch(() => {});
     },
-    updateInhabitant() {
-      this.inhabitantForm
-        .put("api/inhabitant/" + this.inhabitantForm.id)
-        .then(() => {
-          this.dialogCreateInhabitant = false;
-          toast.fire({
-            type: "success",
-            title: "Inhabitants has been edited"
-          });
-        })
-        .catch(() => {});
-    },
+    
 
     updateHousehold() {
       this.householdForm
