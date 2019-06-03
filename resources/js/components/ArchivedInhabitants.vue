@@ -1,258 +1,259 @@
 <template>
   <div>
-    <v-app-bar id="navbar" dense flat app>
-      <v-toolbar-title>
-        <span class="hidden-sm-and-down">Inhabitants</span>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-menu :close-on-content-click="false" offset-y max-height="400">
-        <template #activator="{ on: menu }">
+    <div v-if="$gate.isUser()">
+      <v-app-bar id="navbar" dense flat app>
+        <v-toolbar-title>
+          <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <span v-if="selectedInhabitant.length">
           <v-tooltip bottom>
-            <template #activator="{ on: tooltip }">
-              <v-btn text icon color="primary" v-on="{ ...tooltip, ...menu }">
-                <v-icon color="grey darken-2">mdi-table-column</v-icon>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" icon @click="selectedInhabitant = []">
+                <v-icon>mdi-close</v-icon>
               </v-btn>
             </template>
-            <span>Column Visibility</span>
+            <span>Clear selected</span>
           </v-tooltip>
-        </template>
-        <v-list>
-          <v-list-item v-for="(item, index) in headers" :key="index">
-            <v-switch
-              color="green"
-              v-bind:label="item.text"
-              v-model="item.selected"
-              :value="item.selected"
-            ></v-switch>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <v-tooltip bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-refresh</v-icon>
-          </v-btn>
-        </template>
-        <span>Refresh</span>
-      </v-tooltip>
-    </v-app-bar>
+        </span>
 
-    <v-data-table
-      id="printTable"
-      v-bind:headers="filteredHeaders"
-      :items="inhabitants"
-      :loading="loading"
-    >
-      <template v-slot:items="props">
-        <td v-if="showColumn('id')">{{ props.item.id }}</td>
-        <td v-if="showColumn('first_name')">{{ props.item.first_name }}</td>
-        <td v-if="showColumn('middle_name')">{{ props.item.middle_name }}</td>
-        <td v-if="showColumn('last_name')">{{ props.item.last_name }}</td>
-        <td v-if="showColumn('relation_to_the_head')">{{ props.item.relation_to_the_head }}</td>
-        <td v-if="showColumn('age')">{{ props.item.age }}</td>
-        <td v-if="showColumn('employment_category')">{{ props.item.employment_category }}</td>
-        <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
-        <td v-if="showColumn('est_monthly_income_cash')">{{ props.item.est_monthly_income_cash }}</td>
-        <td v-if="showColumn('date_of_birth')">{{ props.item.date_of_birth }}</td>
-        <td v-if="showColumn('est_monthly_income_kind')">{{ props.item.est_monthly_income_kind }}</td>
-        <td v-if="showColumn('total_family_income')">{{ props.item.total_family_income }}</td>
-        <td v-if="showColumn('civil_status')">{{ props.item.civil_status }}</td>
-        <td v-if="showColumn('final_family_income')">{{ props.item.final_family_income }}</td>
-        <td v-if="showColumn('religion')">{{ props.item.religion }}</td>
-        <td v-if="showColumn('status_of_residency')">{{ props.item.status_of_residency }}</td>
-        <td v-if="showColumn('schooling')">{{ props.item.schooling }}</td>
-        <td v-if="showColumn('no_of_years_in_barangay')">{{ props.item.no_of_years_in_barangay }}</td>
-        <td v-if="showColumn('highest_educ_attainment')">{{ props.item.highest_educ_attainment }}</td>
-        <td
-          v-if="showColumn('date_settled_in_the_barangay')"
-        >{{ props.item.date_settled_in_the_barangay }}</td>
-        <td v-if="showColumn('specific_job_description')">{{ props.item.specific_job_description }}</td>
-        <td v-if="showColumn('citizenship')">{{ props.item.citizenship }}</td>
-        <td v-if="showColumn('gen_job_description')">{{ props.item.gen_job_description }}</td>
-        <td v-if="showColumn('employment_status')">{{ props.item.employment_status }}</td>
-        <td v-if="showColumn('ethnic_group')">{{ props.item.ethnic_group }}</td>
-        <td v-if="showColumn('job_category')">{{ props.item.job_category }}</td>
-        <td v-if="showColumn('place_of_birth')">{{ props.item.place_of_birth }}</td>
-        <td v-if="showColumn('registered_voter')">{{ props.item.registered_voter }}</td>
-        <td v-if="showColumn('child_parent')">{{ props.item.child_parent }}</td>
-        <td v-if="showColumn('weight')">{{ props.item.weight }}</td>
-        <td v-if="showColumn('height')">{{ props.item.height }}</td>
-      </template>
-    </v-data-table>
+        <div v-if="selectedInhabitant.length" class="ml-1">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" icon @click="restore(selectedInhabitant[0].id)">
+                <v-icon>mdi-package-up</v-icon>
+              </v-btn>
+            </template>
+            <span>Restore inhabitant</span>
+          </v-tooltip>
+        </div>
+        <v-divider class="mx-1" inset vertical></v-divider>
+        <div class="ml-1">
+          <v-menu :close-on-content-click="false" offset-y max-height="400">
+            <template #activator="{ on: menu }">
+              <v-tooltip bottom>
+                <template #activator="{ on: tooltip }">
+                  <v-btn icon v-on="{ ...tooltip, ...menu }">
+                    <v-icon>mdi-table-column-width</v-icon>
+                  </v-btn>
+                </template>
+                <span>Column visibility</span>
+              </v-tooltip>
+            </template>
+            <v-list>
+              <v-list-item v-for="(item, index) in headers" :key="index">
+                <v-switch
+                  color="green"
+                  v-bind:label="item.text"
+                  v-model="item.selected"
+                  :value="item.selected"
+                ></v-switch>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
+
+        <v-flex xs2 ml-1>
+          <v-text-field
+            v-model="search"
+            flat
+            outlined
+            single-line
+            hide-details
+            height="32"
+            append-icon="mdi-magnify"
+            label="Search"
+          ></v-text-field>
+        </v-flex>
+      </v-app-bar>
+
+
+     
+      <v-data-table
+        id="printTable"
+        v-model="selectedInhabitant"
+        v-bind:headers="filteredHeaders"
+        :items="inhabitants"
+        :loading="loading"
+        :search="search"
+        show-select
+        single-select
+      >
+        <template v-slot:items="props">
+          <td v-if="showColumn('id')">{{ props.item.id }}</td>
+          <td v-if="showColumn('first_name')">{{ props.item.first_name }}</td>
+          <td v-if="showColumn('middle_name')">{{ props.item.middle_name }}</td>
+          <td v-if="showColumn('last_name')">{{ props.item.last_name }}</td>
+          <td v-if="showColumn('relation_to_the_head')">{{ props.item.relation_to_the_head }}</td>
+          <td v-if="showColumn('age')">{{ props.item.age }}</td>
+          <td v-if="showColumn('employment_category')">{{ props.item.employment_category }}</td>
+          <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
+          <td
+            v-if="showColumn('estimated_monthly_income_cash')"
+          >{{ props.item.estimated_monthly_income_cash }}</td>
+          <td v-if="showColumn('date_of_birth')">{{ props.item.date_of_birth }}</td>
+          <td
+            v-if="showColumn('estimated_monthly_income_kind')"
+          >{{ props.item.estimated_monthly_income_kind }}</td>
+          <td v-if="showColumn('Total_family_income')">{{ props.item.Total_family_income }}</td>
+          <td v-if="showColumn('civil_status')">{{ props.item.civil_status }}</td>
+          <td v-if="showColumn('Final_family_income')">{{ props.item.Final_family_income }}</td>
+          <td v-if="showColumn('religion')">{{ props.item.religion }}</td>
+          <td v-if="showColumn('status_of_residency')">{{ props.item.status_of_residency }}</td>
+          <td v-if="showColumn('schooling')">{{ props.item.schooling }}</td>
+
+          <td
+            v-if="showColumn('Highest_educational_attainment')"
+          >{{ props.item.Highest_educational_attainment }}</td>
+          <td
+            v-if="showColumn('date_settled_in_barangay')"
+          >{{ props.item.date_settled_in_barangay }}</td>
+          <td
+            v-if="showColumn('specific_job_description')"
+          >{{ props.item.specific_job_description }}</td>
+          <td v-if="showColumn('citizenship')">{{ props.item.citizenship }}</td>
+          <td v-if="showColumn('gen_job_description')">{{ props.item.gen_job_description }}</td>
+          <td v-if="showColumn('employment_status')">{{ props.item.employment_status }}</td>
+          <td v-if="showColumn('ethnicGroup')">{{ props.item.ethnicGroup }}</td>
+          <td v-if="showColumn('job_category')">{{ props.item.job_category }}</td>
+          <td v-if="showColumn('placeOfBirth_native')">{{ props.item.placeOfBirth_native }}</td>
+          <td
+            v-if="showColumn('registeredVoterOfTheBrgy')"
+          >{{ props.item.registeredVoterOfTheBrgy }}</td>
+          <td v-if="showColumn('childs_parent_guardian')">{{ props.item.childs_parent_guardian }}</td>
+          <td v-if="showColumn('weight')">{{ props.item.weight }}</td>
+          <td v-if="showColumn('height')">{{ props.item.height }}</td>
+        </template>
+      </v-data-table>
+    </div>
+    <div v-if="!$gate.isUser()">
+      <not-found></not-found>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
+    Table: "Inhabitants",
+    Orientation: "landscape",
     headers: [
-      {
-        text: "First name",
-        value: "first_name",
-        selected: true
-      },
-      {
-        text: "Middle name",
-        value: "middle_name",
-        selected: true
-      },
-
-      {
-        text: "Last name",
-        value: "last_name",
-        selected: true
-      },
-      {
-        text: "Age",
-        value: "age",
-        selected: true
-      },
-
-      {
-        text: "Gender",
-        value: "sex",
-        selected: true
-      },
+      { text: "First name", value: "first_name", selected: true },
+      { text: "Middle name", value: "middle_name", selected: true },
+      { text: "Last name", value: "last_name", selected: true },
+      { text: "Age", value: "age", selected: true },
+      { text: "Sex", value: "sex", selected: true },
       {
         text: "Relation to The Head",
         value: "relation_to_the_head",
         selected: true
       },
+      { text: "Employment Category", value: "employment_category" },
+      {
+        text: "Estimated Monthly Income-cash",
+        value: "estimated_monthly_income_cash"
+      },
+      { text: "Date of Birth", value: "date_of_birth" },
+      {
+        text: "Estimated Monthly Income-kind",
+        value: "estimated_monthly_income_kind"
+      },
+      { text: "Total Family Income", value: "Total_family_income" },
+      { text: "Civil Status", value: "civil_status" },
+      { text: "Final Family Income", value: "Final_family_income" },
+      { text: "Religion", value: "religion" },
+      { text: "Status of Residency", value: "status_of_residency" },
+      { text: "Shooling", value: "schooling" },
 
-      {
-        text: "Employment Category",
-        value: "employment_category"
-      },
-
-      {
-        text: "EST. Monthly Income-cash",
-        value: "est_monthly_income_cash"
-      },
-      {
-        text: "Date of Birth",
-        value: "date_of_birth"
-      },
-      {
-        text: "EST. Monthly Income-kind",
-        value: "est_monthly_income_kind"
-      },
-      {
-        text: "Total Family Income",
-        value: "total_family_income"
-      },
-      {
-        text: "Civil Status",
-        value: "civil_status"
-      },
-      {
-        text: "Final Family Income",
-        value: "final_family_income"
-      },
-      {
-        text: "Religion",
-        value: "religion"
-      },
-      {
-        text: "Status of Residency",
-        value: "status_of_residency"
-      },
-      {
-        text: "Shooling",
-        value: "schooling"
-      },
-      {
-        text: "No. of Years in Barangay",
-        value: "no_of_years_in_barangay"
-      },
       {
         text: "Highest Educ'l Attainment",
-        value: "highest_educ_attainment"
+        value: "Highest_educational_attainment"
       },
       {
         text: "Date Settled in the Barangay",
-        value: "date_settled_in_the_barangay"
+        value: "date_settled_in_barangay"
       },
-      {
-        text: "Specific Job Description",
-        value: "specific_job_description"
-      },
-      {
-        text: "Citizenship",
-        value: "citizenship"
-      },
-      {
-        text: "Gen. Job Description",
-        value: "gen_job_description"
-      },
-      {
-        text: "Employment Status",
-        value: "employment_status"
-      },
-
-      {
-        text: "Ethnic Group",
-        value: "ethnic_group"
-      },
-      {
-        text: "Job Category",
-        value: "job_category"
-      },
-      {
-        text: "Place of Birth/Native",
-        value: "place_of_birth"
-      },
-      {
-        text: "Registered Voter",
-        value: "registered_voter"
-      },
-      {
-        text: "Child's Parent/Guardian",
-        value: "child_parent"
-      },
-      {
-        text: "Weight(kg)",
-        value: "weight"
-      },
-      {
-        text: "Height(cm)",
-        value: "height"
-      },
-      {
-        text: "ID",
-        value: "id"
-      }
+      { text: "Specific Job Description", value: "specific_job_description" },
+      { text: "Citizenship", value: "citizenship" },
+      { text: "Gen. Job Description", value: "gen_job_description" },
+      { text: "Employment Status", value: "employment_status" },
+      { text: "Ethnic Group", value: "ethnicGroup" },
+      { text: "Job Category", value: "job_category" },
+      { text: "Place of Birth/Native", value: "placeOfBirth_native" },
+      { text: "Registered Voter", value: "registeredVoterOfTheBrgy" },
+      { text: "Child's Parent/Guardian", value: "childs_parent_guardian" },
+      { text: "Weight(kg)", value: "weight" },
+      { text: "Height(cm)", value: "height" },
+      { text: "ID", value: "id" }
     ],
+    selectedInhabitant: [],
     inhabitants: [],
-    households: [],
-    dialog: false,
-    dialog2: false,
+    user: {},
+    dialogEditInhabitant: false,
+    dialogBarangayClearance: false,
+    barangayClearance: false,
     loading: false,
     vaccine: false,
+    employed: false,
     isLoading: false,
     editmode: false,
-    menu1: false,
-    menu2: false,
+    menuBirth: false,
+    menuSettled: false,
     search: null,
-    date: new Date().toISOString().substr(0, 10),
-    descriptionLimit: 60,
-    model: {}
+    menuIssued: false,
+    inhabitantForm: new Form({
+      
+      id: "",
+      household_id: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      relation_to_the_head: "",
+      employment_category: "",
+      sex: "",
+      estimated_monthly_income_cash: "",
+      date_of_birth: "",
+      estimated_monthly_income_kind: "",
+      Total_family_income: "",
+      civil_status: "",
+      Final_family_income: "",
+      religion: "",
+      status_of_residency: "",
+      schooling: "",
+      Highest_educational_attainment: "",
+      date_settled_in_barangay: "",
+      specific_job_description: "",
+      citizenship: "",
+      gen_job_description: "",
+      employment_status: "",
+      ethnicGroup: "",
+      job_category: "",
+      placeOfBirth_native: "",
+      registeredVoterOfTheBrgy: "",
+      childs_parent_guardian: "",
+      weight: "",
+      height: ""
+    }),
+    formBarangayClearance: new Form({
+      logo: "",
+      control_no: "",
+      ctc_no: "",
+      purpose_of_clearance: "",
+      date_issued: "",
+      official_receipt_no: "",
+      ctc_issued_on: "",
+      ctc_issued_at: "",
+      inhabitant_id: ""
+    })
   }),
 
   created() {
-    this.getInhabitant();
+    if (this.$gate.isUser()) {
+      this.getInhabitants();
+      this.getUser();
+    }
   },
-
   computed: {
-    fields() {
-      if (!this.model) return [];
-      return Object.keys(this.model).map(key => {
-        return {
-          key,
-          value: this.model[key] || "n/a"
-        };
-      });
-    },
-
     filteredHeaders() {
       return this.headers.filter(h => h.selected);
     },
@@ -265,54 +266,61 @@ export default {
         });
         return filtered;
       });
-    },
-
-    items() {
-      return this.households.map(entry => {
-        const house_number =
-          entry.house_number.length > this.descriptionLimit
-            ? entry.house_number.slice(0, this.descriptionLimit) + "..."
-            : entry.house_number;
-        return Object.assign({}, entry, {
-          house_number
-        });
-      });
-    }
-  },
-
-  watch: {
-    search(val) {
-      if (this.items.length > 0) return;
-      if (this.isLoading) return;
-      this.isLoading = true;
-      axios
-        .get("api/household")
-        .then(response => {
-          this.households = response.data;
-        })
-        .catch(err => {
-          console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
     }
   },
 
   methods: {
-    getInhabitant() {
+    getInhabitants() {
       this.loading = true;
       axios.get("api/archivedInhabitant").then(response => {
         this.inhabitants = response.data;
         this.loading = false;
       });
     },
+     getUser() {
+      axios.get("api/user").then(({ data }) => this.formBarangayClearance.fill(data));
+    },
+
+    restore(id) {
+      swal
+        .fire({
+          title: "Are you sure?",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, Restore it!"
+        })
+        .then(result => {
+          if (result.value) {
+            axios.post("api/inhabitants/restore/" + id).then(response => {
+              swal.fire(
+                "Restored!",
+                "archived Inhabitant has been restored.",
+                "success"
+              );
+              this.getInhabitants();
+              this.selectedInhabitant.splice([0]);
+            });
+          }
+        });
+    },
+    editDialog(inhabitants) {
+      this.inhabitantForm.reset();
+      this.dialogEditInhabitant = true;
+      this.inhabitantForm.fill(inhabitants);
+    },
+
+    getLogo() {
+      let logo =
+        this.formBarangayClearance.logo.length > 200
+          ? this.formBarangayClearance.logo
+          : "img/profile/" + this.formBarangayClearance.logo;
+      return logo;
+    },
 
     showColumn(col) {
       return this.headers.find(h => h.value === col).selected;
-    },
-
-    archive(id) {
-      axios.post("api/inhabitant/restore/" + id);
-      this.getInhabitant();
     }
   }
 };
