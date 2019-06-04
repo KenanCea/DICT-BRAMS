@@ -173,7 +173,7 @@ export default {
             var div1 = document.createElement("div") 
             var table1 = document.getElementById("printTable").cloneNode(true)
             var header1 = document.getElementById("printHeader").cloneNode(true)
-            table1.lastChild.remove()
+            table1.getElementsByTagName('div')[1].remove()
 
             for(var ctr=0; table1.getElementsByTagName("TR")[ctr]!=null ;ctr++){
                 table1.getElementsByTagName("TR")[ctr].firstChild.remove();

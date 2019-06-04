@@ -88,7 +88,57 @@
             <span>Back to households</span>
           </v-tooltip>
         </div>
-        <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+        <v-divider class="ml-1" inset vertical></v-divider>
+        <div class="ml-1">
+          <v-tooltip bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" icon>
+                <v-icon>mdi-printer</v-icon>
+              </v-btn>
+            </template>
+            <span>Print</span>
+          </v-tooltip>
+        </div>
+        <div class="ml-1">
+          <v-menu :close-on-content-click="false" offset-y max-height="400">
+            <template #activator="{ on: menu }">
+              <v-tooltip bottom>
+                <template #activator="{ on: tooltip }">
+                  <v-btn icon v-on="{ ...tooltip, ...menu }">
+                    <v-icon>mdi-application-export</v-icon>
+                  </v-btn>
+                </template>
+                <span>Export</span>
+              </v-tooltip>
+            </template>
+            <v-list>
+              <v-list-item>
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="red">mdi-file-pdf</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>PDF</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="blue">mdi-file-word</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>Word</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+              <v-list-item>
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="green">mdi-file-excel</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>Excel</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
         <div class="ml-1">
           <v-menu :close-on-content-click="false" offset-y max-height="400">
             <template #activator="{ on: menu }">
@@ -710,7 +760,6 @@
 </template>
 
 <script>
-import RecordsPrint from "./RecordsPrint.vue";
 export default {
   data: () => ({
     Table: "Inhabitants",
@@ -831,9 +880,7 @@ export default {
       this.getUser();
     }
   },
-  components: {
-    "app-print": RecordsPrint
-  },
+
   computed: {
     filteredHeaders() {
       return this.headers.filter(h => h.selected);

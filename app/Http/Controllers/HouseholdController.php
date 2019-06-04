@@ -82,8 +82,6 @@ class HouseholdController extends Controller
     {
         $household = Household::findOrFail($id);
         $household->delete();
-        $inhabitants = Inhabitant::where('household_id',$id);
-        $inhabitants->delete();
     }
 
     public function restore($id)

@@ -142,7 +142,7 @@ const app = new Vue({
                 icon: "mdi-view-dashboard",
                 title: "Dashboard",
                 name: "Dashboard",
-                to: "/admindashboard"
+                to: "/dashboard"
             },
             {
                 icon: "mdi-view-dashboard",
