@@ -1,11 +1,10 @@
 <template id="app">
-    <div style="min-width:80px;max-width:80px;"> 
+    <div> 
        <header id='printHeader'>
             <h1>REPUBLIC OF THE PHILIPPINES</h1>
             <h2> {{ reportshHeader.region }} </h2>
             <h2> {{ reportshHeader.name }} - {{reportshHeader.province}} </h2>
             <h3> {{ TableTitle }}</h3></header>
-
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -15,7 +14,6 @@
             </template>
             <span>Print</span>
           </v-tooltip>
-          
           <v-menu :close-on-content-click="false" offset-y max-height="400">
             <template #activator="{ on: menu }">
               <v-tooltip bottom>
@@ -114,27 +112,21 @@ const cssText = `
       font-weight: bold;
       text-align: center;
   }
-
 table th:nth-child(1),td:nth-child(1){
    display:none;
 }
-
   table {
     font-family: Helvetica, Arial, sans-serif;
     border-collapse: 
     collapse; border-spacing: 0; 
     width:100%;
     }
-
     thead tr:nth-child(2) {display: none;}
     div div div:last-child {display: none;}
-
     td, th { border: 1px solid #CCC; height: 30px; font-size:12px;}
-
     th {  
         font-weight: bold; 
     }
-
     td {  
         text-align: center;
     }
@@ -143,7 +135,6 @@ table th:nth-child(1),td:nth-child(1){
     }
 }
 `
-
 export default {
     data: () => ({
         reportshHeader: {}
@@ -175,12 +166,10 @@ export default {
             var div1 = document.createElement("div") 
             var table1 = document.getElementById("printTable").cloneNode(true)
             var header1 = document.getElementById("printHeader").cloneNode(true)
-            table1.getElementsByTagName('div')[1].remove()
-
+            table1.lastChild.remove()
             for(var ctr=0; table1.getElementsByTagName("TR")[ctr]!=null ;ctr++){
                 table1.getElementsByTagName("TR")[ctr].firstChild.remove();
             }
-
             sheet.append(cssText)
             head.appendChild(sheet)
             div1.appendChild(header1)
@@ -192,12 +181,10 @@ export default {
         },
         pdf(){
             var table = document.getElementById("printTable").getElementsByTagName("table")[0].cloneNode(true)
-
             for(var ctr=0; table.getElementsByTagName("TR")[ctr]!=null ;ctr++){
                 table.getElementsByTagName("TR")[ctr].firstChild.remove();
             }
             
-
             var doc = new jsPDF(this.PageOrientation,'pt');
             var width;
             if(this.PageOrientation == 'portrait'){
@@ -211,11 +198,9 @@ export default {
             
             doc.setFontSize(15)
             doc.text('REPUBLIC OF THE PHILIPPINES',width,70,'center')
-
             doc.setFontSize(13.5)
             doc.text('REGION',width,85,'center')
             doc.text('BARANGAY-PROVINCE',width, 98.5,'center')
-
             doc.setFontSize(16.5)
             doc.text(this.TableTitle, width, 140, 'center')
             doc.autoTable({html: table,
