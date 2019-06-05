@@ -23,6 +23,10 @@ Route::resources([
     'inhabitant' => 'InhabitantController',
     'user' => 'UserController',
     'barangay' => 'BarangayUserController'
+    'official' => 'OfficialController',
+    'landForm' => 'LandFormController', 
+    'landUse' => 'LandUseController', 
+    'householdDistribution' => 'HouseholdDistributionController'
 ]);
 Route::get('profile', 'UserController@profile');
 Route::put('updateProfile', 'UserController@updateProfile');
