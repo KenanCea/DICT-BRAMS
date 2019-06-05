@@ -1,10 +1,11 @@
 <template id="app">
-    <div> 
+    <div style="min-width:80px;max-width:80px;"> 
        <header id='printHeader'>
             <h1>REPUBLIC OF THE PHILIPPINES</h1>
             <h2> {{ reportshHeader.region }} </h2>
             <h2> {{ reportshHeader.name }} - {{reportshHeader.province}} </h2>
             <h3> {{ TableTitle }}</h3></header>
+
 
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -14,6 +15,7 @@
             </template>
             <span>Print</span>
           </v-tooltip>
+          
           <v-menu :close-on-content-click="false" offset-y max-height="400">
             <template #activator="{ on: menu }">
               <v-tooltip bottom>
