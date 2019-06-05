@@ -125,7 +125,4 @@ export const routes = [
   }, {
     path: '/dashboard',
     component: require('./components/Dashboard.vue').default
-  },{
-    path: '/admindashboard',
-    component: require('./components/AdminDashboard.vue').default
   }]

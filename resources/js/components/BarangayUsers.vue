@@ -144,6 +144,7 @@
       single-select
     >
       <template v-slot:items="props">
+        <td v-if="showColumn('id')">{{ props.item.id }}</td>
         <td v-if="showColumn('name')">{{ props.item.name }}</td>
         <td v-if="showColumn('email')">{{ props.item.email }}</td>
         <td v-if="showColumn('email_verified_at')">{{ props.item.email_verified_at }}</td>
@@ -168,6 +169,7 @@ export default {
         email: "",   
       }),
       headers: [
+        { text: "id", value: "id", selected: true },
         { text: "Name", value: "name", selected: true },
         { text: "Email", value: "email", selected: true },
         { text: "Email Verified", value: "email_verified_at", selected: true },

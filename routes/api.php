@@ -83,10 +83,3 @@ Route::get('barangayInfo', 'KioskController@BarangayInfo');
 Route::get('householdsInfo', 'KioskController@HouseholdsInfo');
 Route::get('civilStatus', 'KioskController@CivilStatus');
 Route::get('ethnicGroup', 'KioskController@EthnicGroup');
-
-//Admin Dashboard
-Route::get('Barangay', 'DashboardController@TotalBarangay');
-Route::get('InhabitantPop', 'DashboardController@TotalCityInhabitants');
-Route::get('HouseholdPop', 'DashboardController@TotalCityHouseholds');
-Route::get('TotalPopBarangay', 'DashboardController@TotalBarangayPopulous');
-Route::get('AllBarangay', 'DashboardController@ListAllBarangay');
