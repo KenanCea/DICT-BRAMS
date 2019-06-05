@@ -22,7 +22,8 @@ Route::resources([
     'household' => 'HouseholdController',
     'inhabitant' => 'InhabitantController',
     'user' => 'UserController',
-    'barangay' => 'BarangayUserController'
+    'barangay' => 'BarangayUserController',
+    'barangayForm' => 'BarangayController',
     'official' => 'OfficialController',
     'landForm' => 'LandFormController', 
     'landUse' => 'LandUseController', 
