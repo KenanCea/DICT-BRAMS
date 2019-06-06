@@ -60,6 +60,7 @@ Route::get('header', 'PrintDocumentController@location');
 
 // Forms
 Route::get('form', 'FormController@index')->name('form.index');
+Route::get('officials', 'FormController@Officials');
 
 // Dashboard
 Route::get('Inhabitants', 'DashboardController@TotalInhabitants');

@@ -10,13 +10,13 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "axios": "^0.18",
+        "axios": "^0.18.1",
         "cross-env": "^5.2.0",
-        "laravel-mix": "^4.0.15",
+        "laravel-mix": "^4.0.16",
         "lodash": "^4.17.11",
         "popper.js": "^1.15",
         "resolve-url-loader": "^3.1.0",
-        "sass": "^1.20.1",
+        "sass": "^1.20.3",
         "sass-loader": "^7.1.0",
         "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
@@ -26,14 +26,14 @@
         "echarts": "^4.2.1",
         "file-saver": "^2.0.2",
         "html-docx-js": "^0.3.1",
-        "html2canvas": "^1.0.0-rc.2",
+        "html2canvas": "^1.0.0-rc.3",
         "jspdf": "^1.5.3",
         "jspdf-autotable": "^3.1.1",
         "printd": "^1.4.0",
-        "sweetalert2": "^8.11.6",
+        "sweetalert2": "^8.11.7",
         "v-charts": "^1.19.0",
-        "vform": "^1.0.0",
+        "vform": "^1.0.1",
         "vue-router": "^3.0.6",
-        "vuetify": "^2.0.0-beta.0"
+        "vuetify": "^2.0.0-beta.1"
     }
 }

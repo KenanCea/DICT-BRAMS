@@ -445,7 +445,7 @@
               <span class="headline">Issue barangay clearance</span>
               <v-spacer></v-spacer>
 
-              <div class="ml-1" v-if="barangayClearance">
+              <div class="ml-1">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
                     <v-btn v-on="on" icon>
@@ -456,7 +456,7 @@
                 </v-tooltip>
               </div>
 
-              <div class="ml-1" v-if="barangayClearance">
+              <div class="ml-1">
                 <v-menu :close-on-content-click="false" offset-y max-height="400">
                   <template #activator="{ on: menu }">
                     <v-tooltip bottom>
@@ -485,44 +485,38 @@
                         <v-list-item-title>Word</v-list-item-title>
                       </v-list-item-content>
                     </v-list-item>
-                    <v-list-item>
-                      <v-list-item-icon class="mr-2">
-                        <v-icon color="green">mdi-file-excel</v-icon>
-                      </v-list-item-icon>
-                      <v-list-item-content>
-                        <v-list-item-title>Excel</v-list-item-title>
-                      </v-list-item-content>
-                    </v-list-item>
                   </v-list>
                 </v-menu>
               </div>
-            </v-card-title>
-
-            <v-divider></v-divider>
-            <v-card-text>
-              <v-container grid-list-md class="pa-0">
+              <!-- <v-container grid-list-md class="pa-0">
                 <v-layout wrap>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="formBarangayClearance.ctc_no"
+                      outlined
                       label="Community Tax Certificate Number"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="formBarangayClearance.purpose_of_clearance"
+                      outlined
                       label="Purpose of clearance"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="formBarangayClearance.official_receipt_no"
+                      outlined
                       label="Official Receipt Number"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
-              </v-container>
-              <v-divider></v-divider>
+              </v-container>-->
+            </v-card-title>
+
+            <v-divider></v-divider>
+            <v-card-text style="color:black">
               <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
                 <v-layout row wrap>
                   <v-flex xs3>
@@ -544,25 +538,25 @@
                 </v-layout>
                 <v-layout row wrap>
                   <v-flex xs4 class="form-border-right">
-                    <p class="mb-0">RANDY P. GATI</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[0].name}` : 'N/A' }}</p>
                     <p>Punong Barangay</p>
-                    <p class="mb-0">BRIAN C. ANTON</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[1].name}` : 'N/A' }}</p>
                     <p>Barangay Kagawad</p>
-                    <p class="mb-0">ARTHUR T. WILLY</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[2].name}` : 'N/A' }}</p>
                     <p>Barangay Kagawad</p>
-                    <p class="mb-0">MARTN G. CONTIC</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[3].name}` : 'N/A' }}</p>
                     <p>Barangay Kagawad</p>
-                    <p class="mb-0">EMILY R. BALLARES</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[4].name}` : 'N/A' }}</p>
                     <p>Barangay Kagawad</p>
-                    <p class="mb-0">RUDY D. AMISTAD</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[5].name}` : 'N/A' }}</p>
                     <p>Barangay Kagawad</p>
-                    <p class="mb-0">VICENTE J. ZAPANTA</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[6].name}` : 'N/A' }}</p>
                     <p>Barangay Kagawad</p>
-                    <p class="mb-0">MODESTO P. COLUMBRES</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[7].name}` : 'N/A' }}</p>
                     <p>Barangay Kagawad</p>
-                    <p class="mb-0">CYNTHIA G. AMISTAD</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[8].name}` : 'N/A' }}</p>
                     <p>Barangay Secretary</p>
-                    <p class="mb-0">RONALD C. GOMEZ</p>
+                    <p class="mb-0">{{ officials.length ? `${officials[9].name}` : 'N/A' }}</p>
                     <p>Barangay Treasurer</p>
                   </v-flex>
                   <v-flex xs8 text-xs-left class="pl-3">
@@ -626,21 +620,9 @@
             </v-card-text>
             <v-divider></v-divider>
             <v-card-actions>
-              <v-btn
-                color="red darken-1"
-                text
-                v-if="barangayClearance"
-                @click="barangayClearance = false"
-              >back</v-btn>
-              <v-btn color="red darken-1" text v-if="!barangayClearance" @click="clear()">cancel</v-btn>
               <v-spacer></v-spacer>
-              <v-btn
-                color="blue darken-1"
-                text
-                v-if="!barangayClearance"
-                @click="barangayClearance = true"
-              >proceed</v-btn>
-              <v-btn color="blue darken-1" text v-if="barangayClearance" @click="clear()">Ok</v-btn>
+              <v-btn color="primary" text>cancel</v-btn>
+              <v-btn color="primary" text @click="clear()">Ok</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
@@ -767,6 +749,7 @@ export default {
     selectedInhabitant: [],
     inhabitants: [],
     user: {},
+    officials: [],
     dialogEditInhabitant: false,
     dialogBarangayClearance: false,
     barangayClearance: false,
@@ -780,7 +763,6 @@ export default {
     search: null,
     menuIssued: false,
     inhabitantForm: new Form({
-      
       id: "",
       household_id: "",
       first_name: "",
@@ -829,6 +811,7 @@ export default {
     if (this.$gate.isUser()) {
       this.getInhabitants();
       this.getUser();
+      this.getOfficials();
     }
   },
   components: {
@@ -858,10 +841,16 @@ export default {
         this.loading = false;
       });
     },
-     getUser() {
-      axios.get("api/user").then(({ data }) => this.formBarangayClearance.fill(data));
+    getUser() {
+      axios
+        .get("api/user")
+        .then(({ data }) => this.formBarangayClearance.fill(data));
     },
-
+    getOfficials() {
+      axios.get("api/officials").then(response => {
+        this.officials = response.data;
+      });
+    },
     updateInhabitant() {
       this.inhabitantForm
         .put("api/inhabitant/" + this.inhabitantForm.id)
