@@ -173,15 +173,19 @@
 
       updateLogo(e) {
         let file = e.target.files[0];
-        console.log(file);
         let reader = new FileReader();
-        if (file["size"] < 1048576) {
-          reader.onloadend = file => {
-            this.form.logo = reader.result;
-          };
-          reader.readAsDataURL(file);
-        } else {
+        let limit = 1024 * 1024 * 2;
+        if (file["size"] > limit) {
+          toast.fire({
+            type: "error",
+            title: "You are uploading a large file"
+          });
+          return false;
         }
+        reader.onloadend = file => {
+          this.form.logo = reader.result;
+        };
+        reader.readAsDataURL(file);
       }
     }
   }

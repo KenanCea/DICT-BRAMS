@@ -80,9 +80,6 @@ class DashboardController extends Controller
             ->groupby('religion')
             ->get();
     }
-    public function TotalBarangay(){
-        return Barangay::count("id");
-    }
     public function TotalEthnicGroups()
     {
         return DB::table('inhabitants')
@@ -92,6 +89,9 @@ class DashboardController extends Controller
             ->whereNull('inhabitants.deleted_at')
             ->groupby('ethnicGroup')
             ->get();
+    }
+    public function TotalBarangay(){
+        return Barangay::count("id");
     }
     public function TotalCityInhabitants(){
         return Inhabitant::count("id");

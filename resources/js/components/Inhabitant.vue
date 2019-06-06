@@ -88,7 +88,12 @@
             <span>Back to households</span>
           </v-tooltip>
         </div>
-        <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+        <v-divider class="ml-1" inset vertical></v-divider>
+
+
+      <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+
+
         <div class="ml-1">
           <v-menu :close-on-content-click="false" offset-y max-height="400">
             <template #activator="{ on: menu }">

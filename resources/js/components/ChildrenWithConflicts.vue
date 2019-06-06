@@ -10,31 +10,31 @@
                     </v-toolbar-title>
                 <v-spacer></v-spacer>
 
-                <v-menu :close-on-content-click="false" offset-y max-height="400">
-                    <template #activator="{ on: menu }">
-                    <v-tooltip bottom>
-                        <template #activator="{ on: tooltip }">
-                        <v-btn text icon color="primary" v-on="{ ...tooltip, ...menu }">
-                            <v-icon color="grey darken-2">mdi-table-column</v-icon>
-                        </v-btn>
-                        </template>
-                        <span>Column Visibility</span>
-                    </v-tooltip>
-                    </template>
-                        <v-list>
-                        <v-list-item v-for="(item, index) in headers" :key="index">
-                            <v-switch
-                            color="green"
-                            v-bind:label="item.text"
-                            v-model="item.selected"
-                            :value="item.selected"
-                            ></v-switch>
-                        </v-list-item>
-                        </v-list>
-                </v-menu>
+      <v-menu :close-on-content-click="false" offset-y max-height="400">
+        <template #activator="{ on: menu }">
+          <v-tooltip bottom>
+            <template #activator="{ on: tooltip }">
+              <v-btn text icon color="primary" v-on="{ ...tooltip, ...menu }">
+                <v-icon color="grey darken-2">mdi-table-column</v-icon>
+              </v-btn>
+            </template>
+            <span>Column Visibility</span>
+          </v-tooltip>
+        </template>
+            <v-list>
+              <v-list-item v-for="(item, index) in headers" :key="index">
+                <v-switch
+                  color="green"
+                  v-bind:label="item.text"
+                  v-model="item.selected"
+                  :value="item.selected"
+                ></v-switch>
+              </v-list-item>
+            </v-list>
+      </v-menu>
 
-                <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
-                </v-app-bar>
+        <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+    </v-app-bar>
 
                 <v-data-table
                     id="printTable"

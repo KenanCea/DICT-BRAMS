@@ -39,9 +39,6 @@ class CreateBarangaysTable extends Migration
             $table->double('distance_municipal_city',9);
             $table->double('province_capitol', 9);
             $table->double('national_highway', 9);
-            $table->enum('mountainous',['0-25%','26-50%','51-75%','76-100%']);
-            $table->enum('plain',['0-25%','26-50%','51-75%','76-100%']);
-            $table->enum('valley',['0-25%','26-50%','51-75%','76-100%']);
             $table->timestamps();
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('restrict')->onDelete('restrict');
