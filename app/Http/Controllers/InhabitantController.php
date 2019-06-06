@@ -23,16 +23,20 @@ class InhabitantController extends Controller
     {
         return DB::table('inhabitants')
             ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
+            ->leftJoin('households', 'inhabitants.household_id', '=', 'households.id')
             ->select(
                 'inhabitants.*',
+                'households.house_no',
+                'households.purok',
+                'households.street',
                 DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                 '-',
                 MONTH(inhabitants.date_of_birth),
                 '-',
                 DAY(inhabitants.date_of_birth)),
-        '%Y-%c-%e') > CURDATE(),
-        1,
-        0) as age")
+                '%Y-%c-%e') > CURDATE(),
+                1,
+                0) as age")
             )
             ->whereNull('inhabitants.deleted_at')
             ->where('users.id', Auth::user()->id)

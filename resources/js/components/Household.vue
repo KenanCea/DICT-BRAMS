@@ -2,7 +2,7 @@
   <div>
     <v-app-bar id="navbar" dense flat app>
       <v-toolbar-title>
-        <span>{{ selected.length ? `#${selected[0].house_no} ${selected[0].street}, ${address[0].name}, ${address[0].municipality}` : 'Households' }}</span>
+        <span>{{ selected.length ? `#${selected[0].house_no} ${selected[0].street} Purok ${selected[0].purok}, ${address[0].name}` : 'Households' }}</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -524,7 +524,7 @@
                 <v-flex xs6>
                   <v-select
                     v-model="inhabitantForm.civil_status"
-                    :items="['Single','Married','Widow/er','Separated','Common-Law']"
+                    :items="['Single', 'Married', 'Widow/er', 'Separated', 'Common-law', 'Complicated']"
                     label="Civil Status"
                     :rules="[v => !!v || 'Civil Status is required']"
                     required
@@ -543,7 +543,7 @@
                 <v-flex xs6>
                   <v-select
                     v-model="inhabitantForm.status_of_residency"
-                    :items="['Permanent','Live-in relative','Boarder','Buss Resident','Moved Out','Deceased']"
+                    :items="['Permanent', 'Live-in relative', 'Boarder', 'Buss resident', 'Moved out', 'Deceased']"
                     label="Status of Residency"
                     :rules="[v => !!v || 'Status of Residency is required']"
                     required
@@ -552,7 +552,7 @@
                 <v-flex xs6>
                   <v-select
                     v-model="inhabitantForm.schooling"
-                    :items="['In school','Out of school','Not yet in school','Graduate']"
+                    :items="['n/a', 'In School', 'Out of School', 'Not yet in school', 'Graduate']"
                     label="Schooling"
                     :rules="[v => !!v || 'Schooling is required']"
                     required
@@ -601,7 +601,7 @@
                 <v-flex xs6>
                   <v-select
                     v-model="inhabitantForm.ethnicGroup"
-                    :items="['Bago','Bicol','Bisaya','Boholano','Bontoc','Capizeno','Cuyunon','Ibaloi','Ilonggo','Ifugao','Ilocano','Ivatan','Kalinga','Kapangpangan','Maguindanao','Maranao','Masbateno','Pangasinan','Surigaoan','Tagalog','Tausog','Waray','Yakan','Zamboagueno/Chavacano']"
+                    :items="['Bago', 'Bicol', 'Bisaya', 'Boholano', 'Bontoc', 'Capizeno', 'Cuyunon', 'Ibaloi', 'Ilonggo', 'Ifugao', 'Ilocano', 'Ivatan', 'Kalinga', 'Kankana-ey', 'Kapangpangan', 'Maguindanao', 'Maranao', 'Masbateno', 'Pangasinan', 'Surigaoan', 'Tagalog', 'Tausog', 'Waray', 'Yakan', 'Zamboagueno/Chavacano']"
                     label="Ethnic Group"
                     :rules="[v => !!v || 'Ethnic Group is required']"
                     required
@@ -679,14 +679,14 @@
                     <v-select
                       v-model="inhabitantForm.dewormed"
                       label="Dewormed?"
-                      :items="['y', 'n']"
+                      :items="['yes', 'no']"
                     ></v-select>
                   </v-flex>
                   <v-flex xs4>
                     <v-select
                       v-model="inhabitantForm.received_vitaminA"
                       label="Recieved Vitamin A?"
-                      :items="['y', 'n']"
+                      :items="['yes', 'no']"
                     ></v-select>
                   </v-flex>
 
@@ -799,7 +799,7 @@
                   <v-flex xs6>
                     <v-select
                       v-model="inhabitantForm.employment_status"
-                      :items="['Permanent','Contractual','Temporary','Self-employed','Retired']"
+                      :items="['Permanent', 'Contractual', 'Temporary', 'Self-employed', 'Retired', 'Unknown']"
                       label="Employment Status"
                     ></v-select>
                   </v-flex>
@@ -817,11 +817,10 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs6>
-                    <v-select
+                    <v-text-field
                       v-model="inhabitantForm.estimated_monthly_income_kind"
-                      :items="['Rice','Vegetables','Free rental','City services']"
                       label="Estimated Monthly Income-kind"
-                    ></v-select>
+                    ></v-text-field>
                   </v-flex>
                   <v-flex xs6>
                     <v-select
@@ -924,6 +923,16 @@
                 </v-btn>
               </template>
               <span>Archive inhabitant</span>
+            </v-tooltip>
+          </div>
+          <div v-if="selected.length" class="ml-1">
+            <v-tooltip bottom>
+              <template v-slot:activator="{ on }">
+                <v-btn v-on="on" icon @click="newInhabitantDialog()">
+                  <v-icon>mdi-account-plus</v-icon>
+                </v-btn>
+              </template>
+              <span>Add new inhabitant</span>
             </v-tooltip>
           </div>
         </v-card-title>
@@ -1107,7 +1116,8 @@ export default {
         others3: "",
         date_measured_height_weight: "",
         date_measured_height_weight: "",
-        received_vitaminA: ""
+        received_vitaminA: "",
+        dewormed: ""
       }),
       headersHouseholds: [
         {
@@ -1323,7 +1333,7 @@ export default {
       this.inhabitantForm.household_id = this.selected[0].id;
       this.dialogCreateInhabitant = true;
     },
-    
+
     editInhabitantDialog(inhabitantsList) {
       this.editModeInhabitant = true;
       this.inhabitantForm.reset();
@@ -1343,12 +1353,15 @@ export default {
       this.dialogHousehold = true;
       this.householdForm.fill(households);
     },
+
     submitHouseholds() {
       this.$refs.formHouseholds.validate();
     },
+
     submitInhabitants() {
       this.$refs.formInhabitants.validate();
     },
+
     showColumn(col) {
       return this.headersHouseholds.find(h => h.value === col).selected;
     }
