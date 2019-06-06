@@ -96,3 +96,16 @@ Route::get('InhabitantPop', 'DashboardController@TotalCityInhabitants');
 Route::get('HouseholdPop', 'DashboardController@TotalCityHouseholds');
 Route::get('TotalPopBarangay', 'DashboardController@TotalBarangayPopulous');
 Route::get('AllBarangay', 'DashboardController@ListAllBarangay');
+
+//Barangay Summary
+Route::get('BrgyCaptain','BarangaySummaryController@PunongBarangay');
+Route::get('BrgySecretary', 'BarangaySummaryController@BarangaySecretary');
+Route::get('Seniors', 'BarangaySummaryController@TotalSeniors');
+Route::get('LandArea', 'BarangaySummaryController@TotalLandArea');
+Route::get('Male', 'BarangaySummaryController@TotalMale');
+Route::get('Female', 'BarangaySummaryController@TotalFemale');
+Route::get('StatusResidency', 'BarangaySummaryController@TotalPermanentInhabitants');
+Route::get('RegVoter', 'BarangaySummaryController@TotalRegisteredVoters');
+Route::get('Children', 'BarangaySummaryController@TotalChildren');
+Route::get('OutOfSchool', 'BarangaySummaryController@TotalOutOfSchoolYouth');
+Route::get('SoloParent', 'BarangaySummaryController@TotalSoloParent');

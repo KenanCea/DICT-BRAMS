@@ -104,6 +104,14 @@
                 </template>
                 <span>Secretary Duties</span>
             </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn to="/summary" text icon v-on="on">
+                        <v-icon>mdi-account-details</v-icon>
+                    </v-btn>
+                </template>
+                <span>Barangay Details</span>
+            </v-tooltip>
             </div>
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
