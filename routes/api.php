@@ -29,6 +29,7 @@ Route::resources([
     'landUse' => 'LandUseController', 
     'householdDistribution' => 'HouseholdDistributionController'
 ]);
+// Profile
 Route::get('profile', 'UserController@profile');
 Route::put('updateProfile', 'UserController@updateProfile');
 
@@ -66,6 +67,9 @@ Route::get('header', 'PrintDocumentController@location');
 // Forms
 Route::get('form', 'FormController@index')->name('form.index');
 Route::get('officials', 'FormController@Officials');
+Route::get('getBarangayClearance/{id}', 'FormController@showBarangayClearance');
+Route::post('createBarangayClearance', 'FormController@createBarangayClearance');
+
 
 // Dashboard
 Route::get('Inhabitants', 'DashboardController@TotalInhabitants');

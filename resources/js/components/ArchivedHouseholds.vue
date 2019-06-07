@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
 
       <span v-if="selected.length">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="selected = []">
               <v-icon>mdi-close</v-icon>
@@ -20,7 +20,7 @@
 
 
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="restore(selected[0].id)">
               <v-icon>mdi-package-up</v-icon>
@@ -35,7 +35,7 @@
       <div class="ml-1">
         <v-menu :close-on-content-click="false" offset-y max-height="400">
           <template #activator="{ on: menu }">
-            <v-tooltip bottom>
+            <v-tooltip attach bottom>
               <template #activator="{ on: tooltip }">
                 <v-btn icon v-on="{ ...tooltip, ...menu }">
                   <v-icon>mdi-table-column-width</v-icon>

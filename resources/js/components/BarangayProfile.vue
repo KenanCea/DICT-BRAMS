@@ -21,7 +21,7 @@
                       small 
                       color="primary"
                       >Print</v-btn>
-                    <v-tooltip bottom>
+                    <v-tooltip attach bottom>
                       <template v-slot:activator="{ on }">
                         <v-btn text icon @click="isEditing = !isEditing" v-on="on">
                           <v-icon v-if="isEditing">mdi-close</v-icon>
@@ -251,7 +251,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editLandFormDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
@@ -332,7 +332,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editLandUseDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
@@ -405,7 +405,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editItem3(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>
@@ -468,7 +468,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editItem4(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>
@@ -519,7 +519,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editItem5(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>
@@ -597,7 +597,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editItem6(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>
@@ -661,7 +661,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editItem7(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>
@@ -729,7 +729,7 @@
                       </template>
 
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip bottom>
+                        <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
                             <v-btn text icon @click="editItem8(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>

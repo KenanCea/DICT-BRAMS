@@ -75,6 +75,26 @@ const app = new Vue({
                 to: "/dashboard",
                 meta: { requiuresAuth: true }
             },
+
+            {
+                icon: "mdi-home",
+                title: "Households",
+                name: "Household",
+                to: "/households"
+            },
+
+            {
+                icon: "mdi-printer",
+                title: "Print Document",
+                name: "Print Document",
+                to: "/printdocument"
+            },
+            {
+                icon: "mdi-alpha-k-circle",
+                title: "Barangay Kiosk",
+                name: "Barangay Kiosk",
+                to: "/barangaykiosk"
+            },
             {
                 icon: "mdi-file-account",
                 title: "Forms",
@@ -101,24 +121,6 @@ const app = new Vue({
                     to: "/filedcase"
                 }
                 ]
-            },
-            {
-                icon: "mdi-home",
-                title: "Households",
-                name: "Household",
-                to: "/households"
-            },
-            {
-                icon: "mdi-content-copy",
-                title: "Print Document",
-                name: "Print Document",
-                to: "/printdocument"
-            },
-            {
-                icon: "mdi-content-copy",
-                title: "Barangay Kiosk",
-                name: "Barangay Kiosk",
-                to: "/barangaykiosk"
             },
             {
                 icon: "mdi-archive",

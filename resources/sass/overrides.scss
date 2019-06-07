@@ -6,8 +6,7 @@
   width: 0px !important;
 }
 
-
-#navbar > div > div.flex.xs2  > div > div > div {
+#navbar > div > div.flex.xs2 > div > div > div {
   min-height: 34px;
 }
 
@@ -15,18 +14,22 @@
   top: 7px;
 }
 
-#navbar > div > div.flex.xs2 > div > div > div > div.v-text-field__slot > input[type=text]{
-  margin-top: 2px
+#navbar > div > div.flex.xs2 > div > div > div > div.v-text-field__slot > input[type="text"] {
+  margin-top: 2px;
 }
 
-#navbar > div > div.flex.xs2 > div > div > div > div.v-input__append-inner{
-  margin-top: 5px
+#navbar > div > div.flex.xs2 > div > div > div > div.v-input__append-inner {
+  margin-top: 5px;
 }
-
 
 #app > div.application--wrap > aside {
   top: 64px !important;
   max-height: calc(100% - 64px) !important;
+}
+
+.v-list-group .v-list-item__icon.v-list-group__header__append-icon {
+  margin-bottom: 12px !important;
+  margin-top: 12px !important;
 }
 
 #navbar {
@@ -36,10 +39,15 @@
   width: auto;
 }
 
-#profile{
+#profile-button {
   border: 1px solid #dadce0;
   border-radius: 8px;
-  height:46px
+  height: 46px;
+}
+
+#back-button {
+  border: 1px solid #dadce0;
+  background-color: #ffffff;
 }
 
 .form-border-right {

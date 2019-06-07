@@ -6,7 +6,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div>
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn text icon @click="isEditing = !isEditing" v-on="on">
               <v-icon v-if="isEditing">mdi-close</v-icon>
@@ -18,7 +18,7 @@
         </v-tooltip>
       </div>
       <div class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn text icon color="primary" v-on="on">
               <v-icon color="grey darken-2">mdi-refresh</v-icon>
@@ -28,12 +28,12 @@
         </v-tooltip>
       </div>
     </v-app-bar>
-    <v-container fill-height fluid grid-list-xl>
+    <v-container fill-height fluid grid-list-xl class="pl-0">
       <v-layout justify-center wrap>
         <v-flex xs12 md4>
-          <v-card>
+          <v-card outlined>
             <v-card-text class="text-xs-center">
-              <v-avatar class="mx-auto d-block" size="80">
+              <v-avatar class="mx-auto d-block" size="150">
                 <img :src="getLogo()" alt="Logo">
               </v-avatar>
               <h3 class="mt-2">{{form.name}}</h3>
@@ -46,7 +46,7 @@
           </v-card>
         </v-flex>
         <v-flex xs12 md8>
-          <v-card>
+          <v-card outlined>
             <v-form>
               <v-container>
                 <v-layout wrap>
@@ -64,6 +64,7 @@
                   <v-flex xs12>
                     <input
                       type="file"
+                      name="photo"
                       @change="updateProfile"
                       label="Logo"
                       :disabled="!isEditing"
@@ -133,6 +134,7 @@ export default {
           type: "success",
           title: "User account has been updated"
         });
+        this.isEditing = null;
       });
     },
 

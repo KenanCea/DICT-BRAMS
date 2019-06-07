@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
 
       <span v-if="selected.length">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="selected = []">
               <v-icon>mdi-close</v-icon>
@@ -21,7 +21,7 @@
       <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
 
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" v-if="selected.length" icon @click="archive(selected[0].id)">
               <v-icon>mdi-archive</v-icon>
@@ -32,7 +32,7 @@
       </div>
 
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" v-if="selected.length" icon @click="disable(selected[0].id)">
               <v-icon>mdi-account-remove</v-icon>
@@ -43,7 +43,7 @@
       </div>
 
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" v-if="selected.length" icon @click="resetPassword(selected[0].id)">
               <v-icon>mdi-lock-reset</v-icon>
@@ -54,7 +54,7 @@
       </div>
 
       <div class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="newDialog()">
               <v-icon>mdi-home-plus</v-icon>
@@ -69,7 +69,7 @@
       <div class="ml-1">
         <v-menu :close-on-content-click="false" offset-y max-height="400">
           <template #activator="{ on: menu }">
-            <v-tooltip bottom>
+            <v-tooltip attach bottom>
               <template #activator="{ on: tooltip }">
                 <v-btn icon v-on="{ ...tooltip, ...menu }">
                   <v-icon>mdi-table-column-width</v-icon>

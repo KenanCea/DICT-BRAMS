@@ -7,7 +7,7 @@
       <v-spacer></v-spacer>
       <v-menu :close-on-content-click="false" offset-y max-height="400">
         <template #activator="{ on: menu }">
-          <v-tooltip bottom>
+          <v-tooltip attach bottom>
             <template #activator="{ on: tooltip }">
               <v-btn text icon color="primary" v-on="{ ...tooltip, ...menu }">
                 <v-icon color="grey darken-2">mdi-table-column</v-icon>
@@ -27,7 +27,7 @@
           </v-list-item>
         </v-list>
       </v-menu>
-      <v-tooltip bottom>
+      <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
           <v-btn text icon color="primary" v-on="on">
             <v-icon color="grey darken-2">mdi-refresh</v-icon>

@@ -6,7 +6,7 @@
       </v-toolbar-title>
       <v-spacer></v-spacer>
       <div>
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="refresh()">
               <v-icon>mdi-refresh</v-icon>
