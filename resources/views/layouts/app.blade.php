@@ -111,6 +111,16 @@
                     <span>Secretary Duties</span>
                 </v-tooltip>
             </div>
+            <div class="ml-2">
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn to="/summary" text icon v-on="on">
+                            <v-icon>mdi-account-details</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Barangay Details</span>
+                </v-tooltip>
+            </div>
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn text large v-on="on" color="primary" class="px-2 ml-3" id="profile-button">
@@ -159,7 +169,7 @@
     </v-app>
     @auth
     <script>
-        window.user = @json(auth()->user())
+        window.user = @json(auth() - > user())
     </script>
     @endauth
     @stack('beforeScripts')
