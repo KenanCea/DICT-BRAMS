@@ -28,14 +28,24 @@ class FormController extends Controller
                 'households.street',
                 'households.barangay',
                 DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
-         '-',
-         MONTH(inhabitants.date_of_birth),
-         '-',
-         DAY(inhabitants.date_of_birth)),
- '%Y-%c-%e') > CURDATE(),
-1,
-0) as age"))
-            ->where('users.id',Auth::user()->id)
+                '-',
+                MONTH(inhabitants.date_of_birth),
+                 '-',
+                DAY(inhabitants.date_of_birth)),
+                '%Y-%c-%e') > CURDATE(),
+                1,
+                0) as age")
+            )
+            ->where('users.id', Auth::user()->id)
+            ->get();
+    }
+    public function Officials()
+    {
+        return DB::table('officials')
+            ->leftJoin('users', 'officials.user_id', '=', 'users.id')
+            ->select('officials.name')
+            ->where('users.id', Auth::user()->id)
+            ->orderby('officials.position')
             ->get();
     }
 }

@@ -22,7 +22,12 @@ Route::resources([
     'household' => 'HouseholdController',
     'inhabitant' => 'InhabitantController',
     'user' => 'UserController',
-    'barangay' => 'BarangayUserController'
+    'barangay' => 'BarangayUserController',
+    'barangayForm' => 'BarangayController',
+    'official' => 'OfficialController',
+    'landForm' => 'LandFormController', 
+    'landUse' => 'LandUseController', 
+    'householdDistribution' => 'HouseholdDistributionController'
 ]);
 Route::get('profile', 'UserController@profile');
 Route::put('updateProfile', 'UserController@updateProfile');
@@ -62,6 +67,7 @@ Route::get('header', 'PrintDocumentController@location');
 
 // Forms
 Route::get('form', 'FormController@index')->name('form.index');
+Route::get('officials', 'FormController@Officials');
 
 // Dashboard
 Route::get('Inhabitants', 'DashboardController@TotalInhabitants');
@@ -85,3 +91,23 @@ Route::get('barangayInfo', 'KioskController@BarangayInfo');
 Route::get('householdsInfo', 'KioskController@HouseholdsInfo');
 Route::get('civilStatus', 'KioskController@CivilStatus');
 Route::get('ethnicGroup', 'KioskController@EthnicGroup');
+
+//Admin Dashboard
+Route::get('Barangay', 'DashboardController@TotalBarangay');
+Route::get('InhabitantPop', 'DashboardController@TotalCityInhabitants');
+Route::get('HouseholdPop', 'DashboardController@TotalCityHouseholds');
+Route::get('TotalPopBarangay', 'DashboardController@TotalBarangayPopulous');
+Route::get('AllBarangay', 'DashboardController@ListAllBarangay');
+
+//Barangay Summary
+Route::get('BrgyCaptain','BarangaySummaryController@PunongBarangay');
+Route::get('BrgySecretary', 'BarangaySummaryController@BarangaySecretary');
+Route::get('Seniors', 'BarangaySummaryController@TotalSeniors');
+Route::get('LandArea', 'BarangaySummaryController@TotalLandArea');
+Route::get('Male', 'BarangaySummaryController@TotalMale');
+Route::get('Female', 'BarangaySummaryController@TotalFemale');
+Route::get('StatusResidency', 'BarangaySummaryController@TotalPermanentInhabitants');
+Route::get('RegVoter', 'BarangaySummaryController@TotalRegisteredVoters');
+Route::get('Children', 'BarangaySummaryController@TotalChildren');
+Route::get('OutOfSchool', 'BarangaySummaryController@TotalOutOfSchoolYouth');
+Route::get('SoloParent', 'BarangaySummaryController@TotalSoloParent');

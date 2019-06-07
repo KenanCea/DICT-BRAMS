@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Inhabitant;
 use App\Household;
+use App\Barangay;
 use DB;
 use Auth;
 
@@ -87,6 +88,39 @@ class DashboardController extends Controller
             ->where('users.id', Auth::user()->id)
             ->whereNull('inhabitants.deleted_at')
             ->groupby('ethnicGroup')
+            ->get();
+    }
+    public function TotalBarangay(){
+        return Barangay::count("id");
+    }
+    public function TotalCityInhabitants(){
+        return Inhabitant::count("id");
+    }
+    public function TotalCityHouseholds(){
+        return Household::count("id");
+    }
+    public function TotalBarangayPopulous(){
+        return DB::table('households')
+            ->leftJoin('users', 'households.user_id', '=', 'users.id')
+            ->leftJoin('inhabitants', 'households.id', '=', 'inhabitants.household_id')
+            ->select('users.name as Barangay', DB::raw('count(*) AS Inhabitants'), DB::raw('count(distinct households.id) AS Households'))
+            ->whereNull('households.deleted_at')
+            ->whereNull('inhabitants.deleted_at')
+            ->groupBy('users.name')
+            ->orderBy('Inhabitants', 'desc')
+            ->limit(10)
+            ->get();
+    }
+    public function ListAllBarangay(){
+        return DB::table('households')
+            ->leftJoin('users', 'households.user_id', '=', 'users.id')
+            ->leftJoin('inhabitants', 'households.id', '=', 'inhabitants.household_id')
+            ->leftjoin('barangays', 'barangays.user_id', '=', 'households.user_id')
+            ->select('users.name as Barangay', 'barangays.type_barangay as type', DB::raw('count(inhabitants.id) AS Inhabitants'), DB::raw('count(distinct households.id) AS Households'))
+            ->whereNull('households.deleted_at')
+            ->whereNull('inhabitants.deleted_at')
+            ->groupBy('users.name', 'barangays.type_barangay')
+            ->orderBy('Inhabitants', 'desc')
             ->get();
     }
 }

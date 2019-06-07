@@ -128,4 +128,10 @@ export const routes = [
   }, {
     path: '/archivedUsers',
     component: require('./components/ArchivedBarangayUsers.vue').default
+  }, {
+    path: '/admindashboard',
+    component: require('./components/AdminDashboard.vue').default
+  }, {
+    path: '/summary',
+    component: require('./components/BarangaySummary.vue').default
   }]

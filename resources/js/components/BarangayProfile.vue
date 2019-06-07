@@ -46,19 +46,14 @@
                   <div class="ml-3">A. Creation</div>
                   <div class="ml-4">
                     <v-form>
-
-                      <v-text-field
-                        v-model="form.legal_basis"
-                        label="Legal Basis"
-                        :disabled="!isEditing"
+                      <v-text-field v-model="barangayForm.legal_basis" label="Legal Basis" :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-menu
-                        ref="date_legal"
-                        v-model="date_legal"
+                        v-model="menuLegal"
                         :close-on-content-click="false"
                         :nudge-right="40"
-                        :return-value.sync="date"
+                        eager
                         transition="scale-transition"
                         offset-y
                         full-width
@@ -66,26 +61,27 @@
                       >
                         <template v-slot:activator="{ on }">
                           <v-text-field
-                            v-model="form.date"
-                            label="Date Legal Basis"
+                            v-model="barangayForm.date_legal_basis"
+                            label="Date of Legal Basis"
                             :disabled="!isEditing"
+                            prepend-icon="mdi-calendar"
                             readonly
                             v-on="on"
                           ></v-text-field>
                         </template>
-                        <v-date-picker v-model="date" no-title scrollable>
-                          <v-spacer></v-spacer>
-                          <v-btn text color="primary" @click="date_legal = false">Cancel</v-btn>
-                          <v-btn text color="primary" @click="$refs.date_legal.save(date)">OK</v-btn>
-                        </v-date-picker>
+                        <v-date-picker
+                          v-model="barangayForm.date_legal_basis"
+                          no-title
+                          color="primary"
+                          @input="menuLegal = false"
+                        ></v-date-picker>
                       </v-menu>
 
                       <v-menu
-                        ref="date_ratification"
-                        v-model="date_ratification"
+                        v-model="menuRatification"
                         :close-on-content-click="false"
                         :nudge-right="40"
-                        :return-value.sync="date"
+                        eager
                         transition="scale-transition"
                         offset-y
                         full-width
@@ -93,28 +89,30 @@
                       >
                         <template v-slot:activator="{ on }">
                           <v-text-field
-                            v-model="form.date"
-                            label="Date Ratification/Plebiscite"
+                            v-model="barangayForm.date_ratification"
+                            label="Date of Ratification/Plebiscite"
                             :disabled="!isEditing"
+                            prepend-icon="mdi-calendar"
                             readonly
                             v-on="on"
                           ></v-text-field>
                         </template>
-                        <v-date-picker v-model="date" no-title scrollable>
-                          <v-spacer></v-spacer>
-                          <v-btn text color="primary" @click="date_ratification = false">Cancel</v-btn>
-                          <v-btn text color="primary" @click="$refs.date_ratification.save(date)">OK</v-btn>
-                        </v-date-picker>
+                        <v-date-picker
+                          v-model="barangayForm.date_ratification"
+                          no-title
+                          color="primary"
+                          @input="menuRatification = false"
+                        ></v-date-picker>
                       </v-menu>
 
                       <v-text-field
-                        v-model="form.mother_barangay"
+                        v-model="barangayForm.mother_barangay"
                         label="Mother Barangay/s"
                         :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="form.old_name"
+                        v-model="barangayForm.old_name"
                         label="Old Name, if named"
                         :disabled="!isEditing"
                       ></v-text-field>
@@ -123,8 +121,8 @@
                   <div class="ml-3">
                     <v-form>
                       <v-select
-                        v-model="form.select"
-                        :items="type_barangay"
+                        v-model="barangayForm.type_barangay"
+                        :items="[ 'Rural', 'Urban', 'Tribal']"
                         :rules="[v => !!v || 'Item is required']"
                         label="B. Type of Barangay"
                         :disabled="!isEditing"
@@ -136,25 +134,25 @@
                   <div class="ml-5">
                     <v-form>
                       <v-text-field
-                        v-model="form.north"
+                        v-model="barangayForm.boundaries_north"
                         label="North"
                         :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="form.east"
+                        v-model="barangayForm.boundaries_east"
                         label="East"
                         :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="form.west"
+                        v-model="barangayForm.boundaries_west"
                         label="West"
                         :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="form.south"
+                        v-model="barangayForm.boundaries_south"
                         label="South"
                         :disabled="!isEditing"
                       ></v-text-field>
@@ -166,13 +164,13 @@
                   <div class="mx-3">
                     <v-form>
                       <v-text-field
-                        v-model="form.total_square"
+                        v-model="barangayForm.totalland_area_sqkm"
                         label="Total Land Area (sq. km.)"
                         :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="form.total_hectare"
+                        v-model="barangayForm.totalland_area_hec"
                         label="Total Land Area (hec.)"
                         :disabled="!isEditing"
                       ></v-text-field>
@@ -182,19 +180,19 @@
                   <div class="mx-3">
                     <v-form>
                       <v-text-field
-                        v-model="form.city"
+                        v-model="barangayForm.distance_municipal_city"
                         label="City/Municipal Hall"
                         :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="form.capitol"
+                        v-model="barangayForm.province_capitol"
                         label="Provincial Capitol"
                         :disabled="!isEditing"
                       ></v-text-field>
 
                       <v-text-field
-                        v-model="form.highway"
+                        v-model="barangayForm.national_highway"
                         label="National Highway"
                         :disabled="!isEditing"
                       ></v-text-field>
@@ -203,48 +201,64 @@
                   <div>E. Land Form</div>
                   <div> 
                     <v-data-table 
-                      :headers="headers" 
-                      :items="land" 
+                      id="landForms"
+                      :headers="headersLandForms" 
+                      :items="landforms" 
+                      :loading="loadingLandForms"
                       hide-default-footer>
                       <template v-slot:top>
-                        <v-dialog v-model="dialog" max-width="175px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex xs12 md12>
-                                    <v-text-field v-model="editedItem.percent" label="Percent"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                        <v-dialog v-model="dialogLandForm" max-width="175px">
+                          <v-form
+                            ref="formLandForms"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="updateLandForm()">
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Edit Row</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex xs12 md12>
+                                      <v-text-field v-model="landformForm.landform_type" label="Percent"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs12 md12>
+                                      <v-text-field v-model="landformForm.percent" label="Percent"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="dialogLandForm = false">Cancel</v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitLandForms"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
+                      </template>
+
+                      <template v-slot:items="props">
+                        <td>{{ props.item.landform_type }}</td>
+                        <td>{{ props.item.percent }}</td>
                       </template>
 
                       <template v-slot:item.action="{ item }">
                         <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem(item)" v-on="on">
+                            <v-btn text icon @click="editLandFormDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
-                      </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -264,63 +278,82 @@
                   <div>For Table F: Distribution of Land Use</div>
                   <div>
                     <v-data-table 
-                      :headers="distribheaders" 
-                      :items="use" 
+                      id="landUses"
+                      :headers="headersLandUses" 
+                      :items="landuses" 
                       hide-default-footer>
                       <template v-slot:top>
-                        <v-dialog v-model="dialog2" max-width="300px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex xs4 md12>
-                                    <v-text-field v-model="editedItem2.square" label="Land Area (sq. kms.)"></v-text-field>
-                                  </v-flex>
-                                  <v-flex xs4 md12>
-                                    <v-text-field v-model="editedItem2.hectare" label="Land Area (hectares)"></v-text-field>
-                                  </v-flex>
-                                  <v-flex xs4 md12>
-                                    <v-text-field v-model="editedItem2.total" label="% Total Population"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close2">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save2">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                        <v-dialog v-model="dialogLandUse" max-width="300px">
+                          <v-form
+                            ref="formLandUses"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="updateLandUse()">
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Edit Row</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex xs4 md12>
+                                      <v-text-field v-model="landUseForm.land_area_sqm" label="Land Area (sq. kms.)"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs4 md12>
+                                      <v-text-field v-model="landUseForm.land_area_hec" label="Land Area (hectares)"></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs4 md12>
+                                      <v-text-field v-model="landUseForm.totalpop" label="% Total Population"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="dialogLandUse = false">Cancel</v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitLandUses"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
+                      </template>
+
+                      <template v-slot:items="props">
+                        <td>{{ props.item.landuse_type }}</td>
+                        <td>{{ props.item.land_area_sqm }}</td>
+                        <td>{{ props.item.land_area_hec }}</td>
+                        <td>{{ props.item.totalpop }}</td>
                       </template>
 
                       <template v-slot:item.action="{ item }">
                         <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem2(item)" v-on="on">
+                            <v-btn text icon @click="editLandUseDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
                       </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
-                      </template>
                     </v-data-table>
                   </div>
                 </v-flex>
                 <v-flex xs6>
                   <div>For Table H: Household Distribution</div>
-                  <div class="mx-3">Total no. of households - 3 years ago:</div>
-                  <div class="mx-3">Average no. of persons per household - 3 years ago:</div>
-                  <div class="mx-3">Average income per household - 3 years ago:</div>
+                  <v-form>
+                    <v-text-field v-model="householdDistributionForm.total_no_hhold" label="Total no. of households - 3 years ago" :disabled="!isEditing"
+                    ></v-text-field>
+                    <v-text-field v-model="householdDistributionForm.ave_persons_hhold" label="Average no. of persons per household - 3 years ago" :disabled="!isEditing"
+                    ></v-text-field>
+                    <v-text-field v-model="householdDistributionForm.ave_income_hhold" label="Average income per household - 3 years ago" :disabled="!isEditing"
+                    ></v-text-field>
+                  </v-form>
                 </v-flex>
               </v-layout>
             </v-card>
@@ -729,102 +762,74 @@
 
 <script>
   export default {
-    data: () => ({
-      form: new Form({
-        legal_basis: "",    
-        date: new Date().toISOString().substr(0, 10),
-        mother_barangay: "",
-        old_name: "",
-        north: "",
-        east: "",
-        west: "",
-        south: "",
-        total_square: "",
-        total_hectare: "",
-        city: "",
-        capitol: "",
-        highway: "",
-        select: null
-      }),
-      dialog: false,
-      dialog2: false,
+    data: () => ({        
       dialog3: false,
       dialog4: false,
       dialog5: false,
       dialog6: false,
       dialog7: false,
       dialog8: false,
-      date_legal: false,
-      date_ratification: false,
-      type_barangay: [
-        'Rural',
-        'Urban',
-        'Tribal'
+      menuLegal: false,
+      menuRatification: false,
+      isEditing: null,    
+      barangayForm: new Form({
+        id: "",
+        name: "",    
+        province: "",
+        muni_city: "",
+        zip_code: "",
+        region: "",
+        legal_basis: "",
+        date_legal_basis: "",
+        date_ratification: "",
+        mother_barangay: "",
+        old_name: "",
+        type_barangay: "",
+        boundaries_north: "",
+        boundaries_east: "",
+        boundaries_west: "",
+        boundaries_south: "",
+        totalland_area_sqkm: "",
+        totalland_area_hec: "",
+        distance_municipal_city: "",
+        province_capitol: "",
+        national_highway: ""
+      }),  
+      dialogLandForm: false,
+      headersLandForms: [
+        { text: 'Type', value: 'landform_type', align: 'center', sortable: false },
+        { text: 'Percent', value: 'percent', align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false }
       ],
-      isEditing: null,
-      headers: [
-        {
-          text: 'Type',
-          value: 'type',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Percent', 
-          value: 'percent', 
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false,
-          width: "1%" 
-        }
+      valid: true,
+      landforms: [],
+      landformForm: new Form({
+        id: "",
+        landform_type: "",    
+        percent: ""
+      }),
+      dialogLandUse: false,
+      headersLandUses: [
+        { text: 'Type', value: 'landuse_type', align: 'center', sortable: false },
+        { text: 'Land Area (Square kms.)', value: 'land_area_sqm', align: 'center', sortable: false },
+        { text: 'Land Area (Hectares)', value: 'land_area_hec', align: 'center', sortable: false },
+        { text: 'Total Population', value: 'totalpop', sortable: false, align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false }
       ],
-      land: [],
-      distribheaders: [
-        {
-          text: 'Type',
-          value: 'distribution',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Land Area (Square kms.)', 
-          value: 'square',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Land Area (Hectares)', 
-          value: 'hectare',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: '% Total Population', 
-          value: 'total',
-          sortable: false,
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false,
-          width: "1%" 
-        }
-      ],
-      use: [],
+      landuses: [],
+      landUseForm: new Form({
+        id: "",
+        landuse_type: "", 
+        land_area_sqm: "",
+        land_area_hec: "",
+        totalpop: ""
+      }),
+      householdDistributionForm: new Form({
+        id: "",
+        total_no_hhold: "",
+        ave_persons_hhold: "",
+        ave_income_hhold: ""
+      }),
       healthheaders: [
         {
           text: 'Type',
@@ -1057,7 +1062,9 @@
       services: [],
       editedIndex: -1,
       editedItem: {
-        percent: ''
+        mountainous: '',
+        plain: '',
+        valley: ''
       },
       editedItem2: {
         square: '',
@@ -1096,10 +1103,9 @@
         household: ''
       },
       defaultItem: {
-        percent: '',
-        square: '',
-        hectare: '',
-        total: ''
+        mountainous: '',
+        plain: '',
+        valley: ''
       },
       defaultItem2: {
         square: '',
@@ -1140,89 +1146,82 @@
     }),
 
     created () {
-      this.initialize()
+      this.getBarangay();
+      this.getLandForms();
+      this.getLandUses();
+      this.getHouseholdDistribution();
     },
 
     methods: {
-      formatDate (date) {
-        if (!date) return null
-
-        const [year, month, day] = date.split('-')
-        return `${month}/${day}/${year}`
+      getBarangay() {
+        axios.get("api/barangayForm").then(({ data }) => this.barangayForm.fill(data));
       },
-      parseDate (date) {
-        if (!date) return null
-
-        const [month, day, year] = date.split('/')
-        return `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`
-      },
-
+      
       updateBarangay() {
-        this.form
-          .put("api/user")
-          .then(() => {})
+        this.barangayForm.put("api/barangayForm").then(() => {
+        toast.fire({
+          type: "success",
+          title: "Barangay has been updated"
+        });
+      });
+      },
+
+      getLandForms() {
+        this.loadingLandForms = true;
+        axios.get("api/landForm").then(response => {
+          this.landforms = response.data;
+          this.loadingLandForms = false;
+        });
+      },
+
+      updateLandForm() {
+        this.landformForm
+          .put("api/landForm/" + this.landformForm.id)
+          .then(() => {
+            this.dialogLandForm = false;
+            this.getLandForms();
+            toast.fire({
+              type: "success",
+              title: "Land Form has been edited"
+            });
+          })
           .catch(() => {});
       },
 
+      getLandUses() {
+        axios.get("api/landUse").then(response => {
+          this.landuses = response.data;
+        });
+      },
+
+      updateLandUse() {
+        this.landUseForm
+          .put("api/landUse/" + this.landUseForm.id)
+          .then(() => {
+            this.dialogLandUse = false;
+            this.getLandUses();
+            toast.fire({
+              type: "success",
+              title: "Land Use has been edited"
+            });
+          })
+          .catch(() => {});
+      },
+
+      getHouseholdDistribution() {
+        axios.get("api/householdDistribution").then(({ data }) => this.householdDistributionForm.fill(data));
+      },
+
+      updateHouseholdDistribution() {
+        this.householdDistributionForm.put("api/householdDistribution").then(() => {
+          toast.fire({
+            type: "success",
+            title: "Household Distribution has been updated"
+          });
+        });
+      },
+
       initialize () {
-        this.land = [
-          {
-            type: 'Mountainous',
-            percent: '15.67%'
-          },
-          {
-            type: 'Plain',
-            percent: '2.34%'
-          },
-          {
-            type: 'Valley',
-            percent: '8%'
-          }
-        ],
-        this.use = [
-          {
-            distribution: 'Residential',
-            square: '',
-            hectare: '',
-            total: ''
-          },
-          {
-            distribution: 'Commercial',
-            square: '',
-            hectare: '',
-            total: ''
-          },
-          {
-            distribution: 'Industrial',
-            square: '',
-            hectare: '',
-            total: ''
-          },
-          {
-            distribution: 'Agricultural',
-            square: '',
-            hectare: '',
-            total: ''
-          },
-          {
-            distribution: 'Aquatic',
-            square: '',
-            hectare: '',
-            total: ''
-          },
-          {
-            distribution: 'Forest',
-            square: '',
-            hectare: '',
-            total: ''
-          },
-          {
-            distribution: 'Idle Land',
-            square: '',
-            hectare: '',
-            total: ''
-          }
-        ],
         this.facilities = [
           {
             facility: 'Public Hospital',
@@ -1421,16 +1420,24 @@
         ]
       },
 
-      editItem (item) {
-        this.editedIndex = this.land.indexOf(item)
-        this.editedItem = Object.assign({}, item)
-        this.dialog = true
+      editLandFormDialog(landforms) {
+        this.landformForm.reset();
+        this.dialogLandForm = true;
+        this.landformForm.fill(landforms);
       },
 
-      editItem2 (item) {
-        this.editedIndex = this.use.indexOf(item)
-        this.editedItem2 = Object.assign({}, item)
-        this.dialog2 = true
+      submitLandForms() {
+        this.$refs.formLandForms.validate();
+      },
+
+      editLandUseDialog(landuses) {
+        this.landUseForm.reset();
+        this.dialogLandUse = true;
+        this.landUseForm.fill(landuses);
+      },
+
+      submitLandUses() {
+        this.$refs.formLandUses.validate();
       },
 
       editItem3 (item) {
@@ -1468,22 +1475,6 @@
         this.editedItem8 = Object.assign({}, item)
         this.dialog8 = true
       },      
-
-      close () {
-        this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        }, 300)
-      },
-
-      close2 () {
-        this.dialog2 = false
-        setTimeout(() => {
-          this.editedItem2 = Object.assign({}, this.defaultItem2)
-          this.editedIndex = -1
-        }, 300)
-      },
 
       close3 () {
         this.dialog3 = false
@@ -1532,24 +1523,6 @@
           this.editedIndex = -1
         }, 300)
       },      
-
-      save () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.land[this.editedIndex], this.editedItem)
-        } else {
-          this.land.push(this.editedItem)
-        }
-        this.close()
-      },
-
-      save2 () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.use[this.editedIndex], this.editedItem2)
-        } else {
-          this.use.push(this.editedItem2)
-        }
-        this.close2()
-      },
 
       save3 () {
         if (this.editedIndex > -1) {
