@@ -23,48 +23,13 @@
       <div v-if="selected.length" class="ml-1">
         <v-tooltip bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="archive(selected[0].id)">
-              <v-icon>mdi-archive</v-icon>
+            <v-btn v-on="on" v-if="selected.length" icon @click="restore(selected[0].id)">
+              <v-icon>mdi-restore</v-icon>
             </v-btn>
           </template>
-          <span>Archive User</span>
+          <span>Restore User</span>
         </v-tooltip>
       </div>
-
-      <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="disable(selected[0].id)">
-              <v-icon>mdi-account-remove</v-icon>
-            </v-btn>
-          </template>
-          <span>Disable/Enable User</span>
-        </v-tooltip>
-      </div>
-
-      <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="resetPassword(selected[0].id)">
-              <v-icon>mdi-lock-reset</v-icon>
-            </v-btn>
-          </template>
-          <span>Rest User password</span>
-        </v-tooltip>
-      </div>
-
-      <div class="ml-1">
-        <v-tooltip bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="newDialog()">
-              <v-icon>mdi-home-plus</v-icon>
-            </v-btn>
-          </template>
-          <span>Add new User</span>
-        </v-tooltip>
-      </div>
-
-      <v-divider class="ml-1" inset vertical></v-divider>
 
       <div class="ml-1">
         <v-menu :close-on-content-click="false" offset-y max-height="400">
@@ -105,34 +70,7 @@
         </v-flex>
     </v-app-bar>
 
-    <v-dialog v-model="dialogAccounts" persistent scrollable max-width="400px">
-      <v-form @submit.prevent="createUser()">
-        <v-card>
-          <v-card-title>
-            <span class="headline">Add User</span>
-          </v-card-title>
-          <v-divider></v-divider>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex>
-                  <v-text-field v-model="form.name" label="name"></v-text-field>
-                </v-flex>
-                <v-flex>
-                  <v-text-field v-model="form.email" label="email"></v-text-field>
-                </v-flex>
-             </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogAccounts=false">Cancel</v-btn>
-            <v-btn color="blue darken-1" text type="submit">Save</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
+
 
     <v-data-table
       v-model="selected"
@@ -161,7 +99,6 @@ export default {
   data() {
     return {
       users: [],
-      dialogAccounts: false,
       selected: [],
       search: "",
       form: new Form({
@@ -203,82 +140,21 @@ export default {
   methods: {
     getAccounts() {
       this.loading = true;
-      axios.get("api/barangay").then(response => {
+      axios.get("api/archivedUsers").then(response => {
         this.users = response.data;
         this.loading = false;
       });
     },
 
-    createUser() {
-      this.dialogAccounts = false;
-      toast.fire({
-            type: "info",
-            title: "Creating User"
-        });
-      this.form
-        .post("api/barangay")
-        .then(() => {
-          this.getAccounts();
-          toast.fire({
-            type: "success",
-            title: "User has been created"
-          });
-        })
-        .catch(() => {
-          toast.fire({
-            type: "warning",
-            title: "failed to create user"
-          });
-        });
-    },
-
-    archive(id) {
-      axios.post("api/barangay/archived/" + id).then(response => {
+    restore(id) {
+      axios.post("api/barangay/restore/" + id).then(response => {
         this.getAccounts();
         toast.fire({
           type: "success",
-          title: "User has been archived"
+          title: "User has been restored"
         });
         this.selected.splice([0]);
       });
-    },
-
-    disable(id) {
-      axios.post("api/barangay/disable/" + id).then(response => {
-        this.getAccounts();
-        toast.fire({
-          type: "success",
-          title: "User has been disabled"
-        });
-        this.selected.splice([0]);
-      });
-    },
-
-    resetPassword(id) {
-      toast.fire({
-          type: "info",
-          title: "Resetting password"
-        });
-      axios.post("api/barangay/reset/" + id).then(response => {
-        this.getAccounts();
-        toast.fire({
-          type: "success",
-          title: "User password has been reset"
-        });
-        this.selected.splice([0]);
-      })
-      .catch(() => {
-          toast.fire({
-            type: "warning",
-            title: "failed to reset password"
-          });
-        });;
-    },
-
-    newDialog() {
-      this.editmode = false;
-      this.form.reset();
-      this.dialogAccounts = true;
     },
 
     showColumn(col) {

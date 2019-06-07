@@ -145,10 +145,16 @@ const app = new Vue({
                 to: "/dashboard"
             },
             {
-                icon: "mdi-view-dashboard",
+                icon: "mdi-account",
                 title: "Users",
                 name: "Users",
                 to: "/users"
+            },
+            {
+                icon: "mdi-account-remove",
+                title: "Archived Users",
+                name: "Archived Users",
+                to: "/archivedUsers"
             },
         ],
         menu: 0,

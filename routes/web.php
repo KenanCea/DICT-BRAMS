@@ -16,5 +16,4 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::get('user/activation/{token}','BarangayUserController@userActivation');
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');

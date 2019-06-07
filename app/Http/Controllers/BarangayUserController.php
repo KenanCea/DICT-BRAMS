@@ -30,6 +30,9 @@ class BarangayUserController extends Controller
      */
     public function store(Request $request)
     {
+        
+
+        
         $password=str_random(8);
         $users = new User();
         $users->name=request('name');
@@ -40,7 +43,7 @@ class BarangayUserController extends Controller
         $users->logo='profile.png';
         $users->created_at=now();
         $users->updated_at=now();
-        $users->save();
+        
         
         $data = [
             'email' => $users->email,
@@ -51,6 +54,8 @@ class BarangayUserController extends Controller
         Mail::send('mailVerification',$data,function($message) use ($users){
             $message->to($users->email)->subject('brams');
         });
+
+        $users->save();
     }
 
     /**
@@ -107,10 +112,13 @@ class BarangayUserController extends Controller
 
     public function resetPassword($id)
     {
+
+        
+
+
         $password = str_random(8);
         $account = User::findOrFail($id);
         $account->password = bcrypt($password);
-        $account -> save();
 
         $data = [
             'email' => $account->email,
@@ -120,18 +128,21 @@ class BarangayUserController extends Controller
         Mail::send('passwordReset',$data,function($message) use ($account){
             $message->to($account->email)->subject('password reset');
         });
+
+        $account -> save();
     }
 
     public function userActivation($token){
-        $check = DB::table('users')->where('remember_token',$token)->first();
-        if(!is_null($check)){
-            $user = User::find($check->id);
-            if(is_null($user->email_verified_at)){
-                return redirect()->to('login')->with('Success','User already activated');
-            }
-            $user->update(['email_verified_at' => now()]);
-            return redirect()->to('login')->with('success','User activated');
-        }
-        return redirect()->to('login')->with('warning','your token is invalid');
+        $check = DB::table('users')->where('remember_token',$token)->first();    
+        $check->update(['email_verified_at' => now()]);
+        return redirect()->to('login')->with('success','User activated');
+    }
+
+    public function archived_Users()
+    {
+        return DB::table('users')
+            ->select('*')
+            ->whereNotNull('deleted_at')
+            ->get();
     }
 }

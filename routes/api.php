@@ -33,10 +33,12 @@ Route::post('barangay/disable/{id}', 'BarangayUserController@disableUser');
 Route::post('barangay/archived/{id}', 'BarangayUserController@archive');
 Route::post('barangay/restore/{id}', 'BarangayUserController@restore');
 Route::post('barangay/reset/{id}', 'BarangayUserController@resetPassword');
+Route::get('archivedUsers', 'BarangayUserController@archived_Users');
+Route::post('user/activation/{token}','BarangayUserController@userActivation');
 
 //inhabitants
 Route::post('inhabitants/archived/{id}', 'InhabitantController@archive');
-Route::post('inhabitants/restore/{id}', 'InhabitantController@restore');
+Route::post('inhabitants/restore/{id}/{houseID}', 'InhabitantController@restore');
 Route::get('archivedInhabitant', 'InhabitantController@archived_Inhabitant');
 
 //households
