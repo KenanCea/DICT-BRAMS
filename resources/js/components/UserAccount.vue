@@ -152,13 +152,13 @@
                             <v-container grid-list-md>
                               <v-layout wrap>
                                 <v-flex xs12 md12>
-                                  <v-text-field v-model="officialForm.name" label="Barangay Official name"></v-text-field>
+                                  <v-text-field v-model="officialForm.name" label="Barangay Official name" required></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-text-field v-model="officialForm.start_term" label="Start Term"></v-text-field>
+                                  <v-text-field v-model="officialForm.start_term" label="Start Term" required></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-text-field v-model="officialForm.end_term" label="End Term"></v-text-field>
+                                  <v-text-field v-model="officialForm.end_term" label="End Term" required></v-text-field>
                                 </v-flex>
                               </v-layout>
                             </v-container>
