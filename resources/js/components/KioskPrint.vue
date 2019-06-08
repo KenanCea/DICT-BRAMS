@@ -1,7 +1,7 @@
 <template id="app">
     <div> 
 
-          <v-tooltip bottom>
+          <v-tooltip attach bottom>
             <template v-slot:activator="{ on }">
               <v-btn v-on="on" icon @click="print()">
                 <v-icon>mdi-printer</v-icon>

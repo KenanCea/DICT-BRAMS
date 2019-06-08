@@ -16,7 +16,7 @@
                       </v-avatar>
                     </v-card-text>
                   </v-card>
-                  <input type="file" @change="updateLogo" label="Logo"></input>
+                  <input type="file" @change="updateLogo" label="Logo"/>
                 </v-flex>
                 <v-flex md6>
                   <div>Barangay Name:</div>
@@ -93,7 +93,7 @@
                     </template>
 
                     <template v-slot:item.action="{ item }">
-                      <v-tooltip bottom>
+                      <v-tooltip attach bottom>
                         <template v-slot:activator="{ on }">
                           <v-btn text icon @click="editOfficialDialog(item)">
                             <v-icon>mdi-pencil</v-icon>

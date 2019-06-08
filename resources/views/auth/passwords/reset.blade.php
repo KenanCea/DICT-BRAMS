@@ -6,7 +6,7 @@
         <v-layout align-center justify-center>
             <v-flex xs12 sm8 md4>
                 <v-card outlined class="mx-auto pa-3">
-                    <v-btn absolute fab top left large color="primary" href="/login">
+                    <v-btn absolute fab top left large href="/login" depressed id="back-button">
                         <v-icon>mdi-arrow-left</v-icon>
                     </v-btn>
                     <v-card-text>

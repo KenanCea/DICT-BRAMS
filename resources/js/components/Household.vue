@@ -8,7 +8,7 @@
       <v-spacer></v-spacer>
 
       <span v-if="selected.length">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="selected = []">
               <v-icon>mdi-close</v-icon>
@@ -21,7 +21,7 @@
       <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
 
       <div class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="newHouseholdDialog()">
               <v-icon>mdi-home-plus</v-icon>
@@ -31,7 +31,7 @@
         </v-tooltip>
       </div>
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="editHouseholdDialog(selected[0])">
               <v-icon>mdi-pencil</v-icon>
@@ -42,7 +42,7 @@
       </div>
 
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="archiveHousehold(selected[0].id)">
               <v-icon>mdi-archive</v-icon>
@@ -55,7 +55,7 @@
       <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
 
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="newInhabitantDialog()">
               <v-icon>mdi-account-plus</v-icon>
@@ -66,7 +66,7 @@
       </div>
 
       <div v-if="selected.length" class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="showInhabitants(selected[0].id)">
               <v-icon>mdi-account-network</v-icon>
@@ -77,7 +77,7 @@
       </div>
 
       <div class="ml-1">
-        <v-tooltip bottom>
+        <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon to="/inhabitants">
               <v-icon>mdi-folder-account</v-icon>
@@ -94,7 +94,7 @@
       <div class="ml-1">
         <v-menu :close-on-content-click="false" offset-y max-height="400">
           <template #activator="{ on: menu }">
-            <v-tooltip bottom>
+            <v-tooltip attach bottom>
               <template #activator="{ on: tooltip }">
                 <v-btn icon v-on="{ ...tooltip, ...menu }">
                   <v-icon>mdi-table-column-width</v-icon>
@@ -855,7 +855,7 @@
           <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span>
           <v-spacer></v-spacer>
           <span v-if="selectedInhabitant.length">
-            <v-tooltip bottom>
+            <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon @click="selectedInhabitant = []">
                   <v-icon>mdi-close</v-icon>
@@ -866,7 +866,7 @@
           </span>
           <v-divider v-if="selectedInhabitant.length" class="ml-1" inset vertical></v-divider>
           <div v-if="selectedInhabitant.length" class="ml-1">
-            <v-tooltip bottom>
+            <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon @click="editInhabitantDialog(selectedInhabitant[0])">
                   <v-icon>mdi-pencil</v-icon>
@@ -878,7 +878,7 @@
           <div v-if="selectedInhabitant.length" class="ml-1">
             <v-menu :close-on-content-click="false" offset-y max-height="400">
               <template #activator="{ on: menu }">
-                <v-tooltip bottom>
+                <v-tooltip attach bottom>
                   <template #activator="{ on: tooltip }">
                     <v-btn icon v-on="{ ...tooltip, ...menu }">
                       <v-icon>mdi-file-document-edit</v-icon>
@@ -916,7 +916,7 @@
             </v-menu>
           </div>
           <div v-if="selectedInhabitant.length" class="ml-1">
-            <v-tooltip bottom>
+            <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon @click="archiveInhabitant(selectedInhabitant[0].id)">
                   <v-icon>mdi-archive</v-icon>
@@ -926,7 +926,7 @@
             </v-tooltip>
           </div>
           <div v-if="selected.length" class="ml-1">
-            <v-tooltip bottom>
+            <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon @click="newInhabitantDialog()">
                   <v-icon>mdi-account-plus</v-icon>

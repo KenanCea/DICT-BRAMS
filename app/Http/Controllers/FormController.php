@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use DB;
 use Auth;
+use Illuminate\Http\Request;
+use App\BarangayCertificate;
+use App\BarangayClearance;
+use App\BusinessClearance;
 
 class FormController extends Controller
 {
@@ -47,5 +51,15 @@ class FormController extends Controller
             ->where('users.id', Auth::user()->id)
             ->orderby('officials.position')
             ->get();
+    }
+
+    public function showBarangayClearance($id)
+    {
+        return BarangayClearance::where('inhabitant_id', '=', $id)->latest()->get();
+    }
+    public function createBarangayClearance(Request $request)
+    {
+        $form = BarangayClearance::create($request->all());
+        return new $form;
     }
 }

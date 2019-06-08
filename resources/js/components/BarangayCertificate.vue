@@ -67,7 +67,7 @@
         placeholder="Start typing to Search"
         return-object
       ></v-autocomplete>
-      <v-tooltip bottom>
+      <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
           <v-btn text icon color="primary" v-on="on" @click="dialog=true">
             <v-icon color="grey darken-2">mdi-file-document-edit</v-icon>
@@ -75,7 +75,7 @@
         </template>
         <span>Fill-up form</span>
       </v-tooltip>
-      <v-tooltip bottom>
+      <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
           <v-btn text icon color="primary" v-on="on">
             <v-icon color="grey darken-2">mdi-printer</v-icon>
@@ -83,7 +83,7 @@
         </template>
         <span>Print</span>
       </v-tooltip>
-      <v-tooltip bottom>
+      <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
           <v-btn text icon color="primary" v-on:click='pdf()'>
             <v-icon color="grey darken-2">mdi-file-export</v-icon>
@@ -91,7 +91,7 @@
         </template>
         <span>Export</span>
       </v-tooltip>
-      <v-tooltip bottom>
+      <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
           <v-btn text icon color="primary" v-on="on">
             <v-icon color="grey darken-2">mdi-refresh</v-icon>

@@ -20,8 +20,11 @@
                             <v-subheader v-if="user.heading">@{{ user.heading }}</v-subheader>
                         </v-flex>
                     </v-layout>
-                    <v-list-group v-else-if="user.children" v-model="user.model" :key="user.title" :prepend-icon="user.icon" append-icon="mdi-menu-down" no-action>
-                        <v-list-item slot="activator">
+                    <v-list-group v-else-if="user.children" v-model="user.model" :key="user.title" no-action>
+                        <v-list-item slot="activator" class="px-0">
+                            <v-list-item-action>
+                                <v-icon>@{{ user.icon }}</v-icon>
+                            </v-list-item-action>
                             <v-list-item-content>
                                 <v-list-item-title class="font-weight-medium">@{{ user.title }}</v-list-item-title>
                             </v-list-item-content>
@@ -53,8 +56,11 @@
                             <v-subheader v-if="admin.heading">@{{ admin.heading }}</v-subheader>
                         </v-flex>
                     </v-layout>
-                    <v-list-group v-else-if="admin.children" v-model="admin.model" :key="admin.title" :prepend-icon="admin.icon" append-icon="mdi-menu-down" no-action>
-                        <v-list-item slot="activator">
+                    <v-list-group v-else-if="admin.children" v-model="admin.model" :key="admin.title" no-action>
+                        <v-list-item slot="activator" class="px-0">
+                            <v-list-item-action>
+                                <v-icon>@{{ admin.icon }}</v-icon>
+                            </v-list-item-action>
                             <v-list-item-content>
                                 <v-list-item-title class="font-weight-medium">@{{ admin.title }}</v-list-item-title>
                             </v-list-item-content>
@@ -86,36 +92,38 @@
             </v-toolbar-title>
             <v-spacer></v-spacer>
             <div>
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                    <v-btn to="/needquestions" text icon v-on="on">
-                        <v-icon>mdi-help-circle-outline</v-icon>
-                    </v-btn>
-                </template>
-                <span>Question</span>
-            </v-tooltip>
+                <v-tooltip attach bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn to="/needquestions" text icon v-on="on">
+                            <v-icon>mdi-help-circle-outline</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Question</span>
+                </v-tooltip>
             </div>
             <div class="ml-2">
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                    <v-btn to="/secretaryduties" text icon v-on="on">
-                        <v-icon>mdi-information-outline</v-icon>
-                    </v-btn>
-                </template>
-                <span>Secretary Duties</span>
-            </v-tooltip>
-            <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
-                    <v-btn to="/summary" text icon v-on="on">
-                        <v-icon>mdi-account-details</v-icon>
-                    </v-btn>
-                </template>
-                <span>Barangay Details</span>
-            </v-tooltip>
+                <v-tooltip attach bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn to="/secretaryduties" text icon v-on="on">
+                            <v-icon>mdi-information-outline</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Secretary Duties</span>
+                </v-tooltip>
+            </div>
+            <div class="ml-2">
+                <v-tooltip bottom>
+                    <template v-slot:activator="{ on }">
+                        <v-btn to="/summary" text icon v-on="on">
+                            <v-icon>mdi-account-details</v-icon>
+                        </v-btn>
+                    </template>
+                    <span>Barangay Details</span>
+                </v-tooltip>
             </div>
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
-                    <v-btn text large v-on="on" color="primary" class="px-2 ml-3" id="profile">
+                    <v-btn text large v-on="on" color="primary" class="px-2 ml-3" id="profile-button">
                         <div class="font-weight-bold text-none" style="color:#616161">{{ Auth::user()->name }}</div>
                         <v-avatar size="32px" class="ml-2"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo">
                         </v-avatar>
