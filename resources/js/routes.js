@@ -27,9 +27,6 @@ export const routes = [
     path: '/useraccount',
     component: require('./components/UserAccount.vue').default
   }, {
-    path: '/barangayinformation',
-    component: require('./components/BarangayInformation.vue').default
-  }, {
     path: '/barangayprofile',
     component: require('./components/BarangayProfile.vue').default
   }, {
