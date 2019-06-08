@@ -17,17 +17,10 @@ class CreateEducationTable extends Migration
         Schema::create('education', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->integer('no_pre_school_building')->nullable();
-            $table->integer('no_primary_building')->nullable();
-            $table->integer('no_secondary_building')->nullable();
-            $table->integer('no_vocational_building')->nullable();
-            $table->integer('no_college_building')->nullable();
-            $table->integer('no_post_graduate_building')->nullable();
-            $table->integer('no_covered_courts')->nullable();
-            $table->integer('no_gymnasiums')->nullable();
-            $table->integer('no_parks_plaza')->nullable();
-            $table->string('others_sport_facilities', 20)->nullable();
-            $table->string('recreational_activities', 20)->nullable();
+            $table->enum('education_type', ['Preschool', 'Primary', 'Secondary', 'Vocational', 'College', 'Post-graduate'])->nullable();
+            $table->integer('education_number')->nullable();
+            $table->enum('sports_type', ['Covered Court', 'Gymnasium', 'Parks/Plaza', 'Other sports facilities', 'Recreational Activities'])->nullable();
+            $table->integer('sports_number')->nullable();
             $table->integer('total_facilities')->nullable();
             $table->timestamps();
             $table->unsignedInteger('barangay_id');
