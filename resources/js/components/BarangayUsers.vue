@@ -34,7 +34,7 @@
       <div v-if="selected.length" class="ml-1">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" v-if="selected.length" icon @click="disable(selected[0].id)">
+            <v-btn v-on="on" v-if="selected.length" icon @click="disable(selected[0].id,selected[0].state)">
               <v-icon>mdi-account-remove</v-icon>
             </v-btn>
           </template>
@@ -150,7 +150,7 @@
         <td v-if="showColumn('email_verified_at')">{{ props.item.email_verified_at }}</td>
         <td v-if="showColumn('created_at')">{{ props.item.created_at }}</td>
         <td v-if="showColumn('updated_at')">{{ props.item.updated_at }}</td>
-        <td v-if="showColumn('disable')">{{ props.item.disable }}</td>
+        <td v-if="showColumn('state')">{{ props.item.state }}</td>
       </template>
     </v-data-table>
   </div>
@@ -175,7 +175,7 @@ export default {
         { text: "Email Verified", value: "email_verified_at", selected: true },
         { text: "Created At", value: "created_at", selected: true },
         { text: "Updated At", value: "updated_at", selected: true },
-        { text: "State", value: "disable", selected: true }
+        { text: "State", value: "state", selected: true }
       ]
     };
   },
@@ -243,15 +243,30 @@ export default {
       });
     },
 
-    disable(id) {
-      axios.post("api/barangay/disable/" + id).then(response => {
+    disable(id,state) {
+      axios.post("api/barangay/disable/" + id)
+      .then(response => {
         this.getAccounts();
-        toast.fire({
-          type: "success",
-          title: "User has been disabled"
-        });
+        if(state=='enabled'){
+          toast.fire({
+            type: "success",
+            title: "User has been disabled"
+          });
+        }
+        else{
+          toast.fire({
+            type: "success",
+            title: "User has been enabled"
+          });
+        }
         this.selected.splice([0]);
-      });
+      })
+      .catch(() => {
+          toast.fire({
+            type: "warning",
+            title: "account not yet activated"
+          });
+        });
     },
 
     resetPassword(id) {
@@ -272,7 +287,7 @@ export default {
             type: "warning",
             title: "failed to reset password"
           });
-        });;
+        });
     },
 
     newDialog() {

@@ -10,20 +10,18 @@
                         <v-btn absolute fab top left large href="/" depressed id="back-button">
                             <v-icon>mdi-arrow-left</v-icon>
                         </v-btn>
+                        @if($message = Session::get('success'))
+                            <div class="alert alert-success">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
+
+                        @if($message = Session::get('warning'))
+                            <div class="alert alert-warning">
+                                <p>{{ $message }}</p>
+                            </div>
+                        @endif
                         <v-card-text>
-                        
-                            @if($message = Session::get('success'))
-                                <div class="alert alert-success">
-                                    <p>{{ $message }}</p>
-                                </div>
-                            @endif
-
-                            @if($message = Session::get('warning'))
-                                <div class="alert alert-warning">
-                                    <p>{{ $message }}</p>
-                                </div>
-                            @endif
-
                             <div class="layout column align-center">
                                 <img src="/img/logo.png" alt="No logo" width="120" height="120" />
                                 <h2 class="my-4 text-md-center">Barangay Records Automation Management System</h2>

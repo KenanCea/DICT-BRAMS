@@ -17,7 +17,7 @@ class BarangayUserController extends Controller
      */
     public function index()
     {
-        return User::select('*')
+        return User::select('*',DB::raw('case when disable = 0 then "enabled" else "disabled" end as state'))
         ->where('roles','user')
         ->get();
     }
@@ -30,9 +30,6 @@ class BarangayUserController extends Controller
      */
     public function store(Request $request)
     {
-        
-
-        
         $password=str_random(8);
         $users = new User();
         $users->name=request('name');
@@ -44,18 +41,19 @@ class BarangayUserController extends Controller
         $users->created_at=now();
         $users->updated_at=now();
         
-        
-        $data = [
-            'email' => $users->email,
-            'password' => $password,
-            'token' => $users->remember_token
-        ];
+        if($users -> save()){
+            $data = [
+                'email' => $users->email,
+                'password' => $password,
+                'token' => $users->remember_token
+            ];
+                
+            Mail::send('mailVerification',$data,function($message) use ($users){
+                $message->to($users->email)->subject('brams');
+            });
 
-        Mail::send('mailVerification',$data,function($message) use ($users){
-            $message->to($users->email)->subject('brams');
-        });
-
-        $users->save();
+            $users->save();
+        }else{}
     }
 
     /**
@@ -93,8 +91,8 @@ class BarangayUserController extends Controller
     }
 
     public function disableUser($id)
-    {
-        $account = User::findOrFail($id);
+    {   
+        $account = User::whereNotNull('email_verified_at')->findOrFail($id);
         $account->disable = !$account->disable;
         $account -> save();
     }
@@ -115,17 +113,17 @@ class BarangayUserController extends Controller
         $password = str_random(8);
         $account = User::findOrFail($id);
         $account->password = bcrypt($password);
+        if($account -> save()){
+            $data = [
+                'email' => $account->email,
+                'password' => $password,
+            ];
 
-        $data = [
-            'email' => $account->email,
-            'password' => $password,
-        ];
-
-        Mail::send('passwordReset',$data,function($message) use ($account){
-            $message->to($account->email)->subject('password reset');
-        });
-
-        $account -> save();
+            Mail::send('passwordReset',$data,function($message) use ($account){
+                $message->to($account->email)->subject('password reset');
+            });
+            $account -> save();
+        }else{}
     }
 
     public function userActivation($token){
@@ -133,6 +131,7 @@ class BarangayUserController extends Controller
         if(!is_null($check)){
             if(is_null($check->email_verified_at)){
                 $check->email_verified_at=now();
+                $check->disable=0;
                 $check->save();
                 return redirect()->to('login')->with('success','User activated');
             }
