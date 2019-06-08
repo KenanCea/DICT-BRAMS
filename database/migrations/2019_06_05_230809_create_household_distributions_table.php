@@ -13,7 +13,9 @@ class CreateHouseholdDistributionsTable extends Migration
      */
     public function up()
     {
+        Schema::enableForeignKeyConstraints(); 
         Schema::create('household_distributions', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
             $table->increments('id');
             $table->integer('total_no_hhold' );
             $table->integer('ave_persons_hhold');

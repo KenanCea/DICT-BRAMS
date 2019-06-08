@@ -7,16 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class HealthFacilities extends Model
 {
     protected $fillable = [
-        'pubhos_num',
-        'pubhos_numpatients',
-        'prihos_num',
-        'prihos_numpatients',
-        'healthcenter_num',
-        'healthcenter_numpatients',
-        'clinic_num',
-        'clinic_numpatients',
-        'self_medication_num',
-        'self_medication_numpatients',
+        'healthfacility_type',
+        'number',
+        'numpatients',
         'otherSpecify',
     ];
     public function barangay()

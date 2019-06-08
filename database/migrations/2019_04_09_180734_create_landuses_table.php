@@ -18,7 +18,7 @@ class CreateLandusesTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->enum('landuse_type', ['Residential', 'Commercial', 'Industrial', 'Agricultural', 'Aquatic', 'Forest', 'Idle']);
-            $table->string('land_area_sqm', 10);
+            $table->double('land_area_sqm', 10);
             $table->double('land_area_hec', 10);
             $table->double('totalpop', 10);
             $table->timestamps();
