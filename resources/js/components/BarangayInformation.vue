@@ -12,11 +12,10 @@
                   <v-card>
                     <v-card-text class="text-xs-center">
                       <v-avatar class="mx-auto d-block" size="180">
-                        <img src="https://picsum.photos/510/300?random" alt="User Logo">
+                        <img :src="getLogo()" alt="Logo">
                       </v-avatar>
                     </v-card-text>
                   </v-card>
-                  <input type="file" @change="updateLogo" label="Logo"/>
                 </v-flex>
                 <v-flex md6>
                   <div>Barangay Name:</div>
@@ -132,7 +131,8 @@
         position: "",
         name: "",
         start_term: "",
-        end_term: ""
+        end_term: "",
+        logo: ""
       })
     }),
 
@@ -145,6 +145,14 @@
         axios.get("api/official").then(response => {
           this.officials = response.data;
         });
+      },
+
+      getLogo() {
+        let logo =
+          this.form.logo.length > 200
+            ? this.form.logo
+            : "img/profile/" + this.form.logo;
+        return logo;
       },
 
       updateOfficial() {
@@ -169,23 +177,6 @@
 
       submitOfficials() {
         this.$refs.formOfficials.validate();
-      },
-
-      updateLogo(e) {
-        let file = e.target.files[0];
-        let reader = new FileReader();
-        let limit = 1024 * 1024 * 2;
-        if (file["size"] > limit) {
-          toast.fire({
-            type: "error",
-            title: "You are uploading a large file"
-          });
-          return false;
-        }
-        reader.onloadend = file => {
-          this.form.logo = reader.result;
-        };
-        reader.readAsDataURL(file);
       }
     }
   }
