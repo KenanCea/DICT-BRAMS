@@ -188,5 +188,12 @@ class KioskController extends Controller
         return $query;
     }
 
+    public function FamilySize(){
+    }
+
+    public function Religion(){
+
+    }
+
     
 }

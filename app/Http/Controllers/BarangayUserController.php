@@ -112,10 +112,6 @@ class BarangayUserController extends Controller
 
     public function resetPassword($id)
     {
-
-        
-
-
         $password = str_random(8);
         $account = User::findOrFail($id);
         $account->password = bcrypt($password);
@@ -133,9 +129,16 @@ class BarangayUserController extends Controller
     }
 
     public function userActivation($token){
-        $check = DB::table('users')->where('remember_token',$token)->first();    
-        $check->update(['email_verified_at' => now()]);
-        return redirect()->to('login')->with('success','User activated');
+        $check = User::where('remember_token',$token)->first();
+        if(!is_null($check)){
+            if(is_null($check->email_verified_at)){
+                $check->email_verified_at=now();
+                $check->save();
+                return redirect()->to('login')->with('success','User activated');
+            }
+            return redirect()->to('login')->with('success','User already activated');
+        }
+        return redirect()->to('login')->with('warning','your token is invalid');
     }
 
     public function archived_Users()

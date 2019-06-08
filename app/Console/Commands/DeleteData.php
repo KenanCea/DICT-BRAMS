@@ -43,6 +43,11 @@ class DeleteData extends Command
     {
         $inhabitants = DB::table('inhabitants')->where('deleted_at', '<', Carbon::now()->subYears(5))->delete();
         $households = DB::table('households')->where('deleted_at', '<', Carbon::now()->subYears(5))->delete();
-        $households = DB::table('users')->where('deleted_at', '<', Carbon::now()->subYears(5))->delete();
+        $users = DB::table('users')->where('deleted_at', '<', Carbon::now()->subDay(30))->delete();
+        $userArchive = DB::table('users')
+                ->whereNull('deleted_at')
+                ->where('created_at','<', Carbon::now()->subDay(3))
+                ->whereNull('email_verified_at')
+                ->update(['deleted_at'=>now()]);
     }
 }

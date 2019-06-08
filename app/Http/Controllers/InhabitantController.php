@@ -107,7 +107,7 @@ class InhabitantController extends Controller
         $inhabitant->delete();
     }
     public function restore($id,$houseID)
-    {   
+    {
         $inhabitants = Inhabitant::withTrashed()->findOrFail($id)->restore();
         $inhabitant = Inhabitant::findOrFail($id)->update(['household_id'=>$houseID]);
     }

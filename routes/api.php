@@ -39,7 +39,6 @@ Route::post('barangay/archived/{id}', 'BarangayUserController@archive');
 Route::post('barangay/restore/{id}', 'BarangayUserController@restore');
 Route::post('barangay/reset/{id}', 'BarangayUserController@resetPassword');
 Route::get('archivedUsers', 'BarangayUserController@archived_Users');
-Route::post('user/activation/{token}','BarangayUserController@userActivation');
 
 //inhabitants
 Route::post('inhabitants/archived/{id}', 'InhabitantController@archive');
@@ -91,6 +90,8 @@ Route::get('barangayInfo', 'KioskController@BarangayInfo');
 Route::get('householdsInfo', 'KioskController@HouseholdsInfo');
 Route::get('civilStatus', 'KioskController@CivilStatus');
 Route::get('ethnicGroup', 'KioskController@EthnicGroup');
+Route::get('FamilySize', 'KioskController@FamilySize');
+Route::get('Religion', 'KioskController@Religion');
 
 //Admin Dashboard
 Route::get('Barangay', 'DashboardController@TotalBarangay');
