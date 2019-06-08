@@ -18,7 +18,7 @@ class CreateInfrastructuresTable extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             //Administrative level (in meters)
-            $table->enum('meter_type', ['Concrete', 'Steel', 'Wooden']);
+            $table->enum('meter_type', ['Concrete', 'Steel', 'Wooden'])->nullable();
             $table->double('national_m', 10);
             $table->double('provincial_m', 10);
             $table->double('city_m', 10);
@@ -32,7 +32,7 @@ class CreateInfrastructuresTable extends Migration
             $table->double('total_m_total', 10);
             $table->string('operational_m_total', 10);
             //Administrative level (in kilometers)
-            $table->enum('kilometer_type', ['Concrete', 'Asphalt', 'Gravel', 'Earthfill']);
+            $table->enum('kilometer_type', ['Concrete', 'Asphalt', 'Gravel', 'Earthfill'])->nullable();
             $table->double('national_km', 10);
             $table->double('provincial_km', 10);
             $table->double('city_km', 10);
