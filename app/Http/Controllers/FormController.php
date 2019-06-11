@@ -57,9 +57,31 @@ class FormController extends Controller
     {
         return BarangayClearance::where('inhabitant_id', '=', $id)->latest()->get();
     }
+    public function showBarangayCertificate($id)
+    {
+        return BarangayCertificate::where('inhabitant_id', '=', $id)->latest()->get();
+    }
     public function createBarangayClearance(Request $request)
     {
+        $request->validate([
+            'control_no' => 'required',
+            'ctc_no' => 'required',
+            'purpose_of_clearance' => 'required',
+            'official_receipt_no' => 'required',
+        ]);
         $form = BarangayClearance::create($request->all());
+        return new $form;
+    }
+    public function createBarangayCertificate(Request $request)
+    {
+        $request->validate([
+            'control_no' => 'required',
+            'purpose_certification' => 'required',
+            'ctc_no' => 'required',
+            'official_receipt_no' => 'required',
+            'amount_paid' => 'required',
+        ]);
+        $form = BarangayCertificate::create($request->all());
         return new $form;
     }
 }

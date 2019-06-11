@@ -8,10 +8,13 @@ import '@mdi/font/css/materialdesignicons.css'
 import colors from 'vuetify/es5/util/colors'
 import VueRouter from 'vue-router';
 import { routes } from './routes';
-import Form from 'vform';
+import { Form,  HasError, AlertError } from 'vform';
 import swal from 'sweetalert2';
 window.swal = swal;
 import Gate from "./Gate";
+
+Vue.component(HasError.name, HasError)
+Vue.component(AlertError.name, AlertError)
 
 Vue.prototype.$gate = new Gate(window.user);
 
@@ -62,7 +65,10 @@ const app = new Vue({
         drawer: null,
         showPassword: false,
         items: [
-            { src: '/img/dashboard.png' },
+            {
+                src: '/img/dashboard.png',
+                class: 'contain'
+            },
             { src: '/img/form.png' },
             { src: '/img/household.png' },
             { src: '/img/inhabitant.png' }
@@ -96,6 +102,24 @@ const app = new Vue({
                 to: "/barangaykiosk"
             },
             {
+                icon: "mdi-archive",
+                title: "Archive",
+                group: "Archive",
+                model: false,
+                children: [{
+                    title: "Inhabitant",
+                    name: "Inhabitant",
+                    to: "/archivedInhabitants"
+                }, {
+                    title: "Households",
+                    name: "Households",
+                    to: "/archivedHouseholds"
+                }
+                ]
+            },
+            { heading: "Unregistered inhabitants" },
+            {
+
                 icon: "mdi-file-account",
                 title: "Forms",
                 group: "forms",
@@ -121,23 +145,7 @@ const app = new Vue({
                     to: "/filedcase"
                 }
                 ]
-            },
-            {
-                icon: "mdi-archive",
-                title: "Archive",
-                group: "Archive",
-                model: false,
-                children: [{
-                    title: "Inhabitant",
-                    name: "Inhabitant",
-                    to: "/archivedInhabitants"
-                }, {
-                    title: "Households",
-                    name: "Households",
-                    to: "/archivedHouseholds"
-                }
-                ]
-            },
+            }
         ],
         admins: [
             {
