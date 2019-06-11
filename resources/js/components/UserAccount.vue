@@ -38,10 +38,15 @@
               </v-avatar>
               <h3 class="mt-2">{{form.name}}</h3>
               <p>{{form.email}}</p>
-              <p class="mb-0">Created at</p>
-              <p>{{form.created_at}}</p>
-              <p class="mb-0">Updated on</p>
-              <p>{{form.updated_at}}</p>
+              <p class="mb-0">Barangay Code</p>
+              <p>{{barangayForm.zip_code}}</p>
+              <p class="mb-0">Region</p>
+              <p>{{barangayForm.region}}</p>
+              <p class="mb-0">Province</p>
+              <p>{{barangayForm.province}}</p>
+              <p class="mb-0">Municipality</p>
+              <p>{{barangayForm.municipality}}</p>
+              <p><v-btn to="/barangayprofile" small color="primary">View More</v-btn></p>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -99,66 +104,104 @@
         <v-flex md12>
           <v-card>
             <v-layout>
-              <v-flex md6>
-                <v-card-primary-title>
-                  <div>Barangay Logo</div>
-                </v-card-primary-title>
-                <v-card>
-                  <v-card-text class="text-xs-center">
-                    <v-avatar class="mx-auto d-block" size="180">
-                      <img :src="getLogo()" alt="Logo">
-                    </v-avatar>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex md6>
-                <div>Barangay Name:</div>
-                <div>Barangay Code</div>
-                <div>Region:</div>
-                <div>Province:</div>
-                <div>Municipality/City:</div><div>
-                  <v-btn to="/barangayprofile" small color="primary">View More</v-btn>
-                </div>
-              </v-flex> 
-            </v-layout>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-container grid-list-xl fluid>
-      <v-layout row wrap>
-        <v-flex md12>
-          <v-card>
-            <v-layout>
               <v-flex md12>
+                <v-toolbar flat color="white">
+                  <v-toolbar-title>Barangay Officials</v-toolbar-title>
+                  <v-divider
+                    class="mx-2"
+                    inset
+                    vertical
+                  ></v-divider>
+                </v-toolbar>
                 <v-data-table
                   id="barangayOfficials"
                   :headers="headersOfficials"
                   :items="officials"
                   hide-default-footer>
                   <template v-slot:top>
-                    <v-dialog v-model="dialogOfficial" max-width="300px">
+                    <v-dialog v-model="dialogOfficial" max-width="400px">
                       <v-form
                         ref="formOfficials"
                         v-model="valid"
                         lazy-validation 
-                        @submit.prevent="updateOfficial()">
+                        @submit.prevent="editmode ? updateOfficial() : createOfficial()"
+                      >
                         <v-card>
                           <v-card-title>
-                            <span class="headline">Edit Row</span>
+                            <span class="headline" v-show="!editmode">Add a new official</span>
+                            <span class="headline" v-show="editmode">Edit official information</span>
                           </v-card-title>
     
                           <v-card-text>
                             <v-container grid-list-md>
                               <v-layout wrap>
                                 <v-flex xs12 md12>
-                                  <v-text-field v-model="officialForm.name" label="Barangay Official name" required></v-text-field>
+                                  <v-text-field 
+                                    v-model="officialForm.name" 
+                                    label="Barangay Official name" 
+                                    :rules="[v => !!v || 'Official name is required']"
+                                    required
+                                  ></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-text-field v-model="officialForm.start_term" label="Start Term" required></v-text-field>
+                                  <v-menu
+                                    v-model="calendarStartTerm"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    eager
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    min-width="290px"
+                                  >
+                                    <template v-slot:activator="{ on }">
+                                      <v-text-field
+                                        v-model="officialForm.start_term"
+                                        label="Start Term"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        required
+                                        v-on="on"
+                                        :rules="[v => !!v || 'Start Term Date is required']"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="officialForm.start_term"
+                                      no-title
+                                      color="primary"
+                                      @input="calendarStartTerm = false"
+                                    ></v-date-picker>
+                                  </v-menu>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-text-field v-model="officialForm.end_term" label="End Term" required></v-text-field>
+                                  <v-menu
+                                    v-model="calendarEndTerm"
+                                    :close-on-content-click="false"
+                                    :nudge-right="40"
+                                    eager
+                                    transition="scale-transition"
+                                    offset-y
+                                    full-width
+                                    min-width="290px"
+                                  >
+                                    <template v-slot:activator="{ on }">
+                                      <v-text-field
+                                        v-model="officialForm.end_term"
+                                        label="End Term"
+                                        prepend-icon="mdi-calendar"
+                                        readonly
+                                        required
+                                        v-on="on"
+                                        :rules="[v => !!v || 'End Term Date is required']"
+                                      ></v-text-field>
+                                    </template>
+                                    <v-date-picker
+                                      v-model="officialForm.end_term"
+                                      no-title
+                                      color="primary"
+                                      @input="calendarEndTerm = false"
+                                    ></v-date-picker>
+                                  </v-menu>
                                 </v-flex>
                               </v-layout>
                             </v-container>
@@ -194,6 +237,14 @@
                       </template>
                       <span>Edit</span>
                     </v-tooltip>
+                    <v-tooltip attach bottom>
+                      <template v-slot:activator="{ on }">
+                        <v-btn v-on="on" icon @click="newOfficialDialog()">
+                          <v-icon>mdi-account-plus</v-icon>
+                        </v-btn>
+                      </template>
+                      <span>Add new official</span>
+                    </v-tooltip>
                   </template>
                 </v-data-table>
               </v-flex>
@@ -217,7 +268,15 @@ export default {
       created_at: "",
       updated_at: ""
     }),
+    barangayForm: new Form({
+      id: "",
+      municipality: "",
+      province: "",
+      region: "",
+      zip_code: ""
+    }),
     isEditing: null,
+    editmode: false,
     Table: "Officials",
     Orientation: "landscape",
     dialogOfficial: false,
@@ -230,6 +289,8 @@ export default {
     ],
     valid: true,
     officials: [],
+    calendarStartTerm: false,
+    calendarEndTerm: false,
     officialForm: new Form({
       id: "",
       position: "",
@@ -247,6 +308,9 @@ export default {
     getUser() {
       axios.get("api/profile").then(({ data }) => this.form.fill(data));
     },
+    getBarangay() {
+      axios.get("api/barangayForm").then(({ data }) => this.barangayForm.fill(data));
+    },
     getOfficials() {
       axios.get("api/official").then(response => {
         this.officials = response.data;
@@ -258,6 +322,19 @@ export default {
           ? this.form.logo
           : "img/profile/" + this.form.logo;
       return logo;
+    },
+    createOfficial(id) {
+      this.officialForm
+        .post("api/official")
+        .then(() => {
+          this.dialogOfficial = false;
+          this.getOfficials();
+          toast.fire({
+            type: "success",
+            title: "Official has been created"
+          });
+        })
+        .catch(() => {});
     },
     updateInfo() {
       if (this.form.password == "") {
@@ -303,7 +380,14 @@ export default {
       reader.readAsDataURL(file);
     },
 
+    newOfficialDialog() {
+      this.editmode = false;
+      this.officialForm.reset();
+      this.dialogOfficial = true;
+    },
+
     editOfficialDialog(officials) {
+      this.editmode = true;
       this.officialForm.reset();
       this.dialogOfficial = true;
       this.officialForm.fill(officials);
