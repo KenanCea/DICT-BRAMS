@@ -9,12 +9,10 @@ class BarangayCertificate extends Model
     protected $fillable = [
         'control_no',
         'purpose_certification',
-        'date_issued',
         'ctc_no',
-        'ctc_issued_at',
-        'ctc_issued_on',
         'official_receipt_no',
         'amount_paid',
+        'inhabitant_id'
     ];
     public function inhabitant()
     {

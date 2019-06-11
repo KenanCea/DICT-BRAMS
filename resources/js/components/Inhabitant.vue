@@ -48,7 +48,7 @@
                   <v-list-item-title>Barangay Clearance</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
-              <v-list-item>
+              <v-list-item @click="showBarangayCertificate(selectedInhabitant[0].id)">
                 <v-list-item-icon class="mr-2">
                   <v-icon color="deep-orange">mdi-file-document-box</v-icon>
                 </v-list-item-icon>
@@ -552,7 +552,7 @@
           </v-card>
         </v-form>
       </v-dialog>
-
+      <!-- Barangay Clearance -->
       <v-dialog v-model="dialogBarangayClearanceForm" scrollable persistent max-width="800px">
         <v-form @submit.prevent="createBarangayClearance()">
           <v-card>
@@ -566,13 +566,13 @@
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayClearance.control_no"
-                      label="Official Receipt Number*"
+                      label="Control number*"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayClearance.ctc_no"
-                      label="Community Tax Certificate Number*"
+                      label="Community tax certificate number*"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
@@ -584,7 +584,7 @@
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayClearance.official_receipt_no"
-                      label="Official Receipt Number*"
+                      label="Official receipt number*"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -593,11 +593,10 @@
                 <v-data-table
                   :headers="barangayClearanceHeaders"
                   :items="barangayClearanceIssued"
-                  :loading="loadingBarangayClearanceForm"
                   hide-default-footer
                 >
                   <template v-slot:item.action="{ item }">
-                    <v-btn icon @click="editItem(item)">
+                    <v-btn icon @click="printBarangayClearance(item)">
                       <v-icon>mdi-printer</v-icon>
                     </v-btn>
                   </template>
@@ -608,19 +607,18 @@
             <v-card-actions>
               <p class="mb-0">* indicates required field</p>
               <v-spacer></v-spacer>
-              <v-btn color="primary" @click="dialogBarangayClearanceForm = false" text>cancel</v-btn>
-              <v-btn color="primary" text type="submit">Save</v-btn>
+              <v-btn color="primary" @click="clear()" text>cancel</v-btn>
+              <v-btn color="primary" type="submit" text>Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-form>
       </v-dialog>
 
-      <v-dialog v-model="dialogBarangayClearance" scrollable persistent max-width="800px">
+      <v-dialog v-model="dialogBarangayClearance" scrollable max-width="800px">
         <v-card>
           <v-card-title>
             <span class="headline">Issue barangay clearance</span>
             <v-spacer></v-spacer>
-
             <div class="ml-1">
               <v-tooltip attach bottom>
                 <template v-slot:activator="{ on }">
@@ -715,7 +713,7 @@
                       <p>TO WHOM IT MAY CONCERN:</p>
                       <p>
                         This is to certify that
-                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}, ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
+                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].citizenship}` : '________________________' }}</span> citizen, a native of
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].placeOfBirth_native}` : '________________________' }}</span>, and presently residing at
@@ -784,12 +782,242 @@
               </v-layout>
             </v-container>
           </v-card-text>
-          <v-divider></v-divider>
-          <v-card-actions>
+        </v-card>
+      </v-dialog>
+      <!-- Barangay Certificate -->
+      <v-dialog v-model="dialogBarangayCertificateForm" scrollable persistent max-width="800px">
+        <v-form @submit.prevent="createBarangayCertificate()">
+          <v-card>
+            <v-card-title>
+              <span class="headline">Issue barangay certificate</span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md class="pa-0">
+                <v-layout wrap>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field
+                      v-model="formBarangayCertificate.control_no"
+                      label="Control number*"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field
+                      v-model="formBarangayCertificate.ctc_no"
+                      label="Community tax certificate number*"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field
+                      v-model="formBarangayCertificate.official_receipt_no"
+                      label="Official receipt number*"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field
+                      v-model="formBarangayCertificate.purpose_certification"
+                      label="Purpose of certificate*"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field
+                      v-model="formBarangayCertificate.amount_paid"
+                      label="Amount paid*"
+                    ></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+              <v-card outlined>
+                <v-data-table
+                  :headers="barangayCertificateHeaders"
+                  :items="barangayCertificateIssued"
+                  hide-default-footer
+                >
+                  <template v-slot:item.action="{ item }">
+                    <v-btn icon @click="printBarangayCertificate(item)">
+                      <v-icon>mdi-printer</v-icon>
+                    </v-btn>
+                  </template>
+                </v-data-table>
+              </v-card>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <p class="mb-0">* indicates required field</p>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="clear()" text>cancel</v-btn>
+              <v-btn color="primary" type="submit" text>Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+
+      <v-dialog v-model="dialogBarangayCertificate" scrollable max-width="800px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Issue barangay certificate</span>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="dialogBarangayClearance = false" text>cancel</v-btn>
-            <v-btn color="primary" text @click="clear()">Ok</v-btn>
-          </v-card-actions>
+            <div class="ml-1">
+              <v-tooltip attach bottom>
+                <template v-slot:activator="{ on }">
+                  <v-btn v-on="on" icon>
+                    <v-icon>mdi-printer</v-icon>
+                  </v-btn>
+                </template>
+                <span>Print</span>
+              </v-tooltip>
+            </div>
+            <div class="ml-1">
+              <v-menu :close-on-content-click="false" offset-y max-height="400">
+                <template #activator="{ on: menu }">
+                  <v-tooltip attach bottom>
+                    <template #activator="{ on: tooltip }">
+                      <v-btn icon v-on="{ ...tooltip, ...menu }">
+                        <v-icon>mdi-application-export</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>Export</span>
+                  </v-tooltip>
+                </template>
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-icon class="mr-2">
+                      <v-icon color="red">mdi-file-pdf</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>PDF</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                  <v-list-item>
+                    <v-list-item-icon class="mr-2">
+                      <v-icon color="blue">mdi-file-word</v-icon>
+                    </v-list-item-icon>
+                    <v-list-item-content>
+                      <v-list-item-title>Word</v-list-item-title>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-menu>
+            </div>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text style="color:black">
+            <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
+              <v-layout row wrap>
+                <v-flex xs3>
+                  <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
+                </v-flex>
+                <v-flex xs6 class="green--text title">
+                  <p class="mb-0">Barangay Camp Allen</p>
+                  <p class="mb-0">Republic of the Philippines</p>
+                  <p class="mb-0">Baguio City</p>
+                </v-flex>
+                <v-flex xs3>
+                  <img :src="getLogo()" alt="Logo" contain height="100">
+                </v-flex>
+              </v-layout>
+              <v-layout row wrap>
+                <v-flex xs12 class="subtitle-1 font-weight-bold">
+                  <p class="mb-0">Office of the Punong Barangay</p>
+                  <p>Barangay Certification</p>
+                </v-flex>
+              </v-layout>
+              <v-layout row wrap>
+                <v-flex xs4 class="form-border-right">
+                  <p class="mb-0">{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                  <p>Punong Barangay</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
+                  <p>Barangay Kagawad</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
+                  <p>Barangay Kagawad</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
+                  <p>Barangay Kagawad</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
+                  <p>Barangay Kagawad</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
+                  <p>Barangay Kagawad</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
+                  <p>Barangay Kagawad</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
+                  <p>Barangay Kagawad</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
+                  <p>Barangay Secretary</p>
+                  <p class="mb-0">{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
+                  <p>Barangay Treasurer</p>
+                </v-flex>
+                <v-flex xs8 text-xs-left class="pl-3">
+                  <v-layout row wrap>
+                    <v-flex>
+                      <p>TO WHOM IT MAY CONCERN:</p>
+                      <p>
+                        This is to certify that
+                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
+                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
+                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].citizenship}` : '________________________' }}</span> citizen,  is a resident of Barangay
+                        <span>{{ selectedInhabitant.length ? `${address[0].name}` : '________________________' }}</span> with postal address at
+                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].house_no} Purok ${selectedInhabitant[0].purok} ${selectedInhabitant[0].street}, ${address[0].name}, ${address[0].province}` : '________________________________________________' }}</span>.
+                      </p>
+                    </v-flex>
+
+                    <v-flex xs12>
+                      <p>
+                        Issued
+                        <span
+                          v-if="formBarangayCertificate.purpose_certification"
+                        >{{formBarangayCertificate.purpose_certification}}</span>
+                        <span v-else>________________________________________</span> purposes.
+                      </p>
+                    </v-flex>
+
+                    <v-flex xs6>
+                      <p class="mb-0">________________________</p>
+                      <p class="mb-5">Signature over printed name</p>
+                    </v-flex>
+
+                    <v-flex xs12 class="mb-5">
+                      <p class="mb-0">
+                        Community tax certificate number:
+                        <span
+                          v-if="formBarangayCertificate.ctc_no"
+                        >{{formBarangayCertificate.ctc_no}}</span>
+                        <span v-else>____________</span>
+                      </p>
+                      <p class="mb-0">
+                        Issued on:
+                        <span
+                          v-if="formBarangayCertificate.created_at"
+                        >{{formBarangayCertificate.created_at}}</span>
+                        <span v-else>____________</span>
+                      </p>
+                      <p class="mb-0">
+                        Issued at:
+                        <span>{{ selectedInhabitant.length ? `${address[0].name}, ${address[0].municipality}` : '____________' }}</span>
+                      </p>
+                      <p class="mb-0">
+                        Official receipt number:
+                        <span
+                          v-if="formBarangayCertificate.official_receipt_no"
+                        >{{formBarangayCertificate.official_receipt_no}}</span>
+                        <span v-else>____________</span>
+                      </p>
+                    </v-flex>
+
+                    <v-flex xs6 offset-xs6 class="text-xs-center">
+                      <p>CERTIFIED AND ISSUED BY:</p>
+                      <p
+                        class="mb-0"
+                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                      <p>Punong Barangay</p>
+                    </v-flex>
+
+                    <v-flex xs12>
+                      <p>Note: Not valid without Barangay Seal</p>
+                    </v-flex>
+                  </v-layout>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
         </v-card>
       </v-dialog>
 
@@ -919,17 +1147,27 @@ export default {
       { text: "Issued at", value: "created_at" },
       { text: "Actions", value: "action", sortable: false }
     ],
+    barangayCertificateHeaders: [
+      { text: "Control no.", value: "control_no" },
+      { text: "Community tax certificate no.", value: "ctc_no" },
+      { text: "Purpose of clearance", value: "purpose_certification" },
+      { text: "Official receipt no.", value: "official_receipt_no" },
+      { text: "Ammount paid", value: "amount_paid" },
+      { text: "Issued at", value: "created_at" },
+      { text: "Actions", value: "action", sortable: false }
+    ],
     selectedInhabitant: [],
     inhabitants: [],
     user: {},
     address: [],
     officials: [],
-    barangayClearanceIssued: [],
     dialogEditInhabitant: false,
+    barangayClearanceIssued: [],
     dialogBarangayClearance: false,
     dialogBarangayClearanceForm: false,
-    loadingBarangayClearanceForm: false,
-    barangayClearance: false,
+    barangayCertificateIssued: [],
+    dialogBarangayCertificate: false,
+    dialogBarangayCertificateForm: false,
     loading: false,
     vaccine: false,
     employed: false,
@@ -997,6 +1235,16 @@ export default {
       created_at: "",
       inhabitant_id: ""
     }),
+    formBarangayCertificate: new Form({
+      control_no: "",
+      purpose_certification: "",
+      ctc_no: "",
+      official_receipt_no: "",
+      amount_paid: "",
+      created_at: "",
+      inhabitant_id: ""
+    }),
+
     formUser: new Form({
       logo: ""
     })
@@ -1043,9 +1291,7 @@ export default {
       });
     },
     getUser() {
-      axios
-        .get("api/user")
-        .then(({ data }) => this.formUser.fill(data));
+      axios.get("api/user").then(({ data }) => this.formUser.fill(data));
     },
     getOfficials() {
       axios.get("api/officials").then(response => {
@@ -1066,13 +1312,16 @@ export default {
         })
         .catch(() => {});
     },
+
     showBarangayClearance(id) {
       axios.get("api/getBarangayClearance/" + id).then(response => {
         this.barangayClearanceIssued = response.data;
         this.dialogBarangayClearanceForm = true;
+        this.formBarangayClearance.reset();
         this.formBarangayClearance.inhabitant_id = this.selectedInhabitant[0].id;
       });
     },
+
     createBarangayClearance() {
       this.formBarangayClearance
         .post("api/createBarangayClearance")
@@ -1085,10 +1334,39 @@ export default {
         })
         .catch(() => {});
     },
-    editItem(item) {
+
+    printBarangayClearance(item) {
       this.dialogBarangayClearance = true;
       this.formBarangayClearance = Object.assign({}, item);
     },
+
+    showBarangayCertificate(id) {
+      axios.get("api/getBarangayCertificate/" + id).then(response => {
+        this.barangayCertificateIssued = response.data;
+        this.dialogBarangayCertificateForm = true;
+        this.formBarangayCertificate.reset();
+        this.formBarangayCertificate.inhabitant_id = this.selectedInhabitant[0].id;
+      });
+    },
+
+    createBarangayCertificate() {
+      this.formBarangayCertificate
+        .post("api/createBarangayCertificate")
+        .then(() => {
+          toast.fire({
+            type: "success",
+            title: "Inhabitant has been issued certificate"
+          });
+          this.showBarangayCertificate(this.selectedInhabitant[0].id);
+        })
+        .catch(() => {});
+    },
+
+    printBarangayCertificate(item) {
+      this.dialogBarangayCertificate = true;
+      this.formBarangayCertificate = Object.assign({}, item);
+    },
+
     archive(id) {
       swal
         .fire({
@@ -1124,11 +1402,13 @@ export default {
           : "img/profile/" + this.formUser.logo;
       return logo;
     },
-
+    validate() {
+      if (this.$refs.dialogBarangayClearanceForm.validate()) {
+      }
+    },
     clear() {
-      this.dialogBarangayClearance = false;
+      this.dialogBarangayClearanceForm = false;
       this.formBarangayClearance = [];
-      this.barangayClearance = false;
     },
 
     showColumn(col) {

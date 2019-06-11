@@ -16,22 +16,20 @@
             <v-list shaped>
                 <template v-for="user in users">
                     <v-layout v-if="user.heading" :key="user.heading" row align-center>
-                        <v-flex xs6>
-                            <v-subheader v-if="user.heading">@{{ user.heading }}</v-subheader>
-                        </v-flex>
+                        <v-subheader v-if="user.heading">@{{ user.heading }}</v-subheader>
                     </v-layout>
                     <v-list-group v-else-if="user.children" v-model="user.model" :key="user.title" no-action>
-                        <v-list-item slot="activator" class="px-0">
+                        <template v-slot:activator>
                             <v-list-item-action>
                                 <v-icon>@{{ user.icon }}</v-icon>
                             </v-list-item-action>
                             <v-list-item-content>
-                                <v-list-item-title class="font-weight-medium">@{{ user.title }}</v-list-item-title>
+                                <v-list-item-title v-text="user.title"></v-list-item-title>
                             </v-list-item-content>
-                        </v-list-item>
+                        </template>
                         <v-list-item :key="i" v-for="(child, i) in user.children" :to="child.to">
                             <v-list-item-content>
-                                <v-list-item-title class="font-weight-medium">@{{ child.title }}</v-list-item-title>
+                                <v-list-item-title v-text="child.title"></v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
                     </v-list-group>
@@ -40,7 +38,7 @@
                             <v-icon>@{{ user.icon }}</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title class="font-weight-medium">@{{ user.title }}</v-list-item-title>
+                            <v-list-item-title v-text="user.title"></v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </template>
@@ -56,7 +54,7 @@
                             <v-subheader v-if="admin.heading">@{{ admin.heading }}</v-subheader>
                         </v-flex>
                     </v-layout>
-                    <v-list-group v-else-if="admin.children" v-model="admin.model" :key="admin.title" no-action>
+                    <v-list-group v-else-if="admin.children" v-model="admin.model" :prepend-icon="item.action" :key="admin.title" no-action>
                         <v-list-item slot="activator" class="px-0">
                             <v-list-item-action>
                                 <v-icon>@{{ admin.icon }}</v-icon>

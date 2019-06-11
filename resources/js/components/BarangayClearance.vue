@@ -10,18 +10,25 @@
             <v-container grid-list-md>
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_no" label="Community Tax Certificate Number"></v-text-field>
+                  <v-text-field
+                    v-model="form.ctc_no"
+                    label="Community Tax Certificate Number"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.purpose_of_clearance" label="Purpose of clearance"></v-text-field>
+                  <v-text-field
+                    v-model="form.purpose_of_clearance"
+                    label="Purpose of clearance"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_issued_at" label="Issued at"></v-text-field>
+                  <v-text-field v-model="form.ctc_issued_at" label="Issued at" required></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_issued_on" label="Issued on"></v-text-field>
+                  <v-text-field v-model="form.ctc_issued_on" label="Issued on" required></v-text-field>
                 </v-flex>
-              
               </v-layout>
             </v-container>
           </v-card-text>
@@ -72,7 +79,7 @@
       </v-tooltip>
       <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on:click='pdf()'>
+          <v-btn text icon color="primary" v-on:click="pdf()">
             <v-icon color="grey darken-2">mdi-file-export</v-icon>
           </v-btn>
         </template>
@@ -94,7 +101,7 @@
         </v-flex>
         <v-flex xs4 class="green--text title">
           <p class="mb-0">Republic of the Philippines</p>
-          <span v-if="select"> {{select.province}}</span>
+          <span v-if="select">{{select.province}}</span>
           <p class="mb-0">BARANGAY AMBIONG</p>
           <p>Aurora Hill, Baguio</p>
         </v-flex>
@@ -131,48 +138,69 @@
           <p class="mb-0">RONALD C. GOMEZ</p>
           <p>Barangay Treasurer</p>
         </v-flex>
-                <v-flex xs8 text-xs-left class="pl-3">
+        <v-flex xs8 text-xs-left class="pl-3">
           <p>TO WHOM IT MAY CONCERN:</p>
           <br>
           <p>
             This is to certify that
-            <span v-if="select">{{select.first_name}} {{select.middle_name}} {{select.last_name}}</span>
+            <span
+              v-if="select"
+            >{{select.first_name}} {{select.middle_name}} {{select.last_name}}</span>
             <span v-else>______________________________________________</span>,
-            <span v-if="select"> {{select.age}}</span>
+            <span v-if="select">{{select.age}}</span>
             <span v-else>________</span> years old,
             <span v-if="select">{{select.citizenship}}</span>
-            <span v-else>________________________</span> citizen, a native of <span v-if="select">{{select.placeOfBirth_native}}</span>
-            <span v-else>________________________</span>, residing at <span v-if="select">{{select.house_no}}, {{select.purok}}
+            <span v-else>________________________</span> citizen, a native of
+            <span v-if="select">{{select.placeOfBirth_native}}</span>
+            <span v-else>________________________</span>, residing at
+            <span v-if="select">
+              {{select.house_no}}, {{select.purok}}
               {{select.street}}, {{select.barangay}} is a resident of this barangay.
             </span>
-           </p>
+          </p>
 
           <p>
             THIS IS TO CERTIFY FURTHER that the above-named person has neither derogatory records nor pending
             case in this barangay.
+          </p>
+          <p></p>
+          <p>THIS CERTIFICATION is issued upon the request of the above named person for LEGAL INTENT.</p>
+          <p></p>
           <p>
+            Issued this
+            <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
+            <span v-else>________________________________________</span> at Barangay
+            <span v-if="select">
+              {{select.house_no}}, {{select.purok}}
+              {{select.street}}, {{select.barangay}}
+            </span>
+          </p>
 
-             <p>
-            THIS CERTIFICATION is issued upon the request of the above named person for LEGAL INTENT.
-          <p>
-
-
-          <p>Issued this <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
-            <span v-else>________________________________________</span> at Barangay <span v-if="select">{{select.house_no}}, {{select.purok}}
-              {{select.street}}, {{select.barangay}} </span> </p>
-
-            <br>
-           <div class="text-xs-right text-xs-center">
+          <br>
+          <div class="text-xs-right text-xs-center">
             <p class="mb-0-5">CERTIFIED AND ISSUED BY:</p>
             <p class="mb-0 mr-5">RANDY P. GATI</p>
             <p class="mb-5 mr-5">Punong Barangay</p>
           </div>
-    
-          <p class="mb-0">Community Tax Certificate Number: <span v-if="form.ctc_no">{{form.ctc_no}}</span><span v-else>____________</span> </p>
-          <p class="mb-0">Issued On: <span v-if="form.ctc_issued_on">{{form.ctc_no}}</span> <span v-else>____________</span> </p>
-          <p class="mb-0">Issued At: <span v-if="form.ctc_issued_at">{{form.ctc_no}}</span><span v-else>____________</span> </p>
-         <p>
-           <br>
+
+          <p class="mb-0">
+            Community Tax Certificate Number:
+            <span v-if="form.ctc_no">{{form.ctc_no}}</span>
+            <span v-else>____________</span>
+          </p>
+          <p class="mb-0">
+            Issued On:
+            <span v-if="form.ctc_issued_on">{{form.ctc_no}}</span>
+            <span v-else>____________</span>
+          </p>
+          <p class="mb-0">
+            Issued At:
+            <span v-if="form.ctc_issued_at">{{form.ctc_no}}</span>
+            <span v-else>____________</span>
+          </p>
+          <p>
+            <br>
+          </p>
           <p>Note: Not valid without Barangay Seal</p>
         </v-flex>
       </v-layout>
@@ -183,7 +211,7 @@
 <script>
 export default {
   data: () => ({
-    inhabitants:[],
+    inhabitants: [],
     dialog: false,
     form: new Form({
       control_no: "",
