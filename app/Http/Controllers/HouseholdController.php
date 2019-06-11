@@ -25,11 +25,12 @@ class HouseholdController extends Controller
         return DB::table('households')
             ->leftJoin('users', 'households.user_id', '=', 'users.id')
             ->leftJoin('inhabitants', 'households.id', '=', 'inhabitants.household_id')
-            ->select('households.*', DB::raw('count(inhabitants.household_id) AS familysize'))
+            ->select('households.*', 
+            DB::raw('COUNT(CASE WHEN inhabitants.deleted_at IS NULL THEN 1 END) AS familysize'))
             ->where('users.id', Auth::user()->id)
             ->whereNull('households.deleted_at')
-            ->whereNull('inhabitants.deleted_at')
             ->groupBy('households.id')
+            ->orderBy('households.id')
             ->get();
     }
 
@@ -79,6 +80,7 @@ class HouseholdController extends Controller
     {
         $household = Household::findOrFail($id);
         $household->delete();
+
 
         $inhabitants = Inhabitant::where('household_id',$id);
         $inhabitants->delete();

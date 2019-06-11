@@ -179,8 +179,6 @@
 </template>
 
 <script>
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas';
 export default {
   data: () => ({
     inhabitants: [],
@@ -232,14 +230,5 @@ export default {
         .finally(() => (this.isLoading = false));
     }
   },
-  methods:{
-    pdf(){
-      html2canvas(document.getElementById('printForm')).then(canvas => {
-        let pdf = new jsPDF('p', 'mm', 'letter');
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 205, 248);
-        pdf.save("BusinessClearance.pdf");
-      });
-    }
-  }
 };
 </script>
