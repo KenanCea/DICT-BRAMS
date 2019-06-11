@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Barangay;
-use DB;
-use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BarangayController extends Controller
 {
@@ -25,5 +25,10 @@ class BarangayController extends Controller
     {
         $barangay = Barangay::findOrFail($id);
         $barangay->update($request->all());
+    }
+
+    public function barangay()
+    {
+        return Barangay::where("user_id", "=", Auth::user()->id)->count("id");
     }
 }
