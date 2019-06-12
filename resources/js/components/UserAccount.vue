@@ -296,8 +296,7 @@ export default {
       position: "",
       name: "",
       start_term: "",
-      end_term: "",
-      logo: ""
+      end_term: ""
     })
   }),
   created() {
