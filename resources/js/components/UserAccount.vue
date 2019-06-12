@@ -301,6 +301,7 @@ export default {
   }),
   created() {
     this.getUser();
+    this.getBarangay();
     this.getOfficials();
   },
   methods: {
