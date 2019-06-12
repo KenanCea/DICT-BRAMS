@@ -26,7 +26,11 @@ Route::resources([
     'official' => 'OfficialController',
     'landForm' => 'LandFormController', 
     'landUse' => 'LandUseController', 
-    'householdDistribution' => 'HouseholdDistributionController'
+    'householdDistribution' => 'HouseholdDistributionController',
+    'healthFacility' => 'HealthFacilityController', 
+    'education' => 'EducationController', 
+    'infrastructure' => 'InfrastructureController',
+    'communication' => 'CommunicationController'
 ]);
 // Profile
 Route::get('profile', 'UserController@profile');
