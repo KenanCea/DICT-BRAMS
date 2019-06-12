@@ -7,20 +7,11 @@
               <v-layout>
                 <v-flex xs8>
                   <div>
-                    <v-btn to="/barangayinformation" small color="primary">Back</v-btn>
+                    <v-btn to="/useraccount" small color="primary">Back</v-btn>
                   </div>
-                  <div>Barangay Name:</div>
-                  <div>Barangay Code</div>
-                  <div>Region:</div>
-                  <div>Province:</div>
-                  <div>Municipality/City:</div>
                 </v-flex>
                 <v-flex xs4>
                   <div>
-                    <v-btn 
-                      small 
-                      color="primary"
-                      >Print</v-btn>
                     <v-tooltip attach bottom>
                       <template v-slot:activator="{ on }">
                         <v-btn text icon @click="isEditing = !isEditing" v-on="on">
@@ -31,12 +22,6 @@
                       <span v-if="isEditing">Cancel</span>
                       <span v-else>Edit</span>
                     </v-tooltip>
-                    <v-btn
-                      color="success"
-                      type="submit"
-                      :disabled="!isEditing"
-                      @click.prevent="updateBarangay"
-                    >Save</v-btn>
                   </div>
                 </v-flex> 
               </v-layout>
@@ -262,6 +247,12 @@
                       </template>
                     </v-data-table>
                   </div>
+                  <v-btn
+                    color="success"
+                    type="submit"
+                    :disabled="!isEditing"
+                    @click.prevent="updateBarangay"
+                  >Save</v-btn>
                 </v-flex>
               </v-layout>
             </v-card>
@@ -354,6 +345,15 @@
                     <v-text-field v-model="householdDistributionForm.ave_income_hhold" label="Average income per household - 3 years ago" :disabled="!isEditing"
                     ></v-text-field>
                   </v-form>
+                  <div>Employment Data</div>
+                  <v-form>
+                    <v-text-field v-model="householdDistributionForm.rank1_employment" label="Rank 1 employment" :disabled="!isEditing"
+                    ></v-text-field>
+                    <v-text-field v-model="householdDistributionForm.rank2_employment" label="Rank 2 employment" :disabled="!isEditing"
+                    ></v-text-field>
+                    <v-text-field v-model="householdDistributionForm.rank3_employment" label="Rank 3 employment" :disabled="!isEditing"
+                    ></v-text-field>
+                  </v-form>
                 </v-flex>
               </v-layout>
             </v-card>
@@ -370,57 +370,72 @@
                   <div>Socio Cultural Data</div><br/>
                   <div>For Table 2: Health Facilities</div>
                   <div>
-                    <v-data-table 
-                      :headers="healthheaders" 
-                      :items="facilities" 
+                    <v-data-table
+                      id="healthFacilities" 
+                      :headers="headersHealthFacilities" 
+                      :items="healthfacilities" 
                       hide-default-footer>
-
                       <template v-slot:top>
                         <v-dialog v-model="dialog3" max-width="450px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem3.number" label="Number"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem3.patient" label="Number of patients served (preceding year)"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close3">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save3">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                          <v-form
+                            ref="formHealthFacilities"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="updateHealthFacility()">
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Edit Row</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex md12>
+                                      <v-text-field v-model="healthFacilityForm.number" label="Number"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="healthFacilityForm.numpatients" label="Number of patients served (preceding year)"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="dialogHealthFacility = false">Cancel</v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitHealthFacilities"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
                       </template>
 
+                      <template v-slot:items="props">
+                        <td>{{ props.item.healthfacility_type }}</td>
+                        <td>{{ props.item.number }}</td>
+                        <td>{{ props.item.numpatients }}</td>
+                      </template>
+
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip attach bottom>
+                        <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem3(item)" v-on="on">
+                            <v-btn text icon @click="editHealthFacilityDialog(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
                       </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
-                      </template>
                     </v-data-table>
                   </div>
-                  <div>Other Health Facilities:</div>
+                  <v-form>
+                    <v-text-field v-model="healthFacilityForm.otherSpecify" label="Other Health Facilities" :disabled="!isEditing"
+                    ></v-text-field>
+                  </v-form>
                 </v-flex>
               </v-layout>
             </v-card>
@@ -438,48 +453,71 @@
                   <div>For Table B.1 Number of School Buildings</div>
                   <div>
                     <v-data-table 
-                      :headers="schoolheaders" 
-                      :items="buildings" 
+                      id="education"
+                      :headers="headersEducations" 
+                      :items="educations" 
                       hide-default-footer>
                       <template v-slot:top>
-                        <v-dialog v-model="dialog4" max-width="175px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem4.number2" label="Number"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close4">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save4">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                        <v-dialog v-model="dialogEducation" max-width="175px">
+                          <v-form
+                            ref="formEducations"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="updateEducation()">
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Edit Row</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex md12>
+                                      <v-text-field v-model="educationForm.education_number" label="Number"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+                        
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="close4">Cancel</v-btn>
+                                <v-btn color="blue darken-1" text @click="save4">Save</v-btn>
+                              </v-card-actions>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text 
+                                  @click="dialogEducation = false">
+                                  Cancel
+                                </v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitEducations"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
                       </template>
 
+                      <template v-slot:items="props">
+                        <td>{{ props.item.education_type }}</td>
+                        <td>{{ props.item.education_number }}</td>
+                      </template>
+
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip attach bottom>
+                        <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem4(item)" v-on="on">
+                            <v-btn text icon @click="editEducationDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
-                      </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -487,50 +525,67 @@
                 <v-flex xs6>
                   <div>For Table D: Sports and Recreational Facilities</div>
                   <div>
-                    <v-data-table 
-                      :headers="sportheaders" 
+                    <v-data-table
+                      id="sports" 
+                      :headers="headersSports" 
                       :items="sports" 
                       hide-default-footer>
-
                       <template v-slot:top>
                         <v-dialog v-model="dialog5" max-width="175px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem5.number3" label="Number"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close5">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save5">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                          <v-form
+                            ref="formSports"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="updateSport()">
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Edit Row</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex md12>
+                                      <v-text-field v-model="educationForm.sports_number" label="Number"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn 
+                                  color="blue 
+                                  darken-1" 
+                                  text 
+                                  @click="dialogSport = false">
+                                  Cancel
+                                </v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitSports"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
                       </template>
 
+                      <template v-slot:items="props">
+                        <td>{{ props.item.sports_type }}</td>
+                        <td>{{ props.item.sports_number }}</td>
+                      </template>
+
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip attach bottom>
+                        <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem5(item)" v-on="on">
+                            <v-btn text icon @click="editSportDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
-                      </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -550,129 +605,185 @@
                   <div>C. INFRASTRUCTURE: TRANSPORT FACILITIES AND SERVICES</div><br/>
                   <div class="ml-3">For Table 1: Bridge by Administrative level (in meters):</div>
                   <div class="ml-5">
-                    <v-data-table 
-                      :headers="bridgemeters" 
+                    <v-data-table
+                      id="meters" 
+                      :headers="headersMeters" 
                       :items="meters" 
                       hide-default-footer>
-
                       <template v-slot:top>
-                        <v-dialog v-model="dialog6" max-width="300px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem6.national" label="National"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem6.provincial" label="Provincial"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem6.city" label="City/Municipality"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem6.barangay" label="Barangay"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem6.total" label="Barangay"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem6.operational" label="Barangay"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close6">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save6">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                        <v-dialog v-model="dialogMeter" max-width="300px">
+                          <v-form
+                            ref="formMeters"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="updateMeter()">  
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Edit Row</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.national_m" label="National"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.provincial_m" label="Provincial"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.city_m" label="City/Municipality"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.barangay_m" label="Barangay"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.total_m" label="Barangay"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.operational_m" label="Barangay"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+                        
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="close6">Cancel</v-btn>
+                                <v-btn color="blue darken-1" text @click="save6">Save</v-btn>
+                              </v-card-actions>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn 
+                                  color="blue 
+                                  darken-1" 
+                                  text 
+                                  @click="dialogMeter = false">
+                                  Cancel
+                                </v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitMeters"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
                       </template>
 
+                      <template v-slot:items="props">
+                        <td>{{ props.item.meter_type }}</td>
+                        <td>{{ props.item.national_m }}</td>
+                        <td>{{ props.item.provincial_m }}</td>
+                        <td>{{ props.item.city_m }}</td>
+                        <td>{{ props.item.barangay_m }}</td>
+                        <td>{{ props.item.total_m }}</td>
+                        <td>{{ props.item.operational_m }}</td>
+                      </template>
+
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip attach bottom>
+                        <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem6(item)" v-on="on">
+                            <v-btn text icon @click="editMeterDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
-                      </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div><br/>
                   <div ml-3>Bridge by Administrative level (in kilometers)</div>
                   <div class="ml-5">
                     <v-data-table 
-                      :headers="bridgekilometers" 
+                      id="kilometers"
+                      :headers="headersKilometers" 
                       :items="kilometers" 
                       hide-default-footer>
-
                       <template v-slot:top>
-                        <v-dialog v-model="dialog7" max-width="300px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem7.national2" label="National"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem7.provincial2" label="Provincial"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem7.city2" label="City/Municipality"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem7.barangay2" label="Barangay"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem7.total2" label="Barangay"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem7.operational2" label="Barangay"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close7">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save7">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                        <v-dialog v-model="dialogKilometer" max-width="300px">
+                          <v-form
+                            ref="formKilometers"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="updateKilometer()">
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline">Edit Row</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.national_km" label="National"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.provincial_km" label="Provincial"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.city_km" label="City/Municipality"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.barangay2" label="Barangay"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.total_km" label="Barangay"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="infrastructureForm.operational_km" label="Barangay"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+                        
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="close7">Cancel</v-btn>
+                                <v-btn color="blue darken-1" text @click="save7">Save</v-btn>
+                              </v-card-actions>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn 
+                                  color="blue 
+                                  darken-1" 
+                                  text 
+                                  @click="dialogKilometer = false">
+                                  Cancel
+                                </v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitKilometers"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
                       </template>
 
+                      <template v-slot:items="props">
+                        <td>{{ props.item.kilometer_type }}</td>
+                        <td>{{ props.item.national_km }}</td>
+                        <td>{{ props.item.provincial_km }}</td>
+                        <td>{{ props.item.city_km }}</td>
+                        <td>{{ props.item.barangay_km }}</td>
+                        <td>{{ props.item.total_km }}</td>
+                        <td>{{ props.item.operational_km }}</td>
+                      </template>
+
                       <template v-slot:item.action="{ item }">
-                        <v-tooltip attach bottom>
+                        <v-tooltip bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem7(item)" v-on="on">
+                            <v-btn text icon @click="editKilometerDialog(item)" v-on="on">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
-                      </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
                       </template>
                     </v-data-table>
                   </div>
@@ -691,64 +802,81 @@
                 <v-flex xs12>
                   <div class="ml-3">For Table 2: Communications Services:</div>
                   <div class="ml-5">
-                    <v-data-table 
-                      :headers="communicationheaders" 
-                      :items="services" 
+                    <v-data-table
+                      id="communications" 
+                      :headers="headersCommunications" 
+                      :items="communications" 
                       hide-default-footer>
 
                       <template v-slot:top>
-                        <v-dialog v-model="dialog8" max-width="300px">
-                          <v-card>
-                            <v-card-title>
-                              <span class="headline">Edit Row</span>
-                            </v-card-title>
-                      
-                            <v-card-text>
-                              <v-container grid-list-md>
-                                <v-layout wrap>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem8.provider" label="Provider"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem8.company" label="Company"></v-text-field>
-                                  </v-flex>
-                                  <v-flex md12>
-                                    <v-text-field v-model="editedItem8.household" label="Household"></v-text-field>
-                                  </v-flex>
-                                </v-layout>
-                              </v-container>
-                            </v-card-text>
-                      
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                              <v-btn color="blue darken-1" text @click="close8">Cancel</v-btn>
-                              <v-btn color="blue darken-1" text @click="save8">Save</v-btn>
-                            </v-card-actions>
-                          </v-card>
+                        <v-dialog v-model="dialogCommunication" max-width="300px">
+                          <v-form
+                            ref="formCommunications"
+                            v-model="valid"
+                            lazy-validation 
+                            @submit.prevent="editmode ? updateCommunication() : createCommunication()"
+                          >
+                            <v-card>
+                              <v-card-title>
+                                <span class="headline" v-show="!editmode">Add a new communication</span>
+                                <span class="headline" v-show="editmode">Edit communication information</span>
+                              </v-card-title>
+                        
+                              <v-card-text>
+                                <v-container grid-list-md>
+                                  <v-layout wrap>
+                                    <v-flex md12>
+                                      <v-text-field v-model="communicationForm.totalProvider" label="Total Providers"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="communicationForm.name_company" label="Company Name"></v-text-field>
+                                    </v-flex>
+                                    <v-flex md12>
+                                      <v-text-field v-model="communicationForm.no_hhold_served" label="No. of Served Households"></v-text-field>
+                                    </v-flex>
+                                  </v-layout>
+                                </v-container>
+                              </v-card-text>
+
+                              <v-card-actions>
+                                <v-spacer></v-spacer>
+                                <v-btn color="blue darken-1" text @click="dialogCommunication = false">Cancel</v-btn>
+                                <v-btn 
+                                  color="blue darken-1" 
+                                  text type="submit" 
+                                  @click="submitCommunications"
+                                >Save</v-btn>
+                              </v-card-actions>
+                            </v-card>
+                          </v-form>
                         </v-dialog>
+                      </template>
+
+                      <template v-slot:items="props">
+                        <td>{{ props.item.communication_type }}</td>
+                        <td>{{ props.item.totalProvider }}</td>
+                        <td>{{ props.item.name_company }}</td>
+                        <td>{{ props.item.no_hhold_served }}</td>
                       </template>
 
                       <template v-slot:item.action="{ item }">
                         <v-tooltip attach bottom>
                           <template v-slot:activator="{ on }">
-                            <v-btn text icon @click="editItem8(item)" v-on="on">
+                            <v-btn text icon @click="editCommunicationDialog(item)">
                               <v-icon>mdi-pencil</v-icon>
                             </v-btn>
                           </template>
                           <span>Edit</span>
                         </v-tooltip>
-                      </template>
-
-                      <template #no-data>
-                        <v-btn color="primary" @click="initialize">Reset</v-btn>
-                      </template>
-
-                      <template slot="items" slot-scope="props">
-                          <td>{{ props.item.type }}</td>
-                          <td>{{ props.item.provider }}</td>
-                          <td>{{ props.item.company }}</td>
-                          <td>{{ props.item.household }}</td>
-                      </template>
+                        <v-tooltip attach bottom>
+                          <template v-slot:activator="{ on }">
+                            <v-btn v-on="on" icon @click="newCommunicationDialog()">
+                              <v-icon>mdi-account-plus</v-icon>
+                            </v-btn>
+                          </template>
+                          <span>Add new communication</span>
+                        </v-tooltip>
+                      </template>          
                     </v-data-table>
                   </div>
                 </v-flex>
@@ -763,12 +891,7 @@
 <script>
   export default {
     data: () => ({        
-      dialog3: false,
-      dialog4: false,
-      dialog5: false,
-      dialog6: false,
-      dialog7: false,
-      dialog8: false,
+      editmode: false,
       menuLegal: false,
       menuRatification: false,
       isEditing: null,    
@@ -828,321 +951,117 @@
         id: "",
         total_no_hhold: "",
         ave_persons_hhold: "",
-        ave_income_hhold: ""
+        ave_income_hhold: "",
+        rank1_employment: "",
+        rank2_employment: "",
+        rank3_employment: "",
       }),
-      healthheaders: [
-        {
-          text: 'Type',
-          value: 'facility',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Number', 
-          value: 'number',
-          align: 'center',
-          sortable: false,
-          width: "1%" 
-        },
-        { 
-          text: 'Number of patients served (preceding year)', 
-          value: 'patient',
-          align: 'center',
-          sortable: false,
-          width: "1%" 
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false,
-          width: "1%" 
-        }
+      dialogHealthFacility: false,
+      headersHealthFacilities: [
+        { text: 'Type', value: 'healthfacility_type', align: 'center', sortable: false },
+        { text: 'Number', value: 'number', align: 'center', sortable: false },
+        { text: 'Number of patients served (preceding year)', value: 'numpatients', align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false, width: "1%" }
       ],
-      facilities: [],
-      schoolheaders: [
-        {
-          text: 'Type',
-          value: 'type',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Number', 
-          value: 'number2',
-          align: 'center',
-          sortable: false,
-          width: "1%" 
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false,
-          width: "1%" 
-        }
+      healthfacilities: [],
+      healthFacilityForm: new Form({
+        id: "",
+        healthfacility_type: "",
+        number: "",
+        numpatients: "",
+        otherSpecify: ""
+      }),
+      dialogEducation: false,
+      headersEducations: [
+        { text: 'Type', value: 'education_type', align: 'center', sortable: false },
+        { text: 'Number', value: 'education_number', align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false }
       ],
-      buildings: [],
-      sportheaders: [
-        {
-          text: 'Type',
-          value: 'type',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Number', 
-          value: 'number3',
-          align: 'center',
-          sortable: false,
-          width: "1%" 
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false,
-          width: "1%" 
-        }
+      educations: [],
+      dialogSport: false,
+      headersSports: [
+        { text: 'Type', value: 'sports_type', align: 'center', sortable: false },
+        { text: 'Number', value: 'sports_number', align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false }
       ],
       sports: [],
-      bridgemeters: [
-        {
-          text: 'Type',
-          value: 'type',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'National', 
-          value: 'national',
-          align: 'center',
-          sortable: false,
-          width: "1%" 
-        },
-        {
-          text: 'Provincial', 
-          value: 'provincial',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'City/Municipality', 
-          value: 'city',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'Barangay', 
-          value: 'barangay',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'Total', 
-          value: 'total',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'Operational', 
-          value: 'operational',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false,
-          width: "1%" 
-        }
+      educationForm: new Form({
+        id: "",
+        education_type: "",
+        education_number: "",
+        sports_type: "",
+        sports_number: "",
+        total_facilities: ""
+      }),
+      dialogMeter: false,
+      headersMeters: [
+        { text: 'Type', value: 'meter_type', align: 'center', sortable: false },
+        { text: 'National', value: 'national_m', align: 'center', sortable: false },
+        { text: 'Provincial', value: 'provincial_m', align: 'center', sortable: false },
+        { text: 'City/Municipality', value: 'city_m', align: 'center', sortable: false },
+        { text: 'Barangay', value: 'barangay_m', align: 'center', sortable: false },
+        { text: 'Total', value: 'total_m', align: 'center', sortable: false },
+        { text: 'Operational', value: 'operational_m', align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false }
       ],
       meters: [],
-      bridgekilometers: [
-        {
-          text: 'Type',
-          value: 'type2',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'National', 
-          value: 'national2',
-          align: 'center',
-          sortable: false,
-          width: "1%" 
-        },
-        {
-          text: 'Provincial', 
-          value: 'provincial2',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'City/Municipality', 
-          value: 'city2',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'Barangay', 
-          value: 'barangay2',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'Total', 
-          value: 'total2',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        {
-          text: 'Operational', 
-          value: 'operational2',
-          align: 'center',
-          sortable: false,
-          width: "1%"
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false,
-          width: "1%" 
-        }
+      dialogKilometer: false,
+      headersKilometers: [
+        { text: 'Type', value: 'kilometer_type', align: 'center', sortable: false },
+        { text: 'National', value: 'national_km', align: 'center', sortable: false },
+        { text: 'Provincial', value: 'provincial_km', align: 'center', sortable: false },
+        { text: 'City/Municipality', value: 'city_km', align: 'center', sortable: false },
+        { text: 'Barangay', value: 'barangay_km', align: 'center', sortable: false },
+        { text: 'Total', value: 'total_km', align: 'center', sortable: false },
+        { text: 'Operational', value: 'operational_km', align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false }
       ],
       kilometers: [],
-      communicationheaders: [
-        {
-          text: 'Type of Communications',
-          value: 'type',
-          align: 'center',
-          sortable: false
-        },
-        { 
-          text: 'Total Provider', 
-          value: 'provider',
-          align: 'center',
-          sortable: false
-        },
-        {
-          text: 'Name/s of Company', 
-          value: 'company',
-          align: 'center',
-          sortable: false
-        },
-        {
-          text: 'No. of households served', 
-          value: 'household',
-          align: 'center',
-          sortable: false
-        },
-        { 
-          text: 'Actions', 
-          value: 'action',
-          align: 'center', 
-          sortable: false 
-        }
+      infrastructureForm: new Form({
+        id: "",
+        meter_type: "",
+        national_m: "",
+        provincial_m: "",
+        city_m: "",
+        barangay_m: "",
+        total_m: "",
+        operational_m: "",
+        national_m_total: "",
+        provincial_m_total: "",
+        city_m_total: "",
+        barangay_m_total: "",
+        total_m_total: "",
+        operational_m_total: "",
+        kilometer_type: "",
+        national_km: "",
+        provincial_km: "",
+        city_km: "",
+        barangay_km: "",
+        total_km: "",
+        operational_km: "",
+        national_km_total: "",
+        provincial_km_total: "",
+        city_km_total: "",
+        barangay_km_total: "",
+        total_km_total: "",
+        operational_km_total: ""
+      }),
+      dialogCommunication: false,
+      headersCommunications: [
+        { text: 'Type', value: 'communication_type', align: 'center', sortable: false },
+        { text: 'Total Provider', value: 'totalProvider', align: 'center', sortable: false },
+        { text: 'Name of Company', value: 'name_company', align: 'center', sortable: false },
+        { text: 'No. of households served', value: 'no_hhold_served', align: 'center', sortable: false },
+        { text: 'Actions', value: 'action', align: 'center', sortable: false }
       ],
-      services: [],
-      editedIndex: -1,
-      editedItem: {
-        mountainous: '',
-        plain: '',
-        valley: ''
-      },
-      editedItem2: {
-        square: '',
-        hectare: '',
-        total: ''
-      },
-      editedItem3: {
-        number: 0,
-        patient: 0
-      },
-      editedItem4: {
-        number2: 0
-      },
-      editedItem5: {
-        number3: 0
-      },
-      editedItem6: {
-        national: 0,
-        provincial: 0,
-        city: 0,
-        barangay: 0,
-        total: 0,
-        operational: 0
-      },
-      editedItem7: {
-        national2: 0,
-        provincial2: 0,
-        city2: 0,
-        barangay2: 0,
-        total2: 0,
-        operational2: 0
-      },
-      editedItem8: {
-        provider: '',
-        company: '',
-        household: ''
-      },
-      defaultItem: {
-        mountainous: '',
-        plain: '',
-        valley: ''
-      },
-      defaultItem2: {
-        square: '',
-        hectare: '',
-        total: ''
-      },
-      defaultItem3: {
-        number: 0,
-        patient: 0
-      },
-      defaultItem4: {
-        number2: 0
-      },
-      defaultItem5: {
-        number3: 0
-      },
-      defaultItem6: {
-        national: 0,
-        provincial: 0,
-        city: 0,
-        barangay: 0,
-        total: 0,
-        operational: 0
-      },
-      defaultItem7: {
-        national2: 0,
-        provincial2: 0,
-        city2: 0,
-        barangay2: 0,
-        total2: 0,
-        operational2: 0
-      },
-      defaultItem8: {
-        provider: '',
-        company: '',
-        household: ''
-      },
+      communications: [],
+      communicationForm: new Form({
+        id: "",
+        communication_type: "",
+        totalProvider: "",
+        name_company: "",
+        no_hhold_served: ""
+      })
     }),
 
     created () {
@@ -1150,6 +1069,12 @@
       this.getLandForms();
       this.getLandUses();
       this.getHouseholdDistribution();
+      this.getHealthFacilities();
+      this.getEducations();
+      this.getSports();
+      this.getMeters();
+      this.getKilometers();
+      this.getCommunications();
     },
 
     methods: {
@@ -1221,203 +1146,138 @@
         });
       },
 
-      initialize () {
-        this.facilities = [
-          {
-            facility: 'Public Hospital',
-            number: '',
-            patient: ''
-          },
-          {
-            facility: 'Private Hospital',
-            number: '',
-            patient: ''
-          },
-          {
-            facility: 'Health Center',
-            number: '',
-            patient: ''
-          },
-          {
-            facility: 'Clinic',
-            number: '',
-            patient: ''
-          },
-          {
-            facility: 'Self-medication',
-            number: '',
-            patient: ''
-          }
-        ],
-        this.buildings = [
-          {
-            type: 'Pre-School Day Care Building',
-            number2: ''
-          },
-          {
-            type: 'Primary/Elementary Building',
-            number2: ''
-          },
-          {
-            type: 'Secondary/High School Building',
-            number2: ''
-          },
-          {
-            type: 'Vocational/Technical Building',
-            number2: ''
-          },
-          {
-            type: 'College/University Building',
-            number2: ''
-          },
-          {
-            type: 'Post Graduate Building',
-            number2: ''
-          }
-        ],
-        this.sports = [
-          {
-            type: 'Covered Court',
-            number3: ''
-          },
-          {
-            type: 'Gymnasium',
-            number3: ''
-          },
-          {
-            type: 'Park/Plaza',
-            number3: ''
-          },
-          {
-            type: 'Specify Other Sports Facilities',
-            number3: ''
-          },
-          {
-            type: 'Specify Sports/Recreational Facilities',
-            number3: ''
-          },
-          {
-            type: 'Total Facilities',
-            number3: ''
-          }
-        ],
-        this.meters = [
-          {
-            type: 'Concrete',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
-          },
-          {
-            type: 'Steel',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
-          },
-          {
-            type: 'Wooden',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
-          },
-          {
-            type: 'TOTAL',
-            national: '',
-            provincial: '',
-            city: '',
-            barangay: '',
-            total: '',
-            operational: ''
-          }
-        ],
-        this.kilometers = [
-          {
-            type2: 'Concrete',
-            national2: '',
-            provincial2: '',
-            city2: '',
-            barangay2: '',
-            total2: '',
-            operational2: ''
-          },
-          {
-            type2: 'Asphalt',
-            national2: '',
-            provincial2: '',
-            city2: '',
-            barangay2: '',
-            total2: '',
-            operational2: ''
-          },
-          {
-            type2: 'Gravel',
-            national2: '',
-            provincial2: '',
-            city2: '',
-            barangay2: '',
-            total2: '',
-            operational2: ''
-          },
-          {
-            type2: 'Earthfill',
-            national2: '',
-            provincial2: '',
-            city2: '',
-            barangay2: '',
-            total2: '',
-            operational2: ''
-          },
-          {
-            type2: 'TOTAL',
-            national2: '',
-            provincial2: '',
-            city2: '',
-            barangay2: '',
-            total2: '',
-            operational2: ''
-          }
-        ],
-        this.services = [
-          {
-            type: 'Telephone',
-            provider: '',
-            company: '',
-            household: ''
-          },
-          {
-            type: 'Cellular Networks/Sites',
-            provider: '',
-            company: '',
-            household: ''
-          },
-          {
-            type: 'Internet',
-            provider: '',
-            company: '',
-            household: ''
-          },
-          {
-            type: 'Postal Service',
-            provider: '',
-            company: '',
-            household: ''
-          },
-          {
-            type: 'Delivery Service',
-            provider: '',
-            company: '',
-            household: ''
-          }
-        ]
+      getHealthFacilities() {
+        axios.get("api/healthFacility").then(response => {
+          this.healthfacilities = response.data;
+        });
+      },
+
+      updateHealthFacility() {
+        this.healthFacilityForm
+          .put("api/healthFacility/" + this.healthFacilityForm.id)
+          .then(() => {
+            this.dialogHealthFacility = false;
+            this.getHealthFacilities();
+            toast.fire({
+              type: "success",
+              title: "Health Facility has been edited"
+            });
+          })
+          .catch(() => {});
+      },
+
+      getEducations() {
+        axios.get("api/education").then(response => {
+          this.educations = response.data;
+        });
+      },
+
+      updateEducation() {
+        this.educationForm
+          .put("api/education/" + this.educationForm.id)
+          .then(() => {
+            this.dialogEducation = false;
+            this.getEducations();
+            toast.fire({
+              type: "success",
+              title: "Education has been edited"
+            });
+          })
+          .catch(() => {});
+      },
+
+      getSports() {
+        axios.get("api/education").then(response => {
+          this.sports = response.data;
+        });
+      },
+
+      updateSport() {
+        this.educationForm
+          .put("api/education/" + this.educationForm.id)
+          .then(() => {
+            this.dialogSport = false;
+            this.getSports();
+            toast.fire({
+              type: "success",
+              title: "Sport has been edited"
+            });
+          })
+          .catch(() => {});
+      },
+
+      getMeters() {
+        axios.get("api/infrastructure").then(response => {
+          this.meters = response.data;
+        });
+      },
+
+      updateMeter() {
+        this.infrastructureForm
+          .put("api/infrastructure/" + this.infrastructureForm.id)
+          .then(() => {
+            this.dialogMeter = false;
+            this.getMeters();
+            toast.fire({
+              type: "success",
+              title: "Infrastructure has been edited"
+            });
+          })
+          .catch(() => {});
+      },
+
+      getKilometers() {
+        axios.get("api/infrastructure").then(response => {
+          this.kilometers = response.data;
+        });
+      },
+
+      updateKilometer() {
+        this.infrastructureForm
+          .put("api/infrastructure/" + this.infrastructureForm.id)
+          .then(() => {
+            this.dialogKilometer = false;
+            this.getKilometers();
+            toast.fire({
+              type: "success",
+              title: "Infrastructure has been edited"
+            });
+          })
+          .catch(() => {});
+      },
+
+      getCommunications() {
+        axios.get("api/communication").then(response => {
+          this.communications = response.data;
+        });
+      },
+
+      createCommunication(id) {
+        this.communicationForm
+          .post("api/communication")
+          .then(() => {
+            this.dialogCommunication = false;
+            this.getCommunications();
+            toast.fire({
+              type: "success",
+              title: "Communication has been created"
+            });
+          })
+          .catch(() => {});
+      },
+
+      updateCommunication() {
+        this.communicationForm
+          .put("api/communication/" + this.communicationForm.id)
+          .then(() => {
+            this.dialogCommunication = false;
+            this.getCommunications();
+            toast.fire({
+              type: "success",
+              title: "Communication has been edited"
+            });
+          })
+          .catch(() => {});
       },
 
       editLandFormDialog(landforms) {
@@ -1440,142 +1300,71 @@
         this.$refs.formLandUses.validate();
       },
 
-      editItem3 (item) {
-        this.editedIndex = this.facilities.indexOf(item)
-        this.editedItem3 = Object.assign({}, item)
-        this.dialog3 = true
+      editHealthFacilityDialog(healthfacilities) {
+        this.healthFacilityForm.reset();
+        this.dialogHealthFacility = true;
+        this.healthFacilityForm.fill(healthfacilities);
       },
 
-      editItem4 (item) {
-        this.editedIndex = this.buildings.indexOf(item)
-        this.editedItem4 = Object.assign({}, item)
-        this.dialog4 = true
+      submitHealthFacilities() {
+        this.$refs.formHealthFacilities.validate();
       },
 
-      editItem5 (item) {
-        this.editedIndex = this.sports.indexOf(item)
-        this.editedItem5 = Object.assign({}, item)
-        this.dialog5 = true
-      },   
-
-      editItem6 (item) {
-        this.editedIndex = this.meters.indexOf(item)
-        this.editedItem6 = Object.assign({}, item)
-        this.dialog6 = true
-      },   
-
-      editItem7 (item) {
-        this.editedIndex = this.kilometers.indexOf(item)
-        this.editedItem7 = Object.assign({}, item)
-        this.dialog7 = true
+      editEducationDialog(educations) {
+        this.educationForm.reset();
+        this.dialogEducation = true;
+        this.educationForm.fill(educations);
       },
 
-      editItem8 (item) {
-        this.editedIndex = this.services.indexOf(item)
-        this.editedItem8 = Object.assign({}, item)
-        this.dialog8 = true
-      },      
-
-      close3 () {
-        this.dialog3 = false
-        setTimeout(() => {
-          this.editedItem3 = Object.assign({}, this.defaultItem3)
-          this.editedIndex = -1
-        }, 300)
+      submitEducations() {
+        this.$refs.formEducations.validate();
       },
 
-      close4 () {
-        this.dialog4 = false
-        setTimeout(() => {
-          this.editedItem4 = Object.assign({}, this.defaultItem4)
-          this.editedIndex = -1
-        }, 300)
+      editSportDialog(sports) {
+        this.educationForm.reset();
+        this.dialogSport = true;
+        this.educationForm.fill(sports);
       },
 
-      close5 () {
-        this.dialog5 = false
-        setTimeout(() => {
-          this.editedItem5 = Object.assign({}, this.defaultItem5)
-          this.editedIndex = -1
-        }, 300)
-      },   
-
-      close6 () {
-        this.dialog6 = false
-        setTimeout(() => {
-          this.editedItem6 = Object.assign({}, this.defaultItem6)
-          this.editedIndex = -1
-        }, 300)
-      },  
-
-      close7 () {
-        this.dialog7 = false
-        setTimeout(() => {
-          this.editedItem7 = Object.assign({}, this.defaultItem7)
-          this.editedIndex = -1
-        }, 300)
+      submitSports() {
+        this.$refs.formSports.validate();
       },
 
-      close8 () {
-        this.dialog8 = false
-        setTimeout(() => {
-          this.editedItem8 = Object.assign({}, this.defaultItem8)
-          this.editedIndex = -1
-        }, 300)
-      },      
-
-      save3 () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.facilities[this.editedIndex], this.editedItem3)
-        } else {
-          this.facilities.push(this.editedItem3)
-        }
-        this.close3()
+      editMeterDialog(meters) {
+        this.infrastructureForm.reset();
+        this.dialogMeter = true;
+        this.infrastructureForm.fill(meters);
       },
 
-      save4 () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.buildings[this.editedIndex], this.editedItem4)
-        } else {
-          this.buildings.push(this.editedItem4)
-        }
-        this.close4()
+      submitMeters() {
+        this.$refs.formMeters.validate();
       },
 
-      save5 () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.sports[this.editedIndex], this.editedItem5)
-        } else {
-          this.sports.push(this.editedItem5)
-        }
-        this.close5()
+      editKilometerDialog(kilometers) {
+        this.infrastructureForm.reset();
+        this.dialogKilometer = true;
+        this.infrastructureForm.fill(kilometers);
       },
 
-      save6 () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.meters[this.editedIndex], this.editedItem6)
-        } else {
-          this.meters.push(this.editedItem6)
-        }
-        this.close6()
+      submitKilometers() {
+        this.$refs.formKilometers.validate();
       },
 
-      save7 () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.kilometers[this.editedIndex], this.editedItem7)
-        } else {
-          this.kilometers.push(this.editedItem7)
-        }
-        this.close7()
+      newCommunicationDialog() {
+        this.editmode = false;
+        this.communicationForm.reset();
+        this.dialogCommunication = true;
       },
 
-      save8 () {
-        if (this.editedIndex > -1) {
-          Object.assign(this.services[this.editedIndex], this.editedItem8)
-        } else {
-          this.services.push(this.editedItem8)
-        }
-        this.close8()
+      editCommunicationDialog(communications) {
+        this.editmode = true;
+        this.communicationForm.reset();
+        this.dialogCommunication = true;
+        this.communicationForm.fill(communications);
+      },
+
+      submitCommunications() {
+        this.$refs.formCommunications.validate();
       }
     }
   }
