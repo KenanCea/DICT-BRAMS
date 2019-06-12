@@ -29,7 +29,7 @@
                   </v-flex>
                   <v-flex xs6 py-3 class="white--text red darken-1">
                     <div class="headline">{{barangays}}</div>
-                    <span class="caption">Barangays</span>
+                    <span class="caption">Registered Barangays</span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -46,7 +46,7 @@
                   </v-flex>
                   <v-flex xs6 py-3 class="white--text deep-purple darken-1">
                     <div class="headline">{{inhabitantTotalpop}}</div>
-                    <span class="caption">Population</span>
+                    <span class="caption">Registered Population</span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -63,7 +63,7 @@
                   </v-flex>
                   <v-flex xs6 py-3 class="white--text indigo darken-1">
                     <div class="headline">{{householdpop}}</div>
-                    <span class="caption">Household Population</span>
+                    <span class="caption">Registered Household Population</span>
                   </v-flex>
                 </v-layout>
               </v-container>
@@ -84,8 +84,8 @@
          <v-card>
     <v-card-title>
     <div>
-            Barangays in the City of Baguio
-            <div> There are {{barangays}} barangays as of the year {{currentYear}}   </div>
+            There are 129 Barangays in the City of Baguio
+            <div> There are currently {{barangays}} registered Barangays as of the year {{currentYear}}   </div>
           </div>
       <v-spacer></v-spacer>
       <v-text-field
