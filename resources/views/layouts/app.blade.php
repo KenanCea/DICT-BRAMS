@@ -16,17 +16,17 @@
             <v-list shaped>
                 <template v-for="user in users">
                     <v-layout v-if="user.heading" :key="user.heading" row align-center>
-                            <v-subheader v-if="user.heading">@{{ user.heading }}</v-subheader>
+                        <v-subheader v-if="user.heading">@{{ user.heading }}</v-subheader>
                     </v-layout>
                     <v-list-group v-else-if="user.children" v-model="user.model" :key="user.title" no-action>
-                        <v-list-item slot="activator" class="px-0">
+                        <template slot="activator" class="px-0">
                             <v-list-item-action>
                                 <v-icon>@{{ user.icon }}</v-icon>
                             </v-list-item-action>
                             <v-list-item-content>
                                 <v-list-item-title class="font-weight-medium">@{{ user.title }}</v-list-item-title>
                             </v-list-item-content>
-                        </v-list-item>
+                        </template>
                         <v-list-item :key="i" v-for="(child, i) in user.children" :to="child.to">
                             <v-list-item-content>
                                 <v-list-item-title class="font-weight-medium">@{{ child.title }}</v-list-item-title>
@@ -89,7 +89,7 @@
                 <span class="hidden-sm-and-down">BRAMS</span>
             </v-toolbar-title>
             <v-spacer></v-spacer>
-		@can('isUser')
+            @can('isUser')
             <div>
                 <v-tooltip attach bottom>
                     <template v-slot:activator="{ on }">
@@ -120,7 +120,7 @@
                     <span>Barangay Details</span>
                 </v-tooltip>
             </div>
-		@endcan
+            @endcan
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
                     <v-btn text large v-on="on" color="primary" class="px-2 ml-3" id="profile-button">

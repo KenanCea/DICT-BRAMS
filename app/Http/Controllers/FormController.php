@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\BarangayCertificate;
 use App\BarangayClearance;
 use App\BusinessClearance;
+use App\Filedcase;
 
 class FormController extends Controller
 {
@@ -65,7 +66,10 @@ class FormController extends Controller
     {
         return BusinessClearance::where('inhabitant_id', '=', $id)->latest()->get();
     }
-
+    public function showFiledCases($id)
+    {
+        return Filedcase::where('inhabitant_id', '=', $id)->latest()->get();
+    }
     public function createBarangayClearance(Request $request)
     {
         $request->validate([
@@ -92,6 +96,11 @@ class FormController extends Controller
     public function createBusinessClearance(Request $request)
     {
         $form = BusinessClearance::create($request->all());
+        return new $form;
+    }
+    public function createFiledCases(Request $request)
+    {
+        $form = Filedcase::create($request->all());
         return new $form;
     }
 }

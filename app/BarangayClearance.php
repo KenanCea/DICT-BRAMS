@@ -17,4 +17,7 @@ class BarangayClearance extends Model
     {
         return $this->belongsTo('App\Inhabitant');
     }
+    protected $casts = [
+        'created_at' => 'date:Y-m-d',
+    ];
 }

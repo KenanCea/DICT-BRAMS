@@ -64,6 +64,14 @@
                   <v-list-item-title>Business Clearance</v-list-item-title>
                 </v-list-item-content>
               </v-list-item>
+              <v-list-item @click="showFiledCases(selectedInhabitant[0].id)">
+                <v-list-item-icon class="mr-2">
+                  <v-icon color="deep-orange">mdi-file-document-box</v-icon>
+                </v-list-item-icon>
+                <v-list-item-content>
+                  <v-list-item-title>Filed Cases</v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
             </v-list>
           </v-menu>
         </div>
@@ -1330,6 +1338,81 @@
         </v-card>
       </v-dialog>
 
+      <!-- Filed Cases -->
+      <v-dialog v-model="dialogFiledCasesForm" scrollable persistent max-width="800px">
+        <v-form @submit.prevent="createFiledCases">
+          <v-card>
+            <v-card-title>
+              <span class="headline">Issue filed cases</span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md class="pa-0">
+                <v-layout wrap>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="formFiledCases.control_no" label="Control number*"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="formFiledCases.respondent" label="Respondent*"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-select
+                      v-model="formFiledCases.case"
+                      label="Case*"
+                      :items="['Collecting sum of money', 'Estafa', 'Malicius Mischief', 'Physical Injury', 'Physical Injury with Robbery', 'Theft', 'Threat', 'Unjust Vexation', 'Murder', 'Rape', 'Children in Conflict of the law']"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-select
+                      v-model="formFiledCases.type_of_case"
+                      label="Type of case*"
+                      :items="['Criminal', 'Civil', 'Others']"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="formFiledCases.complainant" label="Complainant*"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="formFiledCases.co_complainant" label="Co-complainant*"></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-select
+                      v-model="formFiledCases.action_taken_on_settled"
+                      label="Action taken on settled*"
+                      :items="['Arbitration', 'Conciliation', 'Mediation']"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-select
+                      v-model="formFiledCases.action_taken_on_unsettled"
+                      label="Action taken on unsettled*"
+                      :items="['Repudiation', 'Withdrawn', 'Pending case', 'Case dismissed', 'Case certified', 'Referred to concerned agencies']"
+                    ></v-select>
+                  </v-flex>
+                  <v-flex xs12 sm6 md4>
+                    <v-text-field v-model="formFiledCases.remarks" label="Remarks*"></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+              <v-card outlined>
+                <v-data-table
+                  :headers="filedCasesHeaders"
+                  :items="filedCasesIssued"
+                  hide-default-footer
+                ></v-data-table>
+              </v-card>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <p class="mb-0">* indicates required field</p>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" @click="clearForm()" text>cancel</v-btn>
+              <v-btn color="primary" type="submit" text>Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+
       <v-data-table
         id="printTable"
         v-model="selectedInhabitant"
@@ -1453,7 +1536,7 @@ export default {
       { text: "Community tax certificate no.", value: "ctc_no" },
       { text: "Purpose of clearance", value: "purpose_of_clearance" },
       { text: "Official receipt no.", value: "official_receipt_no" },
-      { text: "Issued at", value: "created_at" },
+      { text: "Issued on", value: "created_at" },
       { text: "Actions", value: "action", sortable: false }
     ],
     barangayCertificateHeaders: [
@@ -1462,17 +1545,25 @@ export default {
       { text: "Purpose of clearance", value: "purpose_certification" },
       { text: "Official receipt no.", value: "official_receipt_no" },
       { text: "Ammount paid", value: "amount_paid" },
-      { text: "Issued at", value: "created_at" },
+      { text: "Issued on", value: "created_at" },
       { text: "Actions", value: "action", sortable: false }
     ],
     businessClearanceHeaders: [
       { text: "Control no.", value: "control_no" },
-      { text: "Community tax certificate no.", value: "business_address" },
-      { text: "Purpose of clearance", value: "business_trade_name" },
+      { text: "Business address", value: "business_address" },
+      { text: "Business trade name", value: "business_trade_name" },
       { text: "Community tax certificate no.", value: "ctc_no" },
       { text: "Official receipt no.", value: "official_receipt_no" },
-      { text: "Total amount paid", value: "total_amt_paid" },
+      { text: "Issued on", value: "created_at" },
       { text: "Actions", value: "action", sortable: false }
+    ],
+    filedCasesHeaders: [
+      { text: "Control no.", value: "control_no" },
+      { text: "respondent", value: "respondent" },
+      { text: "case", value: "case" },
+      { text: "Complainant", value: "complainant" },
+      { text: "Co_complainant", value: "co_complainant" },
+      { text: "Issued on", value: "created_at" }
     ],
     selectedInhabitant: [],
     inhabitants: [],
@@ -1489,6 +1580,8 @@ export default {
     businessClearanceIssued: [],
     dialogBusinessClearance: false,
     dialogBusinessClearanceForm: false,
+    filedCasesIssued: [],
+    dialogFiledCasesForm: false,
     loading: false,
     vaccine: false,
     employed: false,
@@ -1577,6 +1670,20 @@ export default {
       ctc_no: "",
       official_receipt_no: "",
       total_amt_paid: "",
+      created_at: "",
+      inhabitant_id: ""
+    }),
+    formFiledCases: new Form({
+      control_no: "",
+      respondent: "",
+      case: "",
+      type_of_case: "",
+      complainant: "",
+      co_complainant: "",
+      action_taken_on_settled: "",
+      action_taken_on_unsettled: "",
+      remarks: "",
+      created_at: "",
       inhabitant_id: ""
     }),
 
@@ -1729,6 +1836,28 @@ export default {
       this.formBusinessClearance.fill(item);
     },
 
+    showFiledCases(id) {
+      axios.get("api/getFiledCases/" + id).then(response => {
+        this.filedCasesIssued = response.data;
+        this.dialogFiledCasesForm = true;
+        this.formFiledCases.reset();
+        this.formFiledCases.inhabitant_id = this.selectedInhabitant[0].id;
+      });
+    },
+
+    createFiledCases() {
+      this.formFiledCases
+        .post("api/createFiledCases")
+        .then(() => {
+          toast.fire({
+            type: "success",
+            title: "Inhabitant has been issued busines clearance"
+          });
+          this.showFiledCases(this.selectedInhabitant[0].id);
+        })
+        .catch(() => {});
+    },
+
     archive(id) {
       swal
         .fire({
@@ -1768,6 +1897,7 @@ export default {
       this.dialogBarangayClearanceForm = false;
       this.dialogBarangayCertificateForm = false;
       this.dialogBusinessClearanceForm = false;
+      this.dialogFiledCasesForm = false;
     },
 
     clearInput() {
