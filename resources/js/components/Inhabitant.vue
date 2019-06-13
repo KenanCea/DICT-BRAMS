@@ -554,7 +554,7 @@
       </v-dialog>
       <!-- Barangay Clearance -->
       <v-dialog v-model="dialogBarangayClearanceForm" scrollable persistent max-width="800px">
-        <v-form @submit.prevent="createBarangayClearance()">
+        <v-form @submit.prevent="createBarangayClearance">
           <v-card>
             <v-card-title>
               <span class="headline">Issue barangay clearance</span>
@@ -781,6 +781,7 @@
               </v-layout>
             </v-container>
           </v-card-text>
+          <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="clearInput()">Done</v-btn>
@@ -789,7 +790,7 @@
       </v-dialog>
       <!-- Barangay Certificate -->
       <v-dialog v-model="dialogBarangayCertificateForm" scrollable persistent max-width="800px">
-        <v-form @submit.prevent="createBarangayCertificate()">
+        <v-form @submit.prevent="createBarangayCertificate">
           <v-card>
             <v-card-title>
               <span class="headline">Issue barangay certificate</span>
@@ -1020,6 +1021,7 @@
               </v-layout>
             </v-container>
           </v-card-text>
+          <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="clearInput()">Done</v-btn>
@@ -1028,7 +1030,7 @@
       </v-dialog>
       <!-- Business Clearance -->
       <v-dialog v-model="dialogBusinessClearanceForm" scrollable persistent max-width="800px">
-        <v-form @submit.prevent="createBusinessClearance()">
+        <v-form @submit.prevent="createBusinessClearance">
           <v-card>
             <v-card-title>
               <span class="headline">Issue barangay certificate</span>
@@ -1236,35 +1238,38 @@
                         a resident of
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].house_no} Purok ${selectedInhabitant[0].purok} ${selectedInhabitant[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : '________________________________________________' }}</span>
                         establishment at
-                        <span>{{ formBusinessClearance.length ? `${formBusinessClearance[0].business_address}` : '________________________________________________' }}</span>
+                        <span
+                          v-if="formBusinessClearance.business_address"
+                        >{{formBusinessClearance.business_address}}</span>
                         is applying for
-                        <span>{{ formBusinessClearance.length ? `${formBusinessClearance[0].business_application}` : '________________' }}</span> Business Permit for C.
+                        <span
+                          v-if="formBusinessClearance.business_application"
+                        >{{formBusinessClearance.business_application}}</span>
+                        Business Permit for C.
                       </p>
                       <p>
                         The kind of business applied for is
-                        <span>{{ formBusinessClearance.length ? `${formBusinessClearance[0].kind_business}` : '________________' }}</span>
+                        <span
+                          v-if="formBusinessClearance.kind_business"
+                        >{{formBusinessClearance.kind_business}}</span>
                         under the trade name:
-                        <span>{{ formBusinessClearance.length ? `${formBusinessClearance[0].business_trade_name}` : '________________' }}</span>
+                        <span
+                          v-if="formBusinessClearance.business_trade_name"
+                        >{{formBusinessClearance.business_trade_name}}</span>
                       </p>
                       <p>
                         The line of business for is
-                        <span>{{ formBusinessClearance.length ? `${formBusinessClearance[0].line_of_business}` : '________________' }}</span>
+                        <span
+                          v-if="formBusinessClearance.line_of_business"
+                        >{{formBusinessClearance.line_of_business}}</span>
                       </p>
                       <p>The undersigned recommends for Approval due to the following reasons</p>
                       <p>1. Complied all requirements and,</p>
                       <p>
                         2.
-                        <span>{{ formBusinessClearance.length ? `${formBusinessClearance[0].reasons_approv_disapprove}` : '________________' }}</span>
-                      </p>
-                    </v-flex>
-
-                    <v-flex xs12>
-                      <p>
-                        Issued
                         <span
-                          v-if="formBusinessClearance.purpose_certification"
-                        >{{formBusinessClearance.purpose_certification}}</span>
-                        <span v-else>________________________________________</span> purposes.
+                          v-if="formBusinessClearance.reasons_approv_disapprove"
+                        >{{formBusinessClearance.reasons_approv_disapprove}}</span>
                       </p>
                     </v-flex>
 
@@ -1317,6 +1322,7 @@
               </v-layout>
             </v-container>
           </v-card-text>
+          <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="clearInput()">Done</v-btn>
@@ -1646,6 +1652,7 @@ export default {
       axios.get("api/getBarangayClearance/" + id).then(response => {
         this.barangayClearanceIssued = response.data;
         this.dialogBarangayClearanceForm = true;
+        this.formBarangayClearance.reset();
         this.formBarangayClearance.inhabitant_id = this.selectedInhabitant[0].id;
       });
     },
@@ -1665,13 +1672,14 @@ export default {
 
     printBarangayClearance(item) {
       this.dialogBarangayClearance = true;
-      this.formBarangayClearance = Object.assign({}, item);
+      this.formBarangayClearance.fill(item);
     },
 
     showBarangayCertificate(id) {
       axios.get("api/getBarangayCertificate/" + id).then(response => {
         this.barangayCertificateIssued = response.data;
         this.dialogBarangayCertificateForm = true;
+        this.formBarangayCertificate.reset();
         this.formBarangayCertificate.inhabitant_id = this.selectedInhabitant[0].id;
       });
     },
@@ -1691,14 +1699,14 @@ export default {
 
     printBarangayCertificate(item) {
       this.dialogBarangayCertificate = true;
-      this.formBarangayCertificate = Object.assign({}, item);
+      this.formBarangayCertificate.fill(item);
     },
 
     showBusinessClearance(id) {
       axios.get("api/getBusinessClearance/" + id).then(response => {
         this.businessClearanceIssued = response.data;
         this.dialogBusinessClearanceForm = true;
- 
+        this.formBusinessClearance.reset();
         this.formBusinessClearance.inhabitant_id = this.selectedInhabitant[0].id;
       });
     },
@@ -1718,7 +1726,7 @@ export default {
 
     printBusinessClearance(item) {
       this.dialogBusinessClearance = true;
-      this.formBusinessClearance = Object.assign({}, item);
+      this.formBusinessClearance.fill(item);
     },
 
     archive(id) {
@@ -1755,27 +1763,20 @@ export default {
           : "img/profile/" + this.formUser.logo;
       return logo;
     },
-    validate() {
-      if (this.$refs.dialogBarangayClearanceForm.validate()) {
-      }
-    },
 
     clearForm() {
       this.dialogBarangayClearanceForm = false;
       this.dialogBarangayCertificateForm = false;
       this.dialogBusinessClearanceForm = false;
-      this.formBarangayClearance = [];
-      this.formBarangayCertificate = [];
-      this.formBusinessClearance = [];
     },
 
     clearInput() {
       this.dialogBarangayClearance = false;
       this.dialogBarangayCertificate = false;
       this.dialogBusinessClearance = false;
-      this.formBarangayClearance = [];
-      this.formBarangayCertificate = [];
-      this.formBusinessClearance = [];
+      this.formBarangayClearance.reset();
+      this.formBarangayCertificate.reset();
+      this.formBusinessClearance.reset();
     },
 
     showColumn(col) {
