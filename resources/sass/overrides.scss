@@ -39,6 +39,12 @@
   width: auto;
 }
 
+@media (max-width: 768px) {
+  #navbar {
+    top: 57px;
+  }
+}
+
 #profile-button {
   border: 1px solid #c2c2c2;
   border-radius: 8px;

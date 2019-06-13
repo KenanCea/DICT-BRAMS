@@ -19,7 +19,7 @@
 
     <v-container grid-list-md class="pl-0 pr-2 py-2" style="background-color:white;">
       <v-layout row wrap>
-        <v-flex xs4>
+        <v-flex xs12 md4>
           <v-card :loading="loadingInhabitants" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
@@ -36,7 +36,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs12 md4>
           <v-card :loading="loadingHousehold" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
@@ -53,7 +53,7 @@
             </v-card-text>
           </v-card>
         </v-flex>
-        <v-flex xs4>
+        <v-flex xs12 md4>
           <v-card :loading="loadingPurok" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">

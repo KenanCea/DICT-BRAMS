@@ -23,15 +23,19 @@ Route::resources([
     'inhabitant' => 'InhabitantController',
     'user' => 'UserController',
     'barangay' => 'BarangayUserController',
-    'barangayForm' => 'BarangayController',
     'official' => 'OfficialController',
     'landForm' => 'LandFormController', 
     'landUse' => 'LandUseController', 
-    'householdDistribution' => 'HouseholdDistributionController'
+    'householdDistribution' => 'HouseholdDistributionController',
+    'healthFacility' => 'HealthFacilityController', 
+    'education' => 'EducationController', 
+    'infrastructure' => 'InfrastructureController',
+    'communication' => 'CommunicationController'
 ]);
 // Profile
 Route::get('profile', 'UserController@profile');
 Route::put('updateProfile', 'UserController@updateProfile');
+Route::get('barangayForm', 'BarangayController@barangay');
 
 
 //Barangay users
@@ -71,8 +75,10 @@ Route::get('form', 'FormController@index')->name('form.index');
 Route::get('officials', 'FormController@Officials');
 Route::get('getBarangayClearance/{id}', 'FormController@showBarangayClearance');
 Route::get('getBarangayCertificate/{id}', 'FormController@showBarangayCertificate');
+Route::get('getBusinessClearance/{id}', 'FormController@showBusinessClearance');
 Route::post('createBarangayClearance', 'FormController@createBarangayClearance');
 Route::post('createBarangayCertificate', 'FormController@createBarangayCertificate');
+Route::post('createBusinessClearance', 'FormController@createBusinessClearance');
 
 // Dashboard
 Route::get('Inhabitants', 'DashboardController@TotalInhabitants');

@@ -169,7 +169,6 @@ export default {
         email: "",   
       }),
       headers: [
-        { text: "id", value: "id", selected: true },
         { text: "Name", value: "name", selected: true },
         { text: "Email", value: "email", selected: true },
         { text: "Email Verified", value: "email_verified_at", selected: true },

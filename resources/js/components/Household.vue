@@ -251,7 +251,7 @@
                 <v-flex xs6 md4>
                   <v-select
                     v-model="householdForm.ethnic_group"
-                    :items="['Bicol','Bisaya','Boholano','Capizeno','Cuyunon','Ibaloi','Ilonggo','Ifugao','Ilocano','Ivatan','Kalinga','Kankanaey','Kapangpangan','Maguindanao','Maranao','Masbateno','Pangasinan','Surigaoan','Tagalog','Tausog','Waray','Yakan','Zamboagueno/Chavacano','N/A']"
+                    :items="['Bicol', 'Bisaya', 'Boholano', 'Capizeno', 'Cuyunon', 'Ibaloi', 'Ilonggo', 'Ifugao', 'Ilocano', 'Ivatan', 'Kalinga', 'Kankana-ey', 'Kapangpangan', 'Maguindanao', 'Maranao', 'Masbateno', 'Pangasinan', 'Surigaoan', 'Tagalog', 'Tausog', 'Waray', 'Yakan', 'Zambagueno/Chavacano', 'N/A']"
                     label="Ethnic Group"
                     :rules="[v => !!v || 'Ethnic Group is required']"
                     required
@@ -1215,17 +1215,20 @@ export default {
         this.loadingHouseholds = false;
       });
     },
+
     getAddress() {
       axios.get("api/address").then(response => {
         this.address = response.data;
       });
     },
+
     showInhabitants(id) {
       axios.get("api/household/" + id).then(response => {
         this.inhabitantsList = response.data;
         this.dialogInhabitants = true;
       });
     },
+
     createHousehold() {
       this.householdForm
         .post("api/household")
@@ -1239,6 +1242,7 @@ export default {
         })
         .catch(() => {});
     },
+
     createInhabitant(id) {
       this.inhabitantForm
         .post("api/inhabitant")
@@ -1252,6 +1256,7 @@ export default {
         })
         .catch(() => {});
     },
+
     updateInhabitant() {
       this.inhabitantForm
         .put("api/inhabitant/" + this.inhabitantForm.id)
@@ -1278,6 +1283,7 @@ export default {
         })
         .catch(() => {});
     },
+
     archiveInhabitant(id) {
       swal
         .fire({
@@ -1303,6 +1309,7 @@ export default {
           }
         });
     },
+
     archiveHousehold(id) {
       swal
         .fire({
@@ -1327,6 +1334,7 @@ export default {
           }
         });
     },
+    
     newInhabitantDialog() {
       this.editModeInhabitant = false;
       this.inhabitantForm.reset();
