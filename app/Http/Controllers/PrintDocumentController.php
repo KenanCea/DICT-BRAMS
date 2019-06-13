@@ -128,8 +128,7 @@ class PrintDocumentController extends Controller
     }
 
     public function OutOfSchool7_14(){
-        return DB::table('inhabitants')
-        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
         ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
         
@@ -158,8 +157,7 @@ class PrintDocumentController extends Controller
     }
 
     public function OutOfSchool15_25(){
-        return DB::table('inhabitants')
-        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
         ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
         
@@ -189,8 +187,7 @@ class PrintDocumentController extends Controller
     }
 
     public function monthlyMonitoring(){
-        return DB::table('inhabitants')
-        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
         'inhabitants.sex',
@@ -209,8 +206,7 @@ class PrintDocumentController extends Controller
     }
 
     public function vitaminAMonitoring(){
-        return DB::table('inhabitants')
-        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
         'inhabitants.sex',
@@ -225,8 +221,7 @@ class PrintDocumentController extends Controller
     }
 
     public function DewormMonitoring(){
-        return DB::table('inhabitants')
-        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
         'inhabitants.sex',
@@ -241,8 +236,7 @@ class PrintDocumentController extends Controller
     }
 
     public function QuarterlyMonitoring(){
-        return DB::table('inhabitants')
-        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
         'inhabitants.sex',
@@ -253,6 +247,32 @@ class PrintDocumentController extends Controller
         'inhabitants.date_measured_height_weight'
         )
         ->where('users.id',Auth::user()->id)
+        ->get();
+    }
+
+    public function MasterList(){
+        return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->join('households','inhabitants.household_id','=','households.id')
+        ->select('inhabitants.id',
+        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        'inhabitants.sex',
+        DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
+                        '-',
+                        MONTH(inhabitants.date_of_birth),
+                        '-',
+                        DAY(inhabitants.date_of_birth)),
+                '%Y-%c-%e') > CURDATE(),
+        1,
+        0) as age"),
+        'inhabitants.date_of_birth',
+        'inhabitants.civil_status',
+        'inhabitants.religion',
+        'inhabitants.registeredVoterOfTheBrgy',
+        'inhabitants.status_of_residency',
+        'households.purok',
+        DB::raw('CONCAT("#",households.house_no," ",households.street ) AS housenum'))
+        ->where('users.id',Auth::user()->id)
+        ->where('inhabitants.status_of_residency','permanent')
         ->get();
     }
 

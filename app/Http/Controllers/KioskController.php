@@ -69,11 +69,11 @@ class KioskController extends Controller
             $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
             ->selectRaw('? as agegroup,
             count(case when sex="male" then 1 end) as male,
-            ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as malepercent,
+            ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as malepercent,
             count(case when sex="female" then 1 end) as female,
-            ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? ))*100) as femalepercent,
+            ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as femalepercent,
             count(*) as total,
-            ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as totalpercent',[$ageroup[$i],Auth::user()->id,Auth::user()->id,Auth::user()->id]
+            ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as totalpercent',[$ageroup[$i],Auth::user()->id,Auth::user()->id,Auth::user()->id]
             )
             ->whereRaw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
             '-',
@@ -90,11 +90,11 @@ class KioskController extends Controller
         $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('"80 yrs. old above" as agegroup,
         count(case when sex="male" then 1 end) as male,
-        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as malepercent,
+        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as malepercent,
         count(case when sex="female" then 1 end) as female,
-        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? ))*100) as femalepercent,
+        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as femalepercent,
         count(*) as total,
-        ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
+        ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
         )
         ->whereRaw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
         '-',
@@ -110,11 +110,11 @@ class KioskController extends Controller
         $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('"total" as agegroup,
         count(case when sex="male" then 1 end) as male,
-        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as malepercent,
+        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as malepercent,
         count(case when sex="female" then 1 end) as female,
-        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? ))*100) as femalepercent,
+        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as femalepercent,
         count(*) as total,
-        ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
+        ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
         )
         ->where('users.id', Auth::user()->id);
         $query->union($querytwo);
@@ -129,11 +129,11 @@ class KioskController extends Controller
         $query = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('civil_status,
         count(case when sex="male" then 1 end) as male,
-        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as malepercent,
+        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as malepercent,
         count(case when sex="female" then 1 end) as female,
-        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? ))*100) as femalepercent,
+        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as femalepercent,
         count(*) as total,
-        ((count(*)/(SELECT COUNT(*) from inhabitants WHERE user_id = ?))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
+        ((count(*)/(SELECT COUNT(*) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
         )
         ->groupBy('civil_status')
         ->where('users.id', Auth::user()->id);
@@ -141,11 +141,11 @@ class KioskController extends Controller
         $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('"total" as civil_status,
         count(case when sex="male" then 1 end) as male,
-        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as malepercent,
+        ((count(case when sex="male" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as malepercent,
         count(case when sex="female" then 1 end) as female,
-        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? ))*100) as femalepercent,
+        ((count(case when sex="female" then 1 end)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100) as femalepercent,
         count(*) as total,
-        ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?))*100) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
+        ((count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null))*100 ) as totalpercent',[Auth::user()->id,Auth::user()->id,Auth::user()->id]
         )
         ->where('users.id', Auth::user()->id);
         $query->union($querytwo);
@@ -159,7 +159,7 @@ class KioskController extends Controller
         $query = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('ethnicgroup,
         count(*) as totalnumber, 
-        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?)*100 as percent',
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null)*100 as percent',
         [Auth::user()->id]
         )
         ->groupBy('ethnicgroup')
@@ -168,7 +168,7 @@ class KioskController extends Controller
         $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('"Non-Ethnic" as ethnicgroup,
         count(*) as totalnumber, 
-        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?)*100 as percent',
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null)*100 as percent',
         [Auth::user()->id]
         )
         ->where('users.id', Auth::user()->id)
@@ -178,7 +178,7 @@ class KioskController extends Controller
         $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('"Total" as ethnicgroup,
         count(*) as totalnumber, 
-        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ?)*100 as percent',
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null)*100 as percent',
         [Auth::user()->id]
         )
         ->where('users.id', Auth::user()->id);
@@ -188,11 +188,93 @@ class KioskController extends Controller
         return $query;
     }
 
-    public function FamilySize(){
+    public function Religion(){
+        $query = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('religion,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->groupBy('religion')
+        ->where('users.id', Auth::user()->id);
+
+        //total
+        $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('"Total" as religion,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->where('users.id', Auth::user()->id);
+        $query->union($querytwo);
+
+        $query=$query->get();
+        return $query;
     }
 
-    public function Religion(){
+    public function Disability(){
+        $query = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('disability,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->groupBy('disability')
+        ->where('users.id', Auth::user()->id)
+        ->where('disability','!=','none');
 
+        //total
+        $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('"Total" as disability,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from inhabitants WHERE user_id = ? AND deleted_at is null AND disability != "none")*100 as percent',
+        [Auth::user()->id]
+        )
+        ->where('users.id', Auth::user()->id)
+        ->where('disability','!=','none');
+        $query->union($querytwo);
+
+        $query=$query->get();
+        return $query;
+    }
+
+    public function SoloParent(){
+        $query = Household::leftJoin('users','users.id','=','households.user_id')
+        ->selectRaw('solo_parent,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from households WHERE user_id = ? AND deleted_at is null AND solo_parent!="no")*100 as percent',
+        [Auth::user()->id]
+        )
+        ->groupBy('solo_parent')
+        ->where('users.id', Auth::user()->id)
+        ->where('solo_parent','!=','others')
+        ->where('solo_parent','!=','no');
+
+        //others
+        $querytwo = Household::leftJoin('users','users.id','=','households.user_id')
+        ->selectRaw('solo_parent_others as "solo_parent",
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from households WHERE user_id = ? AND deleted_at is null AND solo_parent!="no")*100 as percent',
+        [Auth::user()->id]
+        )
+        ->groupBy('solo_parent_others')
+        ->where('users.id', Auth::user()->id)
+        ->where('solo_parent','others');
+        $query->union($querytwo);
+
+        //total
+        $querytwo = Household::leftJoin('users','users.id','=','households.user_id')
+        ->selectRaw('"Total" as solo_parent,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from households WHERE user_id = ? AND deleted_at is null AND solo_parent!="no")*100 as percent',
+        [Auth::user()->id]
+        )
+        ->where('users.id', Auth::user()->id)
+        ->where('solo_parent','!=','no');
+        $query->union($querytwo);
+
+        $query=$query->get();
+        return $query;
     }
 
     

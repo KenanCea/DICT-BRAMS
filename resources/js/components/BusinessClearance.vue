@@ -73,30 +73,9 @@
         </template>
         <span>Fill-up form</span>
       </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-printer</v-icon>
-          </v-btn>
-        </template>
-        <span>Print</span>
-      </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on:click='pdf()'>
-            <v-icon color="grey darken-2">mdi-file-export</v-icon>
-          </v-btn>
-        </template>
-        <span>Export</span>
-      </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-refresh</v-icon>
-          </v-btn>
-        </template>
-        <span>Refresh</span>
-      </v-tooltip>
+
+      <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+
     </v-app-bar>
     <v-container grid-list-md text-xs-center id="printForm">
       <v-layout row wrap>
@@ -179,8 +158,7 @@
 </template>
 
 <script>
-import jsPDF from 'jspdf'
-import html2canvas from 'html2canvas';
+import Print from './DocumentPrint.vue';
 export default {
   data: () => ({
     inhabitants: [],
@@ -215,6 +193,9 @@ export default {
       });
     }
   },
+  components:{
+    'app-print': Print
+  },
 
   watch: {
     search(val) {
@@ -232,14 +213,5 @@ export default {
         .finally(() => (this.isLoading = false));
     }
   },
-  methods:{
-    pdf(){
-      html2canvas(document.getElementById('printForm')).then(canvas => {
-        let pdf = new jsPDF('p', 'mm', 'letter');
-        pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 205, 248);
-        pdf.save("BusinessClearance.pdf");
-      });
-    }
-  }
 };
 </script>

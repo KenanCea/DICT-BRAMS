@@ -242,8 +242,7 @@
 </template>
 
 <script>
-import jsPDF from "jspdf";
-import html2canvas from "html2canvas";
+import Print from './FormsPrint.vue';
 export default {
   data: () => ({
     inhabitants: [],
@@ -279,7 +278,9 @@ export default {
       });
     }
   },
-
+  components:{
+    'app-print': Print
+  },
   watch: {
     search(val) {
       if (this.items.length > 0) return;
@@ -295,15 +296,7 @@ export default {
         })
         .finally(() => (this.isLoading = false));
     }
-  },
-  methods: {
-    pdf() {
-      html2canvas(document.getElementById("printForm")).then(canvas => {
-        let pdf = new jsPDF("p", "mm", "letter");
-        pdf.addImage(canvas.toDataURL("image/png"), "PNG", 0, 0, 205, 248);
-        pdf.save("BarangayCertificate.pdf");
-      });
-    }
   }
+  
 };
 </script>

@@ -78,45 +78,6 @@ export const routes = [
     path: '/barangaykiosk',
     component: require('./components/BarangayKiosk.vue').default
   }, {
-    path: '/populationGenderAge',
-    component: require('./components/PopulationGenderAge.vue').default
-  }, {
-    path: '/civilstatusTribe',
-    component: require('./components/CivilstatusTribe.vue').default
-  }, {
-    path: '/familysizeReligion',
-    component: require('./components/FamilySizeReligion.vue').default
-  }, {
-    path: '/bloodtypeHealth',
-    component: require('./components/BloodtypeHealth.vue').default
-  }, {
-    path: '/planningDeath',
-    component: require('./components/PlanningDeath.vue').default
-  }, {
-    path: '/nutritionWaterGarbage',
-    component: require('./components/NutritionWaterGarbage.vue').default
-  }, {
-    path: '/garbCollectionToiletTenurial ',
-    component: require('./components/GarbCollectionToiletTenurial.vue').default
-  }, {
-    path: '/constMtlsResidencyCrime',
-    component: require('./components/ConstMtlsResidencyCrime.vue').default
-  }, {
-    path: '/familyIncomeEconomicActivity ',
-    component: require('./components/FamilyIncomeEconomicActivity.vue').default
-  }, {
-    path: '/jobStatusIndustry ',
-    component: require('./components/JobStatusIndustry.vue').default
-  }, {
-    path: '/educationAchievement',
-    component: require('./components/EducationAchievement.vue').default
-  }, {
-    path: '/soloParent',
-    component: require('./components/SoloParent.vue').default
-  }, {
-    path: '/disability',
-    component: require('./components/Disability.vue').default
-  }, {
     path: '/users',
     component: require('./components/BarangayUsers.vue').default
   }, {
@@ -131,4 +92,25 @@ export const routes = [
   }, {
     path: '/summary',
     component: require('./components/BarangaySummary.vue').default
+  }, {
+    path: '/populationByCivilStatusAndGender',
+    component: require('./components/PopulationByCivilStatusAndGender.vue').default
+  }, {
+    path: '/populationByGenderAndAge',
+    component: require('./components/PopulationByGenderAndAge.vue').default
+  }, {
+    path: '/populationByTribe',
+    component: require('./components/PopulationByTribe.vue').default
+  }, {
+    path: '/populationByReligion',
+    component: require('./components/PopulationByReligion.vue').default
+  }, {
+    path: '/populationByDisability',
+    component: require('./components/PopulationByDisability.vue').default
+  }, {
+    path: '/soloParent',
+    component: require('./components/SoloParent.vue').default
+  }, {
+    path: '/masterList',
+    component: require('./components/MasterList.vue').default
   }]
