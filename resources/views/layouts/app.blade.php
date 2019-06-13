@@ -16,9 +16,7 @@
             <v-list shaped>
                 <template v-for="user in users">
                     <v-layout v-if="user.heading" :key="user.heading" row align-center>
-                        <v-flex xs6>
                             <v-subheader v-if="user.heading">@{{ user.heading }}</v-subheader>
-                        </v-flex>
                     </v-layout>
                     <v-list-group v-else-if="user.children" v-model="user.model" :key="user.title" no-action>
                         <v-list-item slot="activator" class="px-0">

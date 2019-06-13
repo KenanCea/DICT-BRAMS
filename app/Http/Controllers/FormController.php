@@ -61,6 +61,11 @@ class FormController extends Controller
     {
         return BarangayCertificate::where('inhabitant_id', '=', $id)->latest()->get();
     }
+    public function showBusinessClearance($id)
+    {
+        return BusinessClearance::where('inhabitant_id', '=', $id)->latest()->get();
+    }
+
     public function createBarangayClearance(Request $request)
     {
         $request->validate([
@@ -82,6 +87,11 @@ class FormController extends Controller
             'amount_paid' => 'required',
         ]);
         $form = BarangayCertificate::create($request->all());
+        return new $form;
+    }
+    public function createBusinessClearance(Request $request)
+    {
+        $form = BusinessClearance::create($request->all());
         return new $form;
     }
 }

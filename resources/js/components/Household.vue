@@ -251,7 +251,7 @@
                 <v-flex xs6 md4>
                   <v-select
                     v-model="householdForm.ethnic_group"
-                    :items="['Bicol','Bisaya','Boholano','Capizeno','Cuyunon','Ibaloi','Ilonggo','Ifugao','Ilocano','Ivatan','Kalinga','Kankanaey','Kapangpangan','Maguindanao','Maranao','Masbateno','Pangasinan','Surigaoan','Tagalog','Tausog','Waray','Yakan','Zamboagueno/Chavacano','N/A']"
+                    :items="['Bicol', 'Bisaya', 'Boholano', 'Capizeno', 'Cuyunon', 'Ibaloi', 'Ilonggo', 'Ifugao', 'Ilocano', 'Ivatan', 'Kalinga', 'Kankana-ey', 'Kapangpangan', 'Maguindanao', 'Maranao', 'Masbateno', 'Pangasinan', 'Surigaoan', 'Tagalog', 'Tausog', 'Waray', 'Yakan', 'Zambagueno/Chavacano', 'N/A']"
                     label="Ethnic Group"
                     :rules="[v => !!v || 'Ethnic Group is required']"
                     required

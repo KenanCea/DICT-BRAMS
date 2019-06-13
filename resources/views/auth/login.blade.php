@@ -5,7 +5,7 @@
     <v-content style="background-color:white;">
         <v-container fluid fill-height>
             <v-layout align-center justify-center>
-                <v-flex xs12 sm8 md4>
+                <v-flex xl2 lg4 md6 sm8>
                     <v-card outlined class="mx-auto pa-3">
                         <v-btn absolute fab top left large href="/" depressed id="back-button">
                             <v-icon>mdi-arrow-left</v-icon>

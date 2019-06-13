@@ -15,13 +15,11 @@ class BusinessClearance extends Model
         'line_of_business',
         'action_taken',
         'reasons_approv_disapprove',
-        'date_issued',
         'ctc_no',
-        'ctc_issued_on',
-        'ctc_issued_at',
         'official_receipt_no',
         'date_OfficialReceipt',
         'total_amt_paid',
+        'inhabitant_id'
     ];
     public function inhabitant()
     {
