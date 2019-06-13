@@ -619,55 +619,14 @@
           <v-card-title>
             <span class="headline">Issue barangay clearance</span>
             <v-spacer></v-spacer>
-            <div class="ml-1">
-              <v-tooltip attach bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" icon>
-                    <v-icon>mdi-printer</v-icon>
-                  </v-btn>
-                </template>
-                <span>Print</span>
-              </v-tooltip>
-            </div>
-            <div class="ml-1">
-              <v-menu :close-on-content-click="false" offset-y max-height="400">
-                <template #activator="{ on: menu }">
-                  <v-tooltip attach bottom>
-                    <template #activator="{ on: tooltip }">
-                      <v-btn icon v-on="{ ...tooltip, ...menu }">
-                        <v-icon>mdi-application-export</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>Export</span>
-                  </v-tooltip>
-                </template>
-                <v-list>
-                  <v-list-item>
-                    <v-list-item-icon class="mr-2">
-                      <v-icon color="red">mdi-file-pdf</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>PDF</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-icon class="mr-2">
-                      <v-icon color="blue">mdi-file-word</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>Word</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
+            <form-print></form-print>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
             <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
               <v-layout row wrap>
                 <v-flex xs3>
-                  <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
+                  <img src="/img/baguio.png" alt="Logo" contain height="100">
                 </v-flex>
                 <v-flex xs6 class="green--text title">
                   <p class="mb-0">Barangay Camp Allen</p>
@@ -857,48 +816,7 @@
           <v-card-title>
             <span class="headline">Issue barangay certificate</span>
             <v-spacer></v-spacer>
-            <div class="ml-1">
-              <v-tooltip attach bottom>
-                <template v-slot:activator="{ on }">
-                  <v-btn v-on="on" icon>
-                    <v-icon>mdi-printer</v-icon>
-                  </v-btn>
-                </template>
-                <span>Print</span>
-              </v-tooltip>
-            </div>
-            <div class="ml-1">
-              <v-menu :close-on-content-click="false" offset-y max-height="400">
-                <template #activator="{ on: menu }">
-                  <v-tooltip attach bottom>
-                    <template #activator="{ on: tooltip }">
-                      <v-btn icon v-on="{ ...tooltip, ...menu }">
-                        <v-icon>mdi-application-export</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>Export</span>
-                  </v-tooltip>
-                </template>
-                <v-list>
-                  <v-list-item>
-                    <v-list-item-icon class="mr-2">
-                      <v-icon color="red">mdi-file-pdf</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>PDF</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                  <v-list-item>
-                    <v-list-item-icon class="mr-2">
-                      <v-icon color="blue">mdi-file-word</v-icon>
-                    </v-list-item-icon>
-                    <v-list-item-content>
-                      <v-list-item-title>Word</v-list-item-title>
-                    </v-list-item-content>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-            </div>
+            <form-print></form-print>
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
@@ -1086,6 +1004,7 @@
 
 <script>
 import RecordsPrint from "./RecordsPrint.vue";
+import FormsPrint from "./FormsPrint.vue";
 export default {
   data: () => ({
     Table: "Inhabitants",
@@ -1259,7 +1178,8 @@ export default {
     }
   },
   components: {
-    "app-print": RecordsPrint
+    "app-print": RecordsPrint,
+    "form-print":FormsPrint
   },
   computed: {
     filteredHeaders() {

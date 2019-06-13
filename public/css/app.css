@@ -34,7 +34,7 @@
   max-height: calc(100% - 64px) !important;
 }
 
-.v-list-group .v-list-item__icon.v-list-group__header__append-icon {
+.v-list-group .v-list-item__icon .v-list-group__header__append-icon {
   margin-bottom: 12px !important;
   margin-top: 12px !important;
 }
@@ -47,7 +47,7 @@
 }
 
 #profile-button {
-  border: 1px solid #dadce0;
+  border: 1px solid #c2c2c2;
   border-radius: 8px;
   height: 46px;
 }

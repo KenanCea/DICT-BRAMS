@@ -63,6 +63,7 @@ Route::get('listOfSeniorCitizens', 'PrintDocumentController@SeniorCitizens');
 Route::get('childrenWithConflicts', 'PrintDocumentController@Conflicts');
 Route::get('listOfOutOfSchoolYouth7_14', 'PrintDocumentController@OutOfSchool7_14');
 Route::get('listOfOutOfSchoolYouth15_25', 'PrintDocumentController@OutOfSchool15_25');
+Route::get('masterList', 'PrintDocumentController@MasterList');
 Route::get('header', 'PrintDocumentController@location');
 
 // Forms
@@ -95,8 +96,9 @@ Route::get('barangayInfo', 'KioskController@BarangayInfo');
 Route::get('householdsInfo', 'KioskController@HouseholdsInfo');
 Route::get('civilStatus', 'KioskController@CivilStatus');
 Route::get('ethnicGroup', 'KioskController@EthnicGroup');
-Route::get('FamilySize', 'KioskController@FamilySize');
 Route::get('Religion', 'KioskController@Religion');
+Route::get('Disability', 'KioskController@Disability');
+Route::get('SoloParentReason', 'KioskController@SoloParent');
 
 //Admin Dashboard
 Route::get('Barangay', 'DashboardController@TotalBarangay');

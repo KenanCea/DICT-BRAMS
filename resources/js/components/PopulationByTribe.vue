@@ -1,10 +1,14 @@
 <template>
   <div>
     <v-app-bar id="navbar" dense flat app>
-      <v-toolbar-title>
-        <span class="hidden-sm-and-down">Barangay Population Gender Age</span>
-      </v-toolbar-title>
+        <v-toolbar-title>
+            <span class="hidden-sm-and-down">{{Table}}</span>
+        </v-toolbar-title>
+    <v-spacer></v-spacer>
+
+    <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
     </v-app-bar>
+    
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex text-xs-left class="pl-3">
@@ -36,7 +40,7 @@
 import Print from './DocumentPrint.vue';
     export default {
         data: () => ({
-            Table:'List Of Registered Voters',
+            Table:'Household Population by Tribe',
             Orientation:'landscape',
             search:'',
             loading: false,

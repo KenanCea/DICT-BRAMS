@@ -36,6 +36,10 @@ export default {
   data: () => ({
     printDocument: [
       {
+        text: "Master List",
+        url: "/masterList"
+      },
+      {
         text: "Children with conflict",
         url: "/childrenWithConflict"
       },

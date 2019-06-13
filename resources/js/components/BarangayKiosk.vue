@@ -33,6 +33,21 @@ export default {
         text:
           "Population by Tribe",
         url: "/populationByTribe"
+      },
+      {
+        text:
+          "Population By Religion",
+        url: "/populationByReligion"
+      },
+      {
+        text:
+          "Population By Disability",
+        url: "/populationByDisability"
+      },
+      {
+        text:
+          "Reasons for being Solo Parent",
+        url: "/SoloParent"
       }
     ]
   }),

@@ -32,7 +32,7 @@
           <p>
               Table 1. Population Distribution by Age and Sex
           </p>
-            <table class='kiosktable'>
+            <table class='kiosktable' id="printTable">
                 <thead>
                     <tr>
                         <th rowspan="2">Age Group</th>
@@ -67,7 +67,7 @@
 import Print from './KioskPrint.vue';
     export default {
         data: () => ({
-            Table:'Barangay Population Gender Age',
+            Table:'Barangay Population By Gender and Age',
             Orientation:'portrait',
             search:'',
             loading: false,

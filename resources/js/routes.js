@@ -101,4 +101,16 @@ export const routes = [
   }, {
     path: '/populationByTribe',
     component: require('./components/PopulationByTribe.vue').default
+  }, {
+    path: '/populationByReligion',
+    component: require('./components/PopulationByReligion.vue').default
+  }, {
+    path: '/populationByDisability',
+    component: require('./components/PopulationByDisability.vue').default
+  }, {
+    path: '/soloParent',
+    component: require('./components/SoloParent.vue').default
+  }, {
+    path: '/masterList',
+    component: require('./components/MasterList.vue').default
   }]

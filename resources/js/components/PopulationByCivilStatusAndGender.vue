@@ -1,17 +1,17 @@
 <template>
   <div>
     <v-app-bar id="navbar" dense flat app>
-      <v-toolbar-title>
-        <span class="hidden-sm-and-down">Barangay Population Gender Age</span>
-      </v-toolbar-title>
+        <v-toolbar-title>
+            <span class="hidden-sm-and-down">{{Table}}</span>
+        </v-toolbar-title>
+    <v-spacer></v-spacer>
+
+    <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
     </v-app-bar>
     <v-container grid-list-md text-xs-center>
       <v-layout row wrap>
         <v-flex text-xs-left class="pl-3">
-          <p>
-              Table 2. Household Population by civil Status and Gender
-          </p>
-            <table class='kiosktable'>
+            <table class='kiosktable' id="printTable">
                 <thead>
                     <tr>
                         <th rowspan="2">Civil Status</th>
@@ -46,7 +46,7 @@
 import Print from './DocumentPrint.vue';
     export default {
         data: () => ({
-            Table:'List Of Registered Voters',
+            Table:'Household Population by civil Status and Gender',
             Orientation:'landscape',
             search:'',
             loading: false,
@@ -69,6 +69,9 @@ import Print from './DocumentPrint.vue';
             showColumn(col) {
                 return this.headers.find(h => h.value === col).selected;
             }
-        }
+        },
+        components:{
+            'app-print': Print
+        },
     }
 </script>
