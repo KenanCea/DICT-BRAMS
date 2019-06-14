@@ -6,6 +6,8 @@ use App\Inhabitant;
 use App\Household;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\activitylogs;
+use App\User;
 use DB;
 
 class HouseholdController extends Controller
@@ -48,7 +50,18 @@ class HouseholdController extends Controller
             'solo_parent' => 'required',
         ]);
         $household = $request->user()->households()->create($request->all());
+
+        //start log
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Added #".$household->house_no." ".$household->street.' Purok '.$household->purok.", ".$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end log
+
         return new $household;
+
+        
     }
 
     /**
@@ -74,6 +87,12 @@ class HouseholdController extends Controller
     {
         $household = Household::findOrFail($id);
         $household->update($request->all());
+
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Updated #".$household->house_no." ".$household->street.' Purok '.$household->purok.", ".$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
     }
 
     public function create_Inhabitant($id)
@@ -89,11 +108,25 @@ class HouseholdController extends Controller
 
         $inhabitants = Inhabitant::where('household_id', $id);
         $inhabitants->delete();
+
+        
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Archived #".$household->house_no." ".$household->street.' Purok '.$household->purok.", ".$name->name." and the Inhabitants residing in";
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
     }
 
     public function restore($id)
     {
-        $household = Household::withTrashed()->findOrFail($id)->restore();
+        $household = Household::withTrashed()->findOrFail($id);
+        $household->restore();
+
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Restored #".$household->house_no." ".$household->street.' Purok '.$household->purok.", ".$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
     }
 
     public function archived_Household()

@@ -48,6 +48,10 @@ export default {
         text:
           "Reasons for being Solo Parent",
         url: "/SoloParent"
+      },
+      {
+        text:"Crimes Filed",
+        url: "/crimes"
       }
     ]
   }),

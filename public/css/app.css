@@ -34,7 +34,7 @@
   max-height: calc(100% - 64px) !important;
 }
 
-.v-list-group .v-list-item__icon .v-list-group__header__append-icon {
+div.v-list-item__icon.v-list-group__header__append-icon {
   margin-bottom: 12px !important;
   margin-top: 12px !important;
 }
@@ -46,6 +46,11 @@
   width: auto;
 }
 
+@media (max-width: 768px) {
+  #navbar {
+    top: 57px;
+  }
+}
 #profile-button {
   border: 1px solid #c2c2c2;
   border-radius: 8px;

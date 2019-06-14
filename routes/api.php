@@ -111,9 +111,10 @@ Route::get('ethnicGroup', 'KioskController@EthnicGroup');
 Route::get('Religion', 'KioskController@Religion');
 Route::get('Disability', 'KioskController@Disability');
 Route::get('SoloParentReason', 'KioskController@SoloParent');
+Route::get('Crimes', 'KioskController@Crimes');
 
 //Admin Dashboard
-Route::get('Barangay', 'DashboardController@TotalBarangay');
+Route::get('BrgyCaptain','BarangaySummaryController@PunongBarangay');
 Route::get('InhabitantPop', 'DashboardController@TotalCityInhabitants');
 Route::get('HouseholdPop', 'DashboardController@TotalCityHouseholds');
 Route::get('TotalPopBarangay', 'DashboardController@TotalBarangayPopulous');
@@ -131,3 +132,6 @@ Route::get('RegVoter', 'BarangaySummaryController@TotalRegisteredVoters');
 Route::get('Children', 'BarangaySummaryController@TotalChildren');
 Route::get('OutOfSchool', 'BarangaySummaryController@TotalOutOfSchoolYouth');
 Route::get('SoloParent', 'BarangaySummaryController@TotalSoloParent');
+
+//logs
+Route::get('Logs','LogsController@Logs');
