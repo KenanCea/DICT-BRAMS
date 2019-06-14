@@ -1,16 +1,11 @@
 <template id="app">
-    <div>
+    <div style="max-width:80px; min-width:80px;">
+      <header id='printHeader'>
+            <h1>REPUBLIC OF THE PHILIPPINES</h1>
+            <h2> {{ reportshHeader.region }} </h2>
+            <h2> {{ reportshHeader.name }} - {{reportshHeader.province}} </h2>
+            <h3> {{ TableTitle }}</h3></header>
           <v-tooltip attach bottom>
-            <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon @click="print()">
-                <v-icon>mdi-printer</v-icon>
-              </v-btn>
-            </template>
-            <span>Print</span>
-          </v-tooltip>
-
-
-        <!--<v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="print()">
               <v-icon>mdi-printer</v-icon>
@@ -18,22 +13,36 @@
           </template>
           <span>Print</span>
         </v-tooltip>
-        <v-tooltip attach bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="word()">
-              <v-icon>mdi-file-word</v-icon>
-            </v-btn>
+        <v-menu :close-on-content-click="false" offset-y max-height="400">
+          <template #activator="{ on: menu }">
+            <v-tooltip attach bottom>
+              <template #activator="{ on: tooltip }">
+                <v-btn icon v-on="{ ...tooltip, ...menu }">
+                  <v-icon>mdi-application-export</v-icon>
+                </v-btn>
+              </template>
+              <span>Export</span>
+            </v-tooltip>
           </template>
-          <span>Word</span>
-        </v-tooltip>
-        <v-tooltip attach bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="pdf()">
-              <v-icon>mdi-file-pdf</v-icon>
-            </v-btn>
-          </template>
-          <span>PDF</span>
-        </v-tooltip>-->
+          <v-list>
+            <v-list-item @click="pdf()">
+              <v-list-item-icon class="mr-2">
+                <v-icon color="red">mdi-file-pdf</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>PDF</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item @click="word()">
+              <v-list-item-icon class="mr-2">
+                <v-icon color="blue">mdi-file-word</v-icon>
+              </v-list-item-icon>
+              <v-list-item-content>
+                <v-list-item-title>Word</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-menu>
     </div>
 </template>
 

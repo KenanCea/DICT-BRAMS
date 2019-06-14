@@ -17,6 +17,8 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
+Route::get('user/activation/{token}','BarangayUserController@userActivation');
+
 
 Route::resources([
     'household' => 'HouseholdController',
@@ -135,3 +137,4 @@ Route::get('SoloParent', 'BarangaySummaryController@TotalSoloParent');
 
 //logs
 Route::get('Logs','LogsController@Logs');
+Route::get('AdminLogs','LogsController@AdminLogs');

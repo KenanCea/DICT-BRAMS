@@ -48,6 +48,6 @@ class DeleteData extends Command
                 ->whereNull('deleted_at')
                 ->where('created_at','<', Carbon::now()->subDay(3))
                 ->whereNull('email_verified_at')
-                ->update(['deleted_at'=>now()]);
+                ->delete();
     }
 }

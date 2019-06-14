@@ -5,10 +5,13 @@ namespace App\Http\Controllers;
 use DB;
 use Auth;
 use Illuminate\Http\Request;
+use App\Inhabitant;
 use App\BarangayCertificate;
 use App\BarangayClearance;
 use App\BusinessClearance;
 use App\Filedcase;
+use App\User;
+use App\activitylogs;
 
 class FormController extends Controller
 {
@@ -118,21 +121,77 @@ class FormController extends Controller
     public function createBarangayClearance(Request $request)
     {
         $form = $request->user()->barangayClearance()->create($request->all());
-        return new $form;
+
+        //start log
+        $logs= new activitylogs;
+        if(is_null($form->inhabitant_id)){
+            $logs->log="Issued Barangay Clearance to " .$form->last_name.", ".$form->first_name;
+        }
+        else{
+            $inhabitant=Inhabitant::find($form->inhabitant_id);
+            $logs->log="Issued Barangay Clearance to " .$inhabitant->last_name.", ".$inhabitant->first_name;
+        }
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end log
+
+        //return new $form;
     }
     public function createBarangayCertificate(Request $request)
     {
         $form = $request->user()->barangayCertificate()->create($request->all());
+
+        //start log
+        $logs= new activitylogs;
+        if(is_null($form->inhabitant_id)){
+            $logs->log="Issued Barangay Certificate to " .$form->last_name.", ".$form->first_name;
+        }
+        else{
+            $inhabitant=Inhabitant::find($form->inhabitant_id);
+            $logs->log="Issued Barangay Certificate to " .$inhabitant->last_name.", ".$inhabitant->first_name;
+        }
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end log
+
         return new $form;
     }
     public function createBusinessClearance(Request $request)
     {
         $form = $request->user()->businessClearance()->create($request->all());
+
+        //start log
+        $logs= new activitylogs;
+        if(is_null($form->inhabitant_id)){
+            $logs->log="Issued Business Clearance to " .$form->last_name.", ".$form->first_name;
+        }
+        else{
+            $inhabitant=Inhabitant::find($form->inhabitant_id);
+            $logs->log="Issued Business Blearance to " .$inhabitant->last_name.", ".$inhabitant->first_name;
+        }
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end log
+
         return new $form;
     }
     public function createFiledCases(Request $request)
     {
         $form = $request->user()->filedCase()->create($request->all());
+
+        //start log
+        $logs= new activitylogs;
+        if(is_null($form->inhabitant_id)){
+            $logs->log=$form->complainant." filed a case to " .$form->respondent;
+        }
+        else{
+            $inhabitant=Inhabitant::find($form->inhabitant_id);
+            $logs->log=$form->complainant." filed a case to ".$inhabitant->last_name.", ".$inhabitant->first_name;
+        }
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end log
+
         return new $form;
     }
 }

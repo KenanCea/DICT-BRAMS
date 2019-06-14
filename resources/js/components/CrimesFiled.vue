@@ -6,11 +6,14 @@
         </v-toolbar-title>
     <v-spacer></v-spacer>
 
-    <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
+    <app-print></app-print>
     </v-app-bar>
-    <v-container grid-list-md text-xs-center>
+    <v-container grid-list-md text-xs-center id="printKiosk">
       <v-layout row wrap>
         <v-flex text-xs-left class="pl-3">
+            <p style="padding-top:20px;">
+              Incident Crimes Filed
+          </p>
           
             <table class='kiosktable'>
                 <thead>
@@ -20,7 +23,7 @@
                         <th>%</th>
                     </tr>
                     <tr v-for="crime in crimes" :key="crime.id">
-                        <td>{{crime.cases}}</td>
+                        <td>{{crime.case}}</td>
                         <td>{{crime.totalnumber}}</td>
                         <td>{{crime.percent}}</td>
                     </tr>
@@ -33,7 +36,7 @@
 </template>
 
 <script>
-import Print from './DocumentPrint.vue';
+import Print from './KioskPrint.vue';
     export default {
         data: () => ({
             Table:'Incident Crimes Filed',

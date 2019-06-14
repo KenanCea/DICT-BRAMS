@@ -119,4 +119,7 @@ export const routes = [
   }, {
     path: '/userLog',
     component: require('./components/UserLog.vue').default
+  }, {
+    path: '/adminLogs',
+    component: require('./components/AdminLogs.vue').default  
   }]

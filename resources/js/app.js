@@ -172,6 +172,12 @@ const app = new Vue({
                 name: "Archived Users",
                 to: "/archivedUsers"
             },
+            {
+                icon: "mdi-file-document-edit-outline",
+                title: "Logs",
+                name: "Log History",
+                to: "/adminLogs"
+            }
         ],
         menu: 0,
         menus: [

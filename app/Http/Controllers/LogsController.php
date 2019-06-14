@@ -19,6 +19,17 @@ class LogsController extends Controller
             DB::raw("time(created_at) as time"),
         'log')
         ->where('user_id',Auth::user()->id)
+        ->orderBy('id', 'desc')
+        ->get();
+    }
+
+    public function AdminLogs(){
+        return activitylogs::join('users','users.id','=','activitylogs.user_id' )
+        ->select(DB::raw("date(activitylogs.created_at) as date"),
+            DB::raw("time(activitylogs.created_at) as time"),
+        'activitylogs.log',
+        "users.name")
+        ->orderBy('activitylogs.id', 'desc')
         ->get();
     }
 }

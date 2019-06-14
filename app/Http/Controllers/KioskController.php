@@ -163,7 +163,8 @@ class KioskController extends Controller
         [Auth::user()->id]
         )
         ->groupBy('ethnicgroup')
-        ->where('users.id', Auth::user()->id);
+        ->where('users.id', Auth::user()->id)
+        ->whereNotNull('ethnicgroup');
         //non-ethnic
         $querytwo = Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('"Non-Ethnic" as ethnicgroup,
@@ -281,12 +282,12 @@ class KioskController extends Controller
         $query = DB::table('filedcases')
         ->leftJoin('inhabitants','inhabitants.id','=','filedcases.inhabitant_id')
         ->leftJoin('users','users.id','=','inhabitants.user_id')
-        ->selectRaw('cases,
+        ->selectRaw('filedcases.case,
         count(*) as totalnumber, 
-        count(*)/(SELECT COUNT( * ) from filedcases join inhabitants on inhabitants.id = filedcases.inhabitant_id WHERE user_id = ?)*100 as percent',
+        count(*)/(SELECT COUNT( * ) from filedcases WHERE user_id = ?)*100 as percent',
         [Auth::user()->id]
         )
-        ->groupBy('cases')
+        ->groupBy('case')
         ->where('users.id', Auth::user()->id);
 
         //total
@@ -295,7 +296,7 @@ class KioskController extends Controller
         ->leftJoin('users','users.id','=','inhabitants.user_id')
         ->selectRaw('"TOTAL" as cases,
         count(*) as totalnumber, 
-        count(*)/(SELECT COUNT( * ) from filedcases join inhabitants on inhabitants.id = filedcases.inhabitant_id WHERE user_id = ?)*100 as percent',
+        count(*)/(SELECT COUNT( * ) from filedcases WHERE user_id = ?)*100 as percent',
         [Auth::user()->id]
         )
         ->where('users.id', Auth::user()->id);

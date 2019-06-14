@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use DB;
+use App\activitylogs;
 
 use Mail;
 
@@ -15,6 +17,10 @@ class BarangayUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
     public function index()
     {
         return User::select('*',DB::raw('case when disable = 0 then "enabled" else "disabled" end as state'))
@@ -40,6 +46,7 @@ class BarangayUserController extends Controller
         $users->logo='profile.png';
         $users->created_at=now();
         $users->updated_at=now();
+        $users->disable=1;
         
         if($users -> save()){
             $data = [
@@ -54,6 +61,13 @@ class BarangayUserController extends Controller
 
             $users->save();
         }else{}
+
+        //start of log
+        $logs= new activitylogs;
+        $logs->log="Created new accounct " .$users->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end of log
     }
 
     /**
@@ -95,17 +109,45 @@ class BarangayUserController extends Controller
         $account = User::whereNotNull('email_verified_at')->findOrFail($id);
         $account->disable = !$account->disable;
         $account -> save();
+
+        //start of log
+        $logs= new activitylogs;
+        if($account->disable==0){
+            $logs->log="account ".$account->name." has been enabled";
+        }
+        else{
+            $logs->log="account ".$account->name." has been disabled";
+        }
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end of log
     }
 
     public function archive($id)
     {
         $account = User::findOrFail($id);
+
+        //start of log
+        $logs= new activitylogs;
+        $logs->log="Archived accounct " .$account->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end of log
+
         $account->delete();
     }
 
     public function restore($id)
     {
         $account = User::withTrashed()->findOrFail($id)->restore();
+
+        $name=User::findOrFail($id);
+        //start of log
+        $logs= new activitylogs;
+        $logs->log="Restore accounct " .$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end of log
     }
 
     public function resetPassword($id)
@@ -124,20 +166,20 @@ class BarangayUserController extends Controller
             });
             $account -> save();
         }else{}
+
+        //start of log
+        $logs= new activitylogs;
+        $logs->log="Reset Password of " .$account->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end of log
     }
 
     public function userActivation($token){
         $check = User::where('remember_token',$token)->first();
-        if(!is_null($check)){
-            if(is_null($check->email_verified_at)){
                 $check->email_verified_at=now();
-                $check->disable=0;
                 $check->save();
-                return redirect()->to('login')->with('success','User activated');
-            }
-            return redirect()->to('login')->with('success','User already activated');
-        }
-        return redirect()->to('login')->with('warning','your token is invalid');
+
     }
 
     public function archived_Users()

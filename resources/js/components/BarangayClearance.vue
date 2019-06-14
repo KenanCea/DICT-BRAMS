@@ -21,6 +21,10 @@
           <v-card-title>
             <span class="headline">Issue barangay clearance</span>
           </v-card-title>
+
+          <v-spacer></v-spacer>
+          <form-print></form-print>
+
           <v-divider></v-divider>
           <v-card-text>
             <v-container grid-list-md class="pa-0">
@@ -269,6 +273,7 @@
 </template>
 
 <script>
+import FormsPrint from "./FormsPrint.vue";
 export default {
   data: () => ({
     barangayClearanceIssued: [],
@@ -314,6 +319,9 @@ export default {
     this.getOfficials();
     this.getAddress();
     this.getUser();
+  },
+  components: {
+    "form-print": FormsPrint
   },
 
   methods: {

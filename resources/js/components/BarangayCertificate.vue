@@ -526,6 +526,9 @@ export default {
     this.getAddress();
     this.getUser();
   },
+  components: {
+    "form-print": Print
+  },
   methods: {
     getBarangayCertificate() {
       this.loading = true;

@@ -23,7 +23,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text>
-            <v-container grid-list-md class="pa-0">
+            <v-container grid-list-md class="pa-0" id="printForm">
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
                   <v-text-field v-model="formBusinessClearance.first_name" label="First name*"></v-text-field>
@@ -129,48 +129,7 @@
         <v-card-title>
           <span class="headline">Issue business clearance</span>
           <v-spacer></v-spacer>
-          <div class="ml-1">
-            <v-tooltip attach bottom>
-              <template v-slot:activator="{ on }">
-                <v-btn v-on="on" icon>
-                  <v-icon>mdi-printer</v-icon>
-                </v-btn>
-              </template>
-              <span>Print</span>
-            </v-tooltip>
-          </div>
-          <div class="ml-1">
-            <v-menu :close-on-content-click="false" offset-y max-height="400">
-              <template #activator="{ on: menu }">
-                <v-tooltip attach bottom>
-                  <template #activator="{ on: tooltip }">
-                    <v-btn icon v-on="{ ...tooltip, ...menu }">
-                      <v-icon>mdi-application-export</v-icon>
-                    </v-btn>
-                  </template>
-                  <span>Export</span>
-                </v-tooltip>
-              </template>
-              <v-list>
-                <v-list-item>
-                  <v-list-item-icon class="mr-2">
-                    <v-icon color="red">mdi-file-pdf</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>PDF</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-                <v-list-item>
-                  <v-list-item-icon class="mr-2">
-                    <v-icon color="blue">mdi-file-word</v-icon>
-                  </v-list-item-icon>
-                  <v-list-item-content>
-                    <v-list-item-title>Word</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-menu>
-          </div>
+          <form-print></form-print>
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text style="color:black">
@@ -338,6 +297,7 @@
 </template>
 
 <script>
+import FormsPrint from "./FormsPrint.vue";
 export default {
   data: () => ({
     businessClearanceIssued: [],
@@ -390,7 +350,9 @@ export default {
     this.getAddress();
     this.getUser();
   },
-
+  components: {
+    "form-print": FormsPrint
+  },
   methods: {
     getBusinessClearance() {
       this.loading = true;
