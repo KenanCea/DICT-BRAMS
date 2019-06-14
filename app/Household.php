@@ -9,9 +9,6 @@ class Household extends Model
 {
     use SoftDeletes;
     protected $fillable = [
-        'familyName',
-        'firstName',
-        'middleName',
         'solo_parent',
         'solo_parent_others',
         'dateOfSurvey',

@@ -4,9 +4,7 @@
       <v-toolbar-title>
         <span>{{ selected.length ? `#${selected[0].house_no} ${selected[0].street} Purok ${selected[0].purok}, ${address[0].name}` : 'Households' }}</span>
       </v-toolbar-title>
-
       <v-spacer></v-spacer>
-
       <span v-if="selected.length">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
@@ -17,9 +15,7 @@
           <span>Clear selected</span>
         </v-tooltip>
       </span>
-
       <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
-
       <div class="ml-1">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
@@ -40,7 +36,6 @@
           <span>Edit household</span>
         </v-tooltip>
       </div>
-
       <div v-if="selected.length" class="ml-1">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
@@ -51,9 +46,7 @@
           <span>Archive household</span>
         </v-tooltip>
       </div>
-
       <v-divider v-if="selected.length" class="ml-1" inset vertical></v-divider>
-
       <div v-if="selected.length" class="ml-1">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
@@ -64,7 +57,6 @@
           <span>Add new inhabitant</span>
         </v-tooltip>
       </div>
-
       <div v-if="selected.length" class="ml-1">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
@@ -75,7 +67,6 @@
           <span>View inhabitants</span>
         </v-tooltip>
       </div>
-
       <div class="ml-1">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
@@ -86,11 +77,8 @@
           <span>View all inhabitants</span>
         </v-tooltip>
       </div>
-
       <v-divider class="mx-1" inset vertical></v-divider>
-
       <app-print :TableTitle="Table" :PageOrientation="Orientation"></app-print>
-
       <div class="ml-1">
         <v-menu :close-on-content-click="false" offset-y max-height="400">
           <template #activator="{ on: menu }">
@@ -115,7 +103,6 @@
           </v-list>
         </v-menu>
       </div>
-
       <v-flex xs2 ml-1>
         <v-text-field
           v-model="search"
@@ -405,13 +392,13 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialogHousehold = false">Cancel</v-btn>
+            <v-btn color="blue darken-1" text @click="cancel()">Cancel</v-btn>
             <v-btn
               color="blue darken-1"
               text
-              :disabled="!valid"
+ 
               type="submit"
-              @click="submitHouseholds"
+         
             >Save</v-btn>
           </v-card-actions>
         </v-card>
@@ -1334,7 +1321,7 @@ export default {
           }
         });
     },
-    
+
     newInhabitantDialog() {
       this.editModeInhabitant = false;
       this.inhabitantForm.reset();
@@ -1360,6 +1347,11 @@ export default {
       this.householdForm.reset();
       this.dialogHousehold = true;
       this.householdForm.fill(households);
+    },
+
+    cancel() {
+      this.householdForm.reset();
+      this.dialogHousehold = false;
     },
 
     submitHouseholds() {

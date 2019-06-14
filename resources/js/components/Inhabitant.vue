@@ -636,7 +636,10 @@
                   <img src="/img/baguio.png" alt="Logo" contain height="100">
                 </v-flex>
                 <v-flex xs6 class="green--text title">
-                  <p class="mb-0">Barangay Camp Allen</p>
+                  <p class="mb-0">
+                    Barangay
+                    <span>{{ formBarangayClearance.first_name ? `${address[0].name}` : '______________________' }}</span>
+                  </p>
                   <p class="mb-0">Republic of the Philippines</p>
                   <p class="mb-0">Baguio City</p>
                 </v-flex>
@@ -837,7 +840,10 @@
                   <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
                 </v-flex>
                 <v-flex xs6 class="green--text title">
-                  <p class="mb-0">Barangay Camp Allen</p>
+                  <p class="mb-0">
+                    Barangay
+                    <span>{{ formBarangayCertificate.purpose_certification ? `${address[0].name}` : '______________________' }}</span>
+                  </p>
                   <p class="mb-0">Republic of the Philippines</p>
                   <p class="mb-0">Baguio City</p>
                 </v-flex>
@@ -1117,7 +1123,10 @@
                   <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
                 </v-flex>
                 <v-flex xs6 class="green--text title">
-                  <p class="mb-0">Barangay Camp Allen</p>
+                  <p class="mb-0">
+                    Barangay
+                    <span>{{ formBusinessClearance.business_address ? `${address[0].name}`: '______________________' }}</span>
+                  </p>
                   <p class="mb-0">Republic of the Philippines</p>
                   <p class="mb-0">Baguio City</p>
                 </v-flex>
