@@ -70,34 +70,50 @@ class FormController extends Controller
     {
         return Filedcase::where('inhabitant_id', '=', $id)->latest()->get();
     }
-    
+
     public function getUnregisteredBarangayClearance()
     {
-        return BarangayClearance::whereNull('barangay_clearances.inhabitant_id')
-        ->where('user_id',  Auth::user()->id)
-        ->latest()
-        ->get();
+        return BarangayClearance::select('barangay_clearances.*', DB::raw("YEAR(CURDATE()) - YEAR(barangay_clearances.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
+        '-',
+        MONTH(barangay_clearances.date_of_birth),
+        '-',
+        DAY(barangay_clearances.date_of_birth)),
+        '%Y-%c-%e') > CURDATE(),
+        1,
+        0) as age"))
+            ->whereNull('barangay_clearances.inhabitant_id')
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
     }
     public function getUnregisteredBarangayCertificate()
     {
-        return BarangayCertificate::whereNull('barangay_certificates.inhabitant_id')
-        ->where('user_id',  Auth::user()->id)
-        ->latest()
-        ->get();
+        return BarangayCertificate::select('barangay_certificates.*', DB::raw("YEAR(CURDATE()) - YEAR(barangay_certificates.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
+        '-',
+        MONTH(barangay_certificates.date_of_birth),
+        '-',
+        DAY(barangay_certificates.date_of_birth)),
+        '%Y-%c-%e') > CURDATE(),
+        1,
+        0) as age"))
+            ->whereNull('barangay_certificates.inhabitant_id')
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
     }
     public function getUnregisteredBusinessClearance()
     {
         return BusinessClearance::whereNull('business_clearances.inhabitant_id')
-        ->where('user_id',  Auth::user()->id)
-        ->latest()
-        ->get();
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
     }
     public function getUnregisteredFiledCases()
     {
         return Filedcase::whereNull('filedcases.inhabitant_id')
-        ->where('user_id',  Auth::user()->id)
-        ->latest()
-        ->get();
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
     }
     public function createBarangayClearance(Request $request)
     {

@@ -25,15 +25,6 @@
             <v-container grid-list-md class="pa-0">
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.first_name" label="First name*"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.middle_name" label="Middle name*"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.last_name" label="Last name*"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
                   <v-text-field v-model="formFiledCases.control_no" label="Control number*"></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -125,7 +116,6 @@ export default {
       action_taken_on_unsettled: "",
       remarks: "",
       created_at: "",
-      inhabitant_id: "",
     })
   }),
   created() {

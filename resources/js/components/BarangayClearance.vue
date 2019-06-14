@@ -51,7 +51,6 @@
                         label="Date of Birth"
                         prepend-icon="mdi-calendar"
                         readonly
-                        :rules="[v => !!v || 'Date of Birth is required']"
                         v-on="on"
                       ></v-text-field>
                     </template>
@@ -68,16 +67,12 @@
                     v-model="formBarangayClearance.citizenship"
                     :items="['Afghan','Albanian','Algerian','American','Andorran','Angolan', 'Antiguan', 'Argentine', 'Armenian', 'Aruban', 'Australian', 'Austrian', 'Azerbaijani', 'Bahamian', 'Bahrainis', 'Bangladeshis', 'Barbadian', 'Basque', 'Belarusian', 'Belgian', 'Belizean', 'Beninese', 'Bermudian', 'Bhutanese', 'Bolivian', 'Bosniak', 'Bosnian', 'Botswana', 'Brazilian', 'Breton', 'British', 'British Virgin Islander', 'Bruneian', 'Bulgarian', 'Macedonian Bulgarian', 'Burkinabé', 'Burmese', 'Burundian', 'Cambodian', 'Cameroonian', 'Canadian', 'Catalan', 'Cape Verdean', 'Chadian', 'Chilean', 'Chinese', 'Colombian', 'Comorian', 'Congolese', 'Costa Rican', 'Croatian', 'Cuban', 'Cypriot', 'Czech', 'Dane', 'Greenlander', 'Djiboutian', 'Dominican', 'Dutch', 'East Timorese', 'Ecuadorian', 'Egyptian', 'Emirati', 'English', 'Equatoguinean', 'Eritrean', 'Estonian', 'Ethiopian', 'Falkland Islander', 'Faroese', 'Fijian', 'Finn', 'Finnish Swedish', 'Filipino', 'French citizen', 'Gabonese', 'Gambian', 'Georgian', 'German', 'Baltic German', 'Ghanaian', 'Gibraltarian', 'Greek', 'Greek Macedonian', 'Grenadian', 'Guatemalan', 'Guianese', 'Guinean', 'Guinea-Bissau national', 'Guyanese', 'Haitian', 'Honduran', 'Hong Konger', 'Hungarian', 'Icelander', 'I-Kiribati', 'Indian', 'Indonesian', 'Iranian', 'Iraqis', 'Irish', 'Israelis', 'Italian', 'Ivoirian', 'Jamaican', 'Japanese', 'Jordanian', 'Kazakh', 'Kenyan', 'Korean', 'Kosovar', 'Kuwaitis', 'Kyrgyz', 'Lao', 'Latvian', 'Lebanese', 'Liberian', 'Libyan', 'Liechtensteiner', 'Lithuanian', 'Luxembourger', 'Macao', 'Macedonian', 'Malagasy', 'Malawian', 'Malaysian', 'Maldivian', 'Malians', 'Maltese', 'Manx', 'Marshallese', 'Mauritanian', 'Mauritian', 'Mexicans', 'Micronesian', 'Moldovans', 'Monégasque', 'Mongolian', 'Montenegrin', 'Moroccan', 'Mozambican', 'Namibian', 'Nauran', 'Nepalese', 'New Zealander', 'Nicaraguan', 'Nigerien', 'Nigerian', 'Norwegian', 'Omani', 'Pakistanis', 'Palauan', 'Palestinian', 'Panamanian', 'Papua New Guinean', 'Paraguayan', 'Peruvian', 'Poles', 'Portuguese', 'Puerto Rican', 'Qatari', 'Quebecer', 'Réunionnais', 'Romanian', 'Russian', 'Baltic Russian', 'Rwandan', 'Saint Kitt', 'Saint Lucian', 'Salvadoran', 'Sammarinese', 'Samoans', 'São Tomé and Príncipe', 'Saudis', 'Scot', 'Senegalese', 'Serbs', 'Seychellois', 'Sierra Leonean', 'Singaporean', 'Slovak', 'Slovene', 'Solomon Islander', 'Somalis', 'Somalilander', 'Sotho', 'South African', 'Spaniard', 'Sri Lankan', 'Sudanese', 'Surinamese', 'Swazi', 'Swedes', 'Swiss', 'Syriac', 'Syrian', 'Taiwanese', 'Tamil', 'Tajik', 'Tanzanian', 'Thai', 'Tibetan', 'Tobagonian', 'Togolese', 'Tongan', 'Trinidadian', 'Tunisian', 'Turk', 'Tuvaluan', 'Ugandan', 'Ukrainian', 'Uruguayan', 'Uzbek', 'Vanuatuan', 'Venezuelan', 'Vietnamese', 'Vincentian', 'Welsh', 'Yemenis', 'Zambian', 'Zimbabwean']"
                     label="Citizenship"
-                    :rules="[v => !!v || 'Citizenship is required']"
-                    required
                   ></v-autocomplete>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayClearance.placeOfBirth_native"
                     label="Place of Birth"
-                    :rules="[v => !!v || 'Place of Birth is required']"
-                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -112,25 +107,12 @@
                 </v-flex>
               </v-layout>
             </v-container>
-            <v-card outlined>
-              <v-data-table
-                :headers="barangayClearanceHeaders"
-                :items="barangayClearanceIssued"
-                hide-default-footer
-              >
-                <template v-slot:item.action="{ item }">
-                  <v-btn icon @click="printBarangayClearance(item)">
-                    <v-icon>mdi-printer</v-icon>
-                  </v-btn>
-                </template>
-              </v-data-table>
-            </v-card>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
             <p class="mb-0">* indicates required field</p>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="clearForm()" text>cancel</v-btn>
+            <v-btn color="primary" @click="dialogBarangayClearanceForm = false" text>cancel</v-btn>
             <v-btn color="primary" type="submit" text>Save</v-btn>
           </v-card-actions>
         </v-card>
@@ -195,7 +177,7 @@
                     <p>TO WHOM IT MAY CONCERN:</p>
                     <p>
                       This is to certify that
-                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.first_name} ${formBarangayClearance.middle_name}. ${formBarangayClearance.last_name}` : '______________________________________________' }},</span>
+                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.first_name} ${formBarangayClearance.middle_name} ${formBarangayClearance.last_name}` : '______________________________________________' }},</span>
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.age}` : '________' }}</span> years old,
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.citizenship}` : '________________________' }}</span> citizen, a native of
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.placeOfBirth_native}` : '________________________' }}</span>, and presently residing at
@@ -302,6 +284,7 @@ export default {
       { text: "Community tax certificate no.", value: "ctc_no" },
       { text: "Purpose of clearance", value: "purpose_of_clearance" },
       { text: "Official receipt no.", value: "official_receipt_no" },
+      { text: "Age", value: "age" },
       { text: "Issued on", value: "created_at" },
       { text: "Actions", value: "action", sortable: false }
     ],
@@ -311,7 +294,6 @@ export default {
       purpose_of_clearance: "",
       official_receipt_no: "",
       created_at: "",
-      inhabitant_id: "",
       last_name: "",
       first_name: "",
       middle_name: "",
@@ -320,7 +302,8 @@ export default {
       street: "",
       date_of_birth: "",
       citizenship: "",
-      placeOfBirth_native: ""
+      placeOfBirth_native: "",
+      age: ""
     }),
     formUser: new Form({
       logo: ""

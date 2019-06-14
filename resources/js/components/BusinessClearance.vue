@@ -124,7 +124,7 @@
       </v-form>
     </v-dialog>
 
-    <v-dialog v-model="dialogBusinessClearance" scrollable max-width="800px">
+    <v-dialog v-model="dialogBusinessClearance" scrollable persistent max-width="800px">
       <v-card>
         <v-card-title>
           <span class="headline">Issue business clearance</span>
@@ -285,7 +285,7 @@
                     </p>
                     <p class="mb-0">
                       Issued at:
-                      <span>{{ address.length ? `${address[0].name}, ${address[0].municipality}` : '____________' }}</span>
+                      <span>{{ formBusinessClearance.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________' }}</span>
                     </p>
                     <p class="mb-0">
                       Official receipt number:

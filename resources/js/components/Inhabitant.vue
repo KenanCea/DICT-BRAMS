@@ -621,7 +621,7 @@
           </v-card>
         </v-form>
       </v-dialog>
-      <v-dialog v-model="dialogBarangayClearance" scrollable max-width="800px">
+      <v-dialog v-model="dialogBarangayClearance" scrollable persistent max-width="800px">
         <v-card>
           <v-card-title>
             <span class="headline">Issue barangay clearance</span>
@@ -822,7 +822,7 @@
           </v-card>
         </v-form>
       </v-dialog>
-      <v-dialog v-model="dialogBarangayCertificate" scrollable max-width="800px">
+      <v-dialog v-model="dialogBarangayCertificate" scrollable persistent max-width="800px">
         <v-card>
           <v-card-title>
             <span class="headline">Issue barangay certificate</span>
@@ -1061,7 +1061,7 @@
           </v-card>
         </v-form>
       </v-dialog>
-      <v-dialog v-model="dialogBusinessClearance" scrollable max-width="800px">
+      <v-dialog v-model="dialogBusinessClearance" scrollable persistent max-width="800px">
         <v-card>
           <v-card-title>
             <span class="headline">Issue barangay certificate</span>
@@ -1621,7 +1621,7 @@ export default {
   },
   components: {
     "app-print": RecordsPrint,
-    "form-print":FormsPrint
+    "form-print": FormsPrint
   },
   computed: {
     filteredHeaders() {

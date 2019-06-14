@@ -15,7 +15,13 @@ class BarangayCertificate extends Model
         'inhabitant_id',
         'last_name',
         'first_name',
-        'middle_name'
+        'middle_name',
+        'house_no',
+        'purok',
+        'street',
+        'date_of_birth',
+        'citizenship',
+        'placeOfBirth_native'
     ];
     public function inhabitant()
     {

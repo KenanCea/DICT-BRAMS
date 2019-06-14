@@ -25,6 +25,7 @@
         <v-sheet id="scrolling" class="scroll-y" max-height="100vh">
 
             <v-container grid-list-xl>
+
                 <v-layout row wrap align-center style="height: 100vh;">
                     <v-flex xs6>
                         <h3 style="font-size:45px; line-height: normal;">Barangay Records and Automation Management System</h3>
@@ -33,7 +34,7 @@
                             Get Started
                         </v-btn>
                     </v-flex>
-                    <v-flex xs6>
+                    <v-flex  xl2 lg4 md6 sm8>
                         <v-carousel hide-delimiters cycle height="441.141" show-arrows-on-hover>
                             <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
                         </v-carousel>
