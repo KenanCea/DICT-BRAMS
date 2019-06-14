@@ -70,37 +70,53 @@ class FormController extends Controller
     {
         return Filedcase::where('inhabitant_id', '=', $id)->latest()->get();
     }
+    
+    public function getUnregisteredBarangayClearance()
+    {
+        return BarangayClearance::whereNull('barangay_clearances.inhabitant_id')
+        ->where('user_id',  Auth::user()->id)
+        ->latest()
+        ->get();
+    }
+    public function getUnregisteredBarangayCertificate()
+    {
+        return BarangayCertificate::whereNull('barangay_certificates.inhabitant_id')
+        ->where('user_id',  Auth::user()->id)
+        ->latest()
+        ->get();
+    }
+    public function getUnregisteredBusinessClearance()
+    {
+        return BusinessClearance::whereNull('business_clearances.inhabitant_id')
+        ->where('user_id',  Auth::user()->id)
+        ->latest()
+        ->get();
+    }
+    public function getUnregisteredFiledCases()
+    {
+        return Filedcase::whereNull('filedcases.inhabitant_id')
+        ->where('user_id',  Auth::user()->id)
+        ->latest()
+        ->get();
+    }
     public function createBarangayClearance(Request $request)
     {
-        $request->validate([
-            'control_no' => 'required',
-            'ctc_no' => 'required',
-            'purpose_of_clearance' => 'required',
-            'official_receipt_no' => 'required',
-        ]);
-        $form = BarangayClearance::create($request->all());
+        $form = $request->user()->barangayClearance()->create($request->all());
         return new $form;
     }
     public function createBarangayCertificate(Request $request)
     {
-        $request->validate([
-            'control_no' => 'required',
-            'purpose_certification' => 'required',
-            'ctc_no' => 'required',
-            'official_receipt_no' => 'required',
-            'amount_paid' => 'required',
-        ]);
-        $form = BarangayCertificate::create($request->all());
+        $form = $request->user()->barangayCertificate()->create($request->all());
         return new $form;
     }
     public function createBusinessClearance(Request $request)
     {
-        $form = BusinessClearance::create($request->all());
+        $form = $request->user()->businessClearance()->create($request->all());
         return new $form;
     }
     public function createFiledCases(Request $request)
     {
-        $form = Filedcase::create($request->all());
+        $form = $request->user()->filedCase()->create($request->all());
         return new $form;
     }
 }

@@ -16,11 +16,15 @@ class Filedcase extends Model
         'action_taken_on_settled',
         'action_taken_on_unsettled' ,
         'remarks',
-        'inhabitant_id'
+        'inhabitant_id',
     ];
     public function inhabitant()
     {
         return $this->belongsTo('App\Inhabitant');
+    }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
     protected $casts = [
         'created_at' => 'date:Y-m-d',
