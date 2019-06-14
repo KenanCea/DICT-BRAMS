@@ -13,13 +13,20 @@ class Filedcase extends Model
         'type_of_case',
         'complainant',
         'co_complainant',
-        'date_filed',
         'action_taken_on_settled',
         'action_taken_on_unsettled' ,
-        'remarks'
+        'remarks',
+        'inhabitant_id',
     ];
     public function inhabitant()
     {
         return $this->belongsTo('App\Inhabitant');
     }
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+    protected $casts = [
+        'created_at' => 'date:Y-m-d',
+    ];
 }

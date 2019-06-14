@@ -76,9 +76,15 @@ Route::get('officials', 'FormController@Officials');
 Route::get('getBarangayClearance/{id}', 'FormController@showBarangayClearance');
 Route::get('getBarangayCertificate/{id}', 'FormController@showBarangayCertificate');
 Route::get('getBusinessClearance/{id}', 'FormController@showBusinessClearance');
+Route::get('getFiledCases/{id}', 'FormController@showFiledCases');
 Route::post('createBarangayClearance', 'FormController@createBarangayClearance');
 Route::post('createBarangayCertificate', 'FormController@createBarangayCertificate');
 Route::post('createBusinessClearance', 'FormController@createBusinessClearance');
+Route::post('createFiledCases', 'FormController@createFiledCases');
+Route::get('getUnregisteredBarangayClearance', 'FormController@getUnregisteredBarangayClearance');
+Route::get('getUnregisteredBarangayCertificate', 'FormController@getUnregisteredBarangayCertificate');
+Route::get('getUnregisteredBusinessClearance', 'FormController@getUnregisteredBusinessClearance');
+Route::get('getUnregisteredFiledCases', 'FormController@getUnregisteredFiledCases');
 
 // Dashboard
 Route::get('Inhabitants', 'DashboardController@TotalInhabitants');

@@ -1,220 +1,148 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" persistent max-width="800px">
-      <v-form>
-        <v-card>
-          <v-card-title>
-            <span class="headline">ADD</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.complainants" label="Complainants"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.complain" label="Complain"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.relief" label="Relief"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_issued_at" label="Issued at"></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_issued_on" label="Issued on"></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog=false">Okay</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
     <v-app-bar id="navbar" dense flat app>
       <v-toolbar-title>
-        <span class="hidden-sm-and-down">Barangay Clearance</span>
+        <span class="hidden-sm-and-down">Filed Cases</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-autocomplete
-        v-model="select"
-        :items="items"
-        :loading="isLoading"
-        :search-input.sync="search"
-        autofocus
-        solo
-        flat
-        hide-details
-        hide-selected
-        item-text="first_name"
-        item-value="API"
-        label="Inhabitants"
-        placeholder="Start typing to Search"
-        return-object
-      ></v-autocomplete>
       <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on" @click="dialog=true">
+          <v-btn text icon color="primary" v-on="on" @click="dialogFiledCasesForm = true">
             <v-icon color="grey darken-2">mdi-file-document-edit</v-icon>
           </v-btn>
         </template>
         <span>Fill-up form</span>
       </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-printer</v-icon>
-          </v-btn>
-        </template>
-        <span>Print</span>
-      </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on:click='pdf()'>
-            <v-icon color="grey darken-2">mdi-file-export</v-icon>
-          </v-btn>
-        </template>
-        <span>Export</span>
-      </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-refresh</v-icon>
-          </v-btn>
-        </template>
-        <span>Refresh</span>
-      </v-tooltip>
     </v-app-bar>
-    <v-container grid-list-md text-xs-center id="printForm">
-      <v-layout row wrap>
-        <v-flex xs4>
-          <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
-        </v-flex>
-        <v-flex xs4 class="green--text title">
-          <p class="mb-0">Republic of the Philippines</p>
-          <p class="mb-0">BARANGAY AMBIONG</p>
-          <p>Aurora Hill, Baguio</p>
-        </v-flex>
-        <v-flex xs4>
-          <v-img src="/img/profile/profile1.png" alt="Logo" contain height="100"></v-img>
-        </v-flex>
-      </v-layout>
-       <v-layout row wrap>
-        <v-flex xs12 class="subtitle-1 font-weight-bold">
-          <p class="mb-0">Office of the Punong Barangay</p>
-          <p>Barangay Business Clearance</p>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex xs4 class="form-border-right">
-          <p class="mb-0">RANDY P. GATI</p>
-          <p>Punong Barangay</p>
-          <p class="mb-0">BRIAN C. ANTON</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">ARTHUR T. WILLY</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">MARTN G. CONTIC</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">EMILY R. BALLARES</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">RUDY D. AMISTAD</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">VICENTE J. ZAPANTA</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">MODESTO P. COLUMBRES</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">CYNTHIA G. AMISTAD</p>
-          <p>Barangay Secretary</p>
-          <p class="mb-0">RONALD C. GOMEZ</p>
-          <p>Barangay Treasurer</p>
-        </v-flex>
-        <v-flex xs8 text-xs-left class="pl-3">
-          <p>TO WHOM IT MAY CONCERN:</p>
-          <br>
-          <p>
-
-             <p>COMPLAINANT</p>
-          <p>
-            I/WE hereby complain against above named respondent/s for violating my/our rights and interest in the following manner.
-            <span v-if="form.complain">{{form.complain}}</span>
-            <span v-else>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</span>
-          </p>
-          <p>
-           THEREFORE, I/WE pray that the following relief/s be granted to me/us in accordance with law and or equity.
-            <span v-if="form.relief">{{form.relief}}</span> <span v-else>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________</span>
-          </p>
-          <br>
-          <p>Made this <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
-            <span v-else>________________________________________</span> at Barangay <span v-if="select">{{select.house_no}}, {{select.purok}}
-              {{select.street}}, {{select.barangay}} </span> </p>
-
-             <p>Received and filed this <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
-            <span v-else>________________________________________</span></p>
-
-         <br>
-          <div class="text-xs-right text-xs-center">
-            <p class="mb-0-5">CERTIFIED AND ISSUED BY:</p>
-            <p class="mb-0 mr-5">RANDY P. GATI</p>
-            <p class="mb-5 mr-5">Punong Barangay</p>
-          </div>
-           <br>
-           
-          <p>Note: Not valid without Barangay Seal</p>
-        </v-flex>
-      </v-layout>
-    </v-container>
+    <v-dialog v-model="dialogFiledCasesForm" scrollable persistent max-width="800px">
+      <v-form @submit.prevent="createFiledCases">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Issue filed cases</span>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-container grid-list-md class="pa-0">
+              <v-layout wrap>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formFiledCases.control_no" label="Control number*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formFiledCases.respondent" label="Respondent*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-select
+                    v-model="formFiledCases.case"
+                    label="Case*"
+                    :items="['Collecting sum of money', 'Estafa', 'Malicius Mischief', 'Physical Injury', 'Physical Injury with Robbery', 'Theft', 'Threat', 'Unjust Vexation', 'Murder', 'Rape', 'Children in Conflict of the law']"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-select
+                    v-model="formFiledCases.type_of_case"
+                    label="Type of case*"
+                    :items="['Criminal', 'Civil', 'Others']"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formFiledCases.complainant" label="Complainant*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formFiledCases.co_complainant" label="Co-complainant*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-select
+                    v-model="formFiledCases.action_taken_on_settled"
+                    label="Action taken on settled*"
+                    :items="['Arbitration', 'Conciliation', 'Mediation']"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-select
+                    v-model="formFiledCases.action_taken_on_unsettled"
+                    label="Action taken on unsettled*"
+                    :items="['Repudiation', 'Withdrawn', 'Pending case', 'Case dismissed', 'Case certified', 'Referred to concerned agencies']"
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formFiledCases.remarks" label="Remarks*"></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <p class="mb-0">* indicates required field</p>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="dialogFiledCasesForm = false" text>cancel</v-btn>
+            <v-btn color="primary" type="submit" text>Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-dialog>
+    <v-data-table :headers="filedCasesHeaders" :items="filedCasesIssued" :loading="loading">
+      <template v-slot:item.action="{ item }">
+        <v-btn icon @click="printFiledCases(item)">
+          <v-icon>mdi-printer</v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script>
+import Print from "./FormsPrint.vue";
 export default {
   data: () => ({
-    inhabitants: [],
-    dialog: false,
-    form: new Form({
-      complainants: "",
-      complain: "",
-      relief: "",
-      ctc_issued_on: "",
-      ctc_issued_at: "",
-      inhabitant_id: ""
-    }),
-    search: null,
-    select: {},
-    isLoading: false
+    filedCasesIssued: [],
+    loading: false,
+    dialogFiledCasesForm: false,
+    filedCasesHeaders: [
+      { text: "Control no.", value: "control_no" },
+      { text: "Respondent", value: "respondent" },
+      { text: "Case", value: "case" },
+      { text: "Complainant", value: "complainant" },
+      { text: "Co_complainant", value: "co_complainant" },
+      { text: "Issued on", value: "created_at" }
+    ],
+    formFiledCases: new Form({
+      control_no: "",
+      respondent: "",
+      case: "",
+      type_of_case: "",
+      complainant: "",
+      co_complainant: "",
+      action_taken_on_settled: "",
+      action_taken_on_unsettled: "",
+      remarks: "",
+      created_at: "",
+    })
   }),
-  computed: {
-    items() {
-      return this.inhabitants.map(entry => {
-        const first_name =
-          entry.first_name.length > this.descriptionLimit
-            ? entry.first_name.slice(0, this.descriptionLimit) + "..."
-            : entry.first_name;
-        return Object.assign({}, entry, {
-          first_name
-        });
+  created() {
+    this.getFiledCases();
+  },
+  methods: {
+    getFiledCases() {
+      this.loading = true;
+      axios.get("api/getUnregisteredFiledCases/").then(response => {
+        this.filedCasesIssued = response.data;
+        this.loading = false;
       });
-    }
-  },
-
-  watch: {
-    search(val) {
-      if (this.items.length > 0) return;
-      if (this.isLoading) return;
-      this.isLoading = true;
-      axios
-        .get("api/inhabitant")
-        .then(response => {
-          this.inhabitants = response.data;
+    },
+    createFiledCases() {
+      this.formFiledCases
+        .post("api/createFiledCases")
+        .then(() => {
+          this.dialogFiledCasesForm = false;
+          toast.fire({
+            type: "success",
+            title: "Unregistered inhabitant has been issued filed case"
+          });
+          this.getFiledCases();
+          this.formFiledCases.reset();
         })
-        .catch(err => {
-          console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
-    }
-  },
+        .catch(() => {});
+    },
+  }
 };
 </script>

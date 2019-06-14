@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\BarangayCertificate;
 use App\BarangayClearance;
 use App\BusinessClearance;
+use App\Filedcase;
 
 class FormController extends Controller
 {
@@ -65,33 +66,73 @@ class FormController extends Controller
     {
         return BusinessClearance::where('inhabitant_id', '=', $id)->latest()->get();
     }
+    public function showFiledCases($id)
+    {
+        return Filedcase::where('inhabitant_id', '=', $id)->latest()->get();
+    }
 
+    public function getUnregisteredBarangayClearance()
+    {
+        return BarangayClearance::select('barangay_clearances.*', DB::raw("YEAR(CURDATE()) - YEAR(barangay_clearances.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
+        '-',
+        MONTH(barangay_clearances.date_of_birth),
+        '-',
+        DAY(barangay_clearances.date_of_birth)),
+        '%Y-%c-%e') > CURDATE(),
+        1,
+        0) as age"))
+            ->whereNull('barangay_clearances.inhabitant_id')
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
+    }
+    public function getUnregisteredBarangayCertificate()
+    {
+        return BarangayCertificate::select('barangay_certificates.*', DB::raw("YEAR(CURDATE()) - YEAR(barangay_certificates.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
+        '-',
+        MONTH(barangay_certificates.date_of_birth),
+        '-',
+        DAY(barangay_certificates.date_of_birth)),
+        '%Y-%c-%e') > CURDATE(),
+        1,
+        0) as age"))
+            ->whereNull('barangay_certificates.inhabitant_id')
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
+    }
+    public function getUnregisteredBusinessClearance()
+    {
+        return BusinessClearance::whereNull('business_clearances.inhabitant_id')
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
+    }
+    public function getUnregisteredFiledCases()
+    {
+        return Filedcase::whereNull('filedcases.inhabitant_id')
+            ->where('user_id',  Auth::user()->id)
+            ->latest()
+            ->get();
+    }
     public function createBarangayClearance(Request $request)
     {
-        $request->validate([
-            'control_no' => 'required',
-            'ctc_no' => 'required',
-            'purpose_of_clearance' => 'required',
-            'official_receipt_no' => 'required',
-        ]);
-        $form = BarangayClearance::create($request->all());
+        $form = $request->user()->barangayClearance()->create($request->all());
         return new $form;
     }
     public function createBarangayCertificate(Request $request)
     {
-        $request->validate([
-            'control_no' => 'required',
-            'purpose_certification' => 'required',
-            'ctc_no' => 'required',
-            'official_receipt_no' => 'required',
-            'amount_paid' => 'required',
-        ]);
-        $form = BarangayCertificate::create($request->all());
+        $form = $request->user()->barangayCertificate()->create($request->all());
         return new $form;
     }
     public function createBusinessClearance(Request $request)
     {
-        $form = BusinessClearance::create($request->all());
+        $form = $request->user()->businessClearance()->create($request->all());
+        return new $form;
+    }
+    public function createFiledCases(Request $request)
+    {
+        $form = $request->user()->filedCase()->create($request->all());
         return new $form;
     }
 }

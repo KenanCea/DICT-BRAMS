@@ -1,7 +1,7 @@
 <template>
 <div id="app">
     <v-app>
-        <div class="elevation-1">
+        <div>
             <v-card>
 
 

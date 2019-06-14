@@ -1,259 +1,380 @@
 <template>
   <div>
-    <v-dialog v-model="dialog" persistent max-width="800px">
-      <v-form>
-        <v-card>
-          <v-card-title>
-            <span class="headline">ADD</span>
-          </v-card-title>
-          <v-card-text>
-            <v-container grid-list-md>
-              <v-layout wrap>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field
-                    v-model="form.ctc_no"
-                    label="Community Tax Certificate Number"
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field
-                    v-model="form.purpose_of_clearance"
-                    label="Purpose of clearance"
-                    required
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_issued_at" label="Issued at" required></v-text-field>
-                </v-flex>
-                <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="form.ctc_issued_on" label="Issued on" required></v-text-field>
-                </v-flex>
-              </v-layout>
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" text @click="dialog=false">Okay</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-form>
-    </v-dialog>
     <v-app-bar id="navbar" dense flat app>
       <v-toolbar-title>
         <span class="hidden-sm-and-down">Barangay Clearance</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-autocomplete
-        v-model="select"
-        :items="items"
-        :loading="isLoading"
-        :search-input.sync="search"
-        autofocus
-        solo
-        flat
-        hide-details
-        hide-selected
-        clearable
-        item-text="first_name"
-        item-value="API"
-        label="Inhabitants"
-        placeholder="Start typing to Search"
-        return-object
-      ></v-autocomplete>
       <v-tooltip attach bottom>
         <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on" @click="dialog=true">
+          <v-btn text icon color="primary" v-on="on" @click="createBarangayClearanceDialog">
             <v-icon color="grey darken-2">mdi-file-document-edit</v-icon>
           </v-btn>
         </template>
         <span>Fill-up form</span>
       </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-printer</v-icon>
-          </v-btn>
-        </template>
-        <span>Print</span>
-      </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on:click="pdf()">
-            <v-icon color="grey darken-2">mdi-file-export</v-icon>
-          </v-btn>
-        </template>
-        <span>Export</span>
-      </v-tooltip>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on">
-            <v-icon color="grey darken-2">mdi-refresh</v-icon>
-          </v-btn>
-        </template>
-        <span>Refresh</span>
-      </v-tooltip>
     </v-app-bar>
-    <v-container grid-list-md text-xs-center id="printForm">
-      <v-layout row wrap>
-        <v-flex xs4>
-          <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
-        </v-flex>
-        <v-flex xs4 class="green--text title">
-          <p class="mb-0">Republic of the Philippines</p>
-          <span v-if="select">{{select.province}}</span>
-          <p class="mb-0">BARANGAY AMBIONG</p>
-          <p>Aurora Hill, Baguio</p>
-        </v-flex>
-        <v-flex xs4>
-          <v-img src="/img/profile/profile1.png" alt="Logo" contain height="100"></v-img>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex xs12 class="subtitle-1 font-weight-bold">
-          <p class="mb-0">Office of the Punong Barangay</p>
-          <p>Barangay Clearance</p>
-        </v-flex>
-      </v-layout>
-      <v-layout row wrap>
-        <v-flex xs4 class="form-border-right">
-          <p class="mb-0">RANDY P. GATI</p>
-          <p>Punong Barangay</p>
-          <p class="mb-0">BRIAN C. ANTON</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">ARTHUR T. WILLY</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">MARTN G. CONTIC</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">EMILY R. BALLARES</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">RUDY D. AMISTAD</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">VICENTE J. ZAPANTA</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">MODESTO P. COLUMBRES</p>
-          <p>Barangay Kagawad</p>
-          <p class="mb-0">CYNTHIA G. AMISTAD</p>
-          <p>Barangay Secretary</p>
-          <p class="mb-0">RONALD C. GOMEZ</p>
-          <p>Barangay Treasurer</p>
-        </v-flex>
-        <v-flex xs8 text-xs-left class="pl-3">
-          <p>TO WHOM IT MAY CONCERN:</p>
-          <br>
-          <p>
-            This is to certify that
-            <span
-              v-if="select"
-            >{{select.first_name}} {{select.middle_name}} {{select.last_name}}</span>
-            <span v-else>______________________________________________</span>,
-            <span v-if="select">{{select.age}}</span>
-            <span v-else>________</span> years old,
-            <span v-if="select">{{select.citizenship}}</span>
-            <span v-else>________________________</span> citizen, a native of
-            <span v-if="select">{{select.placeOfBirth_native}}</span>
-            <span v-else>________________________</span>, residing at
-            <span v-if="select">
-              {{select.house_no}}, {{select.purok}}
-              {{select.street}}, {{select.barangay}} is a resident of this barangay.
-            </span>
-          </p>
 
-          <p>
-            THIS IS TO CERTIFY FURTHER that the above-named person has neither derogatory records nor pending
-            case in this barangay.
-          </p>
-          <p></p>
-          <p>THIS CERTIFICATION is issued upon the request of the above named person for LEGAL INTENT.</p>
-          <p></p>
-          <p>
-            Issued this
-            <span v-if="form.ctc_issued_on">{{form.ctc_issued_on}}</span>
-            <span v-else>________________________________________</span> at Barangay
-            <span v-if="select">
-              {{select.house_no}}, {{select.purok}}
-              {{select.street}}, {{select.barangay}}
-            </span>
-          </p>
+    <v-dialog v-model="dialogBarangayClearanceForm" scrollable persistent max-width="800px">
+      <v-form @submit.prevent="createBarangayClearance">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Issue barangay clearance</span>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-container grid-list-md class="pa-0">
+              <v-layout wrap>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formBarangayClearance.first_name" label="First name*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formBarangayClearance.middle_name" label="Middle name*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formBarangayClearance.last_name" label="Last name*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-menu
+                    v-model="menuBirth"
+                    :close-on-content-click="false"
+                    :nudge-right="40"
+                    eager
+                    transition="scale-transition"
+                    offset-y
+                    full-width
+                    min-width="290px"
+                  >
+                    <template v-slot:activator="{ on }">
+                      <v-text-field
+                        v-model="formBarangayClearance.date_of_birth"
+                        label="Date of Birth"
+                        prepend-icon="mdi-calendar"
+                        readonly
+                        v-on="on"
+                      ></v-text-field>
+                    </template>
+                    <v-date-picker
+                      v-model="formBarangayClearance.date_of_birth"
+                      no-title
+                      color="primary"
+                      @input="menuBirth = false"
+                    ></v-date-picker>
+                  </v-menu>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-autocomplete
+                    v-model="formBarangayClearance.citizenship"
+                    :items="['Afghan','Albanian','Algerian','American','Andorran','Angolan', 'Antiguan', 'Argentine', 'Armenian', 'Aruban', 'Australian', 'Austrian', 'Azerbaijani', 'Bahamian', 'Bahrainis', 'Bangladeshis', 'Barbadian', 'Basque', 'Belarusian', 'Belgian', 'Belizean', 'Beninese', 'Bermudian', 'Bhutanese', 'Bolivian', 'Bosniak', 'Bosnian', 'Botswana', 'Brazilian', 'Breton', 'British', 'British Virgin Islander', 'Bruneian', 'Bulgarian', 'Macedonian Bulgarian', 'Burkinabé', 'Burmese', 'Burundian', 'Cambodian', 'Cameroonian', 'Canadian', 'Catalan', 'Cape Verdean', 'Chadian', 'Chilean', 'Chinese', 'Colombian', 'Comorian', 'Congolese', 'Costa Rican', 'Croatian', 'Cuban', 'Cypriot', 'Czech', 'Dane', 'Greenlander', 'Djiboutian', 'Dominican', 'Dutch', 'East Timorese', 'Ecuadorian', 'Egyptian', 'Emirati', 'English', 'Equatoguinean', 'Eritrean', 'Estonian', 'Ethiopian', 'Falkland Islander', 'Faroese', 'Fijian', 'Finn', 'Finnish Swedish', 'Filipino', 'French citizen', 'Gabonese', 'Gambian', 'Georgian', 'German', 'Baltic German', 'Ghanaian', 'Gibraltarian', 'Greek', 'Greek Macedonian', 'Grenadian', 'Guatemalan', 'Guianese', 'Guinean', 'Guinea-Bissau national', 'Guyanese', 'Haitian', 'Honduran', 'Hong Konger', 'Hungarian', 'Icelander', 'I-Kiribati', 'Indian', 'Indonesian', 'Iranian', 'Iraqis', 'Irish', 'Israelis', 'Italian', 'Ivoirian', 'Jamaican', 'Japanese', 'Jordanian', 'Kazakh', 'Kenyan', 'Korean', 'Kosovar', 'Kuwaitis', 'Kyrgyz', 'Lao', 'Latvian', 'Lebanese', 'Liberian', 'Libyan', 'Liechtensteiner', 'Lithuanian', 'Luxembourger', 'Macao', 'Macedonian', 'Malagasy', 'Malawian', 'Malaysian', 'Maldivian', 'Malians', 'Maltese', 'Manx', 'Marshallese', 'Mauritanian', 'Mauritian', 'Mexicans', 'Micronesian', 'Moldovans', 'Monégasque', 'Mongolian', 'Montenegrin', 'Moroccan', 'Mozambican', 'Namibian', 'Nauran', 'Nepalese', 'New Zealander', 'Nicaraguan', 'Nigerien', 'Nigerian', 'Norwegian', 'Omani', 'Pakistanis', 'Palauan', 'Palestinian', 'Panamanian', 'Papua New Guinean', 'Paraguayan', 'Peruvian', 'Poles', 'Portuguese', 'Puerto Rican', 'Qatari', 'Quebecer', 'Réunionnais', 'Romanian', 'Russian', 'Baltic Russian', 'Rwandan', 'Saint Kitt', 'Saint Lucian', 'Salvadoran', 'Sammarinese', 'Samoans', 'São Tomé and Príncipe', 'Saudis', 'Scot', 'Senegalese', 'Serbs', 'Seychellois', 'Sierra Leonean', 'Singaporean', 'Slovak', 'Slovene', 'Solomon Islander', 'Somalis', 'Somalilander', 'Sotho', 'South African', 'Spaniard', 'Sri Lankan', 'Sudanese', 'Surinamese', 'Swazi', 'Swedes', 'Swiss', 'Syriac', 'Syrian', 'Taiwanese', 'Tamil', 'Tajik', 'Tanzanian', 'Thai', 'Tibetan', 'Tobagonian', 'Togolese', 'Tongan', 'Trinidadian', 'Tunisian', 'Turk', 'Tuvaluan', 'Ugandan', 'Ukrainian', 'Uruguayan', 'Uzbek', 'Vanuatuan', 'Venezuelan', 'Vietnamese', 'Vincentian', 'Welsh', 'Yemenis', 'Zambian', 'Zimbabwean']"
+                    label="Citizenship"
+                  ></v-autocomplete>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field
+                    v-model="formBarangayClearance.placeOfBirth_native"
+                    label="Place of Birth"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formBarangayClearance.house_no" label="House number*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formBarangayClearance.purok" label="Purok*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md4>
+                  <v-text-field v-model="formBarangayClearance.street" label="Street*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md6>
+                  <v-text-field v-model="formBarangayClearance.control_no" label="Control number*"></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md6>
+                  <v-text-field
+                    v-model="formBarangayClearance.ctc_no"
+                    label="Community tax certificate number*"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md6>
+                  <v-text-field
+                    v-model="formBarangayClearance.purpose_of_clearance"
+                    label="Purpose of clearance*"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6 md6>
+                  <v-text-field
+                    v-model="formBarangayClearance.official_receipt_no"
+                    label="Official receipt number*"
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <p class="mb-0">* indicates required field</p>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" @click="dialogBarangayClearanceForm = false" text>cancel</v-btn>
+            <v-btn color="primary" type="submit" text>Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-dialog>
 
-          <br>
-          <div class="text-xs-right text-xs-center">
-            <p class="mb-0-5">CERTIFIED AND ISSUED BY:</p>
-            <p class="mb-0 mr-5">RANDY P. GATI</p>
-            <p class="mb-5 mr-5">Punong Barangay</p>
-          </div>
+    <v-dialog v-model="dialogBarangayClearance" scrollable persistent max-width="800px">
+      <v-card>
+        <v-card-title>
+          <span class="headline">Issue barangay clearance</span>
+          <v-spacer></v-spacer>
+          <form-print></form-print>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-card-text style="color:black">
+          <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
+            <v-layout row wrap>
+              <v-flex xs3>
+                <img src="/img/baguio.png" alt="Logo" contain height="100">
+              </v-flex>
+              <v-flex xs6 class="green--text title">
+                <p class="mb-0">Barangay Camp Allen</p>
+                <p class="mb-0">Republic of the Philippines</p>
+                <p class="mb-0">Baguio City</p>
+              </v-flex>
+              <v-flex xs3>
+                <img :src="getLogo()" alt="Logo" contain height="100">
+              </v-flex>
+            </v-layout>
+            <v-layout row wrap>
+              <v-flex xs12 class="subtitle-1 font-weight-bold">
+                <p class="mb-0">Office of the Punong Barangay</p>
+                <p>Barangay Clearance</p>
+              </v-flex>
+            </v-layout>
+            <v-layout row wrap>
+              <v-flex xs4 class="form-border-right">
+                <p class="mb-0">{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                <p>Punong Barangay</p>
+                <p class="mb-0">{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
+                <p>Barangay Kagawad</p>
+                <p class="mb-0">{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
+                <p>Barangay Kagawad</p>
+                <p class="mb-0">{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
+                <p>Barangay Kagawad</p>
+                <p class="mb-0">{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
+                <p>Barangay Kagawad</p>
+                <p class="mb-0">{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
+                <p>Barangay Kagawad</p>
+                <p class="mb-0">{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
+                <p>Barangay Kagawad</p>
+                <p class="mb-0">{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
+                <p>Barangay Kagawad</p>
+                <p class="mb-0">{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
+                <p>Barangay Secretary</p>
+                <p class="mb-0">{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
+                <p>Barangay Treasurer</p>
+              </v-flex>
+              <v-flex xs8 text-xs-left class="pl-3">
+                <v-layout row wrap>
+                  <v-flex>
+                    <p>TO WHOM IT MAY CONCERN:</p>
+                    <p>
+                      This is to certify that
+                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.first_name} ${formBarangayClearance.middle_name} ${formBarangayClearance.last_name}` : '______________________________________________' }},</span>
+                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.age}` : '________' }}</span> years old,
+                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.citizenship}` : '________________________' }}</span> citizen, a native of
+                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.placeOfBirth_native}` : '________________________' }}</span>, and presently residing at
+                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.house_no} Purok ${formBarangayClearance.purok} ${formBarangayClearance.street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : '________________________________________________' }}</span>
+                      and whose signature appears hereunder, has no pending adverse case and deragatory records filed
+                      against per available records on file with this office as of the date of issuance thereof.
+                    </p>
+                  </v-flex>
 
-          <p class="mb-0">
-            Community Tax Certificate Number:
-            <span v-if="form.ctc_no">{{form.ctc_no}}</span>
-            <span v-else>____________</span>
-          </p>
-          <p class="mb-0">
-            Issued On:
-            <span v-if="form.ctc_issued_on">{{form.ctc_no}}</span>
-            <span v-else>____________</span>
-          </p>
-          <p class="mb-0">
-            Issued At:
-            <span v-if="form.ctc_issued_at">{{form.ctc_no}}</span>
-            <span v-else>____________</span>
-          </p>
-          <p>
-            <br>
-          </p>
-          <p>Note: Not valid without Barangay Seal</p>
-        </v-flex>
-      </v-layout>
-    </v-container>
+                  <v-flex xs12>
+                    <p>
+                      Issued
+                      <span
+                        v-if="formBarangayClearance.purpose_of_clearance"
+                      >{{formBarangayClearance.purpose_of_clearance}}</span>
+                      <span v-else>________________________________________</span> purposes.
+                    </p>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <p class="mb-0">________________________</p>
+                    <p class="mb-5">Signature over printed name</p>
+                  </v-flex>
+
+                  <v-flex xs12 class="mb-5">
+                    <p class="mb-0">
+                      Community tax certificate number:
+                      <span
+                        v-if="formBarangayClearance.ctc_no"
+                      >{{formBarangayClearance.ctc_no}}</span>
+                      <span v-else>____________</span>
+                    </p>
+                    <p class="mb-0">
+                      Issued on:
+                      <span
+                        v-if="formBarangayClearance.created_at"
+                      >{{formBarangayClearance.created_at}}</span>
+                      <span v-else>____________</span>
+                    </p>
+                    <p class="mb-0">
+                      Issued at:
+                      <span>{{ formBarangayClearance.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________' }}</span>
+                    </p>
+                    <p class="mb-0">
+                      Official receipt number:
+                      <span
+                        v-if="formBarangayClearance.official_receipt_no"
+                      >{{formBarangayClearance.official_receipt_no}}</span>
+                      <span v-else>____________</span>
+                    </p>
+                  </v-flex>
+
+                  <v-flex xs6 offset-xs6 class="text-xs-center">
+                    <p>CERTIFIED AND ISSUED BY:</p>
+                    <p
+                      class="mb-0"
+                    >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                    <p>Punong Barangay</p>
+                  </v-flex>
+
+                  <v-flex xs12>
+                    <p>Note: Not valid without Barangay Seal</p>
+                  </v-flex>
+                </v-layout>
+              </v-flex>
+            </v-layout>
+          </v-container>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" text @click="clearInput()">Done</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <v-data-table
+      :headers="barangayClearanceHeaders"
+      :items="barangayClearanceIssued"
+      :loading="loading"
+    >
+      <template v-slot:item.action="{ item }">
+        <v-btn icon @click="printBarangayClearance(item)">
+          <v-icon>mdi-printer</v-icon>
+        </v-btn>
+      </template>
+    </v-data-table>
   </div>
 </template>
 
 <script>
 export default {
   data: () => ({
-    inhabitants: [],
-    dialog: false,
-    form: new Form({
+    barangayClearanceIssued: [],
+    user: {},
+    address: [],
+    officials: [],
+    loading: false,
+    dialogBarangayClearanceForm: false,
+    dialogBarangayClearance: false,
+    menuBirth: false,
+    barangayClearanceHeaders: [
+      { text: "Control no.", value: "control_no" },
+      { text: "Community tax certificate no.", value: "ctc_no" },
+      { text: "Purpose of clearance", value: "purpose_of_clearance" },
+      { text: "Official receipt no.", value: "official_receipt_no" },
+      { text: "Age", value: "age" },
+      { text: "Issued on", value: "created_at" },
+      { text: "Actions", value: "action", sortable: false }
+    ],
+    formBarangayClearance: new Form({
       control_no: "",
       ctc_no: "",
       purpose_of_clearance: "",
-      date_issued: "",
-      ctc_issued_on: "",
-      ctc_issued_at: "",
-      inhabitant_id: ""
+      official_receipt_no: "",
+      created_at: "",
+      last_name: "",
+      first_name: "",
+      middle_name: "",
+      house_no: "",
+      purok: "",
+      street: "",
+      date_of_birth: "",
+      citizenship: "",
+      placeOfBirth_native: "",
+      age: ""
     }),
-    search: null,
-    select: null,
-    isLoading: false
+    formUser: new Form({
+      logo: ""
+    })
   }),
-  computed: {
-    items() {
-      return this.inhabitants.map(entry => {
-        const first_name =
-          entry.first_name.length > this.descriptionLimit
-            ? entry.first_name.slice(0, this.descriptionLimit) + "..."
-            : entry.first_name;
-        return Object.assign({}, entry, {
-          first_name
-        });
+  created() {
+    this.getBarangayClearance();
+    this.getOfficials();
+    this.getAddress();
+    this.getUser();
+  },
+
+  methods: {
+    getBarangayClearance() {
+      this.loading = true;
+      axios.get("api/getUnregisteredBarangayClearance").then(response => {
+        this.barangayClearanceIssued = response.data;
+        this.loading = false;
       });
-    }
-  },
-  watch: {
-    search(val) {
-      if (this.items.length > 0) return;
-      if (this.isLoading) return;
-      this.isLoading = true;
-      axios
-        .get("api/form")
-        .then(response => {
-          this.inhabitants = response.data;
+    },
+
+    createBarangayClearance() {
+      this.formBarangayClearance
+        .post("api/createBarangayClearance")
+        .then(() => {
+          this.dialogBarangayClearanceForm = false;
+          toast.fire({
+            type: "success",
+            title: "Inhabitant has been issued business clearance"
+          });
+          this.getBarangayClearance();
+          this.formBarangayClearance.reset();
         })
-        .catch(err => {
-          console.log(err);
-        })
-        .finally(() => (this.isLoading = false));
+        .catch(() => {});
+    },
+
+    printBarangayClearance(item) {
+      this.dialogBarangayClearance = true;
+      this.formBarangayClearance.fill(item);
+    },
+
+    createBarangayClearanceDialog() {
+      this.formBarangayClearance.reset();
+      this.dialogBarangayClearanceForm = true;
+    },
+
+    clearInput() {
+      this.dialogBarangayClearance = false;
+      this.formBarangayClearance.reset();
+    },
+
+    getAddress() {
+      axios.get("api/address").then(response => {
+        this.address = response.data;
+      });
+    },
+    getUser() {
+      axios.get("api/user").then(({ data }) => this.formUser.fill(data));
+    },
+    getOfficials() {
+      axios.get("api/officials").then(response => {
+        this.officials = response.data;
+      });
+    },
+    getLogo() {
+      let logo =
+        this.formUser.logo.length > 200
+          ? this.formUser.logo
+          : "img/profile/" + this.formUser.logo;
+      return logo;
     }
-  },
+  }
 };
 </script>

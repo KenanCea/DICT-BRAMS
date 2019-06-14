@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <div class="elevation-1">
+        <div>
             <v-card>
                 
                 <v-app-bar id="navbar" dense flat app>

@@ -16,7 +16,6 @@ class Inhabitant extends Model
         'relation_to_the_head',
         'sex',
         'date_of_birth',
-        'age',
         'placeOfBirth_native',
         'civil_status',
         'religion',
@@ -84,9 +83,5 @@ class Inhabitant extends Model
     public function filedCase()
     {
         return $this->hasMany('App\Filecase');
-    }
-    public function scopeAge()
-    {
-        return Carbon::parse($this->attributes['date_of_birth'])->age;
     }
 }
