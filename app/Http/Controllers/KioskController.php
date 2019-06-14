@@ -277,5 +277,32 @@ class KioskController extends Controller
         return $query;
     }
 
+    public function Crimes(){
+        $query = DB::table('filedcases')
+        ->leftJoin('inhabitants','inhabitants.id','=','filedcases.inhabitant_id')
+        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('cases,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from filedcases join inhabitants on inhabitants.id = filedcases.inhabitant_id WHERE user_id = ?)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->groupBy('cases')
+        ->where('users.id', Auth::user()->id);
+
+        //total
+        $querytwo = DB::table('filedcases')
+        ->leftJoin('inhabitants','inhabitants.id','=','filedcases.inhabitant_id')
+        ->leftJoin('users','users.id','=','inhabitants.user_id')
+        ->selectRaw('"TOTAL" as cases,
+        count(*) as totalnumber, 
+        count(*)/(SELECT COUNT( * ) from filedcases join inhabitants on inhabitants.id = filedcases.inhabitant_id WHERE user_id = ?)*100 as percent',
+        [Auth::user()->id]
+        )
+        ->where('users.id', Auth::user()->id);
+
+        $query=$query->get();
+        return $query;
+    }
+
     
 }

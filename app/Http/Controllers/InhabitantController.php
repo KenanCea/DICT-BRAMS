@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Inhabitant;
 use App\Household;
+use App\activitylogs;
+use App\User;
 use DB;
 
 class InhabitantController extends Controller
@@ -52,6 +54,17 @@ class InhabitantController extends Controller
     public function store(Request $request)
     {
         $inhabitant = $request->user()->inhabitants()->create($request->all());
+
+        //start of log
+        $households = Household::findOrFail($inhabitant->household_id);
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Added " .$inhabitant->last_name.", ".$inhabitant->first_name." to #"
+        .$households->house_no." ".$households->street.' Purok '.$households->purok.", ".$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end of log
+
         return new $inhabitant;
     }
 
@@ -65,6 +78,7 @@ class InhabitantController extends Controller
     {
         $household = Household::select('name')->get();
         return $household;
+
     }
 
     /**
@@ -78,6 +92,15 @@ class InhabitantController extends Controller
     {
         $inhabitants = Inhabitant::findOrFail($id);
         $inhabitants->update($request->all());
+
+        //log
+        $households = Household::findOrFail($inhabitants->household_id);
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Updated " .$inhabitants->last_name.", ".$inhabitants->first_name." of #"
+        .$households->house_no." ".$households->street.' Purok '.$households->purok.", ".$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
     }
 
     public function archived_Inhabitant()
@@ -104,11 +127,34 @@ class InhabitantController extends Controller
     public function archive($id)
     {
         $inhabitant = Inhabitant::findOrFail($id);
+
+        //start of log
+        $households = Household::findOrFail($inhabitant->household_id);
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Archived " .$inhabitant->last_name.", ".$inhabitant->first_name." of #"
+        .$households->house_no." ".$households->street.' Purok '.$households->purok.", ".$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
+        //end of log
+
         $inhabitant->delete();
+
+        
     }
     public function restore($id,$houseID)
     {
         $inhabitants = Inhabitant::withTrashed()->findOrFail($id)->restore();
-        $inhabitant = Inhabitant::findOrFail($id)->update(['household_id'=>$houseID]);
+        $inhabitant = Inhabitant::findOrFail($id);
+        $inhabitant->update(['household_id'=>$houseID]);
+
+        //log
+        $households = Household::findOrFail($inhabitant->household_id);
+        $name=User::findOrFail(Auth::user()->id);
+        $logs= new activitylogs;
+        $logs->log="Restored " .$inhabitant->last_name.", ".$inhabitant->first_name." of #"
+        .$households->house_no." ".$households->street.' Purok '.$households->purok.", ".$name->name;
+        $logs->user_id=Auth::user()->id;
+        $logs->save();
     }
 }

@@ -147,7 +147,6 @@ export default {
         },
         { text: "Purok", value: "purok", selected: true },
         { text: "Street", value: "street", selected: true },
-        { text: "Familysize", value: "familysize", selected: true },
         { text: "Email Address", value: "email_address" },
         { text: "Place of Origin", value: "place_of_origin" },
         { text: "Mobile Number", value: "mobile_number" },

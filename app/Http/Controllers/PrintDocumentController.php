@@ -117,7 +117,7 @@ class PrintDocumentController extends Controller
         'inhabitants.sex',
         'inhabitants.citizenship',
         DB::raw('CONCAT(households.house_no," purok ",households.purok," ",households.street,", ",users.name) AS address'),
-        'filedcases.case',
+        'filedcases.cases',
         'filedcases.date_filed',
         'filedcases.remarks'
         )

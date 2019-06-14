@@ -50,7 +50,7 @@
                     <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
                     <td v-if="showColumn('citizenship')">{{ props.item.citizenship }}</td>
                     <td v-if="showColumn('address')">{{ props.item.address }}</td>
-                    <td v-if="showColumn('case')">{{ props.item.case }}</td>
+                    <td v-if="showColumn('cases')">{{ props.item.case }}</td>
                     <td v-if="showColumn('date_filed')">{{ props.item.date_filed }}</td>
                     <td v-if="showColumn('remarks')">{{ props.item.remarks}}</td>
                     </template>
@@ -108,7 +108,7 @@ import Print from './DocumentPrint.vue';
                 },
                 {
                     text: 'Case',
-                    value: 'case',
+                    value: 'cases',
                     selected: true,
                     sortable: true
                 },

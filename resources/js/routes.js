@@ -111,6 +111,12 @@ export const routes = [
     path: '/soloParent',
     component: require('./components/SoloParent.vue').default
   }, {
+    path: '/crimes',
+    component: require('./components/CrimesFiled.vue').default
+  }, {
     path: '/masterList',
     component: require('./components/MasterList.vue').default
+  }, {
+    path: '/userLog',
+    component: require('./components/UserLog.vue').default
   }]

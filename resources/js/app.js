@@ -143,9 +143,15 @@ const app = new Vue({
                     title: "Filed Case",
                     name: "Filed Case",
                     to: "/filedcase"
-                }
+                },
                 ]
+            },{
+                icon: "mdi-file-document-edit-outline",
+                title: "Logs",
+                name: "Log History",
+                to: "/userLog"
             }
+            
         ],
         admins: [
             {
