@@ -7,4 +7,3 @@ Username: {{$email}}<br>
 Password: {{$password}}<br>
 -------------------------------------------<br>
 <br>
-Please click this link to activate your account: {{url('user/activation', $token)}}

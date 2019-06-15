@@ -6,7 +6,7 @@
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
-
+      
       <v-flex xs2 ml-1>
           <v-text-field
             v-model="search"

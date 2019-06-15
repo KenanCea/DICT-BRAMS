@@ -17,7 +17,7 @@ use Illuminate\Http\Request;
 //     return $request->user();
 // });
 
-Route::get('user/activation/{token}','BarangayUserController@userActivation');
+
 
 
 Route::resources([
@@ -116,7 +116,7 @@ Route::get('SoloParentReason', 'KioskController@SoloParent');
 Route::get('Crimes', 'KioskController@Crimes');
 
 //Admin Dashboard
-Route::get('BrgyCaptain','BarangaySummaryController@PunongBarangay');
+Route::get('Barangay','DashboardController@TotalBarangay');
 Route::get('InhabitantPop', 'DashboardController@TotalCityInhabitants');
 Route::get('HouseholdPop', 'DashboardController@TotalCityHouseholds');
 Route::get('TotalPopBarangay', 'DashboardController@TotalBarangayPopulous');
