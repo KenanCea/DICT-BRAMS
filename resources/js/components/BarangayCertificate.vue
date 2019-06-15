@@ -217,7 +217,10 @@
                 <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
               </v-flex>
               <v-flex xs6 class="green--text title">
-                <p class="mb-0">Barangay <span>{{ formBarangayCertificate.purpose_certification ? `${address[0].name}` : '______________________' }}</span></p>
+                <p class="mb-0">
+                  Barangay
+                  <span>{{ formBarangayCertificate.purpose_certification ? `${address[0].name}` : '______________________' }}</span>
+                </p>
                 <p class="mb-0">Republic of the Philippines</p>
                 <p class="mb-0">Baguio City</p>
               </v-flex>
@@ -353,7 +356,7 @@
 <script>
 import Print from "./FormsPrint.vue";
 import { validationMixin } from "vuelidate";
-import { required, maxLength, email } from "vuelidate/lib/validators";
+import { required, numeric } from "vuelidate/lib/validators";
 export default {
   data: () => ({
     barangayCertificateIssued: [],
@@ -398,11 +401,11 @@ export default {
   mixins: [validationMixin],
   validations: {
     formBarangayCertificate: {
-      control_no: { required },
+      control_no: { required, numeric },
       purpose_certification: { required },
-      ctc_no: { required },
-      official_receipt_no: { required },
-      amount_paid: { required },
+      ctc_no: { required, numeric },
+      official_receipt_no: { required, numeric },
+      amount_paid: { required, numeric },
       created_at: { required },
       last_name: { required },
       first_name: { required },
@@ -421,7 +424,9 @@ export default {
       const errors = [];
       if (!this.$v.formBarangayCertificate.control_no.$dirty) return errors;
       !this.$v.formBarangayCertificate.control_no.required &&
-        errors.push("Name is required.");
+        errors.push("Control number is required.");
+      !this.$v.formBarangayCertificate.control_no.numeric &&
+        errors.push("Control number must be numbers.");
       return errors;
     },
     purpose_certificationErrors() {
@@ -429,14 +434,16 @@ export default {
       if (!this.$v.formBarangayCertificate.purpose_certification.$dirty)
         return errors;
       !this.$v.formBarangayCertificate.purpose_certification.required &&
-        errors.push("Name is required.");
+        errors.push("Purpose of certificate is required.");
       return errors;
     },
     ctc_noErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.ctc_no.$dirty) return errors;
       !this.$v.formBarangayCertificate.ctc_no.required &&
-        errors.push("Name is required.");
+        errors.push("Community tax certificate number required.");
+      !this.$v.formBarangayCertificate.ctc_no.numeric &&
+        errors.push("Community tax certificate must be numbers.");
       return errors;
     },
     official_receipt_noErrors() {
@@ -444,70 +451,74 @@ export default {
       if (!this.$v.formBarangayCertificate.official_receipt_no.$dirty)
         return errors;
       !this.$v.formBarangayCertificate.official_receipt_no.required &&
-        errors.push("Name is required.");
+        errors.push("Official receipt number is required.");
+      !this.$v.formBarangayCertificate.official_receipt_no.numeric &&
+        errors.push("Official receipt must be numbers.");
       return errors;
     },
     amount_paidErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.amount_paid.$dirty) return errors;
       !this.$v.formBarangayCertificate.amount_paid.required &&
-        errors.push("Name is required.");
+        errors.push("Amount paid is required.");
+      !this.$v.formBarangayCertificate.amount_paid.numeric &&
+        errors.push("Amount paid must be numbers.");
       return errors;
     },
     last_nameErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.last_name.$dirty) return errors;
       !this.$v.formBarangayCertificate.last_name.required &&
-        errors.push("Name is required.");
+        errors.push("Last name is required.");
       return errors;
     },
     first_nameErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.first_name.$dirty) return errors;
       !this.$v.formBarangayCertificate.first_name.required &&
-        errors.push("Name is required.");
+        errors.push("First name is required.");
       return errors;
     },
     middle_nameErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.middle_name.$dirty) return errors;
       !this.$v.formBarangayCertificate.middle_name.required &&
-        errors.push("Name is required.");
+        errors.push("Middle name is required.");
       return errors;
     },
     house_noErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.house_no.$dirty) return errors;
       !this.$v.formBarangayCertificate.house_no.required &&
-        errors.push("Name is required.");
+        errors.push("House number is required.");
       return errors;
     },
     purokErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.purok.$dirty) return errors;
       !this.$v.formBarangayCertificate.purok.required &&
-        errors.push("Name is required.");
+        errors.push("Purok is required.");
       return errors;
     },
     streetErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.street.$dirty) return errors;
       !this.$v.formBarangayCertificate.street.required &&
-        errors.push("Name is required.");
+        errors.push("Street is required.");
       return errors;
     },
     date_of_birthErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.date_of_birth.$dirty) return errors;
       !this.$v.formBarangayCertificate.date_of_birth.required &&
-        errors.push("Name is required.");
+        errors.push("Date of Birth is required.");
       return errors;
     },
     citizenshipErrors() {
       const errors = [];
       if (!this.$v.formBarangayCertificate.citizenship.$dirty) return errors;
       !this.$v.formBarangayCertificate.citizenship.required &&
-        errors.push("Name is required.");
+        errors.push("Citizenship is required.");
       return errors;
     },
     placeOfBirth_nativeErrors() {
@@ -515,7 +526,7 @@ export default {
       if (!this.$v.formBarangayCertificate.placeOfBirth_native.$dirty)
         return errors;
       !this.$v.formBarangayCertificate.placeOfBirth_native.required &&
-        errors.push("Name is required.");
+        errors.push("Place of Birth is required.");
       return errors;
     }
   },
