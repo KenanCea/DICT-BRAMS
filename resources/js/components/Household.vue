@@ -129,25 +129,56 @@
             <v-container grid-list-md pa-0>
               <v-layout wrap>
                 <v-flex xs6 md4>
-                  <v-text-field v-model="householdForm.house_no" label="House Number" required></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.house_no"
+                    label="House Number"
+                    :error-messages="house_noErrors"
+                    @input="$v.householdForm.house_no.$touch()"
+                    @blur="$v.householdForm.house_no.$touch()"
+                    required
+                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs6 md4>
-                  <v-text-field v-model="householdForm.purok" label="Purok" required></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.purok"
+                    label="Purok"
+                    :error-messages="purokErrors"
+                    @input="$v.householdForm.purok.$touch()"
+                    @blur="$v.householdForm.purok.$touch()"
+                    required
+                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs6 md4>
-                  <v-text-field v-model="householdForm.street" label="Street" required></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.street"
+                    label="Street"
+                    :error-messages="streetErrors"
+                    @input="$v.householdForm.street.$touch()"
+                    @blur="$v.householdForm.street.$touch()"
+                    required
+                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs6 md4>
-                  <v-text-field v-model="householdForm.mobile_no" label="Mobile Number" required></v-text-field>
+                  <v-text-field
+                    v-model="householdForm.mobile_no"
+                    label="Mobile Number"
+                    :error-messages="mobile_noErrors"
+                    @input="$v.householdForm.mobile_no.$touch()"
+                    @blur="$v.householdForm.mobile_no.$touch()"
+                    required
+                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs6 md4>
                   <v-text-field
                     v-model="householdForm.telephone_no"
                     label="Telephone Number."
+                    :error-messages="telephone_noErrors"
+                    @input="$v.householdForm.telephone_no.$touch()"
+                    @blur="$v.householdForm.telephone_no.$touch()"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -155,7 +186,10 @@
                 <v-flex xs6 md4>
                   <v-text-field
                     v-model="householdForm.email_address"
-                    label="Email Address"
+                    label="Email address"
+                    :error-messages="email_addressErrors"
+                    @input="$v.householdForm.email_address.$touch()"
+                    @blur="$v.householdForm.email_address.$touch()"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -177,6 +211,9 @@
                         label="Date of Survey"
                         prepend-icon="mdi-calendar"
                         readonly
+                        :error-messages="dateOfSurveyErrors"
+                        @input="$v.householdForm.dateOfSurvey.$touch()"
+                        @blur="$v.householdForm.dateOfSurvey.$touch()"
                         required
                         v-on="on"
                       ></v-text-field>
@@ -193,7 +230,10 @@
                 <v-flex xs6 md4>
                   <v-text-field
                     v-model="householdForm.placeOfOrigin"
-                    label="Place of Origin"
+                    label="Place of origin"
+                    :error-messages="placeOfOriginErrors"
+                    @input="$v.householdForm.placeOfOrigin.$touch()"
+                    @blur="$v.householdForm.placeOfOrigin.$touch()"
                     required
                   ></v-text-field>
                 </v-flex>
@@ -203,6 +243,9 @@
                     v-model="householdForm.ethnic_group"
                     :items="['Bicol', 'Bisaya', 'Boholano', 'Capizeno', 'Cuyunon', 'Ibaloi', 'Ilonggo', 'Ifugao', 'Ilocano', 'Ivatan', 'Kalinga', 'Kankana-ey', 'Kapangpangan', 'Maguindanao', 'Maranao', 'Masbateno', 'Pangasinan', 'Surigaoan', 'Tagalog', 'Tausog', 'Waray', 'Yakan', 'Zambagueno/Chavacano', 'N/A']"
                     label="Ethnic Group"
+                    :error-messages="ethnic_groupErrors"
+                    @input="$v.householdForm.ethnic_group.$touch()"
+                    @blur="$v.householdForm.ethnic_group.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -212,6 +255,9 @@
                     v-model="householdForm.dialects"
                     :items="['Bicolano','Bontoc','Cebuano','English','Ibaloi','Ibanag','Ifugao','Ilocano','Itneg','Kalinga','Kankana-ey','Pampangan','Pangasinan','Tagalog','Waray-waray','Panggalatok','Visaya','Kapangpangan']"
                     label="Dialects"
+                    :error-messages="dialectsErrors"
+                    @input="$v.householdForm.dialects.$touch()"
+                    @blur="$v.householdForm.dialects.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -220,7 +266,10 @@
                   <v-select
                     v-model="householdForm.solo_parent"
                     :items="['no','Death of spouse','Imprisonment of spouse of at least 1 year','Mental/physical incapacity of spouse','Legal or de facto separation from spouse for at least 1 year','Abandonment of spouse for at least 1 year','Unmarried mother/father who preferred to keep the child instead of others carrying him/her','Any other person who solely provides parental care and support to a child provided he/she is duly licensed foster parent of DSWD','Any family member who assumes the responsibility as head of the family as a result of death, abandonment, absence for at least one year','others']"
-                    label="Solo Parent"
+                    label="Solo parent"
+                    :error-messages="solo_parentErrors"
+                    @input="$v.householdForm.solo_parent.$touch()"
+                    @blur="$v.householdForm.solo_parent.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -237,6 +286,9 @@
                     v-model="householdForm.status_of_ownership_house"
                     :items="['Owned','Rented','Caretaker','Others']"
                     label="Status of Ownership-House"
+                    :error-messages="status_of_ownership_houseErrors"
+                    @input="$v.householdForm.status_of_ownership_house.$touch()"
+                    @blur="$v.householdForm.status_of_ownership_house.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -253,6 +305,9 @@
                     v-model="householdForm.status_of_ownership_lot"
                     :items="['Owned','Rented','Caretaker','Others']"
                     label="Status of Ownership-Lot"
+                    :error-messages="status_of_ownership_lotErrors"
+                    @input="$v.householdForm.status_of_ownership_lot.$touch()"
+                    @blur="$v.householdForm.status_of_ownership_lot.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -269,6 +324,9 @@
                     v-model="householdForm.type_of_dwelling_structure"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
                     label="Type of Dwelling Structure"
+                    :error-messages="type_of_dwelling_structureErrors"
+                    @input="$v.householdForm.type_of_dwelling_structure.$touch()"
+                    @blur="$v.householdForm.type_of_dwelling_structure.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -277,7 +335,10 @@
                   <v-select
                     v-model="householdForm.type_of_dwelling"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
-                    label="Type of Dwelling"
+                    label="Type of dwelling"
+                    :error-messages="type_of_dwellingErrors"
+                    @input="$v.householdForm.type_of_dwelling.$touch()"
+                    @blur="$v.householdForm.type_of_dwelling.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -287,6 +348,9 @@
                     v-model="householdForm.lighting_source"
                     :items="['Electricity','Solar','Petromax','Kerosene']"
                     label="Lighting Source"
+                    :error-messages="lighting_sourceErrors"
+                    @input="$v.householdForm.lighting_source.$touch()"
+                    @blur="$v.householdForm.lighting_source.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -296,6 +360,9 @@
                     v-model="householdForm.sources_of_info"
                     :items="['Television','Radio','Newspaper','Others']"
                     label="Sources of Info"
+                    :error-messages="sources_of_infoErrors"
+                    @input="$v.householdForm.sources_of_info.$touch()"
+                    @blur="$v.householdForm.sources_of_info.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -312,6 +379,9 @@
                     v-model="householdForm.communication_services"
                     :items="['Cell sites/Net','Internet','Telephone','Postal services','others']"
                     label="Communication Services"
+                    :error-messages="communication_servicesErrors"
+                    @input="$v.householdForm.communication_services.$touch()"
+                    @blur="$v.householdForm.communication_services.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -328,6 +398,9 @@
                     v-model="householdForm.means_of_transportation"
                     :items="['PU jeep',' Taxi','Tricycle','PU bus','Private car','others']"
                     label="Means of Transportation"
+                    :error-messages="means_of_transportationErrors"
+                    @input="$v.householdForm.means_of_transportation.$touch()"
+                    @blur="$v.householdForm.means_of_transportation.$touch()"
                     required
                   ></v-select>
                 </v-flex>
@@ -898,6 +971,8 @@
 </template>
 
 <script>
+import { validationMixin } from "vuelidate";
+import { required, numeric } from "vuelidate/lib/validators";
 import RecordsPrint from "./RecordsPrint.vue";
 export default {
   data() {
@@ -1066,6 +1141,31 @@ export default {
       ]
     };
   },
+  mixins: [validationMixin],
+  validations: {
+    householdForm: {
+      solo_parent: { required },
+      dateOfSurvey: { required },
+      familysize: { required },
+      house_no: { required },
+      purok: { required, numeric },
+      street: { required },
+      type_of_dwelling_structure: { required },
+      placeOfOrigin: { required },
+      ethnic_group: { required },
+      email_address: { required },
+      mobile_no: { required, numeric },
+      telephone_no: { required, numeric },
+      dialects: { required },
+      status_of_ownership_house: { required },
+      status_of_ownership_lot: { required },
+      type_of_dwelling: { required },
+      lighting_source: { required },
+      sources_of_info: { required },
+      communication_services: { required },
+      means_of_transportation:  { required },
+    }
+  },
   components: {
     "app-print": RecordsPrint
   },
@@ -1082,6 +1182,142 @@ export default {
         });
         return filtered;
       });
+    },
+    // form validation
+    solo_parentErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.solo_parent.$dirty) return errors;
+      !this.$v.householdForm.solo_parent.required &&
+        errors.push("Solo parent is required.");
+      return errors;
+    },
+    dateOfSurveyErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.dateOfSurvey.$dirty) return errors;
+      !this.$v.householdForm.dateOfSurvey.required &&
+        errors.push("Control number is required.");
+      return errors;
+    },
+    house_noErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.house_no.$dirty) return errors;
+      !this.$v.householdForm.house_no.required &&
+        errors.push("House Number is required.");
+      return errors;
+    },
+    lighting_sourceErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.lighting_source.$dirty) return errors;
+      !this.$v.householdForm.lighting_source.required &&
+        errors.push("Lighting Source is required.");
+      return errors;
+    },
+    purokErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.purok.$dirty) return errors;
+      !this.$v.householdForm.purok.required &&
+        errors.push("Purok is required.");
+      return errors;
+    },
+    streetErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.street.$dirty) return errors;
+      !this.$v.householdForm.street.required &&
+        errors.push("Street is required.");
+      return errors;
+    },
+    type_of_dwelling_structureErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.type_of_dwelling_structure.$dirty)
+        return errors;
+      !this.$v.householdForm.type_of_dwelling_structure.required &&
+        errors.push("Type of Dwelling Structure is required.");
+      return errors;
+    },
+    placeOfOriginErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.placeOfOrigin.$dirty) return errors;
+      !this.$v.householdForm.placeOfOrigin.required &&
+        errors.push("Place of origin is required.");
+      return errors;
+    },
+    ethnic_groupErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.ethnic_group.$dirty) return errors;
+      !this.$v.householdForm.ethnic_group.required &&
+        errors.push("Control number is required.");
+      return errors;
+    },
+    email_addressErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.email_address.$dirty) return errors;
+      !this.$v.householdForm.email_address.required &&
+        errors.push("Email address is required.");
+      return errors;
+    },
+    mobile_noErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.mobile_no.$dirty) return errors;
+      !this.$v.householdForm.mobile_no.required &&
+        errors.push("Mobile number is required.");
+      return errors;
+    },
+    telephone_noErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.telephone_no.$dirty) return errors;
+      !this.$v.householdForm.telephone_no.required &&
+        errors.push("Telephone number is required.");
+      return errors;
+    },
+    dialectsErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.dialects.$dirty) return errors;
+      !this.$v.householdForm.dialects.required &&
+        errors.push("Control number is required.");
+      return errors;
+    },
+    status_of_ownership_houseErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.status_of_ownership_house.$dirty)
+        return errors;
+      !this.$v.householdForm.status_of_ownership_house.required &&
+        errors.push("Status of Ownership-House is required.");
+      return errors;
+    },
+    status_of_ownership_lotErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.status_of_ownership_lot.$dirty) return errors;
+      !this.$v.householdForm.status_of_ownership_lot.required &&
+        errors.push("Status of Ownership-Lot is required.");
+      return errors;
+    },
+    type_of_dwellingErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.type_of_dwelling.$dirty) return errors;
+      !this.$v.householdForm.type_of_dwelling.required &&
+        errors.push("Type of dwelling is required.");
+      return errors;
+    },
+    sources_of_infoErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.sources_of_info.$dirty) return errors;
+      !this.$v.householdForm.sources_of_info.required &&
+        errors.push("Sources of Info is required.");
+      return errors;
+    },
+    communication_servicesErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.communication_services.$dirty) return errors;
+      !this.$v.householdForm.communication_services.required &&
+        errors.push("Communication Services is required.");
+      return errors;
+    },
+    means_of_transportationErrors() {
+      const errors = [];
+      if (!this.$v.householdForm.means_of_transportation.$dirty) return errors;
+      !this.$v.householdForm.means_of_transportation.required &&
+        errors.push("Means of Transportation is required.");
+      return errors;
     }
   },
 
@@ -1235,6 +1471,7 @@ export default {
     newHouseholdDialog() {
       this.editmode = false;
       this.householdForm.reset();
+      this.$v.householdForm.$reset();
       this.dialogHousehold = true;
     },
 
