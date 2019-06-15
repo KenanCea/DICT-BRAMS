@@ -89,10 +89,10 @@
                   <v-icon>mdi-check-decagram</v-icon>
                 </v-btn>
               </template>
-              <span>Archive inhabitant</span>
+              <span>Restore inhabitant</span>
             </v-tooltip>
           </div>
-            <v-flex xs2 ml-1>
+            <v-flex xs2 ml-1 v-if="!selectedHouseholds.length" >
           <v-text-field
             v-model="searchhousehold"
             flat

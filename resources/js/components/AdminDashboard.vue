@@ -28,7 +28,7 @@
                     <v-icon size="56px" color="red darken-1">mdi-home-city</v-icon>
                   </v-flex>
                   <v-flex xs6 py-3 class="white--text red darken-1">
-                    <div class="headline">{{barangays}}</div>
+                    <div class="headline">{{thisbarangays}}</div>
                     <span class="caption">Registered Barangays</span>
                   </v-flex>
                 </v-layout>
@@ -85,7 +85,7 @@
     <v-card-title>
     <div>
             There are 129 Barangays in the City of Baguio
-            <div> There are currently {{barangays}} registered Barangays as of the year {{currentYear}}   </div>
+            <div> There are currently {{thisbarangays}} registered Barangays as of the year {{currentYear}}   </div>
           </div>
       <v-spacer></v-spacer>
       <v-text-field
@@ -125,7 +125,7 @@ export default {
   },
   data() {
       return {
-        barangays: "",
+        thisbarangays: "",
       loading: false,
       loadingBarangays: true,
       loadingPopulation: true,
@@ -203,7 +203,7 @@ export default {
       axios
         .get("api/Barangay")
         .then(response => {
-        this.barangays = response.data;
+        this.thisbarangays = response.data;
         this.loadingBarangays = false;
         });
     },

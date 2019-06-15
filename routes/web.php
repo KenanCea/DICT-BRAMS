@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('user/activation/{token}','BarangayUserController@userActivation');
+//Route::put('/activation','BarangayUserController@userActivation');
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,4 +19,5 @@ Route::get('/', function () {
 
 
 Auth::routes();
+
 Route::get('/{any}', 'SpaController@index')->where('any', '.*');

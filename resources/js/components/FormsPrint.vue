@@ -14,16 +14,6 @@
           </template>
           <span>Print</span>
         </v-tooltip>
-
-        <v-tooltip attach bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="print()">
-              <v-icon>mdi-file-pdf</v-icon>
-            </v-btn>
-          </template>
-          <span>export PDF</span>
-        </v-tooltip>
-
         <!--<v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
             <v-btn v-on="on" icon @click="print()">

@@ -46,7 +46,6 @@ class BarangayUserController extends Controller
         $users->logo='profile.png';
         $users->created_at=now();
         $users->updated_at=now();
-        $users->disable=1;
         
         if($users -> save()){
             $data = [
@@ -175,12 +174,18 @@ class BarangayUserController extends Controller
         //end of log
     }
 
-    public function userActivation($token){
+    /*public function userActivation(){
         $check = User::where('remember_token',$token)->first();
+        if(!is_null($check)){
+            if(is_null($check->email_verified_at)){
                 $check->email_verified_at=now();
                 $check->save();
-
-    }
+                return redirect()->to('login')->with('success','User activated');
+            }
+            return redirect()->to('login')->with('success','User already activated');
+        }
+        return redirect()->to('login')->with('warning','your token is invalid');
+    }*/
 
     public function archived_Users()
     {
