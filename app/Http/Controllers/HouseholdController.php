@@ -29,7 +29,7 @@ class HouseholdController extends Controller
             ->leftJoin('inhabitants', 'households.id', '=', 'inhabitants.household_id')
             ->select(
                 'households.*',
-                DB::raw('COUNT(CASE WHEN inhabitants.deleted_at IS NULL THEN 1 END) AS familysize')
+                DB::raw('COUNT(CASE WHEN inhabitants.deleted_at IS NULL && inhabitants.id is not null THEN 1 END) AS familysize')
             )
             ->where('users.id', Auth::user()->id)
             ->whereNull('households.deleted_at')

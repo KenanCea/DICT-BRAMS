@@ -85,6 +85,7 @@
         <td v-if="showColumn('id')">{{ props.item.id }}</td>
         <td v-if="showColumn('name')">{{ props.item.name }}</td>
         <td v-if="showColumn('email')">{{ props.item.email }}</td>
+        <td v-if="showColumn('email_verified_at')">{{ props.item.email_verified_at }}</td>
         <td v-if="showColumn('created_at')">{{ props.item.created_at }}</td>
         <td v-if="showColumn('updated_at')">{{ props.item.updated_at }}</td>
         <td v-if="showColumn('disable')">{{ props.item.disable }}</td>
@@ -108,6 +109,7 @@ export default {
         { text: "id", value: "id", selected: true },
         { text: "Name", value: "name", selected: true },
         { text: "Email", value: "email", selected: true },
+        { text: "Email Verified At", value: "email_verified_at", selected: true },
         { text: "Created At", value: "created_at", selected: true },
         { text: "Updated At", value: "updated_at", selected: true },
         { text: "State", value: "disable", selected: true }

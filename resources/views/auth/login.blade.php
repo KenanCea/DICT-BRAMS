@@ -11,13 +11,13 @@
                             <v-icon>mdi-arrow-left</v-icon>
                         </v-btn>
                         @if($message = Session::get('success'))
-                            <div class="alert alert-success">
+                            <div class="alert alert-success" style='margin-top:15px;'>
                                 <p>{{ $message }}</p>
                             </div>
                         @endif
 
                         @if($message = Session::get('warning'))
-                            <div class="alert alert-warning">
+                            <div class="alert alert-warning" style='margin-top:15px;'>
                                 <p>{{ $message }}</p>
                             </div>
                         @endif
