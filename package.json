@@ -32,9 +32,11 @@
         "printd": "^1.4.0",
         "sweetalert2": "^8.12.1",
         "v-charts": "^1.19.0",
+        "v-mask": "^1.3.3",
         "vform": "^1.0.1",
         "vue-router": "^3.0.6",
+        "vue-the-mask": "^0.11.1",
         "vuelidate": "^0.7.4",
-        "vuetify": "^2.0.0-beta.2"
+        "vuetify": "^2.0.0-beta.3"
     }
 }

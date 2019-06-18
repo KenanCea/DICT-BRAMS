@@ -5,14 +5,10 @@
         <span class="hidden-sm-and-down">Business Clearance</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on" @click="createBusinessClearanceDialog">
-            <v-icon color="grey darken-2">mdi-file-document-edit</v-icon>
-          </v-btn>
-        </template>
-        <span>Fill-up form</span>
-      </v-tooltip>
+      <v-btn depressed color="primary" @click="createBusinessClearanceDialog">
+        Fill-up form
+        <v-icon right dark>mdi-file-document-edit</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-dialog v-model="dialogBusinessClearanceForm" scrollable persistent max-width="800px">

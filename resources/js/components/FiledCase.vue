@@ -5,14 +5,10 @@
         <span class="hidden-sm-and-down">Filed Cases</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on" @click="dialogFiledCasesForm = true">
-            <v-icon color="grey darken-2">mdi-file-document-edit</v-icon>
-          </v-btn>
-        </template>
-        <span>Fill-up form</span>
-      </v-tooltip>
+      <v-btn depressed color="primary" @click="dialogFiledCasesForm = true">
+        Fill-up form
+        <v-icon right dark>mdi-file-document-edit</v-icon>
+      </v-btn>
     </v-app-bar>
     <v-dialog v-model="dialogFiledCasesForm" scrollable persistent max-width="800px">
       <v-form @submit.prevent="createFiledCases">
@@ -115,7 +111,7 @@ export default {
       action_taken_on_settled: "",
       action_taken_on_unsettled: "",
       remarks: "",
-      created_at: "",
+      created_at: ""
     })
   }),
   created() {
@@ -142,7 +138,7 @@ export default {
           this.formFiledCases.reset();
         })
         .catch(() => {});
-    },
+    }
   }
 };
 </script>

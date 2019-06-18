@@ -46,9 +46,7 @@ class HouseholdController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'solo_parent' => 'required',
-        ]);
+
         $household = $request->user()->households()->create($request->all());
 
         //start log
@@ -75,6 +73,7 @@ class HouseholdController extends Controller
         $inhabitant = Inhabitant::where('household_id', '=', $id)->latest()->get();
         return $inhabitant;
     }
+
 
     /**
      * Update the specified resource in storage.
