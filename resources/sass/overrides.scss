@@ -32,7 +32,6 @@ div.v-list-item__icon.v-list-group__header__append-icon {
   margin-top: 12px !important;
 }
 
-
 #navbar {
   top: 64px;
   border-bottom: rgba(19, 17, 17, 0.12) 1px solid !important;
@@ -44,6 +43,10 @@ div.v-list-item__icon.v-list-group__header__append-icon {
   #navbar {
     top: 57px;
   }
+  #app > div.application--wrap > aside {
+    top: 57px !important;
+  }
+
 }
 
 #profile-button {

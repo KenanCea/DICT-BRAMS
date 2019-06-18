@@ -5,18 +5,19 @@
         <span class="hidden-sm-and-down">Barangay Certificate</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on" @click="createBarangayCertificateDialog">
-            <v-icon color="grey darken-2">mdi-file-document-edit</v-icon>
-          </v-btn>
-        </template>
-        <span>Fill-up form</span>
-      </v-tooltip>
+      <v-btn depressed color="primary" @click="createBarangayCertificateDialog">
+        Fill-up form
+        <v-icon right dark>mdi-file-document-edit</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-dialog v-model="dialogBarangayCertificateForm" scrollable persistent max-width="800px">
-      <v-form @submit.prevent="createBarangayCertificate">
+      <v-form
+        ref="form"
+        v-model="validForm"
+        lazy-validation
+        @submit.prevent="createBarangayCertificate"
+      >
         <v-card>
           <v-card-title>
             <span class="headline">Issue barangay certificate</span>
@@ -29,30 +30,27 @@
                   <v-text-field
                     v-model="formBarangayCertificate.first_name"
                     label="First name*"
-                    :error-messages="first_nameErrors"
+                    :rules="[v => !!v || 'First name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                     required
-                    @input="$v.formBarangayCertificate.first_name.$touch()"
-                    @blur="$v.formBarangayCertificate.first_name.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.middle_name"
                     label="Middle name*"
-                    :error-messages="middle_nameErrors"
+                    :rules="[v => !!v || 'Middle name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                     required
-                    @input="$v.formBarangayCertificate.middle_name.$touch()"
-                    @blur="$v.formBarangayCertificate.middle_name.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.last_name"
                     label="Last name*"
-                    :error-messages="last_nameErrors"
+                    :rules="[v => !!v || 'Last name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                     required
-                    @input="$v.formBarangayCertificate.last_name.$touch()"
-                    @blur="$v.formBarangayCertificate.last_name.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -69,14 +67,12 @@
                     <template v-slot:activator="{ on }">
                       <v-text-field
                         v-model="formBarangayCertificate.date_of_birth"
-                        label="Date of Birth"
+                        label="Date of birth*"
                         prepend-icon="mdi-calendar"
                         readonly
                         v-on="on"
-                        :error-messages="date_of_birthErrors"
+                        :rules="[v => !!v || 'Date of birth is required']"
                         required
-                        @input="$v.formBarangayCertificate.date_of_birth.$touch()"
-                        @blur="$v.formBarangayCertificate.date_of_birth.$touch()"
                       ></v-text-field>
                     </template>
                     <v-date-picker
@@ -92,100 +88,94 @@
                     v-model="formBarangayCertificate.citizenship"
                     :items="['Afghan','Albanian','Algerian','American','Andorran','Angolan', 'Antiguan', 'Argentine', 'Armenian', 'Aruban', 'Australian', 'Austrian', 'Azerbaijani', 'Bahamian', 'Bahrainis', 'Bangladeshis', 'Barbadian', 'Basque', 'Belarusian', 'Belgian', 'Belizean', 'Beninese', 'Bermudian', 'Bhutanese', 'Bolivian', 'Bosniak', 'Bosnian', 'Botswana', 'Brazilian', 'Breton', 'British', 'British Virgin Islander', 'Bruneian', 'Bulgarian', 'Macedonian Bulgarian', 'Burkinabé', 'Burmese', 'Burundian', 'Cambodian', 'Cameroonian', 'Canadian', 'Catalan', 'Cape Verdean', 'Chadian', 'Chilean', 'Chinese', 'Colombian', 'Comorian', 'Congolese', 'Costa Rican', 'Croatian', 'Cuban', 'Cypriot', 'Czech', 'Dane', 'Greenlander', 'Djiboutian', 'Dominican', 'Dutch', 'East Timorese', 'Ecuadorian', 'Egyptian', 'Emirati', 'English', 'Equatoguinean', 'Eritrean', 'Estonian', 'Ethiopian', 'Falkland Islander', 'Faroese', 'Fijian', 'Finn', 'Finnish Swedish', 'Filipino', 'French citizen', 'Gabonese', 'Gambian', 'Georgian', 'German', 'Baltic German', 'Ghanaian', 'Gibraltarian', 'Greek', 'Greek Macedonian', 'Grenadian', 'Guatemalan', 'Guianese', 'Guinean', 'Guinea-Bissau national', 'Guyanese', 'Haitian', 'Honduran', 'Hong Konger', 'Hungarian', 'Icelander', 'I-Kiribati', 'Indian', 'Indonesian', 'Iranian', 'Iraqis', 'Irish', 'Israelis', 'Italian', 'Ivoirian', 'Jamaican', 'Japanese', 'Jordanian', 'Kazakh', 'Kenyan', 'Korean', 'Kosovar', 'Kuwaitis', 'Kyrgyz', 'Lao', 'Latvian', 'Lebanese', 'Liberian', 'Libyan', 'Liechtensteiner', 'Lithuanian', 'Luxembourger', 'Macao', 'Macedonian', 'Malagasy', 'Malawian', 'Malaysian', 'Maldivian', 'Malians', 'Maltese', 'Manx', 'Marshallese', 'Mauritanian', 'Mauritian', 'Mexicans', 'Micronesian', 'Moldovans', 'Monégasque', 'Mongolian', 'Montenegrin', 'Moroccan', 'Mozambican', 'Namibian', 'Nauran', 'Nepalese', 'New Zealander', 'Nicaraguan', 'Nigerien', 'Nigerian', 'Norwegian', 'Omani', 'Pakistanis', 'Palauan', 'Palestinian', 'Panamanian', 'Papua New Guinean', 'Paraguayan', 'Peruvian', 'Poles', 'Portuguese', 'Puerto Rican', 'Qatari', 'Quebecer', 'Réunionnais', 'Romanian', 'Russian', 'Baltic Russian', 'Rwandan', 'Saint Kitt', 'Saint Lucian', 'Salvadoran', 'Sammarinese', 'Samoans', 'São Tomé and Príncipe', 'Saudis', 'Scot', 'Senegalese', 'Serbs', 'Seychellois', 'Sierra Leonean', 'Singaporean', 'Slovak', 'Slovene', 'Solomon Islander', 'Somalis', 'Somalilander', 'Sotho', 'South African', 'Spaniard', 'Sri Lankan', 'Sudanese', 'Surinamese', 'Swazi', 'Swedes', 'Swiss', 'Syriac', 'Syrian', 'Taiwanese', 'Tamil', 'Tajik', 'Tanzanian', 'Thai', 'Tibetan', 'Tobagonian', 'Togolese', 'Tongan', 'Trinidadian', 'Tunisian', 'Turk', 'Tuvaluan', 'Ugandan', 'Ukrainian', 'Uruguayan', 'Uzbek', 'Vanuatuan', 'Venezuelan', 'Vietnamese', 'Vincentian', 'Welsh', 'Yemenis', 'Zambian', 'Zimbabwean']"
                     label="Citizenship"
-                    :error-messages="citizenshipErrors"
+                    :rules="[v => !!v || 'Citizenship is required']"
                     required
-                    @input="$v.formBarangayCertificate.citizenship.$touch()"
-                    @blur="$v.formBarangayCertificate.citizenship.$touch()"
                   ></v-autocomplete>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.placeOfBirth_native"
-                    label="Place of Birth"
-                    :error-messages="placeOfBirth_nativeErrors"
+                    label="Place of birth"
+                    :rules="[v => !!v || 'Place of birth is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                     required
-                    @input="$v.formBarangayCertificate.placeOfBirth_native.$touch()"
-                    @blur="$v.formBarangayCertificate.placeOfBirth_native.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.house_no"
                     label="House number*"
-                    :error-messages="house_noErrors"
+                    :rules="[v => !!v || 'House number is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                     required
-                    @input="$v.formBarangayCertificate.house_no.$touch()"
-                    @blur="$v.formBarangayCertificate.house_no.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.purok"
                     label="Purok*"
-                    :error-messages="purokErrors"
+                    :rules="[v => !!v || 'Purok is required']"
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                     required
-                    @input="$v.formBarangayCertificate.purok.$touch()"
-                    @blur="$v.formBarangayCertificate.purok.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.street"
                     label="Street*"
-                    :error-messages="streetErrors"
+                    :rules="[v => !!v || 'Street is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                     required
-                    @input="$v.formBarangayCertificate.street.$touch()"
-                    @blur="$v.formBarangayCertificate.street.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.control_no"
                     label="Control number*"
-                    :error-messages="control_noErrors"
+                    :rules="[v => !!v || 'Control number is required']"
                     required
-                    @input="$v.formBarangayCertificate.control_no.$touch()"
-                    @blur="$v.formBarangayCertificate.control_no.$touch()"
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.ctc_no"
                     label="Community tax certificate number*"
-                    :error-messages="ctc_noErrors"
+                    :rules="[v => !!v || 'Community tax certificate number is required']"
                     required
-                    @input="$v.formBarangayCertificate.ctc_no.$touch()"
-                    @blur="$v.formBarangayCertificate.ctc_no.$touch()"
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.official_receipt_no"
                     label="Official receipt number*"
-                    :error-messages="official_receipt_noErrors"
+                    :rules="[v => !!v || 'Official receipt number is required']"
                     required
-                    @input="$v.formBarangayCertificate.official_receipt_no.$touch()"
-                    @blur="$v.formBarangayCertificate.official_receipt_no.$touch()"
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field
                     v-model="formBarangayCertificate.purpose_certification"
                     label="Purpose of certificate*"
-                    :error-messages="purpose_certificationErrors"
+                    :rules="[v => !!v || 'Purpose of certificate is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                     required
-                    @input="$v.formBarangayCertificate.purpose_certification.$touch()"
-                    @blur="$v.formBarangayCertificate.purpose_certification.$touch()"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field
                     v-model="formBarangayCertificate.amount_paid"
                     label="Amount paid*"
-                    :error-messages="amount_paidErrors"
+                    :rules="[v => !!v || 'Amount paid is required']"
                     required
-                    @input="$v.formBarangayCertificate.amount_paid.$touch()"
-                    @blur="$v.formBarangayCertificate.amount_paid.$touch()"
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -196,7 +186,7 @@
             <p class="mb-0">* indicates required field</p>
             <v-spacer></v-spacer>
             <v-btn color="primary" @click="cancel" text>cancel</v-btn>
-            <v-btn color="primary" text type="submit">Save</v-btn>
+            <v-btn color="primary" :disabled="!validForm" text type="submit">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -355,10 +345,9 @@
 
 <script>
 import Print from "./FormsPrint.vue";
-import { validationMixin } from "vuelidate";
-import { required, numeric } from "vuelidate/lib/validators";
 export default {
   data: () => ({
+    validForm: true,
     barangayCertificateIssued: [],
     user: {},
     address: [],
@@ -398,138 +387,6 @@ export default {
       logo: ""
     })
   }),
-  mixins: [validationMixin],
-  validations: {
-    formBarangayCertificate: {
-      control_no: { required, numeric },
-      purpose_certification: { required },
-      ctc_no: { required, numeric },
-      official_receipt_no: { required, numeric },
-      amount_paid: { required, numeric },
-      created_at: { required },
-      last_name: { required },
-      first_name: { required },
-      middle_name: { required },
-      house_no: { required },
-      purok: { required },
-      street: { required },
-      date_of_birth: { required },
-      citizenship: { required },
-      placeOfBirth_native: { required },
-      age: { required }
-    }
-  },
-  computed: {
-    control_noErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.control_no.$dirty) return errors;
-      !this.$v.formBarangayCertificate.control_no.required &&
-        errors.push("Control number is required.");
-      !this.$v.formBarangayCertificate.control_no.numeric &&
-        errors.push("Control number must be numbers.");
-      return errors;
-    },
-    purpose_certificationErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.purpose_certification.$dirty)
-        return errors;
-      !this.$v.formBarangayCertificate.purpose_certification.required &&
-        errors.push("Purpose of certificate is required.");
-      return errors;
-    },
-    ctc_noErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.ctc_no.$dirty) return errors;
-      !this.$v.formBarangayCertificate.ctc_no.required &&
-        errors.push("Community tax certificate number required.");
-      !this.$v.formBarangayCertificate.ctc_no.numeric &&
-        errors.push("Community tax certificate must be numbers.");
-      return errors;
-    },
-    official_receipt_noErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.official_receipt_no.$dirty)
-        return errors;
-      !this.$v.formBarangayCertificate.official_receipt_no.required &&
-        errors.push("Official receipt number is required.");
-      !this.$v.formBarangayCertificate.official_receipt_no.numeric &&
-        errors.push("Official receipt must be numbers.");
-      return errors;
-    },
-    amount_paidErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.amount_paid.$dirty) return errors;
-      !this.$v.formBarangayCertificate.amount_paid.required &&
-        errors.push("Amount paid is required.");
-      !this.$v.formBarangayCertificate.amount_paid.numeric &&
-        errors.push("Amount paid must be numbers.");
-      return errors;
-    },
-    last_nameErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.last_name.$dirty) return errors;
-      !this.$v.formBarangayCertificate.last_name.required &&
-        errors.push("Last name is required.");
-      return errors;
-    },
-    first_nameErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.first_name.$dirty) return errors;
-      !this.$v.formBarangayCertificate.first_name.required &&
-        errors.push("First name is required.");
-      return errors;
-    },
-    middle_nameErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.middle_name.$dirty) return errors;
-      !this.$v.formBarangayCertificate.middle_name.required &&
-        errors.push("Middle name is required.");
-      return errors;
-    },
-    house_noErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.house_no.$dirty) return errors;
-      !this.$v.formBarangayCertificate.house_no.required &&
-        errors.push("House number is required.");
-      return errors;
-    },
-    purokErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.purok.$dirty) return errors;
-      !this.$v.formBarangayCertificate.purok.required &&
-        errors.push("Purok is required.");
-      return errors;
-    },
-    streetErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.street.$dirty) return errors;
-      !this.$v.formBarangayCertificate.street.required &&
-        errors.push("Street is required.");
-      return errors;
-    },
-    date_of_birthErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.date_of_birth.$dirty) return errors;
-      !this.$v.formBarangayCertificate.date_of_birth.required &&
-        errors.push("Date of Birth is required.");
-      return errors;
-    },
-    citizenshipErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.citizenship.$dirty) return errors;
-      !this.$v.formBarangayCertificate.citizenship.required &&
-        errors.push("Citizenship is required.");
-      return errors;
-    },
-    placeOfBirth_nativeErrors() {
-      const errors = [];
-      if (!this.$v.formBarangayCertificate.placeOfBirth_native.$dirty)
-        return errors;
-      !this.$v.formBarangayCertificate.placeOfBirth_native.required &&
-        errors.push("Place of Birth is required.");
-      return errors;
-    }
-  },
 
   created() {
     this.getBarangayCertificate();
@@ -550,20 +407,20 @@ export default {
     },
 
     createBarangayCertificate() {
-      this.$v.formBarangayCertificate.$touch();
-
-      this.formBarangayCertificate
-        .post("api/createBarangayCertificate")
-        .then(() => {
-          this.dialogBarangayCertificateForm = false;
-          toast.fire({
-            type: "success",
-            title: "Inhabitant has been issued business Certificate"
-          });
-          this.getBarangayCertificate();
-          this.formBarangayCertificate.reset();
-        })
-        .catch(() => {});
+      if (this.$refs.form.validate()) {
+        this.formBarangayCertificate
+          .post("api/createBarangayCertificate")
+          .then(() => {
+            this.dialogBarangayCertificateForm = false;
+            toast.fire({
+              type: "success",
+              title: "Inhabitant has been issued business Certificate"
+            });
+            this.getBarangayCertificate();
+            this.formBarangayCertificate.reset();
+          })
+          .catch(() => {});
+      }
     },
 
     printBarangayCertificate(item) {
@@ -577,14 +434,15 @@ export default {
     },
 
     done() {
+      this.$refs.form.reset();
       this.dialogBarangayCertificate = false;
-      this.$v.$reset();
       this.formBarangayCertificate.reset();
     },
 
     cancel() {
+      this.$refs.form.reset();
+      this.formBarangayCertificate.reset();
       this.dialogBarangayCertificateForm = false;
-      this.$v.$reset();
     },
 
     getAddress() {

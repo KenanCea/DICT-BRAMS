@@ -17,13 +17,13 @@
       </div>
     </v-app-bar>
 
-    <v-container grid-list-md class="pl-0 pr-2 py-2" style="background-color:white;">
+    <v-container grid-list-md style="background-color:white;">
       <v-layout row wrap>
         <v-flex xs12 md4>
           <v-card :loading="loadingInhabitants" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
-                <v-layout row text-sm-center justify-center align-center class="ma-0">
+                <v-layout row text-xs-center justify-center align-center class="ma-0">
                   <v-flex xs6>
                     <v-icon size="56px" color="red darken-1">mdi-account-multiple</v-icon>
                   </v-flex>
@@ -40,7 +40,7 @@
           <v-card :loading="loadingHousehold" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
-                <v-layout row text-sm-center justify-center align-center class="ma-0">
+                <v-layout row text-xs-center justify-center align-center class="ma-0">
                   <v-flex xs6>
                     <v-icon size="56px" color="deep-purple darken-1">mdi-home-group</v-icon>
                   </v-flex>
@@ -57,7 +57,7 @@
           <v-card :loading="loadingPurok" outlined>
             <v-card-text class="pa-0">
               <v-container class="pa-0">
-                <v-layout row text-sm-center justify-center align-center class="ma-0">
+                <v-layout row text-xs-center justify-center align-center class="ma-0">
                   <v-flex xs6>
                     <v-icon size="56px" color="indigo darken-1">mdi-map-marker</v-icon>
                   </v-flex>
@@ -71,7 +71,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex xs8>
+        <v-flex md8 xs12>
           <v-card :loading="loadingInhabitantsPurok" outlined>
             <v-card-title>Inhabitants and households per purok</v-card-title>
             <v-divider></v-divider>
@@ -81,7 +81,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex xs4>
+        <v-flex md4 xs12>
           <v-card :loading="loadingGender" outlined>
             <v-card-title>Gender</v-card-title>
             <v-divider></v-divider>
@@ -91,7 +91,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex xs4>
+        <v-flex md4 xs12>
           <v-card :loading="loadingRegVoters" outlined>
             <v-card-title>Registered voters</v-card-title>
             <v-divider></v-divider>
@@ -101,7 +101,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex xs12>
+        <v-flex md12 xs12>
           <v-card :loading="loadingReligions" outlined>
             <v-card-title>Religions</v-card-title>
             <v-divider></v-divider>
@@ -111,7 +111,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex xs12>
+        <v-flex md12 xs12>
           <v-card :loading="loadingEthnicGroups" outlined>
             <v-card-title>Ethnic group</v-card-title>
             <v-divider></v-divider>
@@ -121,7 +121,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex xs12>
+        <v-flex md12 xs12>
           <v-card :loading="loadingDialects" outlined>
             <v-card-title>Dialects</v-card-title>
             <v-divider></v-divider>

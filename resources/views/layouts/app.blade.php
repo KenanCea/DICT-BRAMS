@@ -82,50 +82,43 @@
         </v-navigation-drawer>
         @endcan
         <v-app-bar :clipped-left="$vuetify.breakpoint.mdAndUp" tile flat fixed class="border-bottom" app>
-            <v-toolbar-title style="width: 250px" class="ml-0 grey--text text--darken-2">
+            <v-toolbar-title style="width: 250px" class="grey--text text--darken-2">
                 <v-app-bar-nav-icon size="30px" @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-                <v-avatar class="mx-2" size="40px"> <img src="/img/logo.png" alt="Logo">
+                <v-avatar size="40px"> <img src="/img/logo.png" alt="Logo">
                 </v-avatar>
-                <span class="hidden-sm-and-down">BRAMS</span>
+                BRAMS
             </v-toolbar-title>
             <v-spacer></v-spacer>
             @can('isUser')
-            <div>
-                <v-tooltip attach bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn to="/needquestions" text icon v-on="on">
-                            <v-icon>mdi-help-circle-outline</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Question</span>
-                </v-tooltip>
-            </div>
-            <div class="ml-2">
-                <v-tooltip attach bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn to="/secretaryduties" text icon v-on="on">
-                            <v-icon>mdi-information-outline</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Secretary Duties</span>
-                </v-tooltip>
-            </div>
-            <div class="ml-2">
-                <v-tooltip bottom>
-                    <template v-slot:activator="{ on }">
-                        <v-btn to="/summary" text icon v-on="on">
-                            <v-icon>mdi-account-details</v-icon>
-                        </v-btn>
-                    </template>
-                    <span>Barangay Details</span>
-                </v-tooltip>
-            </div>
+
+            <v-tooltip attach bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn to="/needquestions" text icon v-on="on">
+                        <v-icon>mdi-help-circle-outline</v-icon>
+                    </v-btn>
+                </template>
+                <span>Question</span>
+            </v-tooltip>
+
+
+            <v-tooltip attach bottom>
+                <template v-slot:activator="{ on }">
+                    <v-btn to="/secretaryduties" text icon v-on="on">
+                        <v-icon>mdi-information-outline</v-icon>
+                    </v-btn>
+                </template>
+                <span>Secretary Duties</span>
+            </v-tooltip>
             @endcan
             <v-menu offset-y>
                 <template v-slot:activator="{ on }">
-                    <v-btn text large v-on="on" color="primary" class="px-2 ml-3" id="profile-button">
+                    <v-btn class="hidden-sm-and-down" text large v-on="on" color="primary" class="px-2 ml-3" id="profile-button">
                         <div class="font-weight-bold text-none" style="color:#616161">{{ Auth::user()->name }}</div>
                         <v-avatar size="32px" class="ml-2"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo">
+                        </v-avatar>
+                    </v-btn>
+                    <v-btn class="hidden-sm-and-up" icon v-on="on" color="primary">
+                        <v-avatar size="40px"> <img src="/img/profile/{{ Auth::user()->logo }}" alt="Logo">
                         </v-avatar>
                     </v-btn>
                 </template>

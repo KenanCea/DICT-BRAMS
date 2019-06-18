@@ -5,14 +5,10 @@
         <span class="hidden-sm-and-down">Barangay Clearance</span>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-tooltip attach bottom>
-        <template v-slot:activator="{ on }">
-          <v-btn text icon color="primary" v-on="on" @click="createBarangayClearanceDialog">
-            <v-icon color="grey darken-2">mdi-file-document-edit</v-icon>
-          </v-btn>
-        </template>
-        <span>Fill-up form</span>
-      </v-tooltip>
+      <v-btn depressed color="primary" @click="createBarangayClearanceDialog">
+        Fill-up form
+        <v-icon right dark>mdi-file-document-edit</v-icon>
+      </v-btn>
     </v-app-bar>
 
     <v-dialog v-model="dialogBarangayClearanceForm" scrollable persistent max-width="800px">
@@ -23,7 +19,6 @@
           </v-card-title>
 
           <v-spacer></v-spacer>
-          <form-print></form-print>
 
           <v-divider></v-divider>
           <v-card-text>
@@ -138,7 +133,10 @@
                 <img src="/img/baguio.png" alt="Logo" contain height="100">
               </v-flex>
               <v-flex xs6 class="green--text title">
-                <p class="mb-0">Barangay <span>{{ formBarangayClearance.first_name ? `${address[0].name}` : '______________________' }}</span></p>
+                <p class="mb-0">
+                  Barangay
+                  <span>{{ formBarangayClearance.first_name ? `${address[0].name}` : '______________________' }}</span>
+                </p>
                 <p class="mb-0">Republic of the Philippines</p>
                 <p class="mb-0">Baguio City</p>
               </v-flex>

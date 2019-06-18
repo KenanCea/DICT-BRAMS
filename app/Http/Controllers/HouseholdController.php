@@ -74,6 +74,7 @@ class HouseholdController extends Controller
         return $inhabitant;
     }
 
+
     /**
      * Update the specified resource in storage.
      *

@@ -226,7 +226,7 @@ export default {
       { text: "Final Family Income", value: "Final_family_income" },
       { text: "Religion", value: "religion" },
       { text: "Status of Residency", value: "status_of_residency" },
-      { text: "Shooling", value: "schooling" },
+      { text: "Schooling", value: "schooling" },
 
       {
         text: "Highest Educ'l Attainment",

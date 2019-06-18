@@ -12,6 +12,9 @@ import { Form,  HasError, AlertError } from 'vform';
 import swal from 'sweetalert2';
 window.swal = swal;
 import Gate from "./Gate";
+import VueTheMask from 'vue-the-mask'
+
+Vue.use(VueTheMask)
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)
@@ -189,10 +192,10 @@ const app = new Vue({
             },
 
             {
-                icon: "mdi-map",
-                title: "Barangay Information",
-                name: "Barangay Information",
-                to: "/barangayinformation"
+                icon: "mdi-account-details",
+                title: "Barangay Details",
+                name: "Barangay Details",
+                to: "/summary"
             }
         ],
 
