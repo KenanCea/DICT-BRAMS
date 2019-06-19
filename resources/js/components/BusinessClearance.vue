@@ -12,7 +12,12 @@
     </v-app-bar>
 
     <v-dialog v-model="dialogBusinessClearanceForm" scrollable persistent max-width="800px">
-      <v-form @submit.prevent="createBusinessClearance">
+      <v-form
+        ref="form"
+        v-model="validForm"
+        lazy-validation
+        @submit.prevent="createBusinessClearance"
+      >
         <v-card>
           <v-card-title>
             <span class="headline">Issue business clearance</span>
@@ -22,48 +27,106 @@
             <v-container grid-list-md class="pa-0" id="printForm">
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBusinessClearance.first_name" label="First name*"></v-text-field>
+                  <v-text-field
+                    v-model="formBusinessClearance.first_name"
+                    label="First name*"
+                    :rules="[v => !!v || 'First name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBusinessClearance.middle_name" label="Middle name*"></v-text-field>
+                  <v-text-field
+                    v-model="formBusinessClearance.middle_name"
+                    label="Middle name*"
+                    :rules="[v => !!v || 'Middle name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBusinessClearance.last_name" label="Last name*"></v-text-field>
+                  <v-text-field
+                    v-model="formBusinessClearance.last_name"
+                    label="Last name*"
+                    :rules="[v => !!v || 'Last name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBusinessClearance.house_no" label="House number*"></v-text-field>
+                  <v-text-field
+                    v-model="formBusinessClearance.house_no"
+                    label="House number*"
+                    :rules="[v => !!v || 'House number is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBusinessClearance.purok" label="Purok*"></v-text-field>
+                  <v-text-field
+                    v-model="formBusinessClearance.purok"
+                    label="Purok*"
+                    :rules="[v => !!v || 'Purok is required']"
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBusinessClearance.street" label="Street*"></v-text-field>
+                  <v-text-field
+                    v-model="formBusinessClearance.street"
+                    label="Street*"
+                    :rules="[v => !!v || 'Street is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBusinessClearance.control_no" label="Control number*"></v-text-field>
+                  <v-text-field
+                    v-model="formBusinessClearance.control_no"
+                    label="Control number*"
+                    :rules="[v => !!v || 'Control number is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBusinessClearance.ctc_no"
                     label="Community tax certificate number*"
+                    :rules="[v => !!v || 'Community tax certificate number is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBusinessClearance.official_receipt_no"
                     label="Official receipt number*"
+                    :rules="[v => !!v || 'Official receipt number is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBusinessClearance.business_address"
                     label="Business address*"
+                    :rules="[v => !!v || 'Business address is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBusinessClearance.business_trade_name"
                     label="Business trade name*"
+                    :rules="[v => !!v || 'Business trade name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -71,6 +134,8 @@
                     v-model="formBusinessClearance.business_application"
                     :items="['New', 'Renewal']"
                     label="Business application*"
+                    :rules="[v => !!v || 'Business application is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -78,6 +143,8 @@
                     v-model="formBusinessClearance.kind_business"
                     label="Kind of business*"
                     :items="['Agriculture', 'Construction', 'Electricity/gas and water', 'Wholesale retail, and trade', 'Transport, storage communications', 'Community Social and personal services', 'Financing Insurance', 'Real States', 'Manufacturing', 'Mining']"
+                    :rules="[v => !!v || 'Kind of business is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -85,12 +152,18 @@
                     v-model="formBusinessClearance.line_of_business"
                     label="Line of business*"
                     :items="['Poultry/Livestock', 'Nurseries/Flower Growing', 'Breeding Stations', 'Fishponds/Fishpens', 'Vineyards/Mussel Farms', 'Orchards/Vineyards', 'Vegetable Farms', 'Supermarkets', 'Groceries/Dry Goods Stores', 'Sari-sari Stores', 'Banks and Financial/Lending Institutions', 'Auto Supply and Motorports', 'Distributors, Dealers of Various Products', 'Gasoline stations', 'Photo and Record Shops', 'Jewelry Stores', 'Pawnshops', 'General Services/Contractors', 'Beauty Parlors or Barber shops', 'Fitness Gyms', 'Restaurants', 'Insurance/Dealer in Securities', 'Furniture Shops', 'Livestock and Poultry Supplyes Stores', 'Hardware/Electric Supplies', 'Videoke Shops', 'Computer Shops/Internet Cafe', 'Buy and Sell Stations', 'Water Refilling Stations', 'Hotel/Inns', 'Apartment/Boarding House', 'Handicraft', 'Metalcraft', 'Garments', 'Ceramics', 'Food Processing', 'Mining and Quarrying', 'Factories', 'Rice/Corn/Flour/Saw Mills', 'Junkshops']"
+                    :rules="[v => !!v || 'Line of business is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBusinessClearance.total_amt_paid"
                     label="Total amount paid*"
+                    :rules="[v => !!v || 'Total amount paid is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
@@ -98,12 +171,17 @@
                     v-model="formBusinessClearance.action_taken"
                     label="Action taken on application*"
                     :items="['Approval', 'Disapproval']"
+                    :rules="[v => !!v || 'Purpose of certificate is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field
                     v-model="formBusinessClearance.reasons_approv_disapprove"
                     label="Reason for approval/disapproval*"
+                    :rules="[v => !!v || 'Purpose of certificate is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -113,8 +191,8 @@
           <v-card-actions>
             <p class="mb-0">* indicates required field</p>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="dialogBusinessClearanceForm = false" text>cancel</v-btn>
-            <v-btn color="primary" type="submit" text>Save</v-btn>
+            <v-btn color="primary" @click="cancel" text>cancel</v-btn>
+            <v-btn color="primary" :disabled="!validForm" type="submit" text>Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -273,7 +351,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="clearInput()">Done</v-btn>
+          <v-btn color="primary" text @click="done">Done</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -303,6 +381,7 @@ export default {
     dialogBusinessClearanceForm: false,
     dialogBusinessClearance: false,
     loading: false,
+    validForm: true,
     businessClearanceHeaders: [
       { text: "Control no.", value: "control_no" },
       { text: "Last name", value: "last_name" },
@@ -383,9 +462,16 @@ export default {
       this.dialogBusinessClearanceForm = true;
     },
 
-    clearInput() {
+    done() {
+      this.$refs.form.reset();
       this.dialogBusinessClearance = false;
       this.formBusinessClearance.reset();
+    },
+
+    cancel() {
+      this.$refs.form.reset();
+      this.formBusinessClearance.reset();
+      this.dialogBusinessClearanceForm = false;
     },
 
     getAddress() {

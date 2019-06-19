@@ -91,7 +91,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex md4 xs12>
+        <v-flex md12 xs12>
           <v-card :loading="loadingRegVoters" outlined>
             <v-card-title>Registered voters</v-card-title>
             <v-divider></v-divider>

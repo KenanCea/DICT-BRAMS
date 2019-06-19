@@ -11,7 +11,7 @@
       </v-btn>
     </v-app-bar>
     <v-dialog v-model="dialogFiledCasesForm" scrollable persistent max-width="800px">
-      <v-form @submit.prevent="createFiledCases">
+      <v-form ref="form" v-model="validForm" lazy-validation @submit.prevent="createFiledCases">
         <v-card>
           <v-card-title>
             <span class="headline">Issue filed cases</span>
@@ -21,16 +21,31 @@
             <v-container grid-list-md class="pa-0">
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.control_no" label="Control number*"></v-text-field>
+                  <v-text-field
+                    v-model="formFiledCases.control_no"
+                    label="Control number*"
+                    :rules="[v => !!v || 'Control number is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.respondent" label="Respondent*"></v-text-field>
+                  <v-text-field
+                    v-model="formFiledCases.respondent"
+                    label="Respondent*"
+                    :rules="[v => !!v || 'Respondent is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-select
                     v-model="formFiledCases.case"
                     label="Case*"
                     :items="['Collecting sum of money', 'Estafa', 'Malicius Mischief', 'Physical Injury', 'Physical Injury with Robbery', 'Theft', 'Threat', 'Unjust Vexation', 'Murder', 'Rape', 'Children in Conflict of the law']"
+                    :rules="[v => !!v || 'Case is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -38,19 +53,33 @@
                     v-model="formFiledCases.type_of_case"
                     label="Type of case*"
                     :items="['Criminal', 'Civil', 'Others']"
+                    :rules="[v => !!v || 'Type of case is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.complainant" label="Complainant*"></v-text-field>
+                  <v-text-field
+                    v-model="formFiledCases.complainant"
+                    label="Complainant"
+                    :rules="[v => !!v || 'Complainant is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.co_complainant" label="Co-complainant*"></v-text-field>
+                  <v-text-field
+                    v-model="formFiledCases.co_complainant"
+                    label="Co-complainant*"
+                    :rules="[v => (v || '').indexOf('  ') < 0 || 'No multiple spaces are allowed']"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-select
                     v-model="formFiledCases.action_taken_on_settled"
                     label="Action taken on settled*"
                     :items="['Arbitration', 'Conciliation', 'Mediation']"
+                    :rules="[v => !!v || 'Action taken on settled is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
@@ -58,10 +87,18 @@
                     v-model="formFiledCases.action_taken_on_unsettled"
                     label="Action taken on unsettled*"
                     :items="['Repudiation', 'Withdrawn', 'Pending case', 'Case dismissed', 'Case certified', 'Referred to concerned agencies']"
+                    :rules="[v => !!v || 'Action taken on unsettled is required']"
+                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formFiledCases.remarks" label="Remarks*"></v-text-field>
+                  <v-text-field
+                    v-model="formFiledCases.remarks"
+                    label="Remarks*"
+                    :rules="[v => !!v || 'Remarks is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
               </v-layout>
             </v-container>
@@ -70,8 +107,8 @@
           <v-card-actions>
             <p class="mb-0">* indicates required field</p>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="dialogFiledCasesForm = false" text>cancel</v-btn>
-            <v-btn color="primary" type="submit" text>Save</v-btn>
+            <v-btn color="primary" @click="cancel" text>cancel</v-btn>
+            <v-btn color="primary" :disabled="!validForm" type="submit" text>Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -93,6 +130,7 @@ export default {
     filedCasesIssued: [],
     loading: false,
     dialogFiledCasesForm: false,
+    validForm: true,
     filedCasesHeaders: [
       { text: "Control no.", value: "control_no" },
       { text: "Respondent", value: "respondent" },
@@ -138,6 +176,11 @@ export default {
           this.formFiledCases.reset();
         })
         .catch(() => {});
+    },
+    cancel() {
+      this.$refs.form.reset();
+      this.formFiledCases.reset();
+      this.dialogFiledCasesForm = false;
     }
   }
 };

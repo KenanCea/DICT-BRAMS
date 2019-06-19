@@ -599,24 +599,39 @@
                     <v-text-field
                       v-model="formBarangayClearance.control_no"
                       label="Control number*"
+                      :rules="[v => !!v || 'Control number is required']"
+                      required
+                      v-mask="'################'"
+                      hint="Only numbers are allowed"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayClearance.ctc_no"
                       label="Community tax certificate number*"
+                      :rules="[v => !!v || 'Community tax certificate number is required']"
+                      required
+                      v-mask="'################'"
+                      hint="Only numbers are allowed"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayClearance.purpose_of_clearance"
                       label="Purpose of clearance*"
+                      :rules="[v => !!v || 'Purpose of clearance is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                      required
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayClearance.official_receipt_no"
                       label="Official receipt number*"
+                      :rules="[v => !!v || 'Official receipt number is required']"
+                      required
+                      v-mask="'################'"
+                      hint="Only numbers are allowed"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -797,30 +812,49 @@
                     <v-text-field
                       v-model="formBarangayCertificate.control_no"
                       label="Control number*"
+                      :rules="[v => !!v || 'Control number is required']"
+                      required
+                      v-mask="'################'"
+                      hint="Only numbers are allowed"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="formBarangayCertificate.ctc_no"
                       label="Community tax certificate number*"
+                      :rules="[v => !!v || 'Community tax certificate number is required']"
+                      required
+                      v-mask="'################'"
+                      hint="Only numbers are allowed"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md4>
                     <v-text-field
                       v-model="formBarangayCertificate.official_receipt_no"
                       label="Official receipt number*"
+                      :rules="[v => !!v || 'Official receipt number is required']"
+                      required
+                      v-mask="'################'"
+                      hint="Only numbers are allowed"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayCertificate.purpose_certification"
                       label="Purpose of certificate*"
+                      :rules="[v => !!v || 'Purpose of certificate is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                      required
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field
                       v-model="formBarangayCertificate.amount_paid"
                       label="Amount paid*"
+                      :rules="[v => !!v || 'Amount paid is required']"
+                      required
+                      v-mask="'################'"
+                      hint="Only numbers are allowed"
                     ></v-text-field>
                   </v-flex>
                 </v-layout>
