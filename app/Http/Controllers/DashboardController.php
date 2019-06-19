@@ -70,13 +70,14 @@ class DashboardController extends Controller
             ->groupby('sex')
             ->get();
     }
-    public function TotalReligion()
+    public function TotalRel()
     {
         return DB::table('inhabitants')
             ->leftJoin('users', 'inhabitants.user_id', '=', 'users.id')
             ->select('inhabitants.religion as Religion', DB::raw('count(*) as Total'))
             ->where('users.id', Auth::user()->id)
             ->whereNull('inhabitants.deleted_at')
+            ->whereNotNull('inhabitants.religion')
             ->groupby('religion')
             ->get();
     }
@@ -87,6 +88,7 @@ class DashboardController extends Controller
             ->select('inhabitants.ethnicGroup as EthnicGroup', DB::raw('count(*) as Total'))
             ->where('users.id', Auth::user()->id)
             ->whereNull('inhabitants.deleted_at')
+            ->whereNotNull('inhabitants.ethnicGroup')
             ->groupby('ethnicGroup')
             ->get();
     }

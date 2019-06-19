@@ -219,7 +219,7 @@ export default {
       });
     },
     getReligion() {
-      axios.get("api/Religion").then(response => {
+      axios.get("api/rel").then(response => {
         this.religions.rows = response.data;
         this.loadingReligions = false;
       });
