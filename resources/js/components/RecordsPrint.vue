@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style='min-width:100px; max-width:100px'>
       <header id='printHeader'>
             <h1>REPUBLIC OF THE PHILIPPINES</h1>
             <h2> {{ reportshHeader.region }} </h2>

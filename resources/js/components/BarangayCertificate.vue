@@ -204,7 +204,7 @@
           <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
             <v-layout row wrap>
               <v-flex xs3>
-                <v-img src="/img/baguio.png" alt="Logo" contain height="100"></v-img>
+                <img src="/img/baguio.png" alt="Logo" contain height="100">
               </v-flex>
               <v-flex xs6 class="green--text title">
                 <p class="mb-0">
