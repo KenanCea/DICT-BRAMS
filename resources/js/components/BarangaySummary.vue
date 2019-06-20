@@ -2,6 +2,11 @@
   <v-app>
     <v-container grid-list-md class="pl-0 pr-2 py-2" style="background-color:white;" >
       <v-layout row wrap>
+                  <v-flex xs11 class="black--text title" text-xs-right>
+                    <v-btn small > <v-icon>mdi-printer</v-icon>
+                    Print
+                    </v-btn>
+                  </v-flex>
         <v-flex xs12 class="black--text title" text-xs-center>
             <br>
             <h2> {{ reportshHeader.name }} ~ {{reportshHeader.municipality}} Barangay Profile Update</h2>
@@ -41,27 +46,50 @@
       </v-flex>
       <v-container grid-list-md text-ms-left>
     <v-layout row wrap>
-    <v-flex xs3 py-3>
+    <v-flex xs1 py-3>
       <v-spacer></v-spacer>
       </v-flex>
-      <v-flex d-flex xs3 py-3>
-      <v-card flat>
-        <p class="text-xs-left">Total Land Area: {{landarea.totalland_area_sqkm}}</p>
-        <p class="text-xs-left">Total Purok: {{purok}}</p>
-        <p class="text-xs-left">Total Households: {{household}}</p>
-        <p class="text-xs-left">Barangay Population: {{inhabitant}}</p>
-        <p class="text-xs-left">Total Male Residents: {{male}}</p>
-        <p class="text-xs-left">Total Female Residents:{{female}}</p>
-        </v-card>
+      <v-flex xs3>
+      <v-card-text>
+        <p class="text-xs-right"><strong>Total Land Area:</strong></p>
+        <p class="text-xs-right"><strong>Total Purok:</strong> </p>
+        <p class="text-xs-right"><strong>Total Households:</strong></p>
+        <p class="text-xs-right"><strong>Barangay Population:</strong> </p>
+        <p class="text-xs-right"><strong>Total Male Residents:</strong></p>
+        <p class="text-xs-right"><strong>Total Female Residents:</strong></p>
+      </v-card-text>
       </v-flex>
+       <v-flex xs1>
+      <v-card-text>
+          <p class="text-xs-left">{{landarea.totalland_area_sqkm}}</p>
+          <p class="text-xs-left">{{purok}}</p>
+          <p class="text-xs-left"> {{household}}</p>
+          <p class="text-xs-left">{{inhabitant}}</p>
+          <p class="text-xs-left">{{male}}</p>
+          <p class="text-xs-left">{{female}}</p>
+      </v-card-text>
+      </v-flex>
+
       
-      <v-flex xs3 py-3>
-        <p class="text-xs-left">No. of Permanent Residents: {{statusResidency}}</p>
-        <p class="text-xs-left">Registered Voters: {{regVoters}}</p>
-        <p class="text-xs-left">Total Children below 6 years old: {{children}}</p>
-        <p class="text-xs-left">Total Senior Citizens: {{seniors}}</p>
-        <p class="text-xs-left">Out of School Youth: {{schooling}}</p>
-        <p class="text-xs-left">Solo Parents: {{soloparent}}</p>
+      <v-flex xs4>
+      <v-card-text>
+        <p class="text-xs-right"><strong>No. of Permanent Residents:</strong></p>
+        <p class="text-xs-right"><strong>Registered Voters:</strong></p>
+        <p class="text-xs-right"><strong>Total Children below 6 years old:</strong></p>
+        <p class="text-xs-right"><strong>Total Senior Citizens:</strong></p>
+        <p class="text-xs-right"><strong>Out of School Youth:</strong></p>
+        <p class="text-xs-right"><strong>Solo Parents:</strong></p>
+        </v-card-text>
+      </v-flex>
+      <v-flex xs1>
+      <v-card-text>
+          <p class="text-xs-left">{{statusResidency}}</p>
+          <p class="text-xs-left">{{regVoters}}</p>
+          <p class="text-xs-left"> {{children}}</p>
+          <p class="text-xs-left">{{seniors}}</p>
+          <p class="text-xs-left">{{schooling}}</p>
+          <p class="text-xs-left">{{soloparent}}</p>
+      </v-card-text>
       </v-flex>
     </v-layout>
   </v-container>
