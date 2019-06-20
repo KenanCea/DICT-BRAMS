@@ -25,7 +25,8 @@ class Barangay extends Model
         'totalland_area_sqkm',
         'distance_municipal_city',
         'province_capitol',
-        'national_highway'
+        'national_highway',
+        'user_id'
     ];
     public function user()
     {

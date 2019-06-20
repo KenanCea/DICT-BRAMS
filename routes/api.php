@@ -38,6 +38,7 @@ Route::resources([
 Route::get('profile', 'UserController@profile');
 Route::put('updateProfile', 'UserController@updateProfile');
 Route::get('barangayForm', 'BarangayController@barangay');
+Route::post('barangayInformation', 'BarangayUserController@barangayInformation');
 
 
 //Barangay users

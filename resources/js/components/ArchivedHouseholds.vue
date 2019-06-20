@@ -99,6 +99,7 @@
         <td
           v-if="showColumn('means_of_transportation_others')"
         >{{ props.item.means_of_transportation_others }}</td>
+        <td v-if="showColumn('remarks')">{{ props.item.remarks }}</td>
         <td v-if="showColumn('sources_of_info')">{{ props.item.sources_of_info }}</td>
         <td v-if="showColumn('sources_of_info_others')">{{ props.item.sources_of_info_others }}</td>
         <td v-if="showColumn('telephone_no')">{{ props.item.telephone_no }}</td>
@@ -176,6 +177,7 @@ export default {
           value: "communication_services_others"
         },
         { text: "Means of transportation", value: "means_of_transportation" },
+        { text: "Remarks", value: "remarks", selected: true},
         {
           text: "Means of transportation others",
           value: "means_of_transportation_others"

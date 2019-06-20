@@ -78,7 +78,7 @@
         <div v-if="selectedInhabitant.length">
           <v-tooltip attach bottom>
             <template v-slot:activator="{ on }">
-              <v-btn v-on="on" icon @click="archive(selectedInhabitant[0].id)">
+              <v-btn v-on="on" icon @click="archiveDialog()">
                 <v-icon>mdi-archive</v-icon>
               </v-btn>
             </template>
@@ -179,6 +179,7 @@
                       required
                     ></v-text-field>
                   </v-flex>
+                  
                   <v-flex xs6>
                     <v-select
                       v-model="inhabitantForm.relation_to_the_head"
@@ -1342,6 +1343,36 @@
         </v-form>
       </v-dialog>
 
+
+
+      <v-dialog v-model="dialogArchive" persistent scrollable max-width="400px">
+        <v-form 
+        ref="archiveForm"
+        @submit.prevent="archiveInhabitant(selectedInhabitant[0].id)">
+          <v-card min-width="400px">
+            <v-card-title>
+              <span class="headline">Remarks</span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex>
+                    <v-text-field v-model="archiveForm.remarks"></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialogArchive=false">Cancel</v-btn>
+              <v-btn color="blue darken-1" text type="submit">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+
       <v-data-table
         id="printTable"
         v-model="selectedInhabitant"
@@ -1492,11 +1523,15 @@ export default {
       { text: "Co_complainant", value: "co_complainant" },
       { text: "Issued on", value: "created_at" }
     ],
+    archiveForm: new Form({
+        remarks: ""
+      }),
     selectedInhabitant: [],
     inhabitants: [],
     inhabitantsList: [],
     user: {},
     address: [],
+    dialogArchive: false,
     officials: [],
     dialogEditInhabitant: false,
     barangayClearanceIssued: [],
@@ -1797,10 +1832,11 @@ export default {
         .catch(() => {});
     },
 
-    archive(id) {
+    archiveInhabitant(id) {
       swal
         .fire({
           title: "Are you sure?",
+          text: "This inhabitant will be archived!",
           type: "warning",
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
@@ -1809,11 +1845,12 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            axios.post("api/inhabitants/archived/" + id).then(response => {
+            this.archiveForm.post("api/inhabitants/archived/" + id).then(response => {
               toast.fire({
                 type: "success",
                 title: "Inhabitant has been archived."
               });
+              this.dialogArchive=false;
               this.getInhabitants();
               this.selectedInhabitant.splice([0]);
             });
@@ -1832,6 +1869,11 @@ export default {
           ? this.formUser.logo
           : "img/profile/" + this.formUser.logo;
       return logo;
+    },
+
+    archiveDialog() {
+      this.archiveForm.reset();
+      this.dialogArchive = true;
     },
 
     clearForm() {

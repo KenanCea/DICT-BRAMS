@@ -99,13 +99,15 @@ class HouseholdController extends Controller
         $household = Household::findOrFail($id);
     }
 
-    public function archive($id)
+    public function archive(Request $request,$id)
     {
         $household = Household::findOrFail($id);
+        $household->update(['remarks'=>request('remarks')]);
         $household->delete();
 
 
         $inhabitants = Inhabitant::where('household_id', $id);
+        $inhabitants->update(['remarks'=>"household has been ".request('remarks')]);
         $inhabitants->delete();
 
         

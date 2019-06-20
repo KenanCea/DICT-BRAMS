@@ -145,6 +145,7 @@
           <td v-if="showColumn('age')">{{ props.item.age }}</td>
           <td v-if="showColumn('employment_category')">{{ props.item.employment_category }}</td>
           <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
+          <td v-if="showColumn('remarks')">{{ props.item.remarks }}</td>
           <td
             v-if="showColumn('estimated_monthly_income_cash')"
           >{{ props.item.estimated_monthly_income_cash }}</td>
@@ -206,6 +207,7 @@ export default {
       { text: "Last name", value: "last_name", selected: true },
       { text: "Age", value: "age", selected: true },
       { text: "Sex", value: "sex", selected: true },
+      { text: "Remarks", value: "remarks", selected: true },
       {
         text: "Relation to The Head",
         value: "relation_to_the_head",

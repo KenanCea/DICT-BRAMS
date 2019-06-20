@@ -43,7 +43,7 @@
       <div v-if="selected.length">
         <v-tooltip attach bottom>
           <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="archiveHousehold(selected[0].id)">
+            <v-btn v-on="on" icon @click="HouseholdarchiveDialog()">
               <v-icon>mdi-archive</v-icon>
             </v-btn>
           </template>
@@ -396,19 +396,16 @@
               <v-layout wrap>
                 <v-flex xs12 md4>
                   <v-text-field
+                  disabled
                     v-model="inhabitantForm.first_name"
-                    label="First name*"
-                    :rules="[v => !!v || 'First name is required', v => (v || '').indexOf('  ') < 0 ||
-              'No multiple spaces are allowed']"
-                    required
+                    label="First name"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 md4>
                   <v-text-field
+                  disabled
                     v-model="inhabitantForm.middle_name"
                     label="Middle name"
-                    :rules="[v => (v || '').indexOf('  ') < 0 ||
-              'No multiple spaces are allowed']"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 md4>
@@ -763,6 +760,34 @@
       </v-form>
     </v-dialog>
 
+    <v-dialog v-model="dialogArchive" persistent scrollable max-width="400px">
+        <v-form 
+        ref="archiveForm"
+        @submit.prevent="archivehouse ? archiveHousehold(selected[0].id) : archiveInhabitant(selectedInhabitant[0].id)">
+          <v-card min-width="400px">
+            <v-card-title>
+              <span class="headline">Remarks</span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex>
+                    <v-text-field v-model="archiveForm.remarks"></v-text-field>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialogArchive=false">Cancel</v-btn>
+              <v-btn color="blue darken-1" text type="submit">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+
     <v-dialog v-model="dialogInhabitants" persistent scrollable max-width="800px">
       <v-card>
         <v-card-title>
@@ -802,7 +827,7 @@
           <div v-if="selectedInhabitant.length" class="ml-1">
             <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
-                <v-btn v-on="on" icon @click="archiveInhabitant(selectedInhabitant[0].id)">
+                <v-btn v-on="on" icon @click="InhabitantarchiveDialog()">
                   <v-icon>mdi-archive</v-icon>
                 </v-btn>
               </template>
@@ -901,10 +926,12 @@ export default {
       households: [],
       inhabitants: [],
       address: [],
+      dialogArchive: false,
       dialogHousehold: false,
       dialogCreateInhabitant: false,
       dialogInhabitants: false,
       inhabitantsList: [],
+      archivehouse: true,
       editmode: false,
       editModeInhabitant: false,
       selected: [],
@@ -917,6 +944,9 @@ export default {
       menuHeight: false,
       validhouseholdForm: true,
       validinhabitantForm: true,
+      archiveForm: new Form({
+        remarks: ""
+      }),
       householdForm: new Form({
         id: "",
         solo_parent: "",
@@ -1193,11 +1223,12 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            axios.post("api/inhabitants/archived/" + id).then(response => {
+            this.archiveForm.post("api/inhabitants/archived/" + id).then(response => {
               toast.fire({
                 type: "success",
                 title: "Inhabitant has been archived."
               });
+              this.dialogArchive=false;
               this.getHouseholds();
               this.showInhabitants(this.selected[0].id);
               this.selectedInhabitant.splice([0]);
@@ -1219,11 +1250,12 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            axios.post("api/households/archived/" + id).then(response => {
+            this.archiveForm.post("api/households/archived/" + id).then(response => {
               toast.fire({
                 type: "success",
                 title: "Household has been archived."
               });
+              this.dialogArchive=false;
               this.getHouseholds();
               this.selected.splice([0]);
             });
@@ -1239,6 +1271,12 @@ export default {
       this.dialogCreateInhabitant = true;
     },
 
+    InhabitantarchiveDialog() {
+      this.archivehouse = false;
+      this.archiveForm.reset();
+      this.dialogArchive = true;
+    },
+
     editInhabitantDialog(inhabitantsList) {
       this.editModeInhabitant = true;
       this.inhabitantForm.reset();
@@ -1250,6 +1288,12 @@ export default {
       this.editmode = false;
       this.householdForm.reset();
       this.dialogHousehold = true;
+    },
+
+    HouseholdarchiveDialog() {
+      this.archivehouse = true;
+      this.archiveForm.reset();
+      this.dialogArchive = true;
     },
 
     editHouseholdDialog(households) {

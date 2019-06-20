@@ -30,7 +30,8 @@ class Household extends Model
         'communication_services',
         'communication_services_others',
         'means of transportation',
-        'means of transportation_others'
+        'means of transportation_others',
+        'remarks'
     ];
 
     public function user()

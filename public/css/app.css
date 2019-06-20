@@ -54,6 +54,14 @@ div.v-list-item__icon.v-list-group__header__append-icon {
   #app > div.application--wrap > aside {
     top: 57px !important;
   }
+
+  #scrolling > div {
+    padding-top: 50px;
+  }
+
+  #scrolling > div > div:nth-child(2) > div.flex.md6.xs12 {
+    padding-top: 200px;
+  }
 }
 #profile-button {
   border: 1px solid #c2c2c2;
