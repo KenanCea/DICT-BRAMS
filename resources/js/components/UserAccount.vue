@@ -143,64 +143,22 @@
                                   ></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-menu
+                                  <v-text-field
                                     v-model="calendarStartTerm"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    eager
-                                    transition="scale-transition"
-                                    offset-y
-                                    full-width
-                                    min-width="290px"
-                                  >
-                                    <template v-slot:activator="{ on }">
-                                      <v-text-field
-                                        v-model="officialForm.start_term"
-                                        label="Start Term"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        required
-                                        v-on="on"
-                                        :rules="[v => !!v || 'Start Term Date is required']"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="officialForm.start_term"
-                                      no-title
-                                      color="primary"
-                                      @input="calendarStartTerm = false"
-                                    ></v-date-picker>
-                                  </v-menu>
+                                    prepend-icon="mdi-calendar"
+                                    label="Start Term"
+                                    v-mask="'####-##-##'"
+                                    hint="YYYY-MM-DD format"
+                                  ></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-menu
+                                  <v-text-field
                                     v-model="calendarEndTerm"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    eager
-                                    transition="scale-transition"
-                                    offset-y
-                                    full-width
-                                    min-width="290px"
-                                  >
-                                    <template v-slot:activator="{ on }">
-                                      <v-text-field
-                                        v-model="officialForm.end_term"
-                                        label="End Term"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        required
-                                        v-on="on"
-                                        :rules="[v => !!v || 'End Term Date is required']"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="officialForm.end_term"
-                                      no-title
-                                      color="primary"
-                                      @input="calendarEndTerm = false"
-                                    ></v-date-picker>
-                                  </v-menu>
+                                    prepend-icon="mdi-calendar"
+                                    label="End Term"
+                                    v-mask="'####-##-##'"
+                                    hint="YYYY-MM-DD format"
+                                  ></v-text-field>
                                 </v-flex>
                               </v-layout>
                             </v-container>

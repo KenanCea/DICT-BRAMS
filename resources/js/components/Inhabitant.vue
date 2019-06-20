@@ -165,10 +165,9 @@
                   <v-flex xs6 md4>
                     <v-text-field
                       v-model="inhabitantForm.middle_name"
-                      label="Middle name*"
-                      :rules="[v => !!v || 'Middle name is required', v => (v || '').indexOf('  ') < 0 ||
+                      label="Middle name"
+                      :rules="[ v => (v || '').indexOf('  ') < 0 ||
               'No multiple spaces are allowed']"
-                      required
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs6 md4>
@@ -201,35 +200,15 @@
                   </v-flex>
 
                   <v-flex xs6>
-                    <v-menu
-                      v-model="menuBirth"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      eager
-                      transition="scale-transition"
-                      offset-y
-                      full-width
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="inhabitantForm.date_of_birth"
-                          label="Date of birth*"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-on="on"
-                          :rules="[v => !!v || 'Date of birth is required', v => (v || '').indexOf('  ') < 0 ||
-              'No multiple spaces are allowed']"
-                          required
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="inhabitantForm.date_of_birth"
-                        no-title
-                        color="primary"
-                        @input="menuBirth = false"
-                      ></v-date-picker>
-                    </v-menu>
+                    <v-text-field
+                      v-model="inhabitantForm.date_of_birth"
+                      prepend-icon="mdi-calendar"
+                      label="Date of birth*"
+                      v-mask="'####-##-##'"
+                      hint="YYYY-MM-DD format"
+                      :rules="[v => !!v || 'Date of birth is required']"
+                      required
+                    ></v-text-field>
                   </v-flex>
 
                   <v-flex xs6>
@@ -264,7 +243,7 @@
                   <v-flex xs6>
                     <v-select
                       v-model="inhabitantForm.religion"
-                      :items="['Aglipayan','Anglican','Apostolic Christian','Assembly of God','Baptist','Church of Christ','Born Again Christian','Iglesia ni Cristo','Islam','Saksi ni Jehovah','Seventh Day Adventist','Methodist','Mormons','Pentecost','Protestant','Roman Catholic']"
+                      :items="['None','Aglipayan','Anglican','Apostolic Christian','Assembly of God','Baptist','Church of Christ','Born Again Christian','Iglesia ni Cristo','Islam','Saksi ni Jehovah','Seventh Day Adventist','Methodist','Mormons','Pentecost','Protestant','Roman Catholic']"
                       label="Religion*"
                       :rules="[v => !!v || 'Religion is required']"
                       required
@@ -299,35 +278,15 @@
                     ></v-select>
                   </v-flex>
                   <v-flex xs6>
-                    <v-menu
-                      v-model="menuSettled"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      eager
-                      transition="scale-transition"
-                      offset-y
-                      full-width
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="inhabitantForm.date_settled_in_barangay"
-                          label="Date settled in the barangay*"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-on="on"
-                          :rules="[v => !!v || 'Date settled in the barangay is required', v => (v || '').indexOf('  ') < 0 ||
-              'No multiple spaces are allowed']"
-                          required
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="inhabitantForm.date_settled_in_barangay"
-                        no-title
-                        color="primary"
-                        @input="menuSettled = false"
-                      ></v-date-picker>
-                    </v-menu>
+                    <v-text-field
+                      v-model="inhabitantForm.date_settled_in_barangay"
+                      prepend-icon="mdi-calendar"
+                      label="Date settled in the barangay*"
+                      v-mask="'####-##-##'"
+                      hint="YYYY-MM-DD format"
+                      :rules="[v => !!v || 'Date settled in the barangay is required']"
+                      required
+                    ></v-text-field>
                   </v-flex>
 
                   <v-flex xs6>
@@ -440,33 +399,15 @@
                         suffix="cm"
                       ></v-text-field>
                     </v-flex>
+
                     <v-flex xs6>
-                      <v-menu
-                        v-model="menuHeight"
-                        :close-on-content-click="false"
-                        :nudge-right="40"
-                        eager
-                        transition="scale-transition"
-                        offset-y
-                        full-width
-                        min-width="290px"
-                      >
-                        <template v-slot:activator="{ on }">
-                          <v-text-field
-                            v-model="inhabitantForm.date_measured_height_weight"
-                            label="Date measured height and weight"
-                            prepend-icon="mdi-calendar"
-                            readonly
-                            v-on="on"
-                          ></v-text-field>
-                        </template>
-                        <v-date-picker
-                          v-model="inhabitantForm.date_measured_height_weight"
-                          no-title
-                          color="primary"
-                          @input="menuHeight = false"
-                        ></v-date-picker>
-                      </v-menu>
+                      <v-text-field
+                        v-model="inhabitantForm.date_measured_height_weight"
+                        prepend-icon="mdi-calendar"
+                        label="Date measured height and weight"
+                        v-mask="'####-##-##'"
+                        hint="YYYY-MM-DD format"
+                      ></v-text-field>
                     </v-flex>
 
                     <v-flex xs1>
@@ -719,7 +660,7 @@
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
-                      <p>
+                      <p style="text-indent: 5%;">
                         This is to certify that
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
@@ -732,7 +673,7 @@
                     </v-flex>
 
                     <v-flex xs12>
-                      <p>
+                      <p style="text-indent: 5%;">
                         Issued
                         <span
                           v-if="formBarangayClearance.purpose_of_clearance"
@@ -741,9 +682,32 @@
                       </p>
                     </v-flex>
 
-                    <v-flex xs6>
+                    <v-flex xs12>
+                      <p style="text-indent: 5%;">
+                        Issued this
+                        <span
+                          v-if="formBarangayClearance.created_at"
+                        >{{ formBarangayClearance.created_at | moment("Do") }}</span>
+                        <span v-else>__</span>
+                        day of
+                        <span
+                          v-if="formBarangayClearance.created_at"
+                        >{{ formBarangayClearance.created_at | moment("MMMM YYYY") }}</span>
+                        <span v-else>____________</span>
+                        at Barangay {{formBarangayClearance.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________'}}, Philippines
+                      </p>
+                    </v-flex>
+
+                    <v-flex xs6 class="pt-5">
                       <p class="mb-0">________________________</p>
                       <p class="mb-5">Signature over printed name</p>
+                    </v-flex>
+                    <v-flex xs6 class="text-xs-center">
+                      <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
+                      <p
+                        class="mb-0"
+                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                      <p>Punong Barangay</p>
                     </v-flex>
 
                     <v-flex xs12 class="mb-5">
@@ -772,14 +736,6 @@
                         >{{formBarangayClearance.official_receipt_no}}</span>
                         <span v-else>____________</span>
                       </p>
-                    </v-flex>
-
-                    <v-flex xs6 offset-xs6 class="text-xs-center">
-                      <p>CERTIFIED AND ISSUED BY:</p>
-                      <p
-                        class="mb-0"
-                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                      <p>Punong Barangay</p>
                     </v-flex>
 
                     <v-flex xs12>
@@ -942,7 +898,7 @@
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
-                      <p>
+                      <p style="text-indent: 5%;">
                         This is to certify that
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
@@ -953,7 +909,7 @@
                     </v-flex>
 
                     <v-flex xs12>
-                      <p>
+                      <p style="text-indent: 5%;">
                         Issued
                         <span
                           v-if="formBarangayCertificate.purpose_certification"
@@ -962,9 +918,32 @@
                       </p>
                     </v-flex>
 
-                    <v-flex xs6>
+                    <v-flex xs12>
+                      <p style="text-indent: 5%;">
+                        Issued this
+                        <span
+                          v-if="formBarangayCertificate.created_at"
+                        >{{ formBarangayCertificate.created_at | moment("Do") }}</span>
+                        <span v-else>__</span>
+                        day of
+                        <span
+                          v-if="formBarangayCertificate.created_at"
+                        >{{ formBarangayCertificate.created_at | moment("MMMM YYYY") }}</span>
+                        <span v-else>____________</span>
+                        at Barangay {{formBarangayCertificate.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________'}}, Philippines
+                      </p>
+                    </v-flex>
+
+                    <v-flex xs6 class="pt-5">
                       <p class="mb-0">________________________</p>
                       <p class="mb-5">Signature over printed name</p>
+                    </v-flex>
+                    <v-flex xs6 class="text-xs-center">
+                      <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
+                      <p
+                        class="mb-0"
+                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                      <p>Punong Barangay</p>
                     </v-flex>
 
                     <v-flex xs12 class="mb-5">
@@ -994,15 +973,6 @@
                         <span v-else>____________</span>
                       </p>
                     </v-flex>
-
-                    <v-flex xs6 offset-xs6 class="text-xs-center">
-                      <p>CERTIFIED AND ISSUED BY:</p>
-                      <p
-                        class="mb-0"
-                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                      <p>Punong Barangay</p>
-                    </v-flex>
-
                     <v-flex xs12>
                       <p>Note: Not valid without Barangay Seal</p>
                     </v-flex>
@@ -1184,7 +1154,7 @@
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
-                      <p>
+                      <p style="text-indent: 5%;">
                         This is to certify that
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
                         a resident of
@@ -1199,7 +1169,7 @@
                         >{{formBusinessClearance.business_application}}</span>
                         Business Permit for C.
                       </p>
-                      <p>
+                      <p style="text-indent: 5%;">
                         The kind of business applied for is
                         <span
                           v-if="formBusinessClearance.kind_business"
@@ -1209,15 +1179,15 @@
                           v-if="formBusinessClearance.business_trade_name"
                         >{{formBusinessClearance.business_trade_name}}</span>
                       </p>
-                      <p>
+                      <p style="text-indent: 5%;">
                         The line of business for is
                         <span
                           v-if="formBusinessClearance.line_of_business"
                         >{{formBusinessClearance.line_of_business}}</span>
                       </p>
-                      <p>The undersigned recommends for Approval due to the following reasons</p>
-                      <p>1. Complied all requirements and,</p>
-                      <p>
+                      <p style="text-indent: 5%;">The undersigned recommends for Approval due to the following reasons</p>
+                      <p style="text-indent: 5%;">1. Complied all requirements and,</p>
+                      <p style="text-indent: 5%;">
                         2.
                         <span
                           v-if="formBusinessClearance.reasons_approv_disapprove"
@@ -1225,9 +1195,32 @@
                       </p>
                     </v-flex>
 
-                    <v-flex xs6>
+                    <v-flex xs12>
+                      <p style="text-indent: 5%;">
+                        Issued this
+                        <span
+                          v-if="formBusinessClearance.created_at"
+                        >{{ formBusinessClearance.created_at | moment("Do") }}</span>
+                        <span v-else>__</span>
+                        day of
+                        <span
+                          v-if="formBusinessClearance.created_at"
+                        >{{ formBusinessClearance.created_at | moment("MMMM YYYY") }}</span>
+                        <span v-else>____________</span>
+                        at Barangay {{formBusinessClearance.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________'}}, Philippines
+                      </p>
+                    </v-flex>
+
+                    <v-flex xs6 class="pt-5">
                       <p class="mb-0">________________________</p>
                       <p class="mb-5">Signature over printed name</p>
+                    </v-flex>
+                    <v-flex xs6 class="text-xs-center">
+                      <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
+                      <p
+                        class="mb-0"
+                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                      <p>Punong Barangay</p>
                     </v-flex>
 
                     <v-flex xs12 class="mb-5">
@@ -1256,14 +1249,6 @@
                         >{{formBusinessClearance.official_receipt_no}}</span>
                         <span v-else>____________</span>
                       </p>
-                    </v-flex>
-
-                    <v-flex xs6 offset-xs6 class="text-xs-center">
-                      <p>CERTIFIED AND ISSUED BY:</p>
-                      <p
-                        class="mb-0"
-                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                      <p>Punong Barangay</p>
                     </v-flex>
 
                     <v-flex xs12>

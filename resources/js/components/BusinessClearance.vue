@@ -38,8 +38,8 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBusinessClearance.middle_name"
-                    label="Middle name*"
-                    :rules="[v => !!v || 'Middle name is required', v => (v || '').indexOf('  ') < 0 ||
+                    label="Middle name"
+                    :rules="[v => (v || '').indexOf('  ') < 0 ||
               'No multiple spaces are allowed']"
                     required
                   ></v-text-field>
@@ -258,7 +258,7 @@
                 <v-layout row wrap>
                   <v-flex>
                     <p>TO WHOM IT MAY CONCERN:</p>
-                    <p>
+                    <p style="text-indent: 5%;">
                       This is to certify that
                       <span>{{ formBusinessClearance.business_address ? `${formBusinessClearance.first_name} ${formBusinessClearance.middle_name}. ${formBusinessClearance.last_name}` : '______________________________________________' }},</span>
                       a resident of
@@ -273,7 +273,7 @@
                       >{{formBusinessClearance.business_application}}</span>
                       Business Permit for C.
                     </p>
-                    <p>
+                    <p style="text-indent: 5%;"> 
                       The kind of business applied for is
                       <span
                         v-if="formBusinessClearance.kind_business"
@@ -283,15 +283,15 @@
                         v-if="formBusinessClearance.business_trade_name"
                       >{{formBusinessClearance.business_trade_name}}</span>
                     </p>
-                    <p>
+                    <p style="text-indent: 5%;">
                       The line of business for is
                       <span
                         v-if="formBusinessClearance.line_of_business"
                       >{{formBusinessClearance.line_of_business}}</span>
                     </p>
-                    <p>The undersigned recommends for Approval due to the following reasons</p>
-                    <p>1. Complied all requirements and,</p>
-                    <p>
+                    <p style="text-indent: 5%;">The undersigned recommends for Approval due to the following reasons</p>
+                    <p style="text-indent: 5%;">1. Complied all requirements and,</p>
+                    <p style="text-indent: 5%;">
                       2.
                       <span
                         v-if="formBusinessClearance.reasons_approv_disapprove"
@@ -299,10 +299,34 @@
                     </p>
                   </v-flex>
 
-                  <v-flex xs6>
+                  <v-flex xs12>
+                    <p style="text-indent: 5%;">
+                      Issued this
+                      <span
+                        v-if="formBusinessClearance.created_at"
+                      >{{ formBusinessClearance.created_at | moment("Do") }}</span>
+                      <span v-else>__</span>
+                      day of
+                      <span
+                        v-if="formBusinessClearance.created_at"
+                      >{{ formBusinessClearance.created_at | moment("MMMM YYYY") }}</span>
+                      <span v-else>____________</span>
+                      at Barangay {{formBusinessClearance.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________'}}, Philippines
+                    </p>
+                  </v-flex>
+
+                  <v-flex xs6 class="pt-5">
                     <p class="mb-0">________________________</p>
                     <p class="mb-5">Signature over printed name</p>
                   </v-flex>
+                  <v-flex xs6 class="text-xs-center">
+                    <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
+                    <p
+                      class="mb-0"
+                    >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                    <p>Punong Barangay</p>
+                  </v-flex>
+
 
                   <v-flex xs12 class="mb-5">
                     <p class="mb-0">
@@ -463,7 +487,6 @@ export default {
     },
 
     done() {
-      this.$refs.form.reset();
       this.dialogBusinessClearance = false;
       this.formBusinessClearance.reset();
     },

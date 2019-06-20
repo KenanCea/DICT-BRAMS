@@ -38,8 +38,8 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.middle_name"
-                    label="Middle name*"
-                    :rules="[v => !!v || 'Middle name is required', v => (v || '').indexOf('  ') < 0 ||
+                    label="Middle name"
+                    :rules="[v => (v || '').indexOf('  ') < 0 ||
               'No multiple spaces are allowed']"
                     required
                   ></v-text-field>
@@ -53,36 +53,19 @@
                     required
                   ></v-text-field>
                 </v-flex>
+
                 <v-flex xs12 sm6 md4>
-                  <v-menu
-                    v-model="menuBirth"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    eager
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="formBarangayCertificate.date_of_birth"
-                        label="Date of birth*"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-on="on"
-                        :rules="[v => !!v || 'Date of birth is required']"
-                        required
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="formBarangayCertificate.date_of_birth"
-                      no-title
-                      color="primary"
-                      @input="menuBirth = false"
-                    ></v-date-picker>
-                  </v-menu>
+                  <v-text-field
+                    v-model="formBarangayCertificate.date_of_birth"
+                    prepend-icon="mdi-calendar"
+                    label="Date of birth*"
+                    v-mask="'####-##-##'"
+                    hint="YYYY-MM-DD format"
+                    :rules="[v => !!v || 'Date of birth is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
+                
                 <v-flex xs12 sm6 md4>
                   <v-autocomplete
                     v-model="formBarangayCertificate.citizenship"
@@ -252,7 +235,7 @@
                 <v-layout row wrap>
                   <v-flex>
                     <p>TO WHOM IT MAY CONCERN:</p>
-                    <p>
+                    <p style="text-indent: 5%;">
                       This is to certify that
                       <span>{{ formBarangayCertificate.purpose_certification ? `${formBarangayCertificate.first_name} ${formBarangayCertificate.middle_name}. ${formBarangayCertificate.last_name}` : '______________________________________________' }},</span>
                       <span>{{ formBarangayCertificate.purpose_certification ? `${formBarangayCertificate.age}` : '________' }}</span> years old,
@@ -263,7 +246,7 @@
                   </v-flex>
 
                   <v-flex xs12>
-                    <p>
+                    <p style="text-indent: 5%;">
                       Issued
                       <span
                         v-if="formBarangayCertificate.purpose_certification"
@@ -272,10 +255,34 @@
                     </p>
                   </v-flex>
 
-                  <v-flex xs6>
+                  <v-flex xs12>
+                    <p style="text-indent: 5%;">
+                      Issued this
+                      <span
+                        v-if="formBarangayCertificate.created_at"
+                      >{{ formBarangayCertificate.created_at | moment("Do") }}</span>
+                      <span v-else>__</span>
+                      day of
+                      <span
+                        v-if="formBarangayCertificate.created_at"
+                      >{{ formBarangayCertificate.created_at | moment("MMMM YYYY") }}</span>
+                      <span v-else>____________</span>
+                      at Barangay {{formBarangayCertificate.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________'}}, Philippines
+                    </p>
+                  </v-flex>
+
+                  <v-flex xs6 class="pt-5">
                     <p class="mb-0">________________________</p>
                     <p class="mb-5">Signature over printed name</p>
                   </v-flex>
+                  <v-flex xs6 class="text-xs-center">
+                    <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
+                    <p
+                      class="mb-0"
+                    >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                    <p>Punong Barangay</p>
+                  </v-flex>
+
 
                   <v-flex xs12 class="mb-5">
                     <p class="mb-0">
@@ -303,14 +310,6 @@
                       >{{formBarangayCertificate.official_receipt_no}}</span>
                       <span v-else>____________</span>
                     </p>
-                  </v-flex>
-
-                  <v-flex xs6 offset-xs6 class="text-xs-center">
-                    <p>CERTIFIED AND ISSUED BY:</p>
-                    <p
-                      class="mb-0"
-                    >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                    <p>Punong Barangay</p>
                   </v-flex>
 
                   <v-flex xs12>
