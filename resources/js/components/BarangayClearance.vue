@@ -12,7 +12,12 @@
     </v-app-bar>
 
     <v-dialog v-model="dialogBarangayClearanceForm" scrollable persistent max-width="800px">
-      <v-form @submit.prevent="createBarangayClearance">
+      <v-form
+        ref="form"
+        v-model="validForm"
+        lazy-validation
+        @submit.prevent="createBarangayClearance"
+      >
         <v-card>
           <v-card-title>
             <span class="headline">Issue barangay clearance</span>
@@ -25,83 +30,126 @@
             <v-container grid-list-md class="pa-0">
               <v-layout wrap>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBarangayClearance.first_name" label="First name*"></v-text-field>
+                  <v-text-field
+                    v-model="formBarangayClearance.first_name"
+                    label="First name*"
+                    :rules="[v => !!v || 'First name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBarangayClearance.middle_name" label="Middle name*"></v-text-field>
+                  <v-text-field
+                    v-model="formBarangayClearance.middle_name"
+                    label="Middle name"
+                    :rules="[v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBarangayClearance.last_name" label="Last name*"></v-text-field>
+                  <v-text-field
+                    v-model="formBarangayClearance.last_name"
+                    label="Last name*"
+                    :rules="[v => !!v || 'Last name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-menu
-                    v-model="menuBirth"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    eager
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="formBarangayClearance.date_of_birth"
-                        label="Date of Birth"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-on="on"
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="formBarangayClearance.date_of_birth"
-                      no-title
-                      color="primary"
-                      @input="menuBirth = false"
-                    ></v-date-picker>
-                  </v-menu>
+                  <v-text-field
+                    v-model="formBarangayClearance.date_of_birth"
+                    prepend-icon="mdi-calendar"
+                    label="Date of birth*"
+                    v-mask="'####-##-##'"
+                    hint="YYYY-MM-DD format"
+                    :rules="[v => !!v || 'Date of birth is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-autocomplete
                     v-model="formBarangayClearance.citizenship"
                     :items="['Afghan','Albanian','Algerian','American','Andorran','Angolan', 'Antiguan', 'Argentine', 'Armenian', 'Aruban', 'Australian', 'Austrian', 'Azerbaijani', 'Bahamian', 'Bahrainis', 'Bangladeshis', 'Barbadian', 'Basque', 'Belarusian', 'Belgian', 'Belizean', 'Beninese', 'Bermudian', 'Bhutanese', 'Bolivian', 'Bosniak', 'Bosnian', 'Botswana', 'Brazilian', 'Breton', 'British', 'British Virgin Islander', 'Bruneian', 'Bulgarian', 'Macedonian Bulgarian', 'Burkinabé', 'Burmese', 'Burundian', 'Cambodian', 'Cameroonian', 'Canadian', 'Catalan', 'Cape Verdean', 'Chadian', 'Chilean', 'Chinese', 'Colombian', 'Comorian', 'Congolese', 'Costa Rican', 'Croatian', 'Cuban', 'Cypriot', 'Czech', 'Dane', 'Greenlander', 'Djiboutian', 'Dominican', 'Dutch', 'East Timorese', 'Ecuadorian', 'Egyptian', 'Emirati', 'English', 'Equatoguinean', 'Eritrean', 'Estonian', 'Ethiopian', 'Falkland Islander', 'Faroese', 'Fijian', 'Finn', 'Finnish Swedish', 'Filipino', 'French citizen', 'Gabonese', 'Gambian', 'Georgian', 'German', 'Baltic German', 'Ghanaian', 'Gibraltarian', 'Greek', 'Greek Macedonian', 'Grenadian', 'Guatemalan', 'Guianese', 'Guinean', 'Guinea-Bissau national', 'Guyanese', 'Haitian', 'Honduran', 'Hong Konger', 'Hungarian', 'Icelander', 'I-Kiribati', 'Indian', 'Indonesian', 'Iranian', 'Iraqis', 'Irish', 'Israelis', 'Italian', 'Ivoirian', 'Jamaican', 'Japanese', 'Jordanian', 'Kazakh', 'Kenyan', 'Korean', 'Kosovar', 'Kuwaitis', 'Kyrgyz', 'Lao', 'Latvian', 'Lebanese', 'Liberian', 'Libyan', 'Liechtensteiner', 'Lithuanian', 'Luxembourger', 'Macao', 'Macedonian', 'Malagasy', 'Malawian', 'Malaysian', 'Maldivian', 'Malians', 'Maltese', 'Manx', 'Marshallese', 'Mauritanian', 'Mauritian', 'Mexicans', 'Micronesian', 'Moldovans', 'Monégasque', 'Mongolian', 'Montenegrin', 'Moroccan', 'Mozambican', 'Namibian', 'Nauran', 'Nepalese', 'New Zealander', 'Nicaraguan', 'Nigerien', 'Nigerian', 'Norwegian', 'Omani', 'Pakistanis', 'Palauan', 'Palestinian', 'Panamanian', 'Papua New Guinean', 'Paraguayan', 'Peruvian', 'Poles', 'Portuguese', 'Puerto Rican', 'Qatari', 'Quebecer', 'Réunionnais', 'Romanian', 'Russian', 'Baltic Russian', 'Rwandan', 'Saint Kitt', 'Saint Lucian', 'Salvadoran', 'Sammarinese', 'Samoans', 'São Tomé and Príncipe', 'Saudis', 'Scot', 'Senegalese', 'Serbs', 'Seychellois', 'Sierra Leonean', 'Singaporean', 'Slovak', 'Slovene', 'Solomon Islander', 'Somalis', 'Somalilander', 'Sotho', 'South African', 'Spaniard', 'Sri Lankan', 'Sudanese', 'Surinamese', 'Swazi', 'Swedes', 'Swiss', 'Syriac', 'Syrian', 'Taiwanese', 'Tamil', 'Tajik', 'Tanzanian', 'Thai', 'Tibetan', 'Tobagonian', 'Togolese', 'Tongan', 'Trinidadian', 'Tunisian', 'Turk', 'Tuvaluan', 'Ugandan', 'Ukrainian', 'Uruguayan', 'Uzbek', 'Vanuatuan', 'Venezuelan', 'Vietnamese', 'Vincentian', 'Welsh', 'Yemenis', 'Zambian', 'Zimbabwean']"
                     label="Citizenship"
+                    :rules="[v => !!v || 'Citizenship is required']"
+                    required
                   ></v-autocomplete>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayClearance.placeOfBirth_native"
                     label="Place of Birth"
+                    :rules="[v => !!v || 'Place of birth is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBarangayClearance.house_no" label="House number*"></v-text-field>
+                  <v-text-field
+                    v-model="formBarangayClearance.house_no"
+                    label="House number*"
+                    :rules="[v => !!v || 'House number is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBarangayClearance.purok" label="Purok*"></v-text-field>
+                  <v-text-field
+                    v-model="formBarangayClearance.purok"
+                    label="Purok*"
+                    :rules="[v => !!v || 'Purok is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field v-model="formBarangayClearance.street" label="Street*"></v-text-field>
+                  <v-text-field
+                    v-model="formBarangayClearance.street"
+                    label="Street*"
+                    :rules="[v => !!v || 'Street is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
-                  <v-text-field v-model="formBarangayClearance.control_no" label="Control number*"></v-text-field>
+                  <v-text-field
+                    v-model="formBarangayClearance.control_no"
+                    label="Control number*"
+                    :rules="[v => !!v || 'Control number is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
+                  ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field
                     v-model="formBarangayClearance.ctc_no"
                     label="Community tax certificate number*"
+                    :rules="[v => !!v || 'Community tax certificate number is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field
                     v-model="formBarangayClearance.purpose_of_clearance"
                     label="Purpose of clearance*"
+                    :rules="[v => !!v || 'Purpose of clearance is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md6>
                   <v-text-field
                     v-model="formBarangayClearance.official_receipt_no"
                     label="Official receipt number*"
+                    :rules="[v => !!v || 'Official receipt number is required']"
+                    required
+                    v-mask="'################'"
+                    hint="Only numbers are allowed"
                   ></v-text-field>
                 </v-flex>
               </v-layout>
@@ -111,8 +159,8 @@
           <v-card-actions>
             <p class="mb-0">* indicates required field</p>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="dialogBarangayClearanceForm = false" text>cancel</v-btn>
-            <v-btn color="primary" type="submit" text>Save</v-btn>
+            <v-btn color="primary" @click="cancel" text>cancel</v-btn>
+            <v-btn color="primary" :disabled="!validForm" type="submit" text>Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -177,7 +225,7 @@
                 <v-layout row wrap>
                   <v-flex>
                     <p>TO WHOM IT MAY CONCERN:</p>
-                    <p>
+                    <p style="text-indent: 5%;">
                       This is to certify that
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.first_name} ${formBarangayClearance.middle_name} ${formBarangayClearance.last_name}` : '______________________________________________' }},</span>
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.age}` : '________' }}</span> years old,
@@ -190,7 +238,7 @@
                   </v-flex>
 
                   <v-flex xs12>
-                    <p>
+                    <p style="text-indent: 5%;">
                       Issued
                       <span
                         v-if="formBarangayClearance.purpose_of_clearance"
@@ -199,9 +247,32 @@
                     </p>
                   </v-flex>
 
-                  <v-flex xs6>
+                  <v-flex xs12>
+                    <p style="text-indent: 5%;">
+                      Issued this
+                      <span
+                        v-if="formBarangayClearance.created_at"
+                      >{{ formBarangayClearance.created_at | moment("Do") }}</span>
+                      <span v-else>__</span>
+                      day of
+                      <span
+                        v-if="formBarangayClearance.created_at"
+                      >{{ formBarangayClearance.created_at | moment("MMMM YYYY") }}</span>
+                      <span v-else>____________</span>
+                      at Barangay {{formBarangayClearance.created_at ? `${address[0].name}, ${address[0].municipality}` : '____________'}}, Philippines
+                    </p>
+                  </v-flex>
+
+                  <v-flex xs6 class="pt-5">
                     <p class="mb-0">________________________</p>
                     <p class="mb-5">Signature over printed name</p>
+                  </v-flex>
+                  <v-flex xs6 class="text-xs-center">
+                    <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
+                    <p
+                      class="mb-0"
+                    >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                    <p>Punong Barangay</p>
                   </v-flex>
 
                   <v-flex xs12 class="mb-5">
@@ -232,14 +303,6 @@
                     </p>
                   </v-flex>
 
-                  <v-flex xs6 offset-xs6 class="text-xs-center">
-                    <p>CERTIFIED AND ISSUED BY:</p>
-                    <p
-                      class="mb-0"
-                    >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                    <p>Punong Barangay</p>
-                  </v-flex>
-
                   <v-flex xs12>
                     <p>Note: Not valid without Barangay Seal</p>
                   </v-flex>
@@ -251,7 +314,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary" text @click="clearInput()">Done</v-btn>
+          <v-btn color="primary" text @click="done">Done</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -282,6 +345,7 @@ export default {
     dialogBarangayClearanceForm: false,
     dialogBarangayClearance: false,
     menuBirth: false,
+    validForm: true,
     barangayClearanceHeaders: [
       { text: "Control no.", value: "control_no" },
       { text: "Community tax certificate no.", value: "ctc_no" },
@@ -332,18 +396,20 @@ export default {
     },
 
     createBarangayClearance() {
-      this.formBarangayClearance
-        .post("api/createBarangayClearance")
-        .then(() => {
-          this.dialogBarangayClearanceForm = false;
-          toast.fire({
-            type: "success",
-            title: "Inhabitant has been issued business clearance"
-          });
-          this.getBarangayClearance();
-          this.formBarangayClearance.reset();
-        })
-        .catch(() => {});
+      if (this.$refs.form.validate()) {
+        this.formBarangayClearance
+          .post("api/createBarangayClearance")
+          .then(() => {
+            this.dialogBarangayClearanceForm = false;
+            toast.fire({
+              type: "success",
+              title: "Inhabitant has been issued business clearance"
+            });
+            this.getBarangayClearance();
+            this.formBarangayClearance.reset();
+          })
+          .catch(() => {});
+      }
     },
 
     printBarangayClearance(item) {
@@ -356,9 +422,15 @@ export default {
       this.dialogBarangayClearanceForm = true;
     },
 
-    clearInput() {
+    done() {
       this.dialogBarangayClearance = false;
       this.formBarangayClearance.reset();
+    },
+
+    cancel() {
+      this.$refs.form.reset();
+      this.formBarangayClearance.reset();
+      this.dialogBarangayClearanceForm = false;
     },
 
     getAddress() {

@@ -17,8 +17,6 @@ class Household extends Model
         'street',
         'placeOfOrigin',
         'ethnic_group',
-        'email_address',
-        'mobile_no',
         'telephone_no',
         'dialects',
         'status_of_ownership-house',

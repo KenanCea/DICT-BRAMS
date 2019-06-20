@@ -1,13 +1,14 @@
 <template>
   <div>
-    <v-app-bar id="navbar" dense flat app>
-      <v-toolbar-title>
-        <span>Log History</span>
-      </v-toolbar-title>
+    <div v-if="$gate.isAdmin()">
+      <v-app-bar id="navbar" dense flat app>
+        <v-toolbar-title>
+          <span>Log History</span>
+        </v-toolbar-title>
 
-      <v-spacer></v-spacer>
-      
-      <v-flex xs2 ml-1>
+        <v-spacer></v-spacer>
+
+        <v-flex xs2 ml-1>
           <v-text-field
             v-model="search"
             flat
@@ -19,22 +20,26 @@
             label="Search"
           ></v-text-field>
         </v-flex>
-    </v-app-bar>
+      </v-app-bar>
 
-    <v-data-table
-      v-model="selected"
-      v-bind:headers="filteredHeaders"
-      :items="users"
-      :search="search"
-      :loading="loading"
-    >
-      <template v-slot:items="props">
-        <td v-if="showColumn('id')">{{ props.item.name }}</td>
-        <td v-if="showColumn('name')">{{ props.item.date }}</td>
-        <td v-if="showColumn('email')">{{ props.item.time }}</td>
-        <td v-if="showColumn('email_verified_at')">{{ props.item.log }}</td>
-      </template>
-    </v-data-table>
+      <v-data-table
+        v-model="selected"
+        v-bind:headers="filteredHeaders"
+        :items="users"
+        :search="search"
+        :loading="loading"
+      >
+        <template v-slot:items="props">
+          <td v-if="showColumn('id')">{{ props.item.name }}</td>
+          <td v-if="showColumn('name')">{{ props.item.date }}</td>
+          <td v-if="showColumn('email')">{{ props.item.time }}</td>
+          <td v-if="showColumn('email_verified_at')">{{ props.item.log }}</td>
+        </template>
+      </v-data-table>
+    </div>
+    <div v-if="!$gate.isAdmin()">
+      <not-found></not-found>
+    </div>
   </div>
 </template>
 
@@ -48,7 +53,7 @@ export default {
       search: "",
       form: new Form({
         name: "",
-        email: "",   
+        email: ""
       }),
       headers: [
         { text: "Account", value: "name", selected: true },
@@ -76,7 +81,9 @@ export default {
   },
 
   created() {
-    this.getAccounts();
+    if (this.$gate.isAdmin()) {
+      this.getAccounts();
+    }
   },
 
   methods: {

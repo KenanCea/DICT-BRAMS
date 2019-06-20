@@ -108,10 +108,19 @@
                 <v-toolbar flat color="white">
                   <v-toolbar-title>Barangay Officials</v-toolbar-title>
                   <v-divider
-                    class="mx-2"
+                    class="mx-3"
                     inset
                     vertical
                   ></v-divider>
+                  <v-spacer></v-spacer>
+                  <v-tooltip attach bottom>
+                    <template v-slot:activator="{ on }">
+                      <v-btn v-on="on" icon @click="newOfficialDialog()">
+                        <v-icon>mdi-account-plus</v-icon>
+                      </v-btn>
+                    </template>
+                    <span>Add new official</span>
+                  </v-tooltip>
                 </v-toolbar>
                 <v-data-table
                   id="barangayOfficials"
@@ -121,8 +130,8 @@
                   <template v-slot:top>
                     <v-dialog v-model="dialogOfficial" max-width="400px">
                       <v-form
-                        ref="formOfficials"
-                        v-model="valid"
+                        ref="officialForm"
+                        v-model="validOfficialForm"
                         lazy-validation 
                         @submit.prevent="editmode ? updateOfficial() : createOfficial()"
                       >
@@ -131,10 +140,19 @@
                             <span class="headline" v-show="!editmode">Add a new official</span>
                             <span class="headline" v-show="editmode">Edit official information</span>
                           </v-card-title>
-    
+                          <v-divider></v-divider>
                           <v-card-text>
                             <v-container grid-list-md>
                               <v-layout wrap>
+                                <v-flex xs12 md12>
+                                  <v-select
+                                    v-model="officialForm.position"
+                                    :items="['Punong Barangay', 'Barangay Kagawad','Barangay Treasurer','Barangay Secretary']"
+                                    label="Position"
+                                    :rules="[v => !!v || 'Position is required']"
+                                    required
+                                  ></v-select>
+                                </v-flex>
                                 <v-flex xs12 md12>
                                   <v-text-field 
                                     v-model="officialForm.name" 
@@ -144,64 +162,22 @@
                                   ></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-menu
+                                  <v-text-field
                                     v-model="calendarStartTerm"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    eager
-                                    transition="scale-transition"
-                                    offset-y
-                                    full-width
-                                    min-width="290px"
-                                  >
-                                    <template v-slot:activator="{ on }">
-                                      <v-text-field
-                                        v-model="officialForm.start_term"
-                                        label="Start Term"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        required
-                                        v-on="on"
-                                        :rules="[v => !!v || 'Start Term Date is required']"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="officialForm.start_term"
-                                      no-title
-                                      color="primary"
-                                      @input="calendarStartTerm = false"
-                                    ></v-date-picker>
-                                  </v-menu>
+                                    prepend-icon="mdi-calendar"
+                                    label="Start Term"
+                                    v-mask="'####-##-##'"
+                                    hint="YYYY-MM-DD format"
+                                  ></v-text-field>
                                 </v-flex>
                                 <v-flex xs12 md6>
-                                  <v-menu
+                                  <v-text-field
                                     v-model="calendarEndTerm"
-                                    :close-on-content-click="false"
-                                    :nudge-right="40"
-                                    eager
-                                    transition="scale-transition"
-                                    offset-y
-                                    full-width
-                                    min-width="290px"
-                                  >
-                                    <template v-slot:activator="{ on }">
-                                      <v-text-field
-                                        v-model="officialForm.end_term"
-                                        label="End Term"
-                                        prepend-icon="mdi-calendar"
-                                        readonly
-                                        required
-                                        v-on="on"
-                                        :rules="[v => !!v || 'End Term Date is required']"
-                                      ></v-text-field>
-                                    </template>
-                                    <v-date-picker
-                                      v-model="officialForm.end_term"
-                                      no-title
-                                      color="primary"
-                                      @input="calendarEndTerm = false"
-                                    ></v-date-picker>
-                                  </v-menu>
+                                    prepend-icon="mdi-calendar"
+                                    label="End Term"
+                                    v-mask="'####-##-##'"
+                                    hint="YYYY-MM-DD format"
+                                  ></v-text-field>
                                 </v-flex>
                               </v-layout>
                             </v-container>
@@ -209,11 +185,15 @@
     
                           <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn color="blue darken-1" text @click="dialogOfficial = false">Cancel</v-btn>
                             <v-btn 
                               color="blue darken-1" 
-                              text type="submit" 
-                              @click="submitOfficials"
+                              text 
+                              @click="cancelOfficial()"
+                            >Cancel</v-btn>
+                            <v-btn 
+                              color="blue darken-1"
+                              :disabled="!validOfficialForm" text 
+                              type="submit" 
                             >Save</v-btn>
                           </v-card-actions>
                         </v-card>
@@ -235,15 +215,7 @@
                           <v-icon>mdi-pencil</v-icon>
                         </v-btn>
                       </template>
-                      <span>Edit</span>
-                    </v-tooltip>
-                    <v-tooltip attach bottom>
-                      <template v-slot:activator="{ on }">
-                        <v-btn v-on="on" icon @click="newOfficialDialog()">
-                          <v-icon>mdi-account-plus</v-icon>
-                        </v-btn>
-                      </template>
-                      <span>Add new official</span>
+                      <span>Edit official</span>
                     </v-tooltip>
                   </template>
                 </v-data-table>
@@ -287,10 +259,10 @@ export default {
       { text: 'End Term', value: 'end_term', align: 'center', sortable: false },
       { text: 'Actions', value: 'action', align: 'center', sortable: false }
     ],
-    valid: true,
     officials: [],
     calendarStartTerm: false,
     calendarEndTerm: false,
+    validOfficialForm: true,
     officialForm: new Form({
       id: "",
       position: "",
@@ -308,14 +280,17 @@ export default {
     getUser() {
       axios.get("api/profile").then(({ data }) => this.form.fill(data));
     },
+
     getBarangay() {
       axios.get("api/barangayForm").then(({ data }) => this.barangayForm.fill(data));
     },
+
     getOfficials() {
       axios.get("api/official").then(response => {
         this.officials = response.data;
       });
     },
+
     getLogo() {
       let logo =
         this.form.logo.length > 200
@@ -323,19 +298,25 @@ export default {
           : "img/profile/" + this.form.logo;
       return logo;
     },
+
     createOfficial(id) {
-      this.officialForm
-        .post("api/official")
-        .then(() => {
-          this.dialogOfficial = false;
-          this.getOfficials();
-          toast.fire({
-            type: "success",
-            title: "Official has been created"
-          });
-        })
-        .catch(() => {});
+      if (this.$refs.officialForm.validate()) {
+        this.officialForm
+          .post("api/official")
+          .then(() => {
+            this.dialogOfficial = false;
+            this.getOfficials();
+            this.$refs.officialForm.reset();
+            this.officialForm.reset();
+            toast.fire({
+              type: "success",
+              title: "Official has been created"
+            });
+          })
+          .catch(() => {});
+      }
     },
+
     updateInfo() {
       if (this.form.password == "") {
         this.form.password = undefined;
@@ -348,13 +329,14 @@ export default {
         this.isEditing = null;
       });
     },
-
     updateOfficial() {
       this.officialForm
         .put("api/official/" + this.officialForm.id)
         .then(() => {
           this.dialogOfficial = false;
           this.getOfficials();
+          this.$refs.officialForm.reset();
+          this.officialForm.reset();
           toast.fire({
             type: "success",
             title: "Official has been edited"
@@ -362,7 +344,6 @@ export default {
         })
         .catch(() => {});
     },
-
     updateProfile(e) {
       let file = e.target.files[0];
       let reader = new FileReader();
@@ -393,8 +374,10 @@ export default {
       this.officialForm.fill(officials);
     },
 
-    submitOfficials() {
-      this.$refs.formOfficials.validate();
+    cancelOfficial() {
+      this.$refs.officialForm.reset();
+      this.officialForm.reset();
+      this.dialogOfficial = false;
     }
   }
 };

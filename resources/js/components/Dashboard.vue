@@ -91,7 +91,7 @@
           </v-card>
         </v-flex>
 
-        <v-flex md4 xs12>
+        <v-flex md12 xs12>
           <v-card :loading="loadingRegVoters" outlined>
             <v-card-title>Registered voters</v-card-title>
             <v-divider></v-divider>
@@ -219,7 +219,7 @@ export default {
       });
     },
     getReligion() {
-      axios.get("api/Religion").then(response => {
+      axios.get("api/rel").then(response => {
         this.religions.rows = response.data;
         this.loadingReligions = false;
       });

@@ -75,16 +75,6 @@
         </v-tooltip>
       </div>
 
-      <div>
-        <v-tooltip attach bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon to="/inhabitants">
-              <v-icon>mdi-folder-account</v-icon>
-            </v-btn>
-          </template>
-          <span>View all inhabitants</span>
-        </v-tooltip>
-      </div>
       <v-divider inset vertical></v-divider>
 
       <app-print :TableTitle="Table" :PageOrientation="Orientation" class="hidden-sm-and-down"></app-print>
@@ -111,6 +101,10 @@
             </v-list-item>
           </v-list>
         </v-menu>
+      </div>
+      <v-divider inset vertical></v-divider>
+      <div v-if="!selected.length">
+        <v-btn text to="/inhabitants">View all inhabitants</v-btn>
       </div>
       <v-flex xs2 ml-1 class="hidden-sm-and-down">
         <v-text-field
@@ -144,8 +138,17 @@
               <v-layout wrap>
                 <v-flex xs12 md4>
                   <v-text-field
+                    v-model="householdForm.room_no"
+                    label="Room number"
+                    :rules="[ v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
                     v-model="householdForm.house_no"
-                    label="House Number*"
+                    label="House number*"
                     :rules="[v => !!v || 'House Number is required', v => (v || '').indexOf('  ') < 0 ||
               'No multiple spaces are allowed']"
                     required
@@ -175,15 +178,6 @@
 
                 <v-flex xs12 md4>
                   <v-text-field
-                    v-model="householdForm.mobile_no"
-                    label="Mobile number"
-                    v-mask="'###########'"
-                    hint="Only numbers are allowed"
-                  />
-                </v-flex>
-
-                <v-flex xs12 md4>
-                  <v-text-field
                     v-model="householdForm.telephone_no"
                     label="Telephone number"
                     v-mask="'###########'"
@@ -193,42 +187,14 @@
 
                 <v-flex xs12 md4>
                   <v-text-field
-                    v-model="householdForm.email_address"
-                    label="Email address"
-                    :rules="[v => (v || '').indexOf(' ') < 0 ||'No spaces are allowed']"
+                    v-model="householdForm.dateOfSurvey"
+                    prepend-icon="mdi-calendar"
+                    label="Date of survey*"
+                    v-mask="'####-##-##'"
+                    hint="YYYY-MM-DD format"
+                    :rules="[v => !!v || 'Date of survey is required']"
+                    required
                   ></v-text-field>
-                </v-flex>
-
-                <v-flex xs12 md4>
-                  <v-menu
-                    v-model="calendarSurvey"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    eager
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="householdForm.dateOfSurvey"
-                        label="Date of survey*"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-on="on"
-                        :rules="[v => !!v || 'Date of survey is required', v => (v || '').indexOf('  ') < 0 ||
-              'No multiple spaces are allowed']"
-                        required
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="householdForm.dateOfSurvey"
-                      no-title
-                      color="primary"
-                      @input="calendarSurvey = false"
-                    ></v-date-picker>
-                  </v-menu>
                 </v-flex>
 
                 <v-flex xs12 md4>
@@ -440,10 +406,9 @@
                 <v-flex xs12 md4>
                   <v-text-field
                     v-model="inhabitantForm.middle_name"
-                    label="Middle name*"
-                    :rules="[v => !!v || 'Middle name is required', v => (v || '').indexOf('  ') < 0 ||
+                    label="Middle name"
+                    :rules="[v => (v || '').indexOf('  ') < 0 ||
               'No multiple spaces are allowed']"
-                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 md4>
@@ -476,35 +441,15 @@
                 </v-flex>
 
                 <v-flex xs12 md6>
-                  <v-menu
-                    v-model="menuBirth"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    eager
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="inhabitantForm.date_of_birth"
-                        label="Date of birth*"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-on="on"
-                        :rules="[v => !!v || 'Date of birth is required', v => (v || '').indexOf('  ') < 0 ||
-              'No multiple spaces are allowed']"
-                        required
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="inhabitantForm.date_of_birth"
-                      no-title
-                      color="primary"
-                      @input="menuBirth = false"
-                    ></v-date-picker>
-                  </v-menu>
+                  <v-text-field
+                    v-model="inhabitantForm.date_of_birth"
+                    prepend-icon="mdi-calendar"
+                    label="Date of birth*"
+                    v-mask="'####-##-##'"
+                    hint="YYYY-MM-DD format"
+                    :rules="[v => !!v || 'Date of birth is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md6>
@@ -539,7 +484,7 @@
                 <v-flex xs12 md6>
                   <v-select
                     v-model="inhabitantForm.religion"
-                    :items="['Aglipayan','Anglican','Apostolic Christian','Assembly of God','Baptist','Church of Christ','Born Again Christian','Iglesia ni Cristo','Islam','Saksi ni Jehovah','Seventh Day Adventist','Methodist','Mormons','Pentecost','Protestant','Roman Catholic']"
+                    :items="['None','Aglipayan','Anglican','Apostolic Christian','Assembly of God','Baptist','Church of Christ','Born Again Christian','Iglesia ni Cristo','Islam','Saksi ni Jehovah','Seventh Day Adventist','Methodist','Mormons','Pentecost','Protestant','Roman Catholic']"
                     label="Religion*"
                     :rules="[v => !!v || 'Religion is required']"
                     required
@@ -573,36 +518,17 @@
                     required
                   ></v-select>
                 </v-flex>
+
                 <v-flex xs12 md6>
-                  <v-menu
-                    v-model="menuSettled"
-                    :close-on-content-click="false"
-                    :nudge-right="40"
-                    eager
-                    transition="scale-transition"
-                    offset-y
-                    full-width
-                    min-width="290px"
-                  >
-                    <template v-slot:activator="{ on }">
-                      <v-text-field
-                        v-model="inhabitantForm.date_settled_in_barangay"
-                        label="Date settled in the barangay*"
-                        prepend-icon="mdi-calendar"
-                        readonly
-                        v-on="on"
-                        :rules="[v => !!v || 'Date settled in the barangay is required', v => (v || '').indexOf('  ') < 0 ||
-              'No multiple spaces are allowed']"
-                        required
-                      ></v-text-field>
-                    </template>
-                    <v-date-picker
-                      v-model="inhabitantForm.date_settled_in_barangay"
-                      no-title
-                      color="primary"
-                      @input="menuSettled = false"
-                    ></v-date-picker>
-                  </v-menu>
+                  <v-text-field
+                    v-model="inhabitantForm.date_settled_in_barangay"
+                    prepend-icon="mdi-calendar"
+                    label="Date settled in the barangay*"
+                    v-mask="'####-##-##'"
+                    hint="YYYY-MM-DD format"
+                    :rules="[v => !!v || 'Date settled in the barangay is required']"
+                    required
+                  ></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md6>
@@ -715,33 +641,15 @@
                       suffix="cm"
                     ></v-text-field>
                   </v-flex>
+
                   <v-flex xs12 md6>
-                    <v-menu
-                      v-model="menuHeight"
-                      :close-on-content-click="false"
-                      :nudge-right="40"
-                      eager
-                      transition="scale-transition"
-                      offset-y
-                      full-width
-                      min-width="290px"
-                    >
-                      <template v-slot:activator="{ on }">
-                        <v-text-field
-                          v-model="inhabitantForm.date_measured_height_weight"
-                          label="Date measured height and weight"
-                          prepend-icon="mdi-calendar"
-                          readonly
-                          v-on="on"
-                        ></v-text-field>
-                      </template>
-                      <v-date-picker
-                        v-model="inhabitantForm.date_measured_height_weight"
-                        no-title
-                        color="primary"
-                        @input="menuHeight = false"
-                      ></v-date-picker>
-                    </v-menu>
+                    <v-text-field
+                      v-model="inhabitantForm.date_measured_height_weight"
+                      prepend-icon="mdi-calendar"
+                      label="Date measured height and weight"
+                      v-mask="'####-##-##'"
+                    hint="YYYY-MM-DD format"
+                    ></v-text-field>
                   </v-flex>
 
                   <v-flex xs1>
@@ -922,7 +830,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" text @click="done">done</v-btn>
+          <v-btn color="blue darken-1" text @click="done">close</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -1005,7 +913,6 @@ export default {
       search: "",
       vaccine: false,
       employed: false,
-      menuBirth: false,
       menuSettled: false,
       menuHeight: false,
       validhouseholdForm: true,
@@ -1016,14 +923,13 @@ export default {
         solo_parent_others: "",
         dateOfSurvey: "",
         familysize: "",
+        room_no: "",
         house_no: "",
         purok: "",
         street: "",
         type_of_dwelling_structure: "",
         placeOfOrigin: "",
         ethnic_group: "",
-        email_address: "",
-        mobile_no: "",
         telephone_no: "",
         dialects: "",
         status_of_ownership_house: "",

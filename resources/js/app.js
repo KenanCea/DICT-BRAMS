@@ -15,6 +15,7 @@ import Gate from "./Gate";
 import VueTheMask from 'vue-the-mask'
 
 Vue.use(VueTheMask)
+Vue.use(require('vue-moment'));
 
 Vue.component(HasError.name, HasError)
 Vue.component(AlertError.name, AlertError)

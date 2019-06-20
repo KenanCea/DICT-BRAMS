@@ -98,7 +98,7 @@ Route::get('HouseholdsPurok', 'DashboardController@TotalHouseholdsPurok');
 Route::get('RegisteredVoter', 'DashboardController@TotalRegisteredVoters');
 Route::get('Dialects', 'DashboardController@TotalDialects');
 Route::get('Gender', 'DashboardController@TotalGender');
-Route::get('Religion', 'DashboardController@TotalReligion');
+Route::get('rel', 'DashboardController@TotalRel');
 Route::get('EthnicGroup', 'DashboardController@TotalEthnicGroups');
 
 // Address
