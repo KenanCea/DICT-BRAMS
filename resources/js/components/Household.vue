@@ -396,16 +396,19 @@
               <v-layout wrap>
                 <v-flex xs12 md4>
                   <v-text-field
-                  disabled
                     v-model="inhabitantForm.first_name"
-                    label="First name"
+                    label="First name*"
+                    :rules="[v => !!v || 'First name is required', v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
+                    required
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 md4>
                   <v-text-field
-                  disabled
                     v-model="inhabitantForm.middle_name"
                     label="Middle name"
+                    :rules="[v => (v || '').indexOf('  ') < 0 ||
+              'No multiple spaces are allowed']"
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 md4>
@@ -759,6 +762,7 @@
         </v-card>
       </v-form>
     </v-dialog>
+
 
     <v-dialog v-model="dialogArchive" persistent scrollable max-width="400px">
         <v-form 
