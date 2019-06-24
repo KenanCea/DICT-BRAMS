@@ -17,16 +17,39 @@ class CreateLandusesTable extends Migration
         Schema::create('landuses', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->enum('landuse_type', ['Residential', 'Commercial', 'Industrial', 'Agricultural', 'Aquatic', 'Forest', 'Idle']);
-            $table->double('land_area_sqm', 10);
-            $table->double('land_area_hec', 10);
-            $table->double('totalpop', 10);
+            $table->double('residential_land_area_sqm', 10);
+            $table->double('residential_land_area_hec', 10);
+            $table->double('residential_totalpop', 10);
+            $table->double('commercial_land_area_sqm', 10);
+            $table->double('commercial_land_area_hec', 10);
+            $table->double('commercial_totalpop', 10);
+            $table->double('industrial_land_area_sqm', 10);
+            $table->double('industrial_land_area_hec', 10);
+            $table->double('industrial_totalpop', 10);
+            $table->double('agricultural_land_area_sqm', 10);
+            $table->double('agricultural_land_area_hec', 10);
+            $table->double('agricultural_totalpop', 10);
+            $table->double('aquatic_land_area_sqm', 10);
+            $table->double('aquatic_land_area_hec', 10);
+            $table->double('aquatic_totalpop', 10);
+            $table->double('forest_land_area_sqm', 10);
+            $table->double('forest_land_area_hec', 10);
+            $table->double('forest_totalpop', 10);
+            $table->double('idle_land_area_sqm', 10);
+            $table->double('idle_land_area_hec', 10);
+            $table->double('idle_land_area_totalpop', 10);
+            $table->integer('total_no_hhold' );
+            $table->integer('ave_persons_hhold');
+            $table->double('ave_income_hhold', 10);
+            $table->string('rank1_employment');
+            $table->string('rank2_employment');
+            $table->string('rank3_employment');
             $table->timestamps();
             $table->unsignedInteger('barangay_id');
             $table->foreign('barangay_id')->references('id')->on('barangays')->onUpdate('cascade')->onDelete('cascade');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *
