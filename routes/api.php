@@ -25,19 +25,27 @@ Route::resources([
     'inhabitant' => 'InhabitantController',
     'user' => 'UserController',
     'barangay' => 'BarangayUserController',
-    'official' => 'OfficialController',
-    'landForm' => 'LandFormController', 
-    'landUse' => 'LandUseController', 
-    'householdDistribution' => 'HouseholdDistributionController',
-    'healthFacility' => 'HealthFacilityController', 
-    'education' => 'EducationController', 
-    'infrastructure' => 'InfrastructureController',
-    'communication' => 'CommunicationController'
+    'official' => 'OfficialController'
 ]);
 // Profile
 Route::get('profile', 'UserController@profile');
 Route::put('updateProfile', 'UserController@updateProfile');
 Route::get('barangayForm', 'BarangayController@barangay');
+Route::put('updateBarangay', 'BarangayController@updateBarangay');
+Route::get('landForm', 'BarangayController@LandForm');
+Route::put('updateLandForm', 'BarangayController@updateLandForm');
+Route::get('landUse', 'LandUseController@LandUse');
+Route::put('updateLandUse', 'LandUseController@updateLandUse');
+Route::get('landUseForm', 'LandUseController@landuses');
+Route::put('updateLandUseForm', 'LandUseController@updateLandUseForm');
+Route::get('healthFacility', 'HealthFacilityController@HealthFacility');
+Route::put('updateHealthFacility', 'HealthFacilityController@updateHealthFacility');
+Route::get('education', 'EducationController@Education');
+Route::put('updateEducation', 'EducationController@updateEducation');
+Route::get('sport', 'EducationController@Sport');
+Route::put('updateSport', 'EducationController@updateSport');
+Route::get('communication', 'CommunicationController@Communication');
+Route::put('updateCommunication', 'CommunicationController@updateCommunication');
 Route::post('barangayInformation', 'BarangayUserController@barangayInformation');
 
 
