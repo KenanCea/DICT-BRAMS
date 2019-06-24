@@ -329,6 +329,7 @@ export default {
         this.isEditing = null;
       });
     },
+
     updateOfficial() {
       this.officialForm
         .put("api/official/" + this.officialForm.id)
@@ -344,6 +345,7 @@ export default {
         })
         .catch(() => {});
     },
+    
     updateProfile(e) {
       let file = e.target.files[0];
       let reader = new FileReader();
@@ -382,3 +384,4 @@ export default {
   }
 };
 </script>
+
