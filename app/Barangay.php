@@ -21,11 +21,14 @@ class Barangay extends Model
         'boundaries_east',
         'boundaries_west',
         'boundaries_south',
-        'totalland_area_hec',
         'totalland_area_sqkm',
+        'totalland_area_hec',
         'distance_municipal_city',
         'province_capitol',
         'national_highway',
+        'mountainous',
+        'plain',
+        'valley',
         'user_id'
     ];
     public function user()
@@ -53,3 +56,4 @@ class Barangay extends Model
         return $this->hasOne('App\Infrastructure');
     }
 }
+
