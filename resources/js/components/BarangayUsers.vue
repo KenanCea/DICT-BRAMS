@@ -133,110 +133,24 @@
                 <v-divider></v-divider>
                 <v-layout wrap>
                   <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.municipality" label="Municipality*"
+                    <v-text-field v-model="form.municipality" label="Municipality*"
                     required></v-text-field>
                   </v-flex>
                   <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.province" label="Province*"
+                    <v-text-field v-model="form.province" label="Province*"
                     required></v-text-field>
                   </v-flex>
                   <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.region" label="Region*"
+                    <v-text-field v-model="form.region" label="Region*"
                     required></v-text-field>
                   </v-flex>
                   <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.zip_code" label="Zip code*"
+                    <v-text-field v-model="form.zip_code" label="Zip code*"
                     required></v-text-field>
                   </v-flex>
                   <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.mother_barangay" label="Mother barangay*"
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.old_name" label="Old name"
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.legel_basis" label="Legal basis*"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.date_legal_basis" label="Date legal Basis*"
-                    prepend-icon="mdi-calendar"
-                    v-mask="'####-##-##'"
-                    hint="YYYY-MM-DD format"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.date_ratification" label="Date Ratification*"
-                    prepend-icon="mdi-calendar"
-                    v-mask="'####-##-##'"
-                    hint="YYYY-MM-DD format"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-select v-model="barangay.type_barangay" label="Type of Barangay*"
+                    <v-select v-model="form.type_barangay" label="Type of Barangay*"
                     :items="['Rural','Urban','Tribal']"
-                    required></v-select>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.boundaries_north" label="Boundaries North*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.boundaries_east" label="Boundaries East*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.boundaries_west" label="Boundaries West*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.boundaries_south" label="Boundaries South*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.totalland_area_sqkm" label="Total land in sqkm*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.totalland_area_hec" label="Total land in hec*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.distance_municipal_city" label="Distance to Municipal City*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.province_capitol" label="province Capital*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-text-field v-model="barangay.national_highway" label="National Highway*"
-                    v-mask="'###############'"
-                    required></v-text-field>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-select v-model="barangay.mountainous" label="Mountainous*"
-                    :items="['0-25%','26-50','51-75%','76-100%']"
-                    required></v-select>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-select v-model="barangay.plain" label="Plain*"
-                    :items="['0-25%','26-50','51-75%','76-100%']"
-                    required></v-select>
-                  </v-flex>
-                  <v-flex xs6 md4>
-                    <v-select v-model="barangay.valley" label="Valley*"
-                    :items="['0-25%','26-50','51-75%','76-100%']"
                     required></v-select>
                   </v-flex>
                 </v-layout>
@@ -287,31 +201,12 @@ export default {
       search: "",
       form: new Form({
         name: "",
-        email: ""
-      }),
-      barangay: new Form({
+        email: "",
         municipality: "",
         province: "",
         region: "",
         zip_code: "",
-        mother_barangay: "",
-        old_name: "",
-        legel_basis: "",
-        date_legal_basis: "",
-        date_ratification: "",
         type_barangay: "",
-        boundaries_north: "",
-        boundaries_east: "",
-        boundaries_west: "",
-        boundaries_south: "",
-        totalland_area_sqkm: "",
-        totalland_area_hec: "",
-        distance_municipal_city: "",
-        province_capitol: "",
-        national_highway: "",
-        mountainous: "",
-        plain: "",
-        valley: ""
       }),
       headers: [
         { text: "Name", value: "name", selected: true },
@@ -360,35 +255,27 @@ export default {
     },
 
     createUser() {
-      this.barangay
-        .post('api/barangayInformation')
+      this.dialogAccounts = false;
+      toast.fire({
+        type: "info",
+        title: "Creating User"
+      });
+      this.form
+        .post("api/barangay")
         .then(() => {
-          this.dialogAccounts = false;
+          this.form.reset();
+          this.getAccounts();
           toast.fire({
-            type: "info",
-            title: "Creating User"
+            type: "success",
+            title: "User has been created"
           });
-          this.form
-            .post("api/barangay")
-            .then(() => {
-              this.getAccounts();
-              toast.fire({
-                type: "success",
-                title: "User has been created"
-              });
-            })
-            .catch(() => {
-              toast.fire({
-                type: "warning",
-                title: "failed to create user"
-              });
-            });
-        }).catch(() => {
-              toast.fire({
-                type: "warning",
-                title: "failed to save in database"
-              });
-            });
+        })
+        .catch(() => {
+          toast.fire({
+            type: "warning",
+            title: "failed to create user"
+          });
+        });
     },
 
     archive(id) {
@@ -436,7 +323,6 @@ export default {
       axios
         .post("api/barangay/reset/" + id)
         .then(response => {
-          this.getAccounts();
           toast.fire({
             type: "success",
             title: "User password has been reset"

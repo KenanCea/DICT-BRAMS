@@ -16,7 +16,16 @@
             <span>Clear selected</span>
           </v-tooltip>
         </span>
-
+        <div v-if="selectedInhabitant.length">
+          <v-tooltip attach bottom>
+            <template v-slot:activator="{ on }">
+              <v-btn v-on="on" icon @click="editDialog(selectedInhabitant[0])">
+                <v-icon>mdi-eye</v-icon>
+              </v-btn>
+            </template>
+            <span>Edit inhabitant</span>
+          </v-tooltip>
+          </div>
         <div v-if="selectedInhabitant.length" class="ml-1">
           <v-tooltip bottom>
             <template v-slot:activator="{ on }">
@@ -126,6 +135,345 @@
       </v-card>
     </v-dialog>
      
+    <v-dialog v-model="dialogEditInhabitant" persistent scrollable max-width="800px">
+        <v-form
+          ref="inhabitantForm"
+          v-model="validinhabitantForm"
+          lazy-validation
+          @submit.prevent="updateInhabitant()"
+        >
+          <v-card>
+            <v-card-title>
+              <span class="headline">inhabitant</span>
+            </v-card-title>
+            <v-divider></v-divider>
+            <v-card-text>
+              <v-container grid-list-md pa-0>
+                <v-layout wrap>
+                  <v-flex xs6 md4>
+                    <v-text-field
+                      v-model="inhabitantForm.first_name"
+                      label="First name*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6 md4>
+                    <v-text-field
+                      v-model="inhabitantForm.middle_name"
+                      label="Middle name"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6 md4>
+                    <v-text-field
+                      v-model="inhabitantForm.last_name"
+                      label="Last name*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.relation_to_the_head"
+                      label="Relation to THE HEAD*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.sex"
+                      label="Sex*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.date_of_birth"
+                      label="Date of birth*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.placeOfBirth_native"
+                      label="Place of birth*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-autocomplete
+                      v-model="inhabitantForm.citizenship"
+                      label="Citizenship*"
+                      readonly
+                    ></v-autocomplete>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.civil_status"
+                      label="Civil status*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.religion"
+                      label="Religion*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.status_of_residency"
+                      label="Status of residency*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.schooling"
+                      label="Schooling*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.Highest_educational_attainment"
+                      label="Highest educational attainment*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.date_settled_in_barangay"
+                      label="Date settled in the barangay*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.ethnicGroup"
+                      label="Ethnic group*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.registeredVoterOfTheBrgy"
+                      label="Registered voter*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.blood_type"
+                      label="Blood type*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.Total_family_income"
+                      label="Total family income"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.Final_family_income"
+                      label="Final family income"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field
+                      v-model="inhabitantForm.disability"
+                      label="Disability*"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs6>
+                    <v-text-field
+                      v-if="inhabitantForm.disability === 'Others'"
+                      v-model="inhabitantForm.dissability_others"
+                      label="Disability others"
+                      readonly
+                    ></v-text-field>
+                  </v-flex>
+
+                  <v-flex xs6>
+                    <v-checkbox v-model="vaccine" label="For ages 0-6 years old">Toggle</v-checkbox>
+                  </v-flex>
+
+                  <v-layout row wrap v-if="vaccine">
+                    <v-flex xs4>
+                      <v-text-field
+                        v-model="inhabitantForm.childs_parent_guardian"
+                        label="Child's Parent/Guardian"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                      <v-text-field
+                        v-model="inhabitantForm.dewormed"
+                        label="Dewormed?"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs4>
+                      <v-text-field
+                        v-model="inhabitantForm.received_vitaminA"
+                        label="Recieved Vitamin A?"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs3>
+                      <v-text-field
+                        v-model="inhabitantForm.weight"
+                        label="Weight"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs3>
+                      <v-text-field
+                        v-model="inhabitantForm.height"
+                        label="Height"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.date_measured_height_weight"
+                        label="Date measured height and weight"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.bcg" label="bcg" readonly></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.dpi1" label="dpi" readonly></v-text-field>
+                    </v-flex>
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.dpi2" label="dpi" readonly></v-text-field>
+                    </v-flex>
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.dpi3" label="dpi" readonly></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.opd1" label="opd" readonly></v-text-field>
+                    </v-flex>
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.opd2" label="opd" readonly></v-text-field>
+                    </v-flex>
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.opd3" label="opd" readonly></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs2>
+                      <v-text-field
+                        v-model="inhabitantForm.measles"
+                        label="measles"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.others1" label="others" readonly></v-text-field>
+                    </v-flex>
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.others2" label="others" readonly></v-text-field>
+                    </v-flex>
+                    <v-flex xs1>
+                      <v-text-field v-model="inhabitantForm.others3" label="others" readonly></v-text-field>
+                    </v-flex>
+                  </v-layout>
+
+                  <v-flex xs6>
+                    <v-checkbox v-model="employed" label="For employed inhabitant">Toggle</v-checkbox>
+                  </v-flex>
+
+                  <v-layout wrap v-if="employed">
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.gen_job_description"
+                        label="General Job Description"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.specific_job_description"
+                        label="Specific Job Description"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.employment_status"
+                        label="Employment Status"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.job_category"
+                        label="Job Category"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.estimated_monthly_income_cash"
+                        label="Estimated monthly income-cash"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.estimated_monthly_income_kind"
+                        label="Estimated Monthly Income-kind"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6>
+                      <v-text-field
+                        v-model="inhabitantForm.employment_category"
+                        label="Employment Category"
+                        readonly
+                      ></v-text-field>
+                    </v-flex>
+                  </v-layout>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" text @click="dialogEditInhabitant = false">Cancel</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
+
+
+
+
+
       <v-data-table
         id="printTable"
         v-model="selectedInhabitant"
@@ -200,6 +548,59 @@ export default {
     households: [],
     selectedInhabitant: [],
     selectedHouseholds: [],
+    vaccine: false,
+    employed: false,
+    dialogEditInhabitant: false,
+    inhabitantForm: new Form({
+      id: "",
+      household_id: "",
+      first_name: "",
+      middle_name: "",
+      last_name: "",
+      relation_to_the_head: "",
+      employment_category: "",
+      sex: "",
+      estimated_monthly_income_cash: "",
+      date_of_birth: "",
+      estimated_monthly_income_kind: "",
+      Total_family_income: "",
+      civil_status: "",
+      Final_family_income: "",
+      religion: "",
+      disability: "",
+      status_of_residency: "",
+      schooling: "",
+      Highest_educational_attainment: "",
+      date_settled_in_barangay: "",
+      specific_job_description: "",
+      citizenship: "",
+      gen_job_description: "",
+      employment_status: "",
+      ethnicGroup: "",
+      dissability_others: "",
+      job_category: "",
+      placeOfBirth_native: "",
+      registeredVoterOfTheBrgy: "",
+      blood_type: "",
+      childs_parent_guardian: "",
+      weight: "",
+      height: "",
+      bcg: "",
+      dpi1: "",
+      dpi2: "",
+      dpi3: "",
+      opd1: "",
+      opd2: "",
+      opd3: "",
+      measles: "",
+      others1: "",
+      others2: "",
+      others3: "",
+      date_measured_height_weight: "",
+      date_measured_height_weight: "",
+      received_vitaminA: "",
+      dewormed: ""
+    }),
     address: [],
     headers: [
       { text: "First name", value: "first_name", selected: true },
@@ -353,6 +754,12 @@ export default {
         this.inhabitantsList = response.data;
         this.dialogHouseholds = true;
       });
+    },
+
+    editDialog(inhabitants) {
+      this.dialogEditInhabitant = true;
+      this.inhabitantForm.fill(inhabitants);
+      this.fillInhabitants(this.selectedInhabitant[0].household_id);
     },
   }
 };

@@ -795,7 +795,7 @@
     <v-dialog v-model="dialogInhabitants" persistent scrollable max-width="800px">
       <v-card>
         <v-card-title>
-          <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span>
+          <span>{{ selectedInhabitant}}</span>
           <v-spacer></v-spacer>
           <span v-if="selectedInhabitant.length">
             <v-tooltip attach bottom>
@@ -846,7 +846,6 @@
             :headers="headersInhabitants"
             :items="inhabitantsList"
             show-select
-            single-select
           >
             <template v-slot:items="props">
               <td>{{ props.item.first_name }}</td>

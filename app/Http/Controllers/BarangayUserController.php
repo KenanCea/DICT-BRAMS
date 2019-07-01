@@ -65,9 +65,15 @@ class BarangayUserController extends Controller
 
 
 
-        //connect barangay to the users table
-        $barangay = Barangay::whereNull('user_id')->first();
-        $barangay->update(['user_id'=>$users->id]);
+        //Barangay Details
+        $barangay = new Barangay();
+        $barangay->user_id=$users->id;
+        $barangay->municipality=request('municipality');
+        $barangay->province=request('province');
+        $barangay->region=request('region');
+        $barangay->zip_code=request('zip_code');
+        $barangay->type_barangay=request('type_barangay');
+        $barangay->save();
 
         //start of log
         $logs= new activitylogs;
@@ -188,10 +194,5 @@ class BarangayUserController extends Controller
             ->select('*')
             ->whereNotNull('deleted_at')
             ->get();
-    }
-
-    public function barangayInformation(Request $request)
-    {   
-        Barangay::create($request->all());
     }
 }
