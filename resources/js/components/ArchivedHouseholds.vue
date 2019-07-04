@@ -18,6 +18,16 @@
         </v-tooltip>
       </span>
 
+      <div v-if="selected.length">
+        <v-tooltip attach bottom>
+          <template v-slot:activator="{ on }">
+            <v-btn v-on="on" icon @click="editHouseholdDialog(selected[0])">
+              <v-icon>mdi-eye</v-icon>
+            </v-btn>
+          </template>
+          <span>Edit household</span>
+        </v-tooltip>
+      </div>
 
       <div v-if="selected.length" class="ml-1">
         <v-tooltip attach bottom>
@@ -70,6 +80,224 @@
         ></v-text-field>
       </v-flex>
     </v-app-bar>
+
+        <v-dialog v-model="dialogHousehold" persistent scrollable max-width="800px">
+      <v-form
+        ref="householdForm"
+        v-model="validhouseholdForm"
+      >
+        <v-card>
+          <v-card-title>
+            <span class="headline">Household</span>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-container grid-list-md pa-0>
+              <v-layout wrap>
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.room_no"
+                    label="Room number"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.house_no"
+                    label="House number*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.purok"
+                    label="Purok*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.street"
+                    label="Street*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.telephone_no"
+                    label="Telephone number"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.dateOfSurvey"
+                    label="Date of survey*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.placeOfOrigin"
+                    label="Place of origin*"
+                    readonly
+                    required
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.ethnic_group"
+                    label="Ethnic group*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.dialects"
+                    label="Dialects*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.solo_parent"
+                    label="Solo parent*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4 v-if="householdForm.solo_parent === 'Others'">
+                  <v-text-field
+                    v-model="householdForm.solo_parent_others"
+                    label="Solo parent others"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.status_of_ownership_house"
+                    label="Status of ownership-house*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4 v-if="householdForm.status_of_ownership_house === 'Others'">
+                  <v-text-field
+                    v-model="householdForm.status_of_ownership_house_others"
+                    label="Status of ownership-house others"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.status_of_ownership_lot"
+                    label="Status of ownership-lot*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4 v-if="householdForm.status_of_ownership_lot === 'Others'">
+                  <v-text-field
+                    v-model="householdForm.status_of_ownership_lot_others"
+                    label="Status of ownership-lot others"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.type_of_dwelling_structure"
+                    label="Type of dwelling structure*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.type_of_dwelling"
+                    label="Type of dwelling*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.lighting_source"
+                    label="Lighting source*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.sources_of_info"
+                    label="Sources of info*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4 v-if="householdForm.sources_of_info === 'Others'">
+                  <v-text-field
+                    v-model="householdForm.sources_of_info_others"
+                    label="Sources of info others"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.communication_services"
+                    label="Communication services*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4 v-if="householdForm.communication_services === 'Others'">
+                  <v-text-field
+                    v-model="householdForm.communication_services_others"
+                    label="Communication services others"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.means_of_transportation"
+                    label="Means of transportation*"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+
+                <v-flex xs12 md4 v-if="householdForm.means_of_transportation === 'Others'">
+                  <v-text-field
+                    v-model="householdForm.means_of_transportation_others"
+                    label="Means of transportation others"
+                    readonly
+                  ></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <p class="mb-0">* indicates required field</p>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialogHousehold=false">Cancel</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-dialog>
 
     <v-data-table
       v-model="selected"
@@ -137,9 +365,38 @@ export default {
       households: [],
       address: [],
       selected: [],
+      dialogHousehold: false,
       search: "",
       menuSettled: false,
       menuHeight: false,
+      householdForm: new Form({
+        id: "",
+        solo_parent: "",
+        solo_parent_others: "",
+        dateOfSurvey: "",
+        familysize: "",
+        room_no: "",
+        house_no: "",
+        purok: "",
+        street: "",
+        type_of_dwelling_structure: "",
+        placeOfOrigin: "",
+        ethnic_group: "",
+        telephone_no: "",
+        dialects: "",
+        status_of_ownership_house: "",
+        status_of_ownership_house_others: "",
+        status_of_ownership_lot: "",
+        status_of_ownership_lot_others: "",
+        type_of_dwelling: "",
+        lighting_source: "",
+        sources_of_info: "",
+        sources_of_info_others: "",
+        communication_services: "",
+        communication_services_others: "",
+        means_of_transportation: "",
+        means_of_transportation_others: ""
+      }),
       headersHouseholds: [
         {
           text: "House Number",
@@ -264,7 +521,12 @@ export default {
     },
     showColumn(col) {
       return this.headersHouseholds.find(h => h.value === col).selected;
-    }
+    },
+    editHouseholdDialog(households) {
+      this.householdForm.reset();
+      this.dialogHousehold = true;
+      this.householdForm.fill(households);
+    },
   }
 };
 </script>

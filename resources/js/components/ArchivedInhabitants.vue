@@ -139,8 +139,6 @@
         <v-form
           ref="inhabitantForm"
           v-model="validinhabitantForm"
-          lazy-validation
-          @submit.prevent="updateInhabitant()"
         >
           <v-card>
             <v-card-title>
@@ -204,11 +202,11 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs6>
-                    <v-autocomplete
+                    <v-text-field
                       v-model="inhabitantForm.citizenship"
                       label="Citizenship*"
                       readonly
-                    ></v-autocomplete>
+                    ></v-text-field>
                   </v-flex>
                   <v-flex xs6>
                     <v-text-field

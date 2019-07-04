@@ -767,7 +767,7 @@
     <v-dialog v-model="dialogArchive" persistent scrollable max-width="400px">
         <v-form 
         ref="archiveForm"
-        @submit.prevent="archivehouse ? archiveHousehold(selected[0].id) : archiveInhabitant(selectedInhabitant[0].id)">
+        @submit.prevent="archivehouse ? archiveHousehold(selected[0].id) : archiveInhabitant(selectedInhabitant)">
           <v-card min-width="400px">
             <v-card-title>
               <span class="headline">Remarks</span>
@@ -795,7 +795,7 @@
     <v-dialog v-model="dialogInhabitants" persistent scrollable max-width="800px">
       <v-card>
         <v-card-title>
-          <span>{{ selectedInhabitant}}</span>
+          
           <v-spacer></v-spacer>
           <span v-if="selectedInhabitant.length">
             <v-tooltip attach bottom>
@@ -818,7 +818,7 @@
               <span>Add new inhabitant</span>
             </v-tooltip>
           </div>
-          <div v-if="selectedInhabitant.length" class="ml-1">
+          <div v-if="selectedInhabitant.length == 1" class="ml-1">
             <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon @click="editInhabitantDialog(selectedInhabitant[0])">
@@ -828,14 +828,14 @@
               <span>Edit inhabitant</span>
             </v-tooltip>
           </div>
-          <div v-if="selectedInhabitant.length" class="ml-1">
+          <div v-if="selectedInhabitant.length" class="ml-1" style='margin-right:20px'>
             <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon @click="InhabitantarchiveDialog()">
                   <v-icon>mdi-archive</v-icon>
                 </v-btn>
               </template>
-              <span>Archive inhabitant</span>
+              <span>Archive Inhabitant</span>
             </v-tooltip>
           </div>
         </v-card-title>
@@ -1224,18 +1224,20 @@ export default {
           cancelButtonColor: "#d33",
           confirmButtonText: "Yes, archive it!"
         })
-        .then(result => {
+        .then(result => {   
           if (result.value) {
-            this.archiveForm.post("api/inhabitants/archived/" + id).then(response => {
-              toast.fire({
-                type: "success",
-                title: "Inhabitant has been archived."
+            for(var i=0 ; i<id.length;i++){
+              this.archiveForm.post("api/inhabitants/archived/" + id[i].id )
+              .then(response => {
               });
-              this.dialogArchive=false;
-              this.getHouseholds();
-              this.showInhabitants(this.selected[0].id);
-              this.selectedInhabitant.splice([0]);
+            }
+            toast.fire({
+              type: "success",
+              title: "Inhabitant has been archived."
             });
+            this.dialogArchive=false;
+            this.getHouseholds();
+            this.showInhabitants(this.selected[0].id);
           }
         });
     },

@@ -14,30 +14,6 @@
           </template>
           <span>Print</span>
         </v-tooltip>
-        <!--<v-tooltip attach bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="print()">
-              <v-icon>mdi-printer</v-icon>
-            </v-btn>
-          </template>
-          <span>Print</span>
-        </v-tooltip>
-        <v-tooltip attach bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="word()">
-              <v-icon>mdi-file-word</v-icon>
-            </v-btn>
-          </template>
-          <span>Word</span>
-        </v-tooltip>
-        <v-tooltip attach bottom>
-          <template v-slot:activator="{ on }">
-            <v-btn v-on="on" icon @click="pdf()">
-              <v-icon>mdi-file-pdf</v-icon>
-            </v-btn>
-          </template>
-          <span>PDF</span>
-        </v-tooltip>-->
     </div>
 </template>
 

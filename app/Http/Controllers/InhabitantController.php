@@ -124,10 +124,11 @@ class InhabitantController extends Controller
             ->get();
     }
 
-    public function archive( Request $request, $id)
+    public function archive( Request $request,$id)
     {
-        $inhabitant = Inhabitant::findOrFail($id);
+        $inhabitant = Inhabitant::find($id);
         $inhabitant->update(['remarks'=>request('remarks')]);
+        $inhabitant->delete();
 
         //start of log
         $households = Household::findOrFail($inhabitant->household_id);
@@ -139,7 +140,6 @@ class InhabitantController extends Controller
         $logs->save();
         //end of log
 
-        $inhabitant->delete();
     }
     public function restore($id,$houseID)
     {

@@ -163,7 +163,7 @@
                                 </v-flex>
                                 <v-flex xs12 md6>
                                   <v-text-field
-                                    v-model="calendarStartTerm"
+                                    v-model="officialForm.start_term"
                                     prepend-icon="mdi-calendar"
                                     label="Start Term"
                                     v-mask="'####-##-##'"
@@ -172,7 +172,7 @@
                                 </v-flex>
                                 <v-flex xs12 md6>
                                   <v-text-field
-                                    v-model="calendarEndTerm"
+                                    v-model="officialForm.end_term"
                                     prepend-icon="mdi-calendar"
                                     label="End Term"
                                     v-mask="'####-##-##'"

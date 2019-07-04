@@ -35,6 +35,7 @@ class OfficialController extends Controller
     public function store(Request $request)
     {
         $official = $request->user()->officials()->create($request->all());
+
         //start log
         $name=User::findOrFail(Auth::user()->id);
         $logs= new activitylogs;
@@ -42,6 +43,7 @@ class OfficialController extends Controller
         $logs->user_id=Auth::user()->id;
         $logs->save();
         //end log
+        
         return new $official;
         
     }
