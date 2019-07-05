@@ -22,7 +22,7 @@ class PrintDocumentController extends Controller
     {
         return Inhabitant::join('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
-        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                         '-',
                         MONTH(inhabitants.date_of_birth),
@@ -46,7 +46,7 @@ class PrintDocumentController extends Controller
     public function ProspectiveSkVoters(){
         return Inhabitant::join('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
-        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         
         DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                         '-',
@@ -74,7 +74,7 @@ class PrintDocumentController extends Controller
     public function SeniorCitizens(){
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
-        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         
         DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                         '-',
@@ -102,7 +102,7 @@ class PrintDocumentController extends Controller
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
         ->join('filedcases','filedcases.inhabitant_id','=','inhabitants.id')
-        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         
         DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                         '-',
@@ -130,7 +130,7 @@ class PrintDocumentController extends Controller
     public function OutOfSchool7_14(){
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
-        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         
         DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                         '-',
@@ -159,7 +159,7 @@ class PrintDocumentController extends Controller
     public function OutOfSchool15_25(){
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
-        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        ->select(DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         
         DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                         '-',
@@ -189,7 +189,7 @@ class PrintDocumentController extends Controller
     public function monthlyMonitoring(){
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
-        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
         //age
@@ -208,7 +208,7 @@ class PrintDocumentController extends Controller
     public function vitaminAMonitoring(){
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
-        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
         //age
@@ -223,7 +223,7 @@ class PrintDocumentController extends Controller
     public function DewormMonitoring(){
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
-        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
         //age
@@ -238,7 +238,7 @@ class PrintDocumentController extends Controller
     public function QuarterlyMonitoring(){
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->select('inhabitants.childs_parent_guardian',
-        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
         //age
