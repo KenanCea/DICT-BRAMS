@@ -44,7 +44,6 @@
       <v-layout row wrap>
         <v-flex xs4>
         <v-card-text>
-          <p ><strong>Total Land Area:</strong></p>
           <p class="text-xs-left"><strong>Total Purok:</strong> </p>
           <p class="text-xs-left"><strong>Total Households:</strong></p>
           <p class="text-xs-left"><strong>Barangay Population:</strong> </p>
@@ -54,7 +53,6 @@
         </v-flex>
         <v-flex xs2>
         <v-card-text>
-            <p class="text-xs-left">{{landarea.totalland_area_sqkm}}</p>
             <p class="text-xs-left">{{purok}}</p>
             <p class="text-xs-left"> {{household}}</p>
             <p class="text-xs-left">{{inhabitant}}</p>

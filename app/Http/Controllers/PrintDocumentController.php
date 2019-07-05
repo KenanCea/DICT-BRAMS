@@ -254,7 +254,7 @@ class PrintDocumentController extends Controller
         return Inhabitant::leftJoin('users','users.id','=','inhabitants.user_id')
         ->join('households','inhabitants.household_id','=','households.id')
         ->select('inhabitants.id',
-        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",inhabitants.middle_name) AS fullname'),
+        DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         DB::raw("YEAR(CURDATE()) - YEAR(inhabitants.date_of_birth) - IF(STR_TO_DATE(CONCAT(YEAR(CURDATE()),
                         '-',
