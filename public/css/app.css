@@ -9,7 +9,7 @@
   border-bottom: rgba(19, 17, 17, 0.12) 1px solid !important;
 }
 
-#app > div.application--wrap > aside > div.v-navigation-drawer__border {
+#app > div.application--wrap > nav > div.v-navigation-drawer__border {
   width: 0px !important;
 }
 
