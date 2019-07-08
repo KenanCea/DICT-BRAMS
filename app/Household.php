@@ -15,6 +15,8 @@ class Household extends Model
         'house_no',
         'purok',
         'street',
+        'Final_family_income',
+        'Total_family_income',
         'placeOfOrigin',
         'ethnic_group',
         'telephone_no',

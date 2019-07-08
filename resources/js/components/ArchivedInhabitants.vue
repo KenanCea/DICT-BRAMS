@@ -277,20 +277,7 @@
                     ></v-text-field>
                   </v-flex>
 
-                  <v-flex xs6>
-                    <v-text-field
-                      v-model="inhabitantForm.Total_family_income"
-                      label="Total family income"
-                      readonly
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs6>
-                    <v-text-field
-                      v-model="inhabitantForm.Final_family_income"
-                      label="Final family income"
-                      readonly
-                    ></v-text-field>
-                  </v-flex>
+
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.disability"
@@ -499,9 +486,9 @@
           <td
             v-if="showColumn('estimated_monthly_income_kind')"
           >{{ props.item.estimated_monthly_income_kind }}</td>
-          <td v-if="showColumn('Total_family_income')">{{ props.item.Total_family_income }}</td>
+          
           <td v-if="showColumn('civil_status')">{{ props.item.civil_status }}</td>
-          <td v-if="showColumn('Final_family_income')">{{ props.item.Final_family_income }}</td>
+
           <td v-if="showColumn('religion')">{{ props.item.religion }}</td>
           <td v-if="showColumn('status_of_residency')">{{ props.item.status_of_residency }}</td>
           <td v-if="showColumn('schooling')">{{ props.item.schooling }}</td>
@@ -561,7 +548,7 @@ export default {
       estimated_monthly_income_cash: "",
       date_of_birth: "",
       estimated_monthly_income_kind: "",
-      Total_family_income: "",
+      
       civil_status: "",
       Final_family_income: "",
       religion: "",
@@ -622,7 +609,7 @@ export default {
         text: "Estimated Monthly Income-kind",
         value: "estimated_monthly_income_kind"
       },
-      { text: "Total Family Income", value: "Total_family_income" },
+     
       { text: "Civil Status", value: "civil_status" },
       { text: "Final Family Income", value: "Final_family_income" },
       { text: "Religion", value: "religion" },

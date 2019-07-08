@@ -321,22 +321,6 @@
                   </v-flex>
 
                   <v-flex xs6>
-                    <v-text-field
-                      v-model="inhabitantForm.Total_family_income"
-                      label="Total family income"
-                      prefix="₱"
-                      v-mask="'###############'"
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs6>
-                    <v-text-field
-                      v-model="inhabitantForm.Final_family_income"
-                      label="Final family income"
-                      prefix="₱"
-                      v-mask="'###############'"
-                    ></v-text-field>
-                  </v-flex>
-                  <v-flex xs6>
                     <v-select
                       v-model="inhabitantForm.disability"
                       :items="['None', 'Total blindness of one eye', 'Total blindness of both eye', 'Missing one or both arms', 'Mongoloid', 'Cleff Palate', 'Malabo ang paningin/poor eyesight', 'Hunchback', 'Paralyzed legs', 'Paralyzed arms', 'Speech disorder', 'Authistic', 'Fractured Vertebrate column', 'Paralyzed from neck down', 'Hydrocephalus',
@@ -1546,9 +1530,7 @@ export default {
         text: "Estimated Monthly Income-kind",
         value: "estimated_monthly_income_kind"
       },
-      { text: "Total Family Income", value: "Total_family_income" },
       { text: "Civil Status", value: "civil_status" },
-      { text: "Final Family Income", value: "Final_family_income" },
       { text: "Religion", value: "religion" },
       { text: "Status of Residency", value: "status_of_residency" },
       { text: "Schooling", value: "schooling" },
@@ -1653,9 +1635,7 @@ export default {
       estimated_monthly_income_cash: "",
       date_of_birth: "",
       estimated_monthly_income_kind: "",
-      Total_family_income: "",
       civil_status: "",
-      Final_family_income: "",
       religion: "",
       disability: "",
       status_of_residency: "",

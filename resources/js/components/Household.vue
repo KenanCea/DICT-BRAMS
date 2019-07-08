@@ -188,7 +188,6 @@
                 <v-flex xs12 md4>
                   <v-text-field
                     v-model="householdForm.dateOfSurvey"
-                    
                     label="Date of survey*"
                     v-mask="'####-##-##'"
                     hint="YYYY-MM-DD format"
@@ -226,7 +225,22 @@
                     required
                   ></v-select>
                 </v-flex>
-
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.Total_family_income"
+                    label="Total family income"
+                    prefix="₱"
+                    v-mask="'###############'"
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-text-field
+                    v-model="householdForm.Final_family_income"
+                    label="Final family income"
+                    prefix="₱"
+                    v-mask="'###############'"
+                  ></v-text-field>
+                </v-flex>
                 <v-flex xs12 md4>
                   <v-select
                     v-model="householdForm.solo_parent"
@@ -443,7 +457,6 @@
                 <v-flex xs12 md6>
                   <v-text-field
                     v-model="inhabitantForm.date_of_birth"
-                    
                     label="Date of birth*"
                     v-mask="'####-##-##'"
                     hint="YYYY-MM-DD format"
@@ -522,7 +535,6 @@
                 <v-flex xs12 md6>
                   <v-text-field
                     v-model="inhabitantForm.date_settled_in_barangay"
-                    
                     label="Date settled in the barangay*"
                     v-mask="'####-##-##'"
                     hint="YYYY-MM-DD format"
@@ -645,10 +657,9 @@
                   <v-flex xs12 md6>
                     <v-text-field
                       v-model="inhabitantForm.date_measured_height_weight"
-                      
                       label="Date measured height and weight"
                       v-mask="'####-##-##'"
-                    hint="YYYY-MM-DD format"
+                      hint="YYYY-MM-DD format"
                     ></v-text-field>
                   </v-flex>
 
@@ -763,41 +774,38 @@
       </v-form>
     </v-dialog>
 
-
     <v-dialog v-model="dialogArchive" persistent scrollable max-width="400px">
-        <v-form 
+      <v-form
         ref="archiveForm"
-        @submit.prevent="archivehouse ? archiveHousehold(selected[0].id) : archiveInhabitant(selectedInhabitant)">
-          <v-card min-width="400px">
-            <v-card-title>
-              <span class="headline">Remarks</span>
-            </v-card-title>
-            <v-divider></v-divider>
-            <v-card-text>
-              <v-container grid-list-md>
-                <v-layout wrap>
-                  <v-flex>
-                    <v-text-field v-model="archiveForm.remarks"></v-text-field>
-                  </v-flex>
-                </v-layout>
-              </v-container>
-            </v-card-text>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" text @click="dialogArchive=false">Cancel</v-btn>
-              <v-btn color="blue darken-1" text type="submit">Save</v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-form>
-      </v-dialog>
+        @submit.prevent="archivehouse ? archiveHousehold(selected[0].id) : archiveInhabitant(selectedInhabitant)"
+      >
+        <v-card min-width="400px">
+          <v-card-title>
+            <span class="headline">Remarks</span>
+          </v-card-title>
+          <v-divider></v-divider>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex>
+                  <v-text-field v-model="archiveForm.remarks"></v-text-field>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialogArchive=false">Cancel</v-btn>
+            <v-btn color="blue darken-1" text type="submit">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-form>
+    </v-dialog>
 
-    
-    
     <v-dialog v-model="dialogInhabitants" persistent scrollable max-width="800px">
       <v-card>
         <v-card-title>
-          
           <v-spacer></v-spacer>
           <span v-if="selectedInhabitant.length">
             <v-tooltip attach bottom>
@@ -830,7 +838,7 @@
               <span>Edit inhabitant</span>
             </v-tooltip>
           </div>
-          <div v-if="selectedInhabitant.length" class="ml-1" style='margin-right:20px'>
+          <div v-if="selectedInhabitant.length" class="ml-1" style="margin-right:20px">
             <v-tooltip attach bottom>
               <template v-slot:activator="{ on }">
                 <v-btn v-on="on" icon @click="InhabitantarchiveDialog()">
@@ -890,6 +898,8 @@
         <td v-if="showColumn('street')">{{ props.item.street }}</td>
         <td v-if="showColumn('lighting_source')">{{ props.item.lighting_source }}</td>
         <td v-if="showColumn('ethnic_group')">{{ props.item.ethnic_group }}</td>
+        <td v-if="showColumn('Total_family_income')">{{ props.item.Total_family_income }}</td>
+        <td v-if="showColumn('Final_family_income')">{{ props.item.Final_family_income }}</td>
         <td
           v-if="showColumn('means_of_transportation_others')"
         >{{ props.item.means_of_transportation_others }}</td>
@@ -975,6 +985,8 @@ export default {
         lighting_source: "",
         sources_of_info: "",
         sources_of_info_others: "",
+        Total_family_income: "",
+        Final_family_income: "",
         communication_services: "",
         communication_services_others: "",
         means_of_transportation: "",
@@ -992,9 +1004,9 @@ export default {
         estimated_monthly_income_cash: "",
         date_of_birth: "",
         estimated_monthly_income_kind: "",
-        Total_family_income: "",
+
         civil_status: "",
-        Final_family_income: "",
+
         religion: "",
         disability: "",
         status_of_residency: "",
@@ -1053,6 +1065,8 @@ export default {
           text: "Status of ownership house others",
           value: "status_of_ownership_house_others"
         },
+        { text: "Total Family Income", value: "Total_family_income" },
+        { text: "Final Family Income", value: "Final_family_income" },
         {
           text: "Status of ownership lot others",
           value: "status_of_ownership_lot_others"
@@ -1226,18 +1240,18 @@ export default {
           cancelButtonColor: "#d33",
           confirmButtonText: "Yes, archive it!"
         })
-        .then(result => {   
+        .then(result => {
           if (result.value) {
-            for(var i=0 ; i<id.length;i++){
-              this.archiveForm.post("api/inhabitants/archived/" + id[i].id )
-              .then(response => {
-              });
+            for (var i = 0; i < id.length; i++) {
+              this.archiveForm
+                .post("api/inhabitants/archived/" + id[i].id)
+                .then(response => {});
             }
             toast.fire({
               type: "success",
               title: "Inhabitant has been archived."
             });
-            this.dialogArchive=false;
+            this.dialogArchive = false;
             this.getHouseholds();
             this.showInhabitants(this.selected[0].id);
           }
@@ -1257,15 +1271,17 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            this.archiveForm.post("api/households/archived/" + id).then(response => {
-              toast.fire({
-                type: "success",
-                title: "Household has been archived."
+            this.archiveForm
+              .post("api/households/archived/" + id)
+              .then(response => {
+                toast.fire({
+                  type: "success",
+                  title: "Household has been archived."
+                });
+                this.dialogArchive = false;
+                this.getHouseholds();
+                this.selected.splice([0]);
               });
-              this.dialogArchive=false;
-              this.getHouseholds();
-              this.selected.splice([0]);
-            });
           }
         });
     },

@@ -81,11 +81,8 @@
       </v-flex>
     </v-app-bar>
 
-        <v-dialog v-model="dialogHousehold" persistent scrollable max-width="800px">
-      <v-form
-        ref="householdForm"
-        v-model="validhouseholdForm"
-      >
+    <v-dialog v-model="dialogHousehold" persistent scrollable max-width="800px">
+      <v-form ref="householdForm" v-model="validhouseholdForm">
         <v-card>
           <v-card-title>
             <span class="headline">Household</span>
@@ -95,35 +92,19 @@
             <v-container grid-list-md pa-0>
               <v-layout wrap>
                 <v-flex xs12 md4>
-                  <v-text-field
-                    v-model="householdForm.room_no"
-                    label="Room number"
-                    readonly
-                  ></v-text-field>
+                  <v-text-field v-model="householdForm.room_no" label="Room number" readonly></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md4>
-                  <v-text-field
-                    v-model="householdForm.house_no"
-                    label="House number*"
-                    readonly
-                  ></v-text-field>
+                  <v-text-field v-model="householdForm.house_no" label="House number*" readonly></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md4>
-                  <v-text-field
-                    v-model="householdForm.purok"
-                    label="Purok*"
-                    readonly
-                  ></v-text-field>
+                  <v-text-field v-model="householdForm.purok" label="Purok*" readonly></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md4>
-                  <v-text-field
-                    v-model="householdForm.street"
-                    label="Street*"
-                    readonly
-                  ></v-text-field>
+                  <v-text-field v-model="householdForm.street" label="Street*" readonly></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md4>
@@ -152,27 +133,28 @@
                 </v-flex>
 
                 <v-flex xs12 md4>
-                  <v-text-field
-                    v-model="householdForm.ethnic_group"
-                    label="Ethnic group*"
-                    readonly
-                  ></v-text-field>
+                  <v-text-field v-model="householdForm.ethnic_group" label="Ethnic group*" readonly></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md4>
+                  <v-text-field v-model="householdForm.dialects" label="Dialects*" readonly></v-text-field>
+                </v-flex>
+                <v-flex xs12 md4>
                   <v-text-field
-                    v-model="householdForm.dialects"
-                    label="Dialects*"
+                    v-model="householdForm.Total_family_income"
+                    label="Total family income"
                     readonly
                   ></v-text-field>
                 </v-flex>
-
                 <v-flex xs12 md4>
                   <v-text-field
-                    v-model="householdForm.solo_parent"
-                    label="Solo parent*"
+                    v-model="householdForm.Final_family_income"
+                    label="Final family income"
                     readonly
                   ></v-text-field>
+                </v-flex>
+                <v-flex xs12 md4>
+                  <v-text-field v-model="householdForm.solo_parent" label="Solo parent*" readonly></v-text-field>
                 </v-flex>
 
                 <v-flex xs12 md4 v-if="householdForm.solo_parent === 'Others'">
@@ -324,6 +306,8 @@
         <td v-if="showColumn('street')">{{ props.item.street }}</td>
         <td v-if="showColumn('lighting_source')">{{ props.item.lighting_source }}</td>
         <td v-if="showColumn('ethnic_group')">{{ props.item.ethnic_group }}</td>
+        <td v-if="showColumn('Total_family_income')">{{ props.item.Total_family_income }}</td>
+        <td v-if="showColumn('Final_family_income')">{{ props.item.Final_family_income }}</td>
         <td
           v-if="showColumn('means_of_transportation_others')"
         >{{ props.item.means_of_transportation_others }}</td>
@@ -379,6 +363,8 @@ export default {
         house_no: "",
         purok: "",
         street: "",
+        Total_family_income: "",
+        Final_family_income: "",
         type_of_dwelling_structure: "",
         placeOfOrigin: "",
         ethnic_group: "",
@@ -420,6 +406,8 @@ export default {
           text: "Status of ownership house others",
           value: "status_of_ownership_house_others"
         },
+        { text: "Total Family Income", value: "Total_family_income" },
+        { text: "Final Family Income", value: "Final_family_income" },
         {
           text: "Status of ownership lot others",
           value: "status_of_ownership_lot_others"
@@ -434,7 +422,7 @@ export default {
           value: "communication_services_others"
         },
         { text: "Means of transportation", value: "means_of_transportation" },
-        { text: "Remarks", value: "remarks", selected: true},
+        { text: "Remarks", value: "remarks", selected: true },
         {
           text: "Means of transportation others",
           value: "means_of_transportation_others"
@@ -526,7 +514,7 @@ export default {
       this.householdForm.reset();
       this.dialogHousehold = true;
       this.householdForm.fill(households);
-    },
+    }
   }
 };
 </script>

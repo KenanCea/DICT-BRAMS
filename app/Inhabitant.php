@@ -21,8 +21,6 @@ class Inhabitant extends Model
         'religion',
         'schooling',
         'Highest_educational_attainment',
-        'Final_family_income',
-        'Total_family_income',
         'status_of_residency',
         'no_of_years_in_barangay',
         'date_settled_in_barangay',
