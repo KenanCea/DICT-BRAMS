@@ -203,7 +203,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.date_of_birth"
-                      prepend-icon="mdi-calendar"
+                      
                       label="Date of birth*"
                       v-mask="'####-##-##'"
                       hint="YYYY-MM-DD format"
@@ -281,7 +281,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.date_settled_in_barangay"
-                      prepend-icon="mdi-calendar"
+                      
                       label="Date settled in the barangay*"
                       v-mask="'####-##-##'"
                       hint="YYYY-MM-DD format"
@@ -404,7 +404,7 @@
                     <v-flex xs6>
                       <v-text-field
                         v-model="inhabitantForm.date_measured_height_weight"
-                        prepend-icon="mdi-calendar"
+                        
                         label="Date measured height and weight"
                         v-mask="'####-##-##'"
                         hint="YYYY-MM-DD format"

@@ -57,7 +57,7 @@
                 <v-flex xs12 sm6 md4>
                   <v-text-field
                     v-model="formBarangayCertificate.date_of_birth"
-                    prepend-icon="mdi-calendar"
+                    
                     label="Date of birth*"
                     v-mask="'####-##-##'"
                     hint="YYYY-MM-DD format"

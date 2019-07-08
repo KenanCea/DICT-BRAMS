@@ -161,7 +161,7 @@
                                   <v-flex xs12 md6>
                                     <v-text-field
                                       v-model="officialForm.start_term"
-                                      prepend-icon="mdi-calendar"
+                                      
                                       label="Start Term"
                                       v-mask="'####-##-##'"
                                       hint="YYYY-MM-DD format"
@@ -170,7 +170,7 @@
                                   <v-flex xs12 md6>
                                     <v-text-field
                                       v-model="officialForm.end_term"
-                                      prepend-icon="mdi-calendar"
+                                      
                                       label="End Term"
                                       v-mask="'####-##-##'"
                                       hint="YYYY-MM-DD format"

@@ -59,7 +59,7 @@
                             v-model="barangayForm.date_legal_basis"
                             label="Date of Legal Basis"
                             :disabled="!isEditing"
-                            prepend-icon="mdi-calendar"
+                            
                             readonly
                             v-on="on"
                           ></v-text-field>
@@ -87,7 +87,7 @@
                             v-model="barangayForm.date_ratification"
                             label="Date of Ratification/Plebiscite"
                             :disabled="!isEditing"
-                            prepend-icon="mdi-calendar"
+                            
                             readonly
                             v-on="on"
                           ></v-text-field>
