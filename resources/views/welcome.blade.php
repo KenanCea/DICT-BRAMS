@@ -27,18 +27,17 @@
             <v-container grid-list-xl>
 
                 <v-layout row wrap align-center style="height: 100vh;">
-                    <v-flex xs12 md6>
+                    <v-flex xl6 xs12 md6>
                         <h3 style="font-size:45px; line-height: normal;">Barangay Records and Automation Management System</h3>
                         <p class="my-4">A record management and Automation System for the Barangay Secretary under the maintenance of DICT as prescribed by RA 11032.</p>
                         <v-btn depressed color="primary" large href="/dashboard">
                             Get Started
                         </v-btn>
                     </v-flex>
-                    <v-flex xl2 md6 class="hidden-sm-and-down">
+                    <v-flex xl6 md6 class="hidden-sm-and-down">
                         <v-carousel hide-delimiters cycle height="441.141" show-arrows-on-hover>
                             <v-carousel-item v-for="(item,i) in items" :key="i" :src="item.src" reverse-transition="fade-transition" transition="fade-transition"></v-carousel-item>
                         </v-carousel>
-
                     </v-flex>
 
                 </v-layout>

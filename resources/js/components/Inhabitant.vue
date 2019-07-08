@@ -179,7 +179,7 @@
                       required
                     ></v-text-field>
                   </v-flex>
-                  
+
                   <v-flex xs6>
                     <v-select
                       v-model="inhabitantForm.relation_to_the_head"
@@ -613,8 +613,17 @@
           <v-card-text style="color:black">
             <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
               <v-layout row wrap>
+                <v-flex offset-xs9>
+                  <p style="margin-bottom:0px">
+                    Control no:
+                    <span
+                      v-if="formBarangayClearance.control_no"
+                    >{{formBarangayClearance.control_no}}</span>
+                    <span v-else>N/A</span>
+                  </p>
+                </v-flex>
                 <v-flex xs3>
-                  <img src="/img/baguio.png" alt="Logo" contain height="100">
+                  <img src="/img/baguio.png" alt="Logo" contain height="100" />
                 </v-flex>
                 <v-flex xs6 class="green--text title">
                   <p class="mb-0">
@@ -625,7 +634,7 @@
                   <p class="mb-0">Baguio City</p>
                 </v-flex>
                 <v-flex xs3>
-                  <img :src="getLogo()" alt="Logo" contain height="100">
+                  <img :src="getLogo()" alt="Logo" contain height="100" />
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
@@ -636,25 +645,45 @@
               </v-layout>
               <v-layout row wrap>
                 <v-flex xs4 class="form-border-right">
-                  <p class="mb-0">{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                   <p>Punong Barangay</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
                   <p>Barangay Secretary</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
                 <v-flex xs8 text-xs-left class="pl-3">
@@ -699,19 +728,12 @@
                       </p>
                     </v-flex>
 
-                    <v-flex xs6 class="pt-5">
-                      <p class="mb-0">________________________</p>
-                      <p class="mb-5">Signature over printed name</p>
-                    </v-flex>
-                    <v-flex xs6 class="text-xs-center">
-                      <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
-                      <p
-                        class="mb-0"
-                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                      <p>Punong Barangay</p>
+                    <v-flex xs6 class="pt-4">
+                      <p class="mb-0">______________________</p>
+                      <p class="mb-3">Signature over printed name</p>
                     </v-flex>
 
-                    <v-flex xs12 class="mb-5">
+                    <v-flex xs12 class="mb-3">
                       <p class="mb-0">
                         Community tax certificate number:
                         <span
@@ -737,6 +759,14 @@
                         >{{formBarangayClearance.official_receipt_no}}</span>
                         <span v-else>____________</span>
                       </p>
+                    </v-flex>
+
+                    <v-flex offset-xs6 xs6 class="text-xs-center">
+                      <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
+                      <p
+                        class="mb-0"
+                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                      <p>Punong Barangay</p>
                     </v-flex>
 
                     <v-flex xs12>
@@ -851,8 +881,17 @@
           <v-card-text style="color:black">
             <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
               <v-layout row wrap>
+                <v-flex offset-xs9>
+                  <p style="margin-bottom:0px">
+                    Control no:
+                    <span
+                      v-if="formBarangayCertificate.control_no"
+                    >{{formBarangayCertificate.control_no}}</span>
+                    <span v-else>N/A</span>
+                  </p>
+                </v-flex>
                 <v-flex xs3>
-                  <img src="/img/baguio.png" alt="Logo" contain height="100">
+                  <img src="/img/baguio.png" alt="Logo" contain height="100" />
                 </v-flex>
                 <v-flex xs6 class="green--text title">
                   <p class="mb-0">
@@ -863,7 +902,7 @@
                   <p class="mb-0">Baguio City</p>
                 </v-flex>
                 <v-flex xs3>
-                  <img :src="getLogo()" alt="Logo" contain height="100">
+                  <img :src="getLogo()" alt="Logo" contain height="100" />
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
@@ -874,25 +913,45 @@
               </v-layout>
               <v-layout row wrap>
                 <v-flex xs4 class="form-border-right">
-                  <p class="mb-0">{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                   <p>Punong Barangay</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
                   <p>Barangay Secretary</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
                 <v-flex xs8 text-xs-left class="pl-3">
@@ -935,19 +994,12 @@
                       </p>
                     </v-flex>
 
-                    <v-flex xs6 class="pt-5">
-                      <p class="mb-0">________________________</p>
-                      <p class="mb-5">Signature over printed name</p>
-                    </v-flex>
-                    <v-flex xs6 class="text-xs-center">
-                      <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
-                      <p
-                        class="mb-0"
-                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                      <p>Punong Barangay</p>
+                    <v-flex xs6 class="pt-4">
+                      <p class="mb-0">______________________</p>
+                      <p class="mb-3">Signature over printed name</p>
                     </v-flex>
 
-                    <v-flex xs12 class="mb-5">
+                    <v-flex xs12 class="mb-3">
                       <p class="mb-0">
                         Community tax certificate number:
                         <span
@@ -973,6 +1025,13 @@
                         >{{formBarangayCertificate.official_receipt_no}}</span>
                         <span v-else>____________</span>
                       </p>
+                    </v-flex>
+                    <v-flex xs6 offset-xs6 class="text-xs-center">
+                      <p>CERTIFIED AND ISSUED BY:</p>
+                      <p
+                        class="mb-0"
+                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                      <p>Punong Barangay</p>
                     </v-flex>
                     <v-flex xs12>
                       <p>Note: Not valid without Barangay Seal</p>
@@ -1107,8 +1166,17 @@
           <v-card-text style="color:black">
             <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
               <v-layout row wrap>
+                <v-flex offset-xs9>
+                  <p style="margin-bottom:0px">
+                    Control no:
+                    <span
+                      v-if="formBusinessClearance.control_no"
+                    >{{formBusinessClearance.control_no}}</span>
+                    <span v-else>N/A</span>
+                  </p>
+                </v-flex>
                 <v-flex xs3>
-                  <img src="/img/baguio.png" alt="Logo" contain height="100">
+                  <img src="/img/baguio.png" alt="Logo" contain height="100" />
                 </v-flex>
                 <v-flex xs6 class="green--text title">
                   <p class="mb-0">
@@ -1119,7 +1187,7 @@
                   <p class="mb-0">Baguio City</p>
                 </v-flex>
                 <v-flex xs3>
-                  <img :src="getLogo()" alt="Logo" contain height="100">
+                  <img :src="getLogo()" alt="Logo" contain height="100" />
                 </v-flex>
               </v-layout>
               <v-layout row wrap>
@@ -1130,25 +1198,45 @@
               </v-layout>
               <v-layout row wrap>
                 <v-flex xs4 class="form-border-right">
-                  <p class="mb-0">{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                   <p>Punong Barangay</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[1].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[2].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[3].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[4].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[5].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[6].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[7].name}` : 'Not registered'}}</p>
                   <p>Barangay Kagawad</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[8].name}` : 'Not registered'}}</p>
                   <p>Barangay Secretary</p>
-                  <p class="mb-0">{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
+                  <p
+                    class="mb-0 text-capitalize"
+                  >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
                 <v-flex xs8 text-xs-left class="pl-3">
@@ -1186,7 +1274,9 @@
                           v-if="formBusinessClearance.line_of_business"
                         >{{formBusinessClearance.line_of_business}}</span>
                       </p>
-                      <p style="text-indent: 5%;">The undersigned recommends for Approval due to the following reasons</p>
+                      <p
+                        style="text-indent: 5%;"
+                      >The undersigned recommends for Approval due to the following reasons</p>
                       <p style="text-indent: 5%;">1. Complied all requirements and,</p>
                       <p style="text-indent: 5%;">
                         2.
@@ -1212,19 +1302,12 @@
                       </p>
                     </v-flex>
 
-                    <v-flex xs6 class="pt-5">
-                      <p class="mb-0">________________________</p>
-                      <p class="mb-5">Signature over printed name</p>
-                    </v-flex>
-                    <v-flex xs6 class="text-xs-center">
-                      <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
-                      <p
-                        class="mb-0"
-                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
-                      <p>Punong Barangay</p>
+                    <v-flex xs6 class="pt-4">
+                      <p class="mb-0">______________________</p>
+                      <p class="mb-3">Signature over printed name</p>
                     </v-flex>
 
-                    <v-flex xs12 class="mb-5">
+                    <v-flex xs12 class="mb-3">
                       <p class="mb-0">
                         Community tax certificate number:
                         <span
@@ -1251,7 +1334,13 @@
                         <span v-else>____________</span>
                       </p>
                     </v-flex>
-
+                    <v-flex xs6 offset-xs6 class="text-xs-center">
+                      <p>CERTIFIED AND ISSUED BY:</p>
+                      <p
+                        class="mb-0"
+                      >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
+                      <p>Punong Barangay</p>
+                    </v-flex>
                     <v-flex xs12>
                       <p>Note: Not valid without Barangay Seal</p>
                     </v-flex>
@@ -1343,12 +1432,8 @@
         </v-form>
       </v-dialog>
 
-
-
       <v-dialog v-model="dialogArchive" persistent scrollable max-width="400px">
-        <v-form 
-        ref="archiveForm"
-        @submit.prevent="archiveInhabitant(selectedInhabitant[0].id)">
+        <v-form ref="archiveForm" @submit.prevent="archiveInhabitant(selectedInhabitant[0].id)">
           <v-card min-width="400px">
             <v-card-title>
               <span class="headline">Remarks</span>
@@ -1524,8 +1609,8 @@ export default {
       { text: "Issued on", value: "created_at" }
     ],
     archiveForm: new Form({
-        remarks: ""
-      }),
+      remarks: ""
+    }),
     selectedInhabitant: [],
     inhabitants: [],
     inhabitantsList: [],
@@ -1845,15 +1930,17 @@ export default {
         })
         .then(result => {
           if (result.value) {
-            this.archiveForm.post("api/inhabitants/archived/" + id).then(response => {
-              toast.fire({
-                type: "success",
-                title: "Inhabitant has been archived."
+            this.archiveForm
+              .post("api/inhabitants/archived/" + id)
+              .then(response => {
+                toast.fire({
+                  type: "success",
+                  title: "Inhabitant has been archived."
+                });
+                this.dialogArchive = false;
+                this.getInhabitants();
+                this.selectedInhabitant.splice([0]);
               });
-              this.dialogArchive=false;
-              this.getInhabitants();
-              this.selectedInhabitant.splice([0]);
-            });
           }
         });
     },
