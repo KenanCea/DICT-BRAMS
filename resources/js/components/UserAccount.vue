@@ -38,17 +38,14 @@
               </v-avatar>
               <h3 class="mt-2">{{form.name}}</h3>
               <p>{{form.email}}</p>
-              <p class="mb-0">Barangay Code</p>
-              <p>{{barangayForm.zip_code}}</p>
-              <p class="mb-0">Region</p>
-              <p>{{barangayForm.region}}</p>
-              <p class="mb-0">Province</p>
-              <p>{{barangayForm.province}}</p>
-              <p class="mb-0">Municipality</p>
-              <p>{{barangayForm.municipality}}</p>
-              <p>
-                <v-btn to="/barangayprofile" small color="primary">View More</v-btn>
-              </p>
+              <p class="mb-0"><strong>{{barangayForm.zip_code}}</strong></p>
+              <p >Zip Code</p>
+              <p class="mb-0"><strong>{{barangayForm.region}}</strong></p>
+              <p>Region</p>
+              <p class="mb-0"><strong>{{barangayForm.province}}</strong></p>
+              <p>Province</p>
+              <p class="mb-0"><strong>{{barangayForm.municipality}}</strong></p>
+              <p>Municipality</p>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -213,6 +210,14 @@
                           </v-btn>
                         </template>
                         <span>Edit official</span>
+                      </v-tooltip>
+                      <v-tooltip attach bottom>
+                        <template v-slot:activator="{ on }">
+                          <v-btn text icon @click="deleteOfficials(item)">
+                            <v-icon>mdi-delete</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>Delete official</span>
                       </v-tooltip>
                     </template>
                   </v-data-table>
@@ -379,6 +384,29 @@ export default {
       this.officialForm.reset();
       this.dialogOfficial = true;
       this.officialForm.fill(officials);
+    },
+    deleteOfficials(official){
+      swal
+        .fire({
+          title: "Are you sure?",
+          text: "This Barangay official will be PERMANENTLY DELETED!",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText:"Yes, Delete it!"
+        })
+        .then(result => {
+          if (result.value) {
+            axios.delete("api/official/" + official.id).then(response => {
+              toast.fire({
+                type: "success",
+                title: "Barangay Official has been Deleted."
+              });
+              this.getOfficials();
+            });
+          }
+        });
     },
 
     cancelOfficial() {

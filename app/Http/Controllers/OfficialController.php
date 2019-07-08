@@ -29,6 +29,7 @@ class OfficialController extends Controller
         ->orderByRaw("FIELD(position, 'Punong Barangay', 'Barangay Kagawad',
      'Barangay Treasurer', 'Barangay Secretary')")
         ->where('users.id',Auth::user()->id)
+        ->limit(10)
         ->get();
     }
 
@@ -58,5 +59,10 @@ class OfficialController extends Controller
         $logs->log="Updated official ".$official->name." Position: ".$official->position.", ".$name->name;
         $logs->user_id=Auth::user()->id;
         $logs->save();
+    }
+    public function destroy($id)
+    {
+        $official = Official::findOrFail($id);
+        $official->delete();
     }
 }
