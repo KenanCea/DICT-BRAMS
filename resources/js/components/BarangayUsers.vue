@@ -55,7 +55,7 @@
                 <v-icon>mdi-lock-reset</v-icon>
               </v-btn>
             </template>
-            <span>Rest User password</span>
+            <span>Reset User password</span>
           </v-tooltip>
         </div>
 
@@ -122,11 +122,11 @@
               <v-container grid-list-md pa-0>
                 <v-layout wrap>
                   <v-flex xs6 md4>
-                    <v-text-field v-model="form.name" label="Name*"
+                    <v-text-field v-model="form.name" label="Barangay Name*"
                     required></v-text-field>
                   </v-flex>
                   <v-flex xs6 md4>
-                    <v-text-field v-model="form.email" label="Email*"
+                    <v-text-field v-model="form.email" label="Barangay Email*"
                     required></v-text-field>
                   </v-flex>
                 </v-layout>
@@ -209,8 +209,8 @@ export default {
         type_barangay: "",
       }),
       headers: [
-        { text: "Name", value: "name", selected: true },
-        { text: "Email", value: "email", selected: true },
+        { text: "Barangay Name", value: "name", selected: true },
+        { text: "Barangay Email", value: "email", selected: true },
         {
           text: "Email Verified At",
           value: "email_verified_at",
