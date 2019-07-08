@@ -136,14 +136,24 @@
                     </v-list>
                     <v-divider></v-divider>
                     <v-list nav>
-                        <v-list-item :to="menu.to" v-for="(menu, i) in menus" :key="i">
+                        <v-list-item to="/useraccount">
                             <v-list-item-icon class="mr-3">
-                                <v-icon v-text="menu.icon"></v-icon>
+                                <v-icon>mdi-account-box</v-icon>
                             </v-list-item-icon>
                             <v-list-item-content>
-                                <v-list-item-title v-text="menu.title"></v-list-item-title>
+                                <v-list-item-title>User Account</v-list-item-title>
                             </v-list-item-content>
                         </v-list-item>
+                        @can('isUser')
+                        <v-list-item to="/summary">
+                            <v-list-item-icon class="mr-3">
+                                <v-icon>mdi-account-details</v-icon>
+                            </v-list-item-icon>
+                            <v-list-item-content>
+                                <v-list-item-title>Barangay Details</v-list-item-title>
+                            </v-list-item-content>
+                        </v-list-item>
+                        @endcan
                     </v-list>
                     <v-divider></v-divider>
                     <v-card-actions>

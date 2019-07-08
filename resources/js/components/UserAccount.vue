@@ -46,7 +46,9 @@
               <p>{{barangayForm.province}}</p>
               <p class="mb-0">Municipality</p>
               <p>{{barangayForm.municipality}}</p>
-              <p><v-btn to="/barangayprofile" small color="primary">View More</v-btn></p>
+              <p>
+                <v-btn to="/barangayprofile" small color="primary">View More</v-btn>
+              </p>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -99,132 +101,128 @@
         </v-flex>
       </v-layout>
     </v-container>
-    <v-container grid-list-xl fluid>
-      <v-layout row wrap>
-        <v-flex md12>
-          <v-card>
-            <v-layout>
-              <v-flex md12>
-                <v-toolbar flat color="white">
-                  <v-toolbar-title>Barangay Officials</v-toolbar-title>
-                  <v-divider
-                    class="mx-3"
-                    inset
-                    vertical
-                  ></v-divider>
-                  <v-spacer></v-spacer>
-                  <v-tooltip attach bottom>
-                    <template v-slot:activator="{ on }">
-                      <v-btn v-on="on" icon @click="newOfficialDialog()">
-                        <v-icon>mdi-account-plus</v-icon>
-                      </v-btn>
-                    </template>
-                    <span>Add new official</span>
-                  </v-tooltip>
-                </v-toolbar>
-                <v-data-table
-                  id="barangayOfficials"
-                  :headers="headersOfficials"
-                  :items="officials"
-                  hide-default-footer>
-                  <template v-slot:top>
-                    <v-dialog v-model="dialogOfficial" max-width="400px">
-                      <v-form
-                        ref="officialForm"
-                        v-model="validOfficialForm"
-                        lazy-validation 
-                        @submit.prevent="editmode ? updateOfficial() : createOfficial()"
-                      >
-                        <v-card>
-                          <v-card-title>
-                            <span class="headline" v-show="!editmode">Add a new official</span>
-                            <span class="headline" v-show="editmode">Edit official information</span>
-                          </v-card-title>
-                          <v-divider></v-divider>
-                          <v-card-text>
-                            <v-container grid-list-md>
-                              <v-layout wrap>
-                                <v-flex xs12 md12>
-                                  <v-select
-                                    v-model="officialForm.position"
-                                    :items="['Punong Barangay', 'Barangay Kagawad','Barangay Treasurer','Barangay Secretary']"
-                                    label="Position"
-                                    :rules="[v => !!v || 'Position is required']"
-                                    required
-                                  ></v-select>
-                                </v-flex>
-                                <v-flex xs12 md12>
-                                  <v-text-field 
-                                    v-model="officialForm.name" 
-                                    label="Barangay Official name" 
-                                    :rules="[v => !!v || 'Official name is required']"
-                                    required
-                                  ></v-text-field>
-                                </v-flex>
-                                <v-flex xs12 md6>
-                                  <v-text-field
-                                    v-model="officialForm.start_term"
-                                    prepend-icon="mdi-calendar"
-                                    label="Start Term"
-                                    v-mask="'####-##-##'"
-                                    hint="YYYY-MM-DD format"
-                                  ></v-text-field>
-                                </v-flex>
-                                <v-flex xs12 md6>
-                                  <v-text-field
-                                    v-model="officialForm.end_term"
-                                    prepend-icon="mdi-calendar"
-                                    label="End Term"
-                                    v-mask="'####-##-##'"
-                                    hint="YYYY-MM-DD format"
-                                  ></v-text-field>
-                                </v-flex>
-                              </v-layout>
-                            </v-container>
-                          </v-card-text>
-    
-                          <v-card-actions>
-                            <v-spacer></v-spacer>
-                            <v-btn 
-                              color="blue darken-1" 
-                              text 
-                              @click="cancelOfficial()"
-                            >Cancel</v-btn>
-                            <v-btn 
-                              color="blue darken-1"
-                              :disabled="!validOfficialForm" text 
-                              type="submit" 
-                            >Save</v-btn>
-                          </v-card-actions>
-                        </v-card>
-                      </v-form>
-                    </v-dialog>
-                  </template>
-
-                  <template v-slot:items="props">
-                    <td>{{ props.item.position }}</td>
-                    <td>{{ props.item.name }}</td>
-                    <td>{{ props.item.start_term }}</td>
-                    <td>{{ props.item.end_term }}</td>
-                  </template>
-
-                  <template v-slot:item.action="{ item }">
+    <div v-if="$gate.isUser()">
+      <v-container grid-list-xl fluid>
+        <v-layout row wrap>
+          <v-flex md12>
+            <v-card>
+              <v-layout>
+                <v-flex md12>
+                  <v-toolbar flat color="white">
+                    <v-toolbar-title>Barangay Officials</v-toolbar-title>
+                    <v-divider class="mx-3" inset vertical></v-divider>
+                    <v-spacer></v-spacer>
                     <v-tooltip attach bottom>
                       <template v-slot:activator="{ on }">
-                        <v-btn text icon @click="editOfficialDialog(item)">
-                          <v-icon>mdi-pencil</v-icon>
+                        <v-btn v-on="on" icon @click="newOfficialDialog()">
+                          <v-icon>mdi-account-plus</v-icon>
                         </v-btn>
                       </template>
-                      <span>Edit official</span>
+                      <span>Add new official</span>
                     </v-tooltip>
-                  </template>
-                </v-data-table>
-              </v-flex>
-            </v-layout>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
+                  </v-toolbar>
+                  <v-data-table
+                    id="barangayOfficials"
+                    :headers="headersOfficials"
+                    :items="officials"
+                    hide-default-footer
+                  >
+                    <template v-slot:top>
+                      <v-dialog v-model="dialogOfficial" max-width="400px">
+                        <v-form
+                          ref="officialForm"
+                          v-model="validOfficialForm"
+                          lazy-validation
+                          @submit.prevent="editmode ? updateOfficial() : createOfficial()"
+                        >
+                          <v-card>
+                            <v-card-title>
+                              <span class="headline" v-show="!editmode">Add a new official</span>
+                              <span class="headline" v-show="editmode">Edit official information</span>
+                            </v-card-title>
+                            <v-divider></v-divider>
+                            <v-card-text>
+                              <v-container grid-list-md>
+                                <v-layout wrap>
+                                  <v-flex xs12 md12>
+                                    <v-select
+                                      v-model="officialForm.position"
+                                      :items="['Punong Barangay', 'Barangay Kagawad','Barangay Treasurer','Barangay Secretary']"
+                                      label="Position"
+                                      :rules="[v => !!v || 'Position is required']"
+                                      required
+                                    ></v-select>
+                                  </v-flex>
+                                  <v-flex xs12 md12>
+                                    <v-text-field
+                                      v-model="officialForm.name"
+                                      label="Barangay Official name"
+                                      :rules="[v => !!v || 'Official name is required']"
+                                      required
+                                    ></v-text-field>
+                                  </v-flex>
+                                  <v-flex xs12 md6>
+                                    <v-text-field
+                                      v-model="officialForm.start_term"
+                                      prepend-icon="mdi-calendar"
+                                      label="Start Term"
+                                      v-mask="'####-##-##'"
+                                      hint="YYYY-MM-DD format"
+                                    ></v-text-field>
+                                  </v-flex>
+                                  <v-flex xs12 md6>
+                                    <v-text-field
+                                      v-model="officialForm.end_term"
+                                      prepend-icon="mdi-calendar"
+                                      label="End Term"
+                                      v-mask="'####-##-##'"
+                                      hint="YYYY-MM-DD format"
+                                    ></v-text-field>
+                                  </v-flex>
+                                </v-layout>
+                              </v-container>
+                            </v-card-text>
+
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                              <v-btn color="blue darken-1" text @click="cancelOfficial()">Cancel</v-btn>
+                              <v-btn
+                                color="blue darken-1"
+                                :disabled="!validOfficialForm"
+                                text
+                                type="submit"
+                              >Save</v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </v-form>
+                      </v-dialog>
+                    </template>
+
+                    <template v-slot:items="props">
+                      <td>{{ props.item.position }}</td>
+                      <td>{{ props.item.name }}</td>
+                      <td>{{ props.item.start_term }}</td>
+                      <td>{{ props.item.end_term }}</td>
+                    </template>
+
+                    <template v-slot:item.action="{ item }">
+                      <v-tooltip attach bottom>
+                        <template v-slot:activator="{ on }">
+                          <v-btn text icon @click="editOfficialDialog(item)">
+                            <v-icon>mdi-pencil</v-icon>
+                          </v-btn>
+                        </template>
+                        <span>Edit official</span>
+                      </v-tooltip>
+                    </template>
+                  </v-data-table>
+                </v-flex>
+              </v-layout>
+            </v-card>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </div>
   </div>
 </template>
 
@@ -253,11 +251,16 @@ export default {
     Orientation: "landscape",
     dialogOfficial: false,
     headersOfficials: [
-      { text: 'Position', value: 'position', align: 'center', sortable: false },
-      { text: 'Name', value: 'name', align: 'center', sortable: false },
-      { text: 'Start Term', value: 'start_term', align: 'center', sortable: false },
-      { text: 'End Term', value: 'end_term', align: 'center', sortable: false },
-      { text: 'Actions', value: 'action', align: 'center', sortable: false }
+      { text: "Position", value: "position", align: "center", sortable: false },
+      { text: "Name", value: "name", align: "center", sortable: false },
+      {
+        text: "Start Term",
+        value: "start_term",
+        align: "center",
+        sortable: false
+      },
+      { text: "End Term", value: "end_term", align: "center", sortable: false },
+      { text: "Actions", value: "action", align: "center", sortable: false }
     ],
     officials: [],
     calendarStartTerm: false,
@@ -282,7 +285,9 @@ export default {
     },
 
     getBarangay() {
-      axios.get("api/barangayForm").then(({ data }) => this.barangayForm.fill(data));
+      axios
+        .get("api/barangayForm")
+        .then(({ data }) => this.barangayForm.fill(data));
     },
 
     getOfficials() {
@@ -345,7 +350,7 @@ export default {
         })
         .catch(() => {});
     },
-    
+
     updateProfile(e) {
       let file = e.target.files[0];
       let reader = new FileReader();

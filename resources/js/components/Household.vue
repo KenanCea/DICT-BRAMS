@@ -792,6 +792,8 @@
         </v-form>
       </v-dialog>
 
+    
+    
     <v-dialog v-model="dialogInhabitants" persistent scrollable max-width="800px">
       <v-card>
         <v-card-title>
