@@ -65,12 +65,12 @@
               <v-container>
                 <v-layout wrap>
                   <v-flex xs12>
-                    <v-text-field v-model="form.name" label="Name" :disabled="!isEditing" required></v-text-field>
+                    <v-text-field v-model="form.name" label="Barangay Name" :disabled="!isEditing" required></v-text-field>
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field
                       v-model="form.email"
-                      label="Email"
+                      label="Barangay Email"
                       :disabled="!isEditing"
                       required
                     ></v-text-field>
