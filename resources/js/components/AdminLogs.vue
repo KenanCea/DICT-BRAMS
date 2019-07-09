@@ -3,7 +3,7 @@
     <div v-if="$gate.isAdmin()">
       <v-app-bar id="navbar" dense flat app>
         <v-toolbar-title>
-          <span>Log History</span>
+          <span>Activity Log</span>
         </v-toolbar-title>
 
         <v-spacer></v-spacer>

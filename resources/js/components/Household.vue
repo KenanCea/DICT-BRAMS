@@ -572,23 +572,6 @@
                     required
                   ></v-select>
                 </v-flex>
-
-                <v-flex xs12 md6>
-                  <v-text-field
-                    v-model="inhabitantForm.Total_family_income"
-                    label="Total family income"
-                    prefix="₱"
-                    v-mask="'###############'"
-                  ></v-text-field>
-                </v-flex>
-                <v-flex xs12 md6>
-                  <v-text-field
-                    v-model="inhabitantForm.Final_family_income"
-                    label="Final family income"
-                    prefix="₱"
-                    v-mask="'###############'"
-                  ></v-text-field>
-                </v-flex>
                 <v-flex xs12 md6>
                   <v-select
                     v-model="inhabitantForm.disability"
@@ -890,11 +873,8 @@
         <td v-if="showColumn('solo_parent_others')">{{ props.item.solo_parent_others }}</td>
         <td v-if="showColumn('dateOfSurvey')">{{ props.item.dateOfSurvey }}</td>
         <td v-if="showColumn('placeOfOrigin')">{{ props.item.placeOfOrigin }}</td>
-        <td v-if="showColumn('email_address')">{{ props.item.email_address }}</td>
-        <td v-if="showColumn('mobile_no')">{{ props.item.mobile_no }}</td>
         <td v-if="showColumn('dialects')">{{ props.item.dialects }}</td>
         <td v-if="showColumn('purok')">{{ props.item.purok }}</td>
-        <td v-if="showColumn('mobile_number')">{{ props.item.mobile_number }}</td>
         <td v-if="showColumn('street')">{{ props.item.street }}</td>
         <td v-if="showColumn('lighting_source')">{{ props.item.lighting_source }}</td>
         <td v-if="showColumn('ethnic_group')">{{ props.item.ethnic_group }}</td>
@@ -1051,15 +1031,12 @@ export default {
         { text: "Purok", value: "purok", selected: true },
         { text: "Street", value: "street", selected: true },
         { text: "Familysize", value: "familysize", selected: true },
-        { text: "Email Address", value: "email_address" },
         { text: "Place of Origin", value: "placeOfOrigin" },
-        { text: "Mobile Number", value: "mobile_no" },
         { text: "Ethnic Group", value: "ethnic_group" },
         { text: "Telephone No.", value: "telephone_no" },
         { text: "Solo parent", value: "solo_parent" },
         { text: "Solo parent others", value: "solo_parent_others" },
         { text: "DateOfSurvey", value: "dateOfSurvey" },
-        { text: "Mobile no", value: "mobile_no" },
         { text: "Dialects", value: "dialects" },
         {
           text: "Status of ownership house others",
