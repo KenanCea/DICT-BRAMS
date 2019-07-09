@@ -34,18 +34,28 @@
           <v-card outlined>
             <v-card-text class="text-xs-center">
               <v-avatar class="mx-auto d-block" size="150">
-                <img :src="getLogo()" alt="Logo">
+                <img :src="getLogo()" alt="Logo" />
               </v-avatar>
-              <h3 class="mt-2">{{form.name}}</h3>
-              <p>{{form.email}}</p>
-              <p class="mb-0"><strong>{{barangayForm.zip_code}}</strong></p>
-              <p >Zip Code</p>
-              <p class="mb-0"><strong>{{barangayForm.region}}</strong></p>
-              <p>Region</p>
-              <p class="mb-0"><strong>{{barangayForm.province}}</strong></p>
-              <p>Province</p>
-              <p class="mb-0"><strong>{{barangayForm.municipality}}</strong></p>
-              <p>Municipality</p>
+              <span v-if="$gate.isUser()">
+                <h3 class="mt-2">{{form.name}}</h3>
+                <p>{{form.email}}</p>
+                <p class="mb-0">
+                  <strong>{{barangayForm.zip_code}}</strong>
+                </p>
+                <p>Zip Code</p>
+                <p class="mb-0">
+                  <strong>{{barangayForm.region}}</strong>
+                </p>
+                <p>Region</p>
+                <p class="mb-0">
+                  <strong>{{barangayForm.province}}</strong>
+                </p>
+                <p>Province</p>
+                <p class="mb-0">
+                  <strong>{{barangayForm.municipality}}</strong>
+                </p>
+                <p>Municipality</p>
+              </span>
             </v-card-text>
           </v-card>
         </v-flex>
@@ -66,14 +76,14 @@
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
+                    <p class="caption" style="margin-bottom:5px">Logo</p>
                     <input
                       type="file"
                       name="photo"
                       @change="updateProfile"
-                      label="Logo"
                       :disabled="!isEditing"
                       required
-                    >
+                    />
                   </v-flex>
                   <v-flex xs12>
                     <v-text-field
@@ -161,7 +171,6 @@
                                   <v-flex xs12 md6>
                                     <v-text-field
                                       v-model="officialForm.start_term"
-                                      
                                       label="Start Term"
                                       v-mask="'####-##-##'"
                                       hint="YYYY-MM-DD format"
@@ -170,7 +179,6 @@
                                   <v-flex xs12 md6>
                                     <v-text-field
                                       v-model="officialForm.end_term"
-                                      
                                       label="End Term"
                                       v-mask="'####-##-##'"
                                       hint="YYYY-MM-DD format"
@@ -385,7 +393,7 @@ export default {
       this.dialogOfficial = true;
       this.officialForm.fill(officials);
     },
-    deleteOfficials(official){
+    deleteOfficials(official) {
       swal
         .fire({
           title: "Are you sure?",
@@ -394,7 +402,7 @@ export default {
           showCancelButton: true,
           confirmButtonColor: "#3085d6",
           cancelButtonColor: "#d33",
-          confirmButtonText:"Yes, Delete it!"
+          confirmButtonText: "Yes, Delete it!"
         })
         .then(result => {
           if (result.value) {

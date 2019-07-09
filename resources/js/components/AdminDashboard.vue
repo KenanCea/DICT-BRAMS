@@ -64,7 +64,7 @@
                     </v-flex>
                     <v-flex xs6 py-3 class="white--text indigo darken-1">
                       <div class="headline">{{householdpop}}</div>
-                      <span class="caption">Registered Household Population</span>
+                      <span class="caption">Registered Household</span>
                     </v-flex>
                   </v-layout>
                 </v-container>
