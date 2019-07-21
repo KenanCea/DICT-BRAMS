@@ -187,8 +187,8 @@ export default {
             doc.text('REPUBLIC OF THE PHILIPPINES',width,70,'center')
 
             doc.setFontSize(13.5)
-            doc.text('REGION',width,85,'center')
-            doc.text('BARANGAY-PROVINCE',width, 98.5,'center')
+            doc.text(this.reportshHeader.region ,width,85,'center')
+            doc.text(this.reportshHeader.name+'-'+this.reportshHeader.province,width, 98.5,'center')
 
             doc.setFontSize(16.5)
             doc.text(this.TableTitle, width, 140, 'center')
