@@ -192,7 +192,7 @@ class PrintDocumentController extends Controller
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
-        //age
+        DB::raw('((TIMESTAMPDIFF( MONTH, inhabitants.date_of_birth, now() ) % 12) + (TIMESTAMPDIFF( YEAR, inhabitants.date_of_birth, now())*12)) AS age'),
         'inhabitants.bcg',
         'inhabitants.dpi1',
         'inhabitants.dpi2',
@@ -202,6 +202,7 @@ class PrintDocumentController extends Controller
         'inhabitants.others1'
         )
         ->where('users.id',Auth::user()->id)
+        ->having('age','<=','24')
         ->get();
     }
 
@@ -211,12 +212,14 @@ class PrintDocumentController extends Controller
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
-        //age
+        DB::raw('((TIMESTAMPDIFF( MONTH, inhabitants.date_of_birth, now() ) % 12) + (TIMESTAMPDIFF( YEAR, inhabitants.date_of_birth, now())*12)) AS age'),
         'inhabitants.weight',
         'inhabitants.height',
         'inhabitants.received_vitaminA'
         )
         ->where('users.id',Auth::user()->id)
+        ->having('age','<=','59')
+        ->having('age','>=','6')
         ->get();
     }
 
@@ -226,12 +229,14 @@ class PrintDocumentController extends Controller
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
-        //age
+        DB::raw('((TIMESTAMPDIFF( MONTH, inhabitants.date_of_birth, now() ) % 12) + (TIMESTAMPDIFF( YEAR, inhabitants.date_of_birth, now())*12)) AS age'),
         'inhabitants.weight',
         'inhabitants.height',
         'inhabitants.dewormed'
         )
         ->where('users.id',Auth::user()->id)
+        ->having('age','<=','71')
+        ->having('age','>=','11')
         ->get();
     }
 
@@ -241,12 +246,14 @@ class PrintDocumentController extends Controller
         DB::raw('CONCAT(inhabitants.last_name,", ", inhabitants.first_name," ",COALESCE(inhabitants.middle_name,"")) AS fullname'),
         'inhabitants.sex',
         'inhabitants.date_of_birth',
-        //age
+        DB::raw('((TIMESTAMPDIFF( MONTH, inhabitants.date_of_birth, now() ) % 12) + (TIMESTAMPDIFF( YEAR, inhabitants.date_of_birth, now())*12)) AS age'),
         'inhabitants.weight',
         'inhabitants.height',
         'inhabitants.date_measured_height_weight'
         )
         ->where('users.id',Auth::user()->id)
+        ->having('age','<=','71')
+        ->having('age','>=','24')
         ->get();
     }
 

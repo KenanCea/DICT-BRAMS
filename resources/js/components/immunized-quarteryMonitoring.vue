@@ -84,7 +84,7 @@ import Print from './DocumentPrint.vue';
                     sortable: true
                 },
                 {
-                    text: 'Age',
+                    text: 'Age(months)',
                     value: 'age',
                     selected: true,
                     sortable: true

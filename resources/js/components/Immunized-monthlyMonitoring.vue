@@ -47,6 +47,7 @@
                     <td v-if="showColumn('fullname')">{{ props.item.fullname }}</td>
                     <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
                     <td v-if="showColumn('date_of_birth')">{{ props.item.date_of_birth }}</td>
+                    <td v-if="showColumn('age')">{{ props.item.age }}</td>
                     <td v-if="showColumn('citizenship')">{{ props.item.citizenship }}</td>
                     <td v-if="showColumn('bcg')">{{ props.item.bcg }}</td>
                     <td v-if="showColumn('pdi1')">{{ props.item.pdi1 }}</td>
@@ -96,8 +97,8 @@ import Print from './DocumentPrint.vue';
                     selected: true,
                 },
                 {
-                    text: 'Age',
-                    value: 'citizenship',
+                    text: 'Age(months)',
+                    value: 'age',
                     sortable: true,
                     selected: true,
                 },

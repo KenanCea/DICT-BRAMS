@@ -45,7 +45,7 @@
                     <template v-slot:items = "props">
                     <td v-if="showColumn('childs_parent_guardian')">{{ props.item.childs_parent_quardian }}</td>
                     <td v-if="showColumn('fullname')">{{ props.item.fullname }}</td>
-                    <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
+                    <td v-if="showColumn('age')">{{ props.item.sex }}</td>
                     <td v-if="showColumn('date_of_birth')">{{ props.item.date_of_birth }}</td>
                     <td v-if="showColumn('sex')">{{ props.item.sex }}</td>
                     <td v-if="showColumn('weight')">{{ props.item.weight }}</td>
@@ -62,7 +62,7 @@
 import Print from './DocumentPrint.vue';
     export default {
         data: () => ({
-            Table:'List of Children between 0 to 24 months old - for monthly monitoring',
+            Table:'List of Children between 6-59 months - for vitamin A monitoring',
             Orientation:'portrait',
             search:'',
             immunized: [],
@@ -81,8 +81,8 @@ import Print from './DocumentPrint.vue';
                     sortable: true
                 },
                 {
-                    text: 'Age',
-                    value: 'sex',
+                    text: 'Age(months)',
+                    value: 'age',
                     selected: true,
                     sortable: true
                 },
