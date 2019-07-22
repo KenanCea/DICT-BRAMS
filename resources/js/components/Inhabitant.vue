@@ -595,7 +595,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
-            <v-container grid-list-md text-center class="pa-0" id="printForm">
+            <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
               <v-layout row wrap>
                 <v-flex offset-xs9>
                   <p style="margin-bottom:0px">
@@ -670,7 +670,7 @@
                   >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
-                <v-flex xs8 text-left class="pl-3">
+                <v-flex xs8 text-xs-left class="pl-3">
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
@@ -684,7 +684,8 @@
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].placeOfBirth_native}` : '________________________' }}</span>, and presently residing at
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].house_no} Purok ${selectedInhabitant[0].purok} ${selectedInhabitant[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : '________________________________________________' }}</span>
                         and whose signature appears hereunder, has no pending adverse case and deragatory records filed
-                        against per available records on file with this office as of the date of issuance thereof.
+                        against
+                         <span  v-if="formBarangayClearance.purpose_of_clearance"><span v-if="selectedInhabitant[0].sex === 'Male'">his</span> <span v-else-if="selectedInhabitant[0].sex === 'Female'">her</span> </span> available records on file with this office as of the date of issuance thereof.
                       </p>
                     </v-flex>
 
@@ -747,16 +748,16 @@
                       </p>
                     </v-flex>
 
-                    <v-flex offset-xs6 xs6 class="text-center">
+                    <v-flex offset-xs6 xs6 class="text-xs-center">
                       <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0 text-capitalize"
+                        class="mb-0 text-uppercase" 
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
 
                     <v-flex xs12>
-                      <p>Note: Not valid without Barangay Seal</p>
+                      <p class="caption">Note: Not valid without Barangay Seal</p>
                     </v-flex>
                   </v-layout>
                 </v-flex>
@@ -865,7 +866,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
-            <v-container grid-list-md text-center class="pa-0" id="printForm">
+            <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
               <v-layout row wrap>
                 <v-flex offset-xs9>
                   <p style="margin-bottom:0px">
@@ -940,7 +941,7 @@
                   >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
-                <v-flex xs8 text-left class="pl-3">
+                <v-flex xs8 text-xs-left class="pl-3">
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
@@ -1014,15 +1015,15 @@
                         <span v-else>____________</span>
                       </p>
                     </v-flex>
-                    <v-flex xs6 offset-xs6 class="text-center">
+                    <v-flex xs6 offset-xs6 class="text-xs-center">
                       <p>CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0 text-capitalize"
+                        class="mb-0 text-uppercase" 
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
                     <v-flex xs12>
-                      <p>Note: Not valid without Barangay Seal</p>
+                      <p class="caption">Note: Not valid without Barangay Seal</p>
                     </v-flex>
                   </v-layout>
                 </v-flex>
@@ -1152,7 +1153,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
-            <v-container grid-list-md text-center class="pa-0" id="printForm">
+            <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
               <v-layout row wrap>
                 <v-flex offset-xs9>
                   <p style="margin-bottom:0px">
@@ -1227,7 +1228,7 @@
                   >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
-                <v-flex xs8 text-left class="pl-3">
+                <v-flex xs8 text-xs-left class="pl-3">
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
@@ -1324,15 +1325,15 @@
                         <span v-else>____________</span>
                       </p>
                     </v-flex>
-                    <v-flex xs6 offset-xs6 class="text-center">
+                    <v-flex xs6 offset-xs6 class="text-xs-center">
                       <p>CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0 text-capitalize"
+                        class="mb-0 text-uppercase" 
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
                     <v-flex xs12>
-                      <p>Note: Not valid without Barangay Seal</p>
+                      <p class="caption">Note: Not valid without Barangay Seal</p>
                     </v-flex>
                   </v-layout>
                 </v-flex>
@@ -1785,6 +1786,7 @@ export default {
           .then(() => {
             this.dialogEditInhabitant = false;
             this.getInhabitants();
+            this.selectedInhabitant.splice([0]);
             toast.fire({
               type: "success",
               title: "Inhabitants has been edited"

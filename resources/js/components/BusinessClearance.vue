@@ -207,7 +207,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text style="color:black">
-          <v-container grid-list-md text-center class="pa-0" id="printForm">
+          <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
             <v-layout row wrap>
               <v-flex offset-xs9>
                 <p style="margin-bottom:0px">
@@ -281,7 +281,7 @@
                 <p>Barangay Treasurer</p>
               </v-flex>
 
-              <v-flex xs8 text-left class="pl-3">
+              <v-flex xs8 text-xs-left class="pl-3">
                 <v-layout row wrap>
                   <v-flex>
                     <p>TO WHOM IT MAY CONCERN:</p>
@@ -379,16 +379,16 @@
                     </p>
                   </v-flex>
 
-                  <v-flex xs6 offset-xs6 class="text-center">
+                  <v-flex xs6 offset-xs6 class="text-xs-center">
                     <p>CERTIFIED AND ISSUED BY:</p>
                     <p
-                      class="mb-0 text-capitalize"
+                      class="mb-0 text-uppercase" 
                     >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                     <p>Punong Barangay</p>
                   </v-flex>
 
                   <v-flex xs12>
-                    <p>Note: Not valid without Barangay Seal</p>
+                    <p class="caption">Note: Not valid without Barangay Seal</p>
                   </v-flex>
                 </v-layout>
               </v-flex>

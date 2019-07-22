@@ -335,12 +335,12 @@
                   <v-flex xs6 offset-xs6 class="text-xs-center">
                     <p>CERTIFIED AND ISSUED BY:</p>
                     <p
-                      class="mb-0"
+                      class="mb-0 text-uppercase" 
                     >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                     <p>Punong Barangay</p>
                   </v-flex>
                   <v-flex xs12>
-                    <p>Note: Not valid without Barangay Seal</p>
+                    <p class="caption">Note: Not valid without Barangay Seal</p>
                   </v-flex>
                 </v-layout>
               </v-flex>

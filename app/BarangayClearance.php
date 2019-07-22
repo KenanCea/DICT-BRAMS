@@ -17,6 +17,7 @@ class BarangayClearance extends Model
         'middle_name',
         'house_no',
         'purok',
+        'sex',
         'street',
         'date_of_birth',
         'citizenship',
