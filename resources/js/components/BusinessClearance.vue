@@ -207,7 +207,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text style="color:black">
-          <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
+          <v-container grid-list-md text-center class="pa-0" id="printForm">
             <v-layout row wrap>
               <v-flex offset-xs9>
                 <p style="margin-bottom:0px">
@@ -281,13 +281,15 @@
                 <p>Barangay Treasurer</p>
               </v-flex>
 
-              <v-flex xs8 text-xs-left class="pl-3">
+              <v-flex xs8 text-left class="pl-3">
                 <v-layout row wrap>
                   <v-flex>
                     <p>TO WHOM IT MAY CONCERN:</p>
                     <p style="text-indent: 5%;">
                       This is to certify that
-                      <span>{{ formBusinessClearance.business_address ? `${formBusinessClearance.first_name} ${formBusinessClearance.middle_name}. ${formBusinessClearance.last_name}` : '______________________________________________' }},</span>
+                      <span v-if="formBusinessClearance.first_name">{{formBusinessClearance.first_name}}</span>
+                      <span v-if="formBusinessClearance.middle_name">{{formBusinessClearance.middle_name}}</span>
+                      <span v-if="formBusinessClearance.last_name">{{formBusinessClearance.last_name}}</span>
                       a resident of
                       <span>{{ formBusinessClearance.business_address ? `${formBusinessClearance.house_no} Purok ${formBusinessClearance.purok} ${formBusinessClearance.street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : '________________________________________________' }}</span>
                       establishment at
@@ -377,10 +379,10 @@
                     </p>
                   </v-flex>
 
-                  <v-flex xs6 offset-xs6 class="text-xs-center">
+                  <v-flex xs6 offset-xs6 class="text-center">
                     <p>CERTIFIED AND ISSUED BY:</p>
                     <p
-                      class="mb-0"
+                      class="mb-0 text-capitalize"
                     >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                     <p>Punong Barangay</p>
                   </v-flex>

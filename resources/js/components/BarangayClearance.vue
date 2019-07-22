@@ -175,7 +175,7 @@
         </v-card-title>
         <v-divider></v-divider>
         <v-card-text style="color:black">
-          <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
+          <v-container grid-list-md text-center class="pa-0" id="printForm">
             <v-layout row wrap>
               <v-flex offset-xs9>
                 <p style="margin-bottom:0px">Control no: <span
@@ -227,13 +227,15 @@
                 <p class="mb-0 text-capitalize">{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                 <p>Barangay Treasurer</p>
               </v-flex>
-              <v-flex xs8 text-xs-left class="pl-3">
+              <v-flex xs8 text-left class="pl-3">
                 <v-layout row wrap>
                   <v-flex>
                     <p>TO WHOM IT MAY CONCERN:</p>
                     <p style="text-indent: 5%;">
                       This is to certify that
-                      <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.first_name} ${formBarangayClearance.middle_name} ${formBarangayClearance.last_name}` : '______________________________________________' }},</span>
+                      <span v-if="formBarangayClearance.first_name">{{formBarangayClearance.first_name}}</span>
+                      <span v-if="formBarangayClearance.middle_name">{{formBarangayClearance.middle_name}}</span>
+                      <span v-if="formBarangayClearance.last_name">{{formBarangayClearance.last_name}}</span>
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.age}` : '________' }}</span> years old,
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.citizenship}` : '________________________' }}</span> citizen, a native of
                       <span>{{ formBarangayClearance.first_name ? `${formBarangayClearance.placeOfBirth_native}` : '________________________' }}</span>, and presently residing at
@@ -303,10 +305,10 @@
                     </p>
                   </v-flex>
 
-                  <v-flex offset-xs6 xs6 class="text-xs-center">
+                  <v-flex offset-xs6 xs6 class="text-center">
                     <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
                     <p
-                      class="mb-0"
+                      class="mb-0 text-capitalize"
                     >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                     <p>Punong Barangay</p>
                   </v-flex>

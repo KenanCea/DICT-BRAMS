@@ -100,7 +100,6 @@ export default {
             currentYear: '',
             punongbarangay: {},  
             brgysecretary: {},
-            landarea: {},
             purok: "",
             household: "",
             inhabitant: "",
@@ -119,7 +118,6 @@ export default {
         this.getCurrentYear();
         this.getPunongBarangay();
         this.getBrgySecretary();
-        this.getLandArea();
         this.getPuroks();
         this.getHouseholds();
         this.getInhabitants();
@@ -198,13 +196,6 @@ export default {
         this.purok = response.data;
       });
     },
-        getLandArea(){
-            axios
-                .get("api/LandArea")
-                .then(response => {
-                    this.landarea = response.data[0];
-                });
-        },
         getPunongBarangay() {
             axios
                 .get("api/BrgyCaptain")

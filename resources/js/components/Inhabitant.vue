@@ -595,7 +595,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
-            <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
+            <v-container grid-list-md text-center class="pa-0" id="printForm">
               <v-layout row wrap>
                 <v-flex offset-xs9>
                   <p style="margin-bottom:0px">
@@ -670,13 +670,15 @@
                   >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
-                <v-flex xs8 text-xs-left class="pl-3">
+                <v-flex xs8 text-left class="pl-3">
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
                       <p style="text-indent: 5%;">
                         This is to certify that
-                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
+                        <span v-if="formBarangayClearance.purpose_of_clearance">{{selectedInhabitant[0].first_name}}</span>
+                        <span v-if="formBarangayClearance.purpose_of_clearance">{{selectedInhabitant[0].middle_name}}</span>
+                        <span v-if="formBarangayClearance.purpose_of_clearance">{{selectedInhabitant[0].last_name}}</span>
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].citizenship}` : '________________________' }}</span> citizen, a native of
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].placeOfBirth_native}` : '________________________' }}</span>, and presently residing at
@@ -745,10 +747,10 @@
                       </p>
                     </v-flex>
 
-                    <v-flex offset-xs6 xs6 class="text-xs-center">
+                    <v-flex offset-xs6 xs6 class="text-center">
                       <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0"
+                        class="mb-0 text-capitalize"
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
@@ -863,7 +865,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
-            <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
+            <v-container grid-list-md text-center class="pa-0" id="printForm">
               <v-layout row wrap>
                 <v-flex offset-xs9>
                   <p style="margin-bottom:0px">
@@ -938,13 +940,15 @@
                   >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
-                <v-flex xs8 text-xs-left class="pl-3">
+                <v-flex xs8 text-left class="pl-3">
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
                       <p style="text-indent: 5%;">
                         This is to certify that
-                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
+                        <span v-if="formBarangayCertificate.purpose_certification">{{selectedInhabitant[0].first_name}}</span>
+                        <span v-if="formBarangayCertificate.purpose_certification">{{selectedInhabitant[0].middle_name}}</span>
+                        <span v-if="formBarangayCertificate.purpose_certification">{{selectedInhabitant[0].last_name}}</span>
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].citizenship}` : '________________________' }}</span> citizen, is a resident of Barangay
                         <span>{{ selectedInhabitant.length ? `${address[0].name}` : '________________________' }}</span> with postal address at
@@ -1010,10 +1014,10 @@
                         <span v-else>____________</span>
                       </p>
                     </v-flex>
-                    <v-flex xs6 offset-xs6 class="text-xs-center">
+                    <v-flex xs6 offset-xs6 class="text-center">
                       <p>CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0"
+                        class="mb-0 text-capitalize"
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
@@ -1148,7 +1152,7 @@
           </v-card-title>
           <v-divider></v-divider>
           <v-card-text style="color:black">
-            <v-container grid-list-md text-xs-center class="pa-0" id="printForm">
+            <v-container grid-list-md text-center class="pa-0" id="printForm">
               <v-layout row wrap>
                 <v-flex offset-xs9>
                   <p style="margin-bottom:0px">
@@ -1223,13 +1227,15 @@
                   >{{ officials.length ? `${officials[9].name}` : 'Not registered'}}</p>
                   <p>Barangay Treasurer</p>
                 </v-flex>
-                <v-flex xs8 text-xs-left class="pl-3">
+                <v-flex xs8 text-left class="pl-3">
                   <v-layout row wrap>
                     <v-flex>
                       <p>TO WHOM IT MAY CONCERN:</p>
                       <p style="text-indent: 5%;">
                         This is to certify that
-                        <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name}. ${selectedInhabitant[0].last_name}` : '______________________________________________' }},</span>
+                        <span v-if="formBusinessClearance.line_of_business">{{selectedInhabitant[0].first_name}}</span>
+                        <span v-if="formBusinessClearance.line_of_business">{{selectedInhabitant[0].middle_name}}</span>
+                        <span v-if="formBusinessClearance.line_of_business">{{selectedInhabitant[0].last_name}}</span>
                         a resident of
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].house_no} Purok ${selectedInhabitant[0].purok} ${selectedInhabitant[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : '________________________________________________' }}</span>
                         establishment at
@@ -1318,10 +1324,10 @@
                         <span v-else>____________</span>
                       </p>
                     </v-flex>
-                    <v-flex xs6 offset-xs6 class="text-xs-center">
+                    <v-flex xs6 offset-xs6 class="text-center">
                       <p>CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0"
+                        class="mb-0 text-capitalize"
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>

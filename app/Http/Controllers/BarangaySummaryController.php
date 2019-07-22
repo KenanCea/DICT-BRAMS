@@ -46,13 +46,6 @@ class BarangaySummaryController extends Controller
         ->where('user_id', '=', Auth::user()->id)
         ->count('id');
     }
-    public function TotalLandArea(){
-        return DB::table('barangays')
-        ->leftJoin('users', 'barangays.user_id', '=', 'users.id')
-        ->select('barangays.totalland_area_sqkm')
-        ->where('users.id', Auth::user()->id)
-        ->get();
-    }
     public function TotalMale()
     {
         return Inhabitant::whereRaw('inhabitants.sex')

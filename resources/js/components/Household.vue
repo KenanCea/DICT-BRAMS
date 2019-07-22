@@ -188,11 +188,9 @@
                 <v-flex xs12 md4>
                   <v-text-field
                     v-model="householdForm.dateOfSurvey"
-                    label="Date of survey*"
+                    label="Date of survey"
                     v-mask="'####-##-##'"
                     hint="YYYY-MM-DD format"
-                    :rules="[v => !!v || 'Date of survey is required']"
-                    required
                   ></v-text-field>
                 </v-flex>
 
@@ -220,9 +218,7 @@
                   <v-select
                     v-model="householdForm.dialects"
                     :items="['Bicolano','Bontoc','Cebuano','English','Ibaloi','Ibanag','Ifugao','Ilocano','Itneg','Kalinga','Kankana-ey','Pampangan','Pangasinan','Tagalog','Waray-waray','Panggalatok','Visaya','Kapangpangan']"
-                    label="Dialects*"
-                    :rules="[v => !!v || 'Dialects is required']"
-                    required
+                    label="Dialects"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 md4>
@@ -245,9 +241,7 @@
                   <v-select
                     v-model="householdForm.solo_parent"
                     :items="['No','Death of spouse','Imprisonment of spouse of at least 1 year','Mental/physical incapacity of spouse','Legal or de facto separation from spouse for at least 1 year','Abandonment of spouse for at least 1 year','Unmarried mother/father who preferred to keep the child instead of others carrying him/her','Any other person who solely provides parental care and support to a child provided he/she is duly licensed foster parent of DSWD','Any family member who assumes the responsibility as head of the family as a result of death, abandonment, absence for at least one year','Others']"
-                    label="Solo parent*"
-                    :rules="[v => !!v || 'Solo parent is required']"
-                    required
+                    label="Solo parent"
                   ></v-select>
                 </v-flex>
 
@@ -263,9 +257,7 @@
                   <v-select
                     v-model="householdForm.status_of_ownership_house"
                     :items="['Owned','Rented','Caretaker','Others']"
-                    label="Status of ownership-house*"
-                    :rules="[v => !!v || 'Status of ownership-house is required']"
-                    required
+                    label="Status of ownership-house"
                   ></v-select>
                 </v-flex>
 
@@ -281,9 +273,7 @@
                   <v-select
                     v-model="householdForm.status_of_ownership_lot"
                     :items="['Owned','Rented','Caretaker','Others']"
-                    label="Status of ownership-lot*"
-                    :rules="[v => !!v || 'Status of ownership-lot is required']"
-                    required
+                    label="Status of ownership-lot"
                   ></v-select>
                 </v-flex>
 
@@ -299,9 +289,7 @@
                   <v-select
                     v-model="householdForm.type_of_dwelling_structure"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
-                    label="Type of dwelling structure*"
-                    :rules="[v => !!v || 'Type of dwelling structure is required']"
-                    required
+                    label="Type of dwelling structure"
                   ></v-select>
                 </v-flex>
 
@@ -309,9 +297,7 @@
                   <v-select
                     v-model="householdForm.type_of_dwelling"
                     :items="['Permanent Concrete','Semi Permanent','Temporary']"
-                    label="Type of dwelling*"
-                    :rules="[v => !!v || 'Type of dwelling is required']"
-                    required
+                    label="Type of dwelling"
                   ></v-select>
                 </v-flex>
 
@@ -319,9 +305,7 @@
                   <v-select
                     v-model="householdForm.lighting_source"
                     :items="['Electricity','Solar','Petromax','Kerosene']"
-                    label="Lighting source*"
-                    :rules="[v => !!v || 'Lighting source is required']"
-                    required
+                    label="Lighting source"
                   ></v-select>
                 </v-flex>
 
@@ -329,9 +313,7 @@
                   <v-select
                     v-model="householdForm.sources_of_info"
                     :items="['Television','Radio','Newspaper','Others']"
-                    label="Sources of info*"
-                    :rules="[v => !!v || 'Sources of info is required']"
-                    required
+                    label="Sources of info"
                   ></v-select>
                 </v-flex>
 
@@ -347,9 +329,7 @@
                   <v-select
                     v-model="householdForm.communication_services"
                     :items="['Cell sites/Net','Internet','Telephone','Postal services','Others']"
-                    label="Communication services*"
-                    :rules="[v => !!v || 'Communication services is required']"
-                    required
+                    label="Communication services"
                   ></v-select>
                 </v-flex>
 
@@ -365,9 +345,7 @@
                   <v-select
                     v-model="householdForm.means_of_transportation"
                     :items="['PU jeep',' Taxi','Tricycle','PU bus','Private car','Others']"
-                    label="Means of transportation*"
-                    :rules="[v => !!v || 'Means of transportation is required']"
-                    required
+                    label="Means of transportation"
                   ></v-select>
                 </v-flex>
 
@@ -507,17 +485,14 @@
                   <v-select
                     v-model="inhabitantForm.status_of_residency"
                     :items="['Permanent', 'Live-in relative', 'Boarder', 'Buss resident', 'Moved out', 'Deceased']"
-                    label="Status of residency*"
-                    :rules="[v => !!v || 'Status of residency is required']"
-                    required
+                    label="Status of residency"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 md6>
                   <v-select
                     v-model="inhabitantForm.schooling"
                     :items="['N/A', 'In School', 'Out of School', 'Not yet in school', 'Graduate']"
-                    label="Schooling*"
-                    :rules="[v => !!v || 'Schooling is required']"
+                    label="Schooling"
                     required
                   ></v-select>
                 </v-flex>
@@ -526,20 +501,16 @@
                   <v-select
                     v-model="inhabitantForm.Highest_educational_attainment"
                     :items="['Not yet attending school', 'Pre-school', 'Elementary Graduate','Elementary','High school undergraduate','High school','College undergraduate','College graduate','Vocational','Post Graduate']"
-                    label="Highest educational attainment*"
-                    :rules="[v => !!v || 'Highest educational attainment is required']"
-                    required
+                    label="Highest educational attainment"
                   ></v-select>
                 </v-flex>
 
                 <v-flex xs12 md6>
                   <v-text-field
                     v-model="inhabitantForm.date_settled_in_barangay"
-                    label="Date settled in the barangay*"
+                    label="Date settled in the barangay"
                     v-mask="'####-##-##'"
                     hint="YYYY-MM-DD format"
-                    :rules="[v => !!v || 'Date settled in the barangay is required']"
-                    required
                   ></v-text-field>
                 </v-flex>
 
@@ -547,9 +518,7 @@
                   <v-select
                     v-model="inhabitantForm.ethnicGroup"
                     :items="['Bago', 'Bicol', 'Bisaya', 'Boholano', 'Bontoc', 'Capizeno', 'Cuyunon', 'Ibaloi', 'Ilonggo', 'Ifugao', 'Ilocano', 'Ivatan', 'Kalinga', 'Kankana-ey', 'Kapangpangan', 'Maguindanao', 'Maranao', 'Masbateno', 'Pangasinan', 'Surigaoan', 'Tagalog', 'Tausog', 'Waray', 'Yakan', 'Zamboagueno/Chavacano']"
-                    label="Ethnic group*"
-                    :rules="[v => !!v || 'Ethnic group is required']"
-                    required
+                    label="Ethnic group"
                   ></v-select>
                 </v-flex>
 
@@ -557,9 +526,7 @@
                   <v-select
                     v-model="inhabitantForm.registeredVoterOfTheBrgy"
                     :items="['Yes','No']"
-                    label="Registered voter*"
-                    :rules="[v => !!v || 'Registered voter is required']"
-                    required
+                    label="Registered voter"
                   ></v-select>
                 </v-flex>
 
@@ -567,9 +534,6 @@
                   <v-select
                     v-model="inhabitantForm.blood_type"
                     :items="['A', 'B', 'AB', 'O', 'Do not know']"
-                    label="Blood type*"
-                    :rules="[v => !!v || 'Blood type is required']"
-                    required
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 md6>
@@ -577,9 +541,7 @@
                     v-model="inhabitantForm.disability"
                     :items="['None', 'Total blindness of one eye', 'Total blindness of both eye', 'Missing one or both arms', 'Mongoloid', 'Cleff Palate', 'Malabo ang paningin/poor eyesight', 'Hunchback', 'Paralyzed legs', 'Paralyzed arms', 'Speech disorder', 'Authistic', 'Fractured Vertebrate column', 'Paralyzed from neck down', 'Hydrocephalus',
                 'Deaf', 'Mute and Deaf', 'Inability to walk alone', 'Deformity', 'Polio', 'Mental Impairment', 'Celebral Palsy', 'Epileptic', 'Dwarfism', 'Others']"
-                    label="Disability*"
-                    :rules="[v => !!v || 'Disability is required']"
-                    required
+                    label="Disability"
                   ></v-select>
                 </v-flex>
                 <v-flex xs12 md6>

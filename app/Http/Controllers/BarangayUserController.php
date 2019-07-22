@@ -77,7 +77,7 @@ class BarangayUserController extends Controller
 
         //start of log
         $logs= new activitylogs;
-        $logs->log="Created new accounct " .$users->name;
+        $logs->log="Created new account " .$users->name;
         $logs->user_id=Auth::user()->id;
         $logs->save();
         //end of log
@@ -142,7 +142,7 @@ class BarangayUserController extends Controller
 
         //start of log
         $logs= new activitylogs;
-        $logs->log="Archived accounct " .$account->name;
+        $logs->log="Archived account " .$account->name;
         $logs->user_id=Auth::user()->id;
         $logs->save();
         //end of log
@@ -157,7 +157,7 @@ class BarangayUserController extends Controller
         $name=User::findOrFail($id);
         //start of log
         $logs= new activitylogs;
-        $logs->log="Restore accounct " .$name->name;
+        $logs->log="Restore account " .$name->name;
         $logs->user_id=Auth::user()->id;
         $logs->save();
         //end of log
