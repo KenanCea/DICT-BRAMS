@@ -4,7 +4,6 @@
       <v-app-bar id="navbar" fixed dense flat app>
         <v-toolbar-title class="hidden-sm-and-down">
           <span v-if="selectedInhabitant.length"><span v-if="selectedInhabitant[0].first_name">{{selectedInhabitant[0].first_name}} </span><span v-if="selectedInhabitant[0].middle_name">{{selectedInhabitant[0].middle_name}} </span><span v-if="selectedInhabitant[0].last_name">{{selectedInhabitant[0].last_name}}</span></span>
-          <!-- <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span> -->
         </v-toolbar-title>
         <v-spacer class="hidden-sm-and-down"></v-spacer>
         <span v-if="selectedInhabitant.length">

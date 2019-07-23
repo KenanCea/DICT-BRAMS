@@ -3,7 +3,7 @@
     <div v-if="$gate.isUser()">
       <v-app-bar id="navbar" dense flat app>
         <v-toolbar-title>
-          <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span>
+          <span v-if="selectedInhabitant.length"><span v-if="selectedInhabitant[0].first_name">{{selectedInhabitant[0].first_name}} </span><span v-if="selectedInhabitant[0].middle_name">{{selectedInhabitant[0].middle_name}} </span><span v-if="selectedInhabitant[0].last_name">{{selectedInhabitant[0].last_name}}</span></span>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <span v-if="selectedInhabitant.length">
