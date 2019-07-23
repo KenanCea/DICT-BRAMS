@@ -17,7 +17,7 @@ class KioskController extends Controller
     }
     public function BarangayInfo(){
         return DB::table('barangays')
-        ->join('users','users.id','=','barangays.id' )
+        ->join('users','users.id','=','barangays.user_id' )
         ->select('users.name', 
         'barangays.province',
         'barangays.municipality',
