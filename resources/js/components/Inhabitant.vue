@@ -253,18 +253,14 @@
                     <v-select
                       v-model="inhabitantForm.status_of_residency"
                       :items="['Permanent', 'Live-in relative', 'Boarder', 'Buss resident', 'Moved out', 'Deceased']"
-                      label="Status of residency*"
-                      :rules="[v => !!v || 'Status of residency is required']"
-                      required
+                      label="Status of residency"
                     ></v-select>
                   </v-flex>
                   <v-flex xs6>
                     <v-select
                       v-model="inhabitantForm.schooling"
                       :items="['N/A', 'In School', 'Out of School', 'Not yet in school', 'Graduate']"
-                      label="Schooling*"
-                      :rules="[v => !!v || 'Schooling is required']"
-                      required
+                      label="Schooling"
                     ></v-select>
                   </v-flex>
 
@@ -272,19 +268,15 @@
                     <v-select
                       v-model="inhabitantForm.Highest_educational_attainment"
                       :items="['Not yet attending school', 'Pre-school', 'Elementary Graduate','Elementary','High school undergraduate','High school','College undergraduate','College graduate','Vocational','Post Graduate']"
-                      label="Highest educational attainment*"
-                      :rules="[v => !!v || 'Highest educational attainment is required']"
-                      required
+                      label="Highest educational attainment"
                     ></v-select>
                   </v-flex>
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.date_settled_in_barangay"
-                      label="Date settled in the barangay*"
+                      label="Date settled in the barangay"
                       v-mask="'####-##-##'"
                       hint="YYYY-MM-DD format"
-                      :rules="[v => !!v || 'Date settled in the barangay is required']"
-                      required
                     ></v-text-field>
                   </v-flex>
 
@@ -292,9 +284,7 @@
                     <v-select
                       v-model="inhabitantForm.ethnicGroup"
                       :items="['Bago', 'Bicol', 'Bisaya', 'Boholano', 'Bontoc', 'Capizeno', 'Cuyunon', 'Ibaloi', 'Ilonggo', 'Ifugao', 'Ilocano', 'Ivatan', 'Kalinga', 'Kankana-ey', 'Kapangpangan', 'Maguindanao', 'Maranao', 'Masbateno', 'Pangasinan', 'Surigaoan', 'Tagalog', 'Tausog', 'Waray', 'Yakan', 'Zamboagueno/Chavacano']"
-                      label="Ethnic group*"
-                      :rules="[v => !!v || 'Ethnic group is required']"
-                      required
+                      label="Ethnic group"
                     ></v-select>
                   </v-flex>
 
@@ -302,9 +292,7 @@
                     <v-select
                       v-model="inhabitantForm.registeredVoterOfTheBrgy"
                       :items="['Yes','No']"
-                      label="Registered voter*"
-                      :rules="[v => !!v || 'Registered voter is required']"
-                      required
+                      label="Registered voter"
                     ></v-select>
                   </v-flex>
 
@@ -312,9 +300,7 @@
                     <v-select
                       v-model="inhabitantForm.blood_type"
                       :items="['A', 'B', 'AB', 'O', 'Do not know']"
-                      label="Blood type*"
-                      :rules="[v => !!v || 'Blood type is required']"
-                      required
+                      label="Blood type"
                     ></v-select>
                   </v-flex>
 
@@ -323,9 +309,7 @@
                       v-model="inhabitantForm.disability"
                       :items="['None', 'Total blindness of one eye', 'Total blindness of both eye', 'Missing one or both arms', 'Mongoloid', 'Cleff Palate', 'Malabo ang paningin/poor eyesight', 'Hunchback', 'Paralyzed legs', 'Paralyzed arms', 'Speech disorder', 'Authistic', 'Fractured Vertebrate column', 'Paralyzed from neck down', 'Hydrocephalus',
                 'Deaf', 'Mute and Deaf', 'Inability to walk alone', 'Deformity', 'Polio', 'Mental Impairment', 'Celebral Palsy', 'Epileptic', 'Dwarfism', 'Others']"
-                      label="Disability*"
-                      :rules="[v => !!v || 'Disability is required']"
-                      required
+                      label="Disability"
                     ></v-select>
                   </v-flex>
                   <v-flex xs6>
