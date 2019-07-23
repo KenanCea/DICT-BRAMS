@@ -286,7 +286,7 @@ class PrintDocumentController extends Controller
     public function location()
     {
         return DB::table('barangays')
-        ->join('users','users.id','=','barangays.id' )
+        ->join('users','users.id','=','barangays.user_id' )
         ->select('users.name', 
         'barangays.province',
         'barangays.region')
