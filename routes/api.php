@@ -143,6 +143,8 @@ Route::get('RegVoter', 'BarangaySummaryController@TotalRegisteredVoters');
 Route::get('Children', 'BarangaySummaryController@TotalChildren');
 Route::get('OutOfSchool', 'BarangaySummaryController@TotalOutOfSchoolYouth');
 Route::get('SoloParent', 'BarangaySummaryController@TotalSoloParent');
+Route::get('BarangayName','BarangaySummaryController@BarangayName');
+
 
 //logs
 Route::get('Logs','LogsController@Logs');

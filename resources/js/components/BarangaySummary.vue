@@ -5,7 +5,7 @@
         <v-layout row wrap>
           <v-flex xs12 class="black--text title" text-xs-center>
               <br>
-              <h2> {{ reportshHeader.name }} ~ {{reportshHeader.municipality}} Barangay Profile Update</h2>
+              <h2> {{ barangayname.name }} ~ Barangay Profile Update</h2>
               <p>As of {{currentYear}}</p>
           </v-flex>
           <v-flex xs6>
@@ -96,7 +96,7 @@ import Print from './SummaryPrint.vue';
 export default {
     data(){
         return {
-            reportshHeader: {},
+            barangayname: {},
             currentYear: '',
             punongbarangay: {},  
             brgysecretary: {},
@@ -115,6 +115,7 @@ export default {
     },
     created() {
         this.display();
+        this.getBarangayName();
         this.getCurrentYear();
         this.getPunongBarangay();
         this.getBrgySecretary();
@@ -134,6 +135,13 @@ export default {
             'app-print': Print
         },
     methods: {
+      getBarangayName(){
+        axios
+                .get("api/BarangayName")
+                .then(response => {
+                    this.barangayname = response.data[0];
+            });
+      },
         getSoloParent(){
             axios
             .get("api/SoloParent")

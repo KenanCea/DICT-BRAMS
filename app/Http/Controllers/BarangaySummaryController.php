@@ -7,6 +7,7 @@ use App\Official;
 use App\Barangay;
 use App\Household;
 use App\Inhabitant;
+use App\Users;
 use DB;
 use Auth;
 
@@ -15,6 +16,12 @@ class BarangaySummaryController extends Controller
     public function __construct()
     {
         $this->middleware('auth:api');
+    }
+    public function BarangayName(){
+        return DB::table('users')
+            ->select('name')
+            ->where('users.id', Auth::user()->id)
+            ->get();
     }
     public function PunongBarangay(){
         return DB::table('officials')

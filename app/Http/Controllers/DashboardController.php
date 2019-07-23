@@ -47,6 +47,7 @@ class DashboardController extends Controller
             ->select('inhabitants.registeredVoterOfTheBrgy as RegisteredVoter', DB::raw('count(*) as Total'))
             ->where('users.id', Auth::user()->id)
             ->whereNull('inhabitants.deleted_at')
+            ->whereNotNull('registeredVoterOfTheBrgy')
             ->groupby('registeredVoterOfTheBrgy')
             ->get();
     }
