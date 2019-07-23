@@ -23,7 +23,7 @@
                 <v-icon>mdi-eye</v-icon>
               </v-btn>
             </template>
-            <span>Edit inhabitant</span>
+            <span>View inhabitant info</span>
           </v-tooltip>
           </div>
         <div v-if="selectedInhabitant.length" class="ml-1">
@@ -233,7 +233,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.schooling"
-                      label="Schooling*"
+                      label="Schooling"
                       readonly
                     ></v-text-field>
                   </v-flex>
@@ -241,14 +241,14 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.Highest_educational_attainment"
-                      label="Highest educational attainment*"
+                      label="Highest educational attainment"
                       readonly
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.date_settled_in_barangay"
-                      label="Date settled in the barangay*"
+                      label="Date settled in the barangay"
                       readonly
                     ></v-text-field>
                   </v-flex>
@@ -256,7 +256,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.ethnicGroup"
-                      label="Ethnic group*"
+                      label="Ethnic group"
                       readonly
                     ></v-text-field>
                   </v-flex>
@@ -264,7 +264,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.registeredVoterOfTheBrgy"
-                      label="Registered voter*"
+                      label="Registered voter"
                       readonly
                     ></v-text-field>
                   </v-flex>
@@ -281,7 +281,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.disability"
-                      label="Disability*"
+                      label="Disability"
                       readonly
                     ></v-text-field>
                   </v-flex>
