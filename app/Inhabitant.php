@@ -30,6 +30,7 @@ class Inhabitant extends Model
         'blood_type',
         'disability',
         'dissability_others',
+        'childs_parent_guardian',
         'remarks',
         'specific_job_description',
         'gen_job_description',

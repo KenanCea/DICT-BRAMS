@@ -3,7 +3,8 @@
     <div v-if="$gate.isUser()">
       <v-app-bar id="navbar" fixed dense flat app>
         <v-toolbar-title class="hidden-sm-and-down">
-          <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span>
+          <span v-if="selectedInhabitant.length"><span v-if="selectedInhabitant[0].first_name">{{selectedInhabitant[0].first_name}} </span><span v-if="selectedInhabitant[0].middle_name">{{selectedInhabitant[0].middle_name}} </span><span v-if="selectedInhabitant[0].last_name">{{selectedInhabitant[0].last_name}}</span></span>
+          <!-- <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].first_name} ${selectedInhabitant[0].middle_name} ${selectedInhabitant[0].last_name}` : 'Inhabitants' }}</span> -->
         </v-toolbar-title>
         <v-spacer class="hidden-sm-and-down"></v-spacer>
         <span v-if="selectedInhabitant.length">
@@ -203,7 +204,6 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.date_of_birth"
-                      
                       label="Date of birth*"
                       v-mask="'####-##-##'"
                       hint="YYYY-MM-DD format"
@@ -281,7 +281,6 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.date_settled_in_barangay"
-                      
                       label="Date settled in the barangay*"
                       v-mask="'####-##-##'"
                       hint="YYYY-MM-DD format"
@@ -388,7 +387,6 @@
                     <v-flex xs6>
                       <v-text-field
                         v-model="inhabitantForm.date_measured_height_weight"
-                        
                         label="Date measured height and weight"
                         v-mask="'####-##-##'"
                         hint="YYYY-MM-DD format"
@@ -676,16 +674,27 @@
                       <p>TO WHOM IT MAY CONCERN:</p>
                       <p style="text-indent: 5%;">
                         This is to certify that
-                        <span v-if="formBarangayClearance.purpose_of_clearance">{{selectedInhabitant[0].first_name}}</span>
-                        <span v-if="formBarangayClearance.purpose_of_clearance">{{selectedInhabitant[0].middle_name}}</span>
-                        <span v-if="formBarangayClearance.purpose_of_clearance">{{selectedInhabitant[0].last_name}}</span>
+                        <span
+                          v-if="formBarangayClearance.purpose_of_clearance"
+                        >{{selectedInhabitant[0].first_name}}</span>
+                        <span
+                          v-if="formBarangayClearance.purpose_of_clearance"
+                        >{{selectedInhabitant[0].middle_name}}</span>
+                        <span
+                          v-if="formBarangayClearance.purpose_of_clearance"
+                        >{{selectedInhabitant[0].last_name}}</span>
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].citizenship}` : '________________________' }}</span> citizen, a native of
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].placeOfBirth_native}` : '________________________' }}</span>, and presently residing at
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].house_no} Purok ${selectedInhabitant[0].purok} ${selectedInhabitant[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : '________________________________________________' }}</span>
                         and whose signature appears hereunder, has no pending adverse case and deragatory records filed
                         against
-                         <span  v-if="formBarangayClearance.purpose_of_clearance"><span v-if="selectedInhabitant[0].sex === 'Male'">his</span> <span v-else-if="selectedInhabitant[0].sex === 'Female'">her</span> </span> available records on file with this office as of the date of issuance thereof.
+                        <span
+                          v-if="formBarangayClearance.purpose_of_clearance"
+                        >
+                          <span v-if="selectedInhabitant[0].sex === 'Male'">his</span>
+                          <span v-else-if="selectedInhabitant[0].sex === 'Female'">her</span>
+                        </span> available records on file with this office as of the date of issuance thereof.
                       </p>
                     </v-flex>
 
@@ -751,7 +760,7 @@
                     <v-flex offset-xs6 xs6 class="text-xs-center">
                       <p class="pb-2">CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0 text-uppercase" 
+                        class="mb-0 text-uppercase"
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
@@ -947,9 +956,15 @@
                       <p>TO WHOM IT MAY CONCERN:</p>
                       <p style="text-indent: 5%;">
                         This is to certify that
-                        <span v-if="formBarangayCertificate.purpose_certification">{{selectedInhabitant[0].first_name}}</span>
-                        <span v-if="formBarangayCertificate.purpose_certification">{{selectedInhabitant[0].middle_name}}</span>
-                        <span v-if="formBarangayCertificate.purpose_certification">{{selectedInhabitant[0].last_name}}</span>
+                        <span
+                          v-if="formBarangayCertificate.purpose_certification"
+                        >{{selectedInhabitant[0].first_name}}</span>
+                        <span
+                          v-if="formBarangayCertificate.purpose_certification"
+                        >{{selectedInhabitant[0].middle_name}}</span>
+                        <span
+                          v-if="formBarangayCertificate.purpose_certification"
+                        >{{selectedInhabitant[0].last_name}}</span>
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].age}` : '________' }}</span> years old,
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].citizenship}` : '________________________' }}</span> citizen, is a resident of Barangay
                         <span>{{ selectedInhabitant.length ? `${address[0].name}` : '________________________' }}</span> with postal address at
@@ -1018,7 +1033,7 @@
                     <v-flex xs6 offset-xs6 class="text-xs-center">
                       <p>CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0 text-uppercase" 
+                        class="mb-0 text-uppercase"
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
@@ -1234,9 +1249,15 @@
                       <p>TO WHOM IT MAY CONCERN:</p>
                       <p style="text-indent: 5%;">
                         This is to certify that
-                        <span v-if="formBusinessClearance.line_of_business">{{selectedInhabitant[0].first_name}}</span>
-                        <span v-if="formBusinessClearance.line_of_business">{{selectedInhabitant[0].middle_name}}</span>
-                        <span v-if="formBusinessClearance.line_of_business">{{selectedInhabitant[0].last_name}}</span>
+                        <span
+                          v-if="formBusinessClearance.line_of_business"
+                        >{{selectedInhabitant[0].first_name}}</span>
+                        <span
+                          v-if="formBusinessClearance.line_of_business"
+                        >{{selectedInhabitant[0].middle_name}}</span>
+                        <span
+                          v-if="formBusinessClearance.line_of_business"
+                        >{{selectedInhabitant[0].last_name}}</span>
                         a resident of
                         <span>{{ selectedInhabitant.length ? `${selectedInhabitant[0].house_no} Purok ${selectedInhabitant[0].purok} ${selectedInhabitant[0].street}, ${address[0].name}, ${address[0].municipality}, ${address[0].province}` : '________________________________________________' }}</span>
                         establishment at
@@ -1328,7 +1349,7 @@
                     <v-flex xs6 offset-xs6 class="text-xs-center">
                       <p>CERTIFIED AND ISSUED BY:</p>
                       <p
-                        class="mb-0 text-uppercase" 
+                        class="mb-0 text-uppercase"
                       >{{ officials.length ? `${officials[0].name}` : 'Not registered'}}</p>
                       <p>Punong Barangay</p>
                     </v-flex>
