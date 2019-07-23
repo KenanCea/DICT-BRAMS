@@ -142,13 +142,15 @@
                   ></v-text-field>
                 </v-flex>
                 <v-flex xs12 sm6 md4>
-                  <v-text-field
+                  <v-select
                     v-model="formBarangayClearance.purpose_of_clearance"
+                    :items="['Local Employment','Foreign Employment','Travel Abroad','Loan Purpose','Open Account','Trycicle Franchise','Postal ID','Police Clearance','NBI Clearance','License Renewal (Firearms/Drivers)','Application for Valid ID']"
                     label="Purpose of clearance*"
                     :rules="[v => !!v || 'Purpose of clearance is required', v => (v || '').indexOf('  ') < 0 ||
               'No multiple spaces are allowed']"
                     required
-                  ></v-text-field>
+                  ></v-select>
+                  
                 </v-flex>
                 <v-flex xs12 sm6 md4>
                   <v-text-field
