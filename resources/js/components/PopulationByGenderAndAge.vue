@@ -11,7 +11,7 @@
     <v-container grid-list-md text-xs-center id="printKiosk">
       <v-layout row wrap>
         <v-flex text-xs-left class="pl-3">
-          <p class="mb-4">I. IDENTIFYING DATA</p>
+          <p class="mb-4"><strong>BARANGAY PROFILE</strong></p>
           <div class='spacing'>
             <p>
                 <span>Region  :  </span>{{barangayInfo.municipality}}<br>
@@ -27,10 +27,10 @@
             </p>
           </div>
           <p class="mb-0">
-              I. DEMOGRAPHICS
+           <strong> DEMOGRAPHICS</strong>
           </p>
           <p>
-              Table 1. Population Distribution by Age and Sex
+              Population Distribution by Age and Sex
           </p>
             <table class='kiosktable' id="printTable">
                 <thead>
