@@ -226,7 +226,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.status_of_residency"
-                      label="Status of residency*"
+                      label="Status of residency"
                       readonly
                     ></v-text-field>
                   </v-flex>
@@ -272,7 +272,7 @@
                   <v-flex xs6>
                     <v-text-field
                       v-model="inhabitantForm.blood_type"
-                      label="Blood type*"
+                      label="Blood type"
                       readonly
                     ></v-text-field>
                   </v-flex>
